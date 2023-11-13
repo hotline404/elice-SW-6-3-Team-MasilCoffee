@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const uuid = require('uuid');
 
 dotenv.config();
 
@@ -18,7 +17,7 @@ mongoose
   .catch((err) => console.log(err));
 
 //router
-app.use('/api/v1/ping', PingRouter);
+app.use('/', PingRouter);
 
 //PORT
 const PORT = process.env.PORT;

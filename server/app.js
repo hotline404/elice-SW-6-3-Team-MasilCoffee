@@ -6,7 +6,7 @@ dotenv.config();
 
 const app = express();
 
-const PingRouter = require('./src/routes/PingRouter');
+const PingRouter = require('./routes/PingRouter');
 
 // mongoose
 mongoose

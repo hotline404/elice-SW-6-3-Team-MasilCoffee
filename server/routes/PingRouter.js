@@ -1,9 +1,9 @@
-const { Router } = require('express');
+const { Router } = require("express");
 
 const PingRouter = Router();
 
-PingRouter.get('/', (req, res) => {
-    res.send('Pong');
-})
+PingRouter.get("/", (req, res) => {
+  res.send("Pong!");
+});
 
 module.exports = PingRouter;

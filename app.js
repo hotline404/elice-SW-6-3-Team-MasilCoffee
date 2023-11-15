@@ -17,7 +17,7 @@ mongoose
   .catch((err) => console.log(err));
 
 //router
-app.use('/', PingRouter);
+app.use('/api/v1', PingRouter);
 
 //PORT
 const PORT = process.env.PORT;

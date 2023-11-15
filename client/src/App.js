@@ -22,7 +22,7 @@ import OrderDetails from "./pages/mypage/OrderDetails";
 import WriteList from "./pages/mypage/WriteList";
 import CommentList from "./pages/mypage/CommentList";
 
-import AdminOrder from "./pages/admin/AdminOrder";
+import AdminOrder from "./pages/admin/adminOrder/AdminOrder";
 import AdminMenu from "./pages/admin/AdminMenu";
 import AdminUser from "./pages/admin/AdminUser";
 function App() {

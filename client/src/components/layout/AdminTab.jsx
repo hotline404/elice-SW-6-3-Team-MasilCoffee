@@ -24,15 +24,16 @@ AdminTab.defaultProps = {
 const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 70px;
-  margin: 70px 70px 15px;
+  height: 60px;
+  margin-bottom: 15px;
   background-color: white;
 `;
 
 const EactTab = styled.p`
-  font-size: 14px;
+  font-size: 16px;
   color: #151618;
-  margin: 23px 20px;
+  margin: 20px 20px 0;
+  padding-bottom: 20px;
 
   ${(props) =>
     props.active &&

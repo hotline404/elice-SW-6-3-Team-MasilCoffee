@@ -19,7 +19,7 @@ import WriteList from "../pages/mypage/writeList/WriteList.jsx";
 import CommentList from "../pages/mypage/commentList/CommentList.jsx";
 
 import AdminOrder from "../pages/admin/adminOrder/AdminOrder";
-import AdminMenu from "../pages/admin/AdminMenu";
+import AdminMenu from "../pages/admin/adminMenu/AdminMenu";
 import AdminUser from "../pages/admin/AdminUser";
 
 // 재사용성 강화

@@ -1,16 +1,35 @@
-import { StyledCard, StyledText } from "./Card.style";
+import React, { useState } from "react";
+import Button from "../../ui/button/Button";
+import { StyledCard, StyledText, StyledButtonText } from "./Card.style";
 
-const Card = () => {
+const Card = ({ data }) => {
+  // 카드 클릭 시 추천 꿀 조합 텍스트와 주문하기 버튼 나옴
+  const [clickMenu, setClickMenu] = useState(false);
+  const handleClickMenu = () => {
+    setClickMenu(!clickMenu);
+  };
+
   return (
     <div className="card">
-      <StyledCard>이미지</StyledCard>
+      <StyledCard onClick={handleClickMenu} clickMenu={clickMenu}>
+        {clickMenu && (
+          <StyledButtonText>
+            <b>{data.honeyTip.title}</b>
+            <p>{data.honeyTip.description}</p>
+            <Button
+              type="white"
+              text={"주문하기"}
+              onClick={() => {
+                alert("주문 하시겠습니까?");
+              }}
+            />
+          </StyledButtonText>
+        )}
+      </StyledCard>
       <StyledText>
-        <b>에스프레소</b>
-        <p>
-          에스프레소에 물을 넣어 연하게 마시는 커피 메뉴로 커피 본연의 맛을
-          부드럽게 즐길 수 있는 대표 메뉴 입니다.
-        </p>
-        <p>칼로리 : 5kcal</p>
+        <b>{data.name}</b>
+        <p>{data.description}</p>
+        <p>칼로리 : {data.calories}</p>
       </StyledText>
     </div>
   );

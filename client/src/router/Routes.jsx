@@ -2,7 +2,7 @@ import Main from "../pages/main/Main";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 
-import Order from "../pages/order/Order";
+// import Order from "../pages/order/Order";
 import Cart from "../pages/cart/Cart";
 import Payment from "../pages/payment/Payment";
 import PaymentDone from "../pages/payment/paymentDone/PaymentDone.jsx";
@@ -11,12 +11,12 @@ import Recipe from "../pages/recipe/Recipe";
 import RecipeView from "../pages/recipe/recipeView/RecipeView";
 import RecipeWrite from "../pages/recipe/recipeWrite/RecipeWrite";
 
-import MyPage from "../pages/mypage/MyPage";
+import MyPage from "../pages/mypage/mypageComponent/MyPage.jsx";
 import UserInfoChange from "../pages/mypage/userInfoChange/UserInfoChange.jsx";
 import ConfirmPassword from "../pages/mypage/confirmPassword/ConfirmPassword.jsx";
 import OrderDetails from "../pages/mypage/orderDetails/OrderDetails.jsx";
 import WriteList from "../pages/mypage/writeList/WriteList.jsx";
-import CommentList from "../pages/mypage/commentList/CommentList.jsx";
+import CommentListPage from "../pages/mypage/commentList/CommentListPage.jsx";
 
 // import AdminOrder from "../pages/admin/AdminOrder";
 // import AdminMenu from "../pages/admin/AdminMenu";
@@ -47,11 +47,11 @@ export const ROUTES = {
     element: <Register />,
   },
 
-  ORDER: {
-    path: "/Order",
-    link: "/Order",
-    element: <Order />,
-  },
+  // ORDER: {
+  //   path: "/Order",
+  //   link: "/Order",
+  //   element: <Or der />,
+  // },
   CART: {
     path: "/Cart",
     link: "/Cart",
@@ -109,12 +109,11 @@ export const ROUTES = {
     link: "/WriteList",
     element: <WriteList />,
   },
-  COMMENTLIST: {
-    path: "/CommentList",
-    link: "/CommentList",
-    element: <CommentList />,
+  COMMENTLISTPAGE: {
+    path: "/CommentListpage",
+    link: "/CommentListpage",
+    element: <CommentListPage />,
   },
-
   // ADMINORDER: {
   //   path: "/AdminOrder",
   //   link: "/AdminOrder",

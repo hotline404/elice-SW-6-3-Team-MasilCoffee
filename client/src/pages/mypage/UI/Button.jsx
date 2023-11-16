@@ -1,6 +1,6 @@
 import React from 'react'
 
-function WriteList() {
+function Button() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function WriteList() {
   )
 }
 
-export default WriteList
+export default Button

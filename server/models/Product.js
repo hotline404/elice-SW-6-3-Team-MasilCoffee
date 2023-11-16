@@ -20,13 +20,13 @@ const productSchema = new Schema(
         size: {
             type: String,
             required: true,
-            enum: ['Tall', 'Large'],
+            enum: ['없음','Tall', 'Large'],
             default: "없음"
         },
         temp: {
             type: String,
             required: true,
-            enum: ['Ice', 'Hot'],
+            enum: ['없음','Ice', 'Hot'],
             default: "없음"
         },
         info: {

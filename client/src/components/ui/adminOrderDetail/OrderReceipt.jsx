@@ -1,8 +1,21 @@
-import * as Orders from "./Style_Order";
+import React, { useState } from "react";
+import * as Orders from "./Style_OrderDetail";
+import OrderCancel from "./OrderCancel";
 
 const OrderReceipt = ({ date, time, orderer, request, menuCount, totalPrice, takeout, items }) => {
+  const [orderStatus, setOrderStatus] = useState("pending");
+  const [showCancelModal, setShowCancelModal] = useState(false);
+
+  const handleAccept = () => {
+    if (orderStatus === "pending") {
+      setOrderStatus("accepted");
+    } else if (orderStatus === "accepted") {
+      setOrderStatus("completed");
+    }
+  };
+
   return (
-    <Orders.OrderBox>
+    <Orders.Container>
       <Orders.TopBox>
         <Orders.Date>{date}</Orders.Date>
         <Orders.Time>{time}</Orders.Time>
@@ -14,7 +27,7 @@ const OrderReceipt = ({ date, time, orderer, request, menuCount, totalPrice, tak
           <Orders.TotalPrice>
             [메뉴 {menuCount}개] {totalPrice}원
           </Orders.TotalPrice>
-          <Orders.Takeout>포장 옵션:{takeout}</Orders.Takeout>
+          <Orders.Takeout>포장 옵션 : {takeout}</Orders.Takeout>
         </Orders.LeftBox>
         <Orders.CenterBox>
           {items.map((item, i) => {
@@ -29,11 +42,20 @@ const OrderReceipt = ({ date, time, orderer, request, menuCount, totalPrice, tak
           })}
         </Orders.CenterBox>
         <Orders.RightBox>
-          <Orders.Cancel>취소하기</Orders.Cancel>
-          <Orders.Accept>접수하기</Orders.Accept>
+          {showCancelModal && <OrderCancel />}
+          <Orders.CancelButton
+            onClick={() => {
+              setShowCancelModal(!showCancelModal);
+            }}
+          >
+            취소하기
+          </Orders.CancelButton>
+          <Orders.AcceptButton onClick={handleAccept} className={orderStatus === "accepted" ? "accepted" : "not-accepted"}>
+            {orderStatus === "accepted" ? "완료처리하기" : "접수하기"}
+          </Orders.AcceptButton>
         </Orders.RightBox>
       </Orders.Wrapper>
-    </Orders.OrderBox>
+    </Orders.Container>
   );
 };
 

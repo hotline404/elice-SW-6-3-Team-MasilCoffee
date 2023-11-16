@@ -21,11 +21,13 @@ const productSchema = new Schema(
             type: String,
             required: true,
             enum: ['Tall', 'Large'],
+            default: "없음"
         },
         temp: {
             type: String,
             required: true,
             enum: ['Ice', 'Hot'],
+            default: "없음"
         },
         info: {
             type: String,
@@ -35,6 +37,14 @@ const productSchema = new Schema(
             type: Number,
             required: true,
         },
+        price: {
+            type: Number,
+            required: true,
+        },
+        bestCombo: {
+            type: String,
+            required: false,
+        }
     },
     {
         timestamps: true,

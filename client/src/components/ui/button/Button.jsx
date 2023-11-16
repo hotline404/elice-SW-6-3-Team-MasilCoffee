@@ -1,7 +1,7 @@
-import { StyledButton } from "./Button.style";
+import { StyledButton } from "../../ui/button/Button.style";
 
 const Button = ({ text, type, onClick }) => {
-  const btnType = ["grey", "red"].includes(type) ? type : "grey";
+  const btnType = ["grey", "red", "white"].includes(type) ? type : "grey";
   return (
     <StyledButton
       className={["Button", `Button_${btnType}`].join(" ")}

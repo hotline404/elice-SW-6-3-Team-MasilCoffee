@@ -5,6 +5,8 @@ import Contents from "../UI/Contents";
 import Title from "../UI/Title";
 import Input from "./confirmer.jsx/Input";
 import { useNavigate } from "react-router-dom";
+import * as S from "./ConfirmPassword.style";
+import { CenterBox } from "../mypageComponent/MyPage.style";
 
 const dummy_userData = {
   accounts: [
@@ -71,25 +73,33 @@ function ConfirmPassword() {
         </Title>
         <Card>
           <form onSubmit={handleSubmit}>
-            <Contents>
-              <Input
-                ref={emailRef}
-                input={{
-                  type: "email",
-                  id: "emailIsVaild",
-                  placeholder: "이메일을 입력하세요",
-                }}
-              />
-              <Input
-                ref={passwordRef}
-                input={{
-                  type: "password",
-                  id: "passwordIsVaild",
-                  placeholder: "비밀번호를 입력하세요",
-                }}
-              />
-            </Contents>
-            <button>확인</button>
+            <S.InputCard>
+              <CenterBox>
+                  <S.InputBox>
+                    <h2>이메일</h2>
+                    <Input
+                      ref={emailRef}
+                      input={{
+                        type: "email",
+                        id: "emailIsVaild",
+                        placeholder: "이메일을 입력하세요",
+                      }}
+                    />
+                  </S.InputBox>
+                  <S.InputBox>
+                    <h2>비밀번호</h2>
+                    <Input
+                      ref={passwordRef}
+                      input={{
+                        type: "password",
+                        id: "passwordIsVaild",
+                        placeholder: "비밀번호를 입력하세요",
+                      }}
+                    />
+                  </S.InputBox>
+              </CenterBox>
+              <S.BtnConfirm>확인</S.BtnConfirm>
+            </S.InputCard>
           </form>
         </Card>
       </Container>
@@ -98,3 +108,6 @@ function ConfirmPassword() {
 }
 
 export default ConfirmPassword;
+
+
+//hello world

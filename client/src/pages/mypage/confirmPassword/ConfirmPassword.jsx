@@ -1,4 +1,3 @@
-
 import Container from "../UI/Container";
 import Card from "../UI/Card";
 import { InputCard } from "../UI/InputCard";
@@ -26,8 +25,6 @@ function ConfirmPassword() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const data = dummy_userData.accounts;
-
-  console.log(emailRef);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -59,7 +56,7 @@ function ConfirmPassword() {
         <Card>
           <form onSubmit={handleSubmit}>
             <InputCard>
-              <ConfirmPasswordForm email={emailRef} password={passwordRef}/>
+              <ConfirmPasswordForm email={emailRef} password={passwordRef} />
               <ButtonBox>
                 <BtnConfirm>확인</BtnConfirm>
               </ButtonBox>

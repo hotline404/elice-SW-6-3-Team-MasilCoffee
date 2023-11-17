@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
-import Title from "../UI/Title";
-import Container from "../UI/Container";
+import Title from "../../../components/ui/title/Title";
+import Container from "../../../components/ui/container/Container";
 
 import UserInfoView from "./userinfo/UserInfoView";
 

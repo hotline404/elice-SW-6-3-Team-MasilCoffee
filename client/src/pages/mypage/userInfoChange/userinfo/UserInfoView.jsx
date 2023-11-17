@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
-import { InputCard } from "../../UI/InputCard";
-import Contents from "../../UI/Contents";
-import Card from "../../UI/Card";
+import Contents from "../../../../components/ui/contents/Contents";
+import Card from "../../../../components/ui/card/Card";
 
-import { BtnConfirm } from "../../UI/BtnConfirm";
-import { ButtonBox } from "../../UI/ButtonBox";
+import { InputCard } from "../../style/InputCard";
+import { BtnConfirm } from "../../style/BtnConfirm";
+import { ButtonBox } from "../../style/ButtonBox";
 
 import styled from "styled-components";
 

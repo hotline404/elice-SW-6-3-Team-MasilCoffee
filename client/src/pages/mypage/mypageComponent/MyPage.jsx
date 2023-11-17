@@ -1,15 +1,15 @@
 import React, { Fragment } from "react";
-import Container from "../UI/Container";
-import Title from "../UI/Title";
-import Card from "../UI/Card";
+import Container from "../../../components/ui/container/Container";
+import Title from "../../../components/ui/title/Title";
+import Card from "../../../components/ui/card/Card";
+import Contents from "../../../components/ui/contents/Contents";
 
-import { Contents } from "./MyPage.style";
-import { ContentsByWrite } from "./MyPage.style";
+import { ContentsByWrite } from "../style/MyPage.style";
 
-import User from "./componentsDetails/User";
-import OrderLink from "./componentsDetails/OrderLink";
-import CommentLink from "./componentsDetails/CommentLink";
-import WriteListLink from "./componentsDetails/WriteListLink";
+import User from "./Links/User";
+import OrderLink from "./Links/OrderLink";
+import CommentLink from "./Links/CommentLink";
+import WriteListLink from "./Links/WriteListLink";
 
 function MyPage() {
   return (

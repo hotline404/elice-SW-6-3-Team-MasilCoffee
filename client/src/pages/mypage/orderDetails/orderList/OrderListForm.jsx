@@ -1,5 +1,5 @@
 import React from 'react';
-import *as S from "../OrderDetails.style";
+import *as S from "../../style/OrderDetails.style";
 
 function OrderListForm({orders}) {
   return (

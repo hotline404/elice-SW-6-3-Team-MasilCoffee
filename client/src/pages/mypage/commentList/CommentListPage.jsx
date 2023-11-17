@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
-import Container from '../UI/Container';
-import Card from '../UI/Card';
+import Container from "../../../components/ui/container/Container";
+import Card from "../../../components/ui/card/Card";
 import CommentList from "./commentList/CommentList";
 
 

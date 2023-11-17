@@ -1,7 +1,7 @@
 import React from 'react'
-import { InputBox } from '../../confirmPassword/ConfirmPassword.style'
-import Input from '../../UI/Input'
-import { InputBoxColumn } from '../UserInfoChange.style'
+import { InputBox } from '../../style/ConfirmPassword.style'
+import Input from '../../../../components/ui/Input/Input'
+import { InputBoxColumn } from '../../style/UserInfoChange.style'
 
 function UserInfoForm({InputInfo, emailRef}) {
   return (

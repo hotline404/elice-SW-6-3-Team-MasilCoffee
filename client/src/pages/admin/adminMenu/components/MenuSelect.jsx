@@ -2,6 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 const MenuSelect = ({ options }) => {
+  if (!options) {
+    return null;
+  }
+
   return (
     <Selection>
       {options.map((op, i) => {

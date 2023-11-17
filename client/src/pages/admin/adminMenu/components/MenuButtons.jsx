@@ -1,8 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-const MenuButtons = ({ name, title }) => {
-  return <Buttons className={name}>{title}</Buttons>;
+const MenuButtons = ({ name, title, isClicked }) => {
+  return (
+    <Buttons className={name} onClick={isClicked}>
+      {title}
+    </Buttons>
+  );
 };
 
 const Buttons = styled.button`

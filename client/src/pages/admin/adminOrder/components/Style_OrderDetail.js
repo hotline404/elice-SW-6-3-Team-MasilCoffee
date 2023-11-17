@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-// OrderReceipt css
+// ----------------------=-  OrderReceipt css  ----------------------=-
 
 export const Container = styled.div`
   position: relative;
@@ -188,7 +188,7 @@ export const AcceptButton = styled.button`
   ${mediaQueryForTabletButtons}
 `;
 
-// OrderDone css
+// ------------------------  OrderDone css  ------------------------
 
 export const Done = styled.div`
   width: 120px;
@@ -217,7 +217,7 @@ export const Cancel = styled.div`
   }
 `;
 
-// OrderCancel css
+//  ------------------------  OrderCancel css  ----------------------=-
 
 export const ModalBackground = styled.div`
   display: flex;

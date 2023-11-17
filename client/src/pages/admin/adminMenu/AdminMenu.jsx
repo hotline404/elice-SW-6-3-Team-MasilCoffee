@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import * as Menus from "./Style_Menu";
-import MenuSelect from "../../../components/ui/adminMenu/MenuSelect";
+import MenuSelect from "./components/MenuSelect";
 import AdminSidebar from "../../../components/layout/AdminSidebar";
-import MenuButtons from "../../../components/ui/adminMenu/MenuButtons";
+import MenuButtons from "./components/MenuButtons";
 import Table from "../../../components/ui/table/Table";
-import MenuModify from "../../../components/ui/adminMenu/MenuModify";
+import MenuModify from "./components/MenuModify";
 
 const AdminMenu = ({ trData, tdData }) => {
   const [showNewMenuModal, setShowNewMenuModal] = useState(false);
@@ -31,8 +31,9 @@ const AdminMenu = ({ trData, tdData }) => {
               <MenuButtons
                 name="optionAndNewMenu"
                 title="메뉴 추가"
-                onClick={() => {
+                isClicked={() => {
                   setShowNewMenuModal(!showNewMenuModal);
+                  console.log(showNewMenuModal);
                 }}
               />
             </Menus.ButtonWrapper>

@@ -38,7 +38,7 @@ const AdminMenu = ({ trData, tdData }) => {
               />
             </Menus.ButtonWrapper>
           </Menus.TopBox>
-          <Table trData={trData} tdData={tdData} isButtons={true} onTdClick={handleTdClick} />
+          <Table trData={trData} tdData={tdData} isMenuTable={true} onTdClick={handleTdClick} />
         </Menus.Content>
       </Menus.Container>
       {/* footer */}
@@ -49,7 +49,7 @@ const AdminMenu = ({ trData, tdData }) => {
 AdminMenu.defaultProps = {
   trData: ["이미지", "종류", "이름", "사이즈", "ICE/HOT", "가격"],
   tdData: [
-    ["이미지", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
+    ["assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
     ["이미지", "에이드", "레몬 에이드", "tall", "ICE", "6,300원"],
     ["이미지", "에이드", "체리 에이드", "tall", "ICE", "6,300원"],
     ["이미지", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],

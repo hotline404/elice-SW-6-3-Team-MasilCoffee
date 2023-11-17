@@ -17,14 +17,21 @@ export const Table = styled.table`
   }
 `;
 
-export const Button = styled.td`
-  text-align: center;
-  background-clip: content-box;
-  outline: 2px solid #bdbdbd;
-  outline-offset: -30px;
-  outline-radius: 3px;
-  width: 5%;
-  padding: 12px 20px;
+export const Image = styled.img`
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+`;
+
+export const Button = styled.button`
+  // text-align: center;
+  // background-clip: content-box;
+  // outline: 2px solid #bdbdbd;
+  // outline-offset: -30px;
+  // outline-radius: 3px;
+  // width: 25px;
+  background-color: pink;
+  border: none;
 
   // &.edit {
   //   padding-right: 10px;

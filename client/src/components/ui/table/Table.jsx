@@ -3,7 +3,7 @@ import * as TableLayout from "./Style_Table";
 import { FiEdit } from "react-icons/fi";
 import { FiTrash } from "react-icons/fi";
 
-const Table = ({ trData, tdData, onTdClick = null, isButtons = false }) => {
+const Table = ({ trData, tdData, onTdClick = null, isMenuTable = false }) => {
   return (
     <TableLayout.Table>
       <thead>
@@ -15,23 +15,34 @@ const Table = ({ trData, tdData, onTdClick = null, isButtons = false }) => {
       </thead>
 
       <tbody>
-        {tdData.map((rowData, rowI) => (
-          <tr key={rowI}>
-            {rowData.map((data, colI) => (
-              <td key={data + colI}>{data}</td>
+        {isMenuTable
+          ? // isMenuTable이 true인 경우
+            tdData.map((rowData, rowI) => (
+              <tr key={rowI}>
+                <td>
+                  <TableLayout.Image src={rowData[0]} alt="coffee" />
+                </td>
+                {rowData.slice(1).map((data, colI) => (
+                  <td key={data + colI}>{data}</td>
+                ))}
+                <td>
+                  <TableLayout.Button className="edit" onClick={() => onTdClick(rowData)}>
+                    <FiEdit />
+                  </TableLayout.Button>
+                  <TableLayout.Button className="deletion" onClick={() => onTdClick("삭제")}>
+                    <FiTrash />
+                  </TableLayout.Button>
+                </td>
+              </tr>
+            ))
+          : // isMenuTable이 false인 경우
+            tdData.map((rowData, rowI) => (
+              <tr key={rowI}>
+                {rowData.map((data, colI) => (
+                  <td key={data + colI}>{data}</td>
+                ))}
+              </tr>
             ))}
-            {isButtons && (
-              <>
-                <TableLayout.Button className="edit" onClick={() => onTdClick(rowData)}>
-                  <FiEdit />
-                </TableLayout.Button>
-                <TableLayout.Button className="deletion" onClick={() => onTdClick("삭제")}>
-                  <FiTrash />
-                </TableLayout.Button>
-              </>
-            )}
-          </tr>
-        ))}
       </tbody>
     </TableLayout.Table>
   );

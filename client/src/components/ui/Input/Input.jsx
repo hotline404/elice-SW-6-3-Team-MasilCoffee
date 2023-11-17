@@ -22,8 +22,6 @@ const TheBox = styled.div`
 `; 
 
 const Label = styled.h3`
-  
-  
 
 `;
 

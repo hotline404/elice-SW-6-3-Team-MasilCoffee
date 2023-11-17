@@ -1,14 +1,16 @@
 import React from "react";
 
-import * as S from "../../mypageComponent/MyPage.style";
-import { ListTag, TextBox, PaginationItem, Paginamtion} from "../CommentList.style";
-import LinkTo from "../../UI/LinkTo";
+import Contents from "../../../../components/ui/contents/Contents";
+import LinkTo from "../../../../components/ui/Link/LinkTo";
+
+import { CommentTitle } from "../../style/MyPage.style";
+import { ListTag, TextBox, PaginationItem, Paginamtion } from "../../style/CommentList.style"
 
 function CommentList({ comments }) {
   return (
     <div>
-      <S.CommentTitle>내가 작성한 글</S.CommentTitle>
-      <S.Contents>
+      <CommentTitle>내가 작성한 글</CommentTitle>
+      <Contents>
         <li>
           <div>
             
@@ -35,7 +37,7 @@ function CommentList({ comments }) {
           <PaginationItem href="#">6</PaginationItem>
           <PaginationItem href="#">&raquo;</PaginationItem>
         </Paginamtion>
-      </S.Contents>
+      </Contents>
     </div>
   );
 }

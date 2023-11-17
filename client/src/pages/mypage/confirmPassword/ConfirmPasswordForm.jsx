@@ -1,7 +1,7 @@
 import React from "react";
-import Input from "../UI/Input";
-import { CenterBox } from "../mypageComponent/MyPage.style";
-import * as S from "./ConfirmPassword.style";
+import Input from "../../../components/ui/Input/Input";
+import { CenterBox } from "../style/MyPage.style";
+import * as S from "../style/ConfirmPassword.style";
 
 function ConfirmPasswordForm({ emailRef, passwordRef }) {
   const InputData = [

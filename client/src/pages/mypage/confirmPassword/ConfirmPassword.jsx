@@ -1,9 +1,9 @@
-import Container from "../UI/Container";
-import Card from "../UI/Card";
-import { InputCard } from "../UI/InputCard";
-import Title from "../UI/Title";
-import { BtnConfirm } from "../UI/BtnConfirm";
-import { ButtonBox } from "../UI/ButtonBox";
+import Container from "../../../components/ui/container/Container";
+import Card from "../../../components/ui/card/Card";
+import Title from "../../../components/ui/title/Title";
+import { InputCard } from "../style/InputCard";
+import { BtnConfirm } from "../style/BtnConfirm";
+import { ButtonBox } from "../style/ButtonBox";
 
 import React, { Fragment, useRef } from "react";
 import { useNavigate } from "react-router-dom";

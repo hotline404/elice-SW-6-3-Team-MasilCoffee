@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import React from "react";
-import * as S from "../MyPage.style";
+import * as S from "../../style/MyPage.style";
 
 function CommentLink() {
   return (

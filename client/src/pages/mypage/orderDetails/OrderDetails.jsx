@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
 
-import Container from '../UI/Container'
-import Title from '../UI/Title'
-import Card from '../UI/Card'
+import Container from '../../../components/ui/container/Container'
+import Title from '../../../components/ui/title/Title'
+import Card from '../../../components/ui/card/Card'
 
 import OrderList from './orderList/OrderList'
 

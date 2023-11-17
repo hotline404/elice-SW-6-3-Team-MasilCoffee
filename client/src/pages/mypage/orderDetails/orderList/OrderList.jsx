@@ -1,5 +1,5 @@
 import React from "react";
-import *as S from "../OrderDetails.style"
+import *as S from "../../style/OrderDetails.style"
 
 import OrderListForm from "./OrderListForm"
 
@@ -12,8 +12,6 @@ function OrderList({ orders }) {
 }
 
 export default OrderList;
-
-
 
 
 OrderListForm.defaultProps = {

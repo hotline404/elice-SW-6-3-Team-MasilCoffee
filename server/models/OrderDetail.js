@@ -11,20 +11,22 @@ const OrderDetailSchema = new Schema(
         drizzle: [{
             type: String,
             required: false,
+            default: "없음",
         }],
         iceAmount: {
             type: String,
-            enum: ["조금", "보통", "많이"],
-            default: "보통",
+            enum: ["없음", "조금", "보통", "많이"],
+            default: "없음",
         },
         whipping: {
             type: String,
-            enum: ["조금", "보통", "많이"],
-            default: "보통",
+            enum: ["없음", "조금", "보통", "많이"],
+            default: "없음",
         },
         syrup: [{
             type: String,
             required: false,
+            default: "없음",
         }],
         milk: [{
             type: String,

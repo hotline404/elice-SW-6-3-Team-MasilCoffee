@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Menus from "./Style_Menu";
 import MenuSelect from "../../../components/ui/adminMenu/MenuSelect";
 import AdminSidebar from "../../../components/layout/AdminSidebar";
 import MenuButtons from "../../../components/ui/adminMenu/MenuButtons";
 import Table from "../../../components/ui/table/Table";
+import MenuModify from "../../../components/ui/adminMenu/MenuModify";
 
 const AdminMenu = ({ trData, tdData }) => {
+  const [showNewMenuModal, setShowNewMenuModal] = useState(false);
+
   const options = ["전체 메뉴", "에스프레소", "논커피", "스무디", "티", "에이드"];
 
   const handleTdClick = (data) => {
@@ -18,13 +21,20 @@ const AdminMenu = ({ trData, tdData }) => {
     <>
       {/* header */}
       <Menus.Container>
+        {showNewMenuModal && <MenuModify />}
         <AdminSidebar />
         <Menus.Content>
           <Menus.TopBox>
             <MenuSelect options={options} />
             <Menus.ButtonWrapper>
               <MenuButtons name="optionAndNewMenu" title="옵션 정보 수정" />
-              <MenuButtons name="optionAndNewMenu" title="메뉴 추가" />
+              <MenuButtons
+                name="optionAndNewMenu"
+                title="메뉴 추가"
+                onClick={() => {
+                  setShowNewMenuModal(!showNewMenuModal);
+                }}
+              />
             </Menus.ButtonWrapper>
           </Menus.TopBox>
           <Table trData={trData} tdData={tdData} isButtons={true} onTdClick={handleTdClick} />

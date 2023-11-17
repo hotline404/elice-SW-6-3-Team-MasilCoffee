@@ -1,0 +1,346 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "에스프레소",
+      "description": "에스프레소에 물을 넣어 연하게 마시는 커피 메뉴로 커피 본연의 맛을 부드럽게 즐길 수 있는 대표 메뉴 입니다.",
+      "calories": 5,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "에스프레소에 바닐라 시럽 1펌프, 휘핑 적게 옵션을 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 2,
+      "name": "HOT 아메리카노 Tall",
+      "description": "블렌드 원두로 추출한 에스프레소에 물을 더해, 풍부한 바디감을 느낄 수 있는 스탠다드 커피 입니다.",
+      "calories": 12,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "아메리카노에 헤이질넛 시럽 1펌프 옵션을 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 3,
+      "name": "HOT 아메리카노 Large",
+      "description": "블렌드 원두로 추출한 에스프레소에 물을 더해, 풍부한 바디감을 느낄 수 있는 스탠다드 커피 입니다.",
+      "calories": 12,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "아메리카노에 헤이질넛 시럽 1펌프 옵션을 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 4,
+      "name": "ICE 아메리카노 Tall",
+      "description": "블렌드 원두로 추출한 에스프레소에 물을 더해, 풍부한 바디감을 느낄 수 있는 스탠다드 커피 입니다.",
+      "calories": 12,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "아메리카노에 헤이질넛 시럽 1펌프 옵션을 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 5,
+      "name": "ICE 아메리카노 Large",
+      "description": "블렌드 원두로 추출한 에스프레소에 물을 더해, 풍부한 바디감을 느낄 수 있는 스탠다드 커피 입니다.",
+      "calories": 12,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "아메리카노에 헤이질넛 시럽 1펌프 옵션을 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 6,
+      "name": "HOT 라떼 Tall",
+      "description": "진한 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 라떼 입니다.",
+      "calories": 175,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "라떼에 바닐라 시럽 1펌프 옵션을 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 7,
+      "name": "HOT 라떼 Large",
+      "description": "진한 에스프레소와 부드러운 우유가 어우러져 고소한 풍미를 완성한 라떼 입니다.",
+      "calories": 175,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "라떼에 바닐라 시럽 1펌프 옵션을 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 8,
+      "name": "ICE 라떼 Tall",
+      "description": "블렌드 원두로 추출한 에스프레소에 물을 더해, 풍부한 바디감을 느낄 수 있는 스탠다드 커피 입니다.",
+      "calories": 175,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "라떼에 바닐라 시럽 1펌프 옵션을 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 9,
+      "name": "ICE 라떼 Large",
+      "description": "블렌드 원두로 추출한 에스프레소에 물을 더해, 풍부한 바디감을 느낄 수 있는 스탠다드 커피 입니다.",
+      "calories": 175,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "라떼에 바닐라 시럽 1펌프 옵션을 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 10,
+      "name": "ICE 딸기라떼 Large",
+      "description": "산뜻하고 달콤한 딸기가 부드러운 우유와 어우러져 더욱 기분 좋게 즐기는 아이스 라떼.",
+      "calories": 366,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "딸기라떼는 휘핑 적게 옵션을 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 11,
+      "name": "ICE 초코라떼 tall",
+      "description": "부드러운 우유에 진한 초코소스, 달콤한 휘핑크림의 삼박자 조화로 완성한 달콤 초코 음료 입니다.",
+      "calories": 507,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "초코라떼는 휘핑 많이 옵션, 초콜렛 드리즐 많이를 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 12,
+      "name": "ICE 초코라떼 Large",
+      "description": "부드러운 우유에 진한 초코소스, 달콤한 휘핑크림의 삼박자 조화로 완성한 달콤 초코 음료 입니다.",
+      "calories": 507,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "초코라떼는 휘핑 많이 옵션, 초콜렛 드리즐 많이를 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 13,
+      "name": "HOT 초코라떼 tall",
+      "description": "부드러운 우유에 진한 초코소스, 달콤한 휘핑크림의 삼박자 조화로 완성한 달콤 초코 음료 입니다.",
+      "calories": 507,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "초코라떼는 휘핑 많이 옵션, 초콜렛 드리즐 많이를 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 14,
+      "name": "HOT 초코라떼 Large",
+      "description": "부드러운 우유에 진한 초코소스, 달콤한 휘핑크림의 삼박자 조화로 완성한 달콤 초코 음료 입니다.",
+      "calories": 507,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "초코라떼는 휘핑 많이 옵션, 초콜렛 드리즐 많이를 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+
+    {
+      "id": 15,
+      "name": "ICE 녹차라떼 Tall",
+      "description": "향긋한 녹차에 우유를 더해 입 안에 부드러운 푸릇함을 선물하는 라떼 입니다.",
+      "calories": 288,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "녹차라떼는 에스프레소 1샷을 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 16,
+      "name": "HOT 녹차라떼 Tall",
+      "description": "향긋한 녹차에 우유를 더해 입 안에 부드러운 푸릇함을 선물하는 라떼 입니다.",
+      "calories": 288,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "녹차라떼는 에스프레소 1샷을 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+
+    {
+      "id": 17,
+      "name": "ICE 딸기요거트스무디 Large",
+      "description": "요거트의 상큼함과 딸기의 상큼함을 상냥하게 어우른 상큼 스무디 입니다.",
+      "calories": 401,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "딸기요거트스무디는 초콜렛 드리즐을 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 18,
+      "name": "ICE 녹차스무디 Large",
+      "description": "향긋한 녹차 위에 우유와 휘핑크림을 더해 더 부드럽게 즐길 수 있는 스무디 입니다.",
+      "calories": 401,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "녹차스무디는 휘핑 많이를 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 19,
+      "name": "ICE 쿠키오스무디 Large",
+      "description": "바삭하고 달콤한 오레오와 고소한 우유, 부드러운 바닐라향의 조화를 느낄 수 있는 스무디 입니다.",
+      "calories": 640,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "녹차스무디는 휘핑 많이를 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 20,
+      "name": "ICE 초코스무디 Large",
+      "description": "진한 초코소스와 부드러운 바닐라향의 만남으로 질리지 않는 달콤함을 완성한 스무디 입니다.",
+      "calories": 651,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "초코스무디는 휘핑 많이를 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 21,
+      "name": "ICE 민트초코스무디 Large",
+      "description": "진한 초코소스와 부드러운 바닐라향의 만남으로 질리지 않는 달콤함을 완성한 스무디 입니다.",
+      "calories": 551,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "민트초코스무디는 휘핑 많이를 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 22,
+      "name": "ICE 플레인요거트스무디 Large",
+      "description": "더 시원하게 요거트의 새콤달콤한 맛을 오롯이 만끽할 수 있는 스무디 입니다.",
+      "calories": 280,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "플레인요거트스무디는 바닐라시럽 1펌프를 추가하시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 23,
+      "name": "ICE 녹차 Tall",
+      "description": "고소한 감칠맛과 부드러운 목넘김으로 산뜻하게 마음을 위로하는 국내산 녹차 티 입니다.",
+      "calories": 1,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "녹차는 본연의 맛으로 드시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 24,
+      "name": "ICE 녹차 Large",
+      "description": "고소한 감칠맛과 부드러운 목넘김으로 산뜻하게 마음을 위로하는 국내산 녹차 티 입니다.",
+      "calories": 1,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "녹차는 본연의 맛으로 드시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 25,
+      "name": "HOT 녹차 Tall",
+      "description": "고소한 감칠맛과 부드러운 목넘김으로 산뜻하게 마음을 위로하는 국내산 녹차 티 입니다.",
+      "calories": 1,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "녹차는 본연의 맛으로 드시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 26,
+      "name": "HOT 녹차 Large",
+      "description": "고소한 감칠맛과 부드러운 목넘김으로 산뜻하게 마음을 위로하는 국내산 녹차 티 입니다.",
+      "calories": 1,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "녹차는 본연의 맛으로 드시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 27,
+      "name": "ICE 얼그레이 Tall",
+      "description": "홍차 특유의 풍부한 플레이버를 만끽할 수 있는 허브 티 입니다.",
+      "calories": 0.2,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "얼그레이는 본연의 맛으로 드시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 28,
+      "name": "HOT 얼그레이 Tall",
+      "description": "홍차 특유의 풍부한 플레이버를 만끽할 수 있는 허브 티 입니다.",
+      "calories": 0.2,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "얼그레이는 본연의 맛으로 드시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 29,
+      "name": "ICE 페퍼민트 Tall",
+      "description": "멘톨향의 묵직한 청량감, 상쾌한 맛과 향이 인상적인 허브 티 입니다.",
+      "calories": 0.2,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "페퍼민트는 본연의 맛으로 드시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 30,
+      "name": "HOT 페퍼민트 Tall",
+      "description": "멘톨향의 묵직한 청량감, 상쾌한 맛과 향이 인상적인 허브 티 입니다.",
+      "calories": 0.2,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "페퍼민트는 본연의 맛으로 드시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 31,
+      "name": "ICE 레몬에이드 Large",
+      "description": "시트러스향 가득한 레몬의 상큼함과 톡쏘는 탄산의 상쾌함이 만난 청량 에이드 입니다.",
+      "calories": 196,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "레몬에이드는 본연의 맛으로 드시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 32,
+      "name": "ICE 자몽에이드 Large",
+      "description": "자몽의 달콤쌉싸름한 맛과 탄산의 톡쏘는 목넘김이 어우러진 트로피컬 에이드 입니다.",
+      "calories": 203,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "자몽에이드는 본연의 맛으로 드시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 33,
+      "name": "ICE 블루레몬에이드 Large",
+      "description": "레몬에이드의 상큼한 청량감에 블루큐라소의 진한 향미를 더한 에이드 입니다.",
+      "calories": 225,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "블루레몬에이드는 본연의 맛으로 드시면 더욱 맛있게 드실 수 있습니다."
+      }
+    },
+    {
+      "id": 34,
+      "name": "ICE 체리에이드 Large",
+      "description": "체리의 새콤함과 청량감을 동시에 즐길 수 있는 환상적인 에이드 입니다.",
+      "calories": 323,
+      "honeyTip": {
+        "title": "추천 꿀 조합",
+        "description": "체리에이드는 본연의 맛으로 드시면 더욱 맛있게 드실 수 있습니다."
+      }
+    }
+  ]
+}

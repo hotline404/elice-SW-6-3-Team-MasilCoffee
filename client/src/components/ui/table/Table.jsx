@@ -1,5 +1,7 @@
 import React from "react";
 import * as TableLayout from "./Style_Table";
+import { FiEdit } from "react-icons/fi";
+import { FiTrash } from "react-icons/fi";
 
 const Table = ({ trData, tdData, onTdClick = null, isButtons = false }) => {
   return (
@@ -21,10 +23,10 @@ const Table = ({ trData, tdData, onTdClick = null, isButtons = false }) => {
             {isButtons && (
               <>
                 <TableLayout.Button className="edit" onClick={() => onTdClick(rowData)}>
-                  수정
+                  <FiEdit />
                 </TableLayout.Button>
                 <TableLayout.Button className="deletion" onClick={() => onTdClick("삭제")}>
-                  삭제
+                  <FiTrash />
                 </TableLayout.Button>
               </>
             )}

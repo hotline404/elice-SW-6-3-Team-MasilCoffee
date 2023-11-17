@@ -3,8 +3,60 @@ import styled from "styled-components";
 export const StyledOrder = styled.div`
   max-width: 1100px;
   margin: 0 auto;
+  box-sizing: border-box;
+
+  /* 슬라이더 slick */
+  .slick-slider {
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    .slick-list {
+      overflow: initial;
+    }
+    .slick-track {
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+    .slick-slide > div {
+      display: flex;
+
+      button {
+        padding: 20px 30px;
+
+        box-sizing: border-box;
+        border: 1px solid #878585;
+        cursor: pointer;
+        background-color: white;
+      }
+      // 첫 번째 버튼 스타일
+      .first-button {
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+      }
+
+      // 마지막 버튼 스타일
+      .last-button {
+        border-bottom-right-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+      .selected-button {
+        background-color: #650818;
+        color: #f5f5f5;
+      }
+    }
+  }
+
+  .button {
+    white-space: nowrap;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin-bottom: 50px;
+  }
 
   .cards-container {
+    width: 100%;
+    box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -17,7 +69,6 @@ export const StyledOrder = styled.div`
   }
 
   .card {
-    width: calc(33% - 10px);
     margin-bottom: 20px;
   }
 
@@ -38,17 +89,5 @@ export const StyledOrder = styled.div`
     .card {
       width: calc(33.33% - 10px); //
     }
-  }
-`;
-
-export const StyledCategory = styled.button``;
-export const CategoryButton = styled.div`
-  font-size: 15px;
-  border: 1px solid #878585;
-  padding: 10px;
-  margin: 5px;
-  cursor: pointer;
-  &:hover {
-    background-color: #f0f0f0; // 마우스 오버 시 배경색 변경
   }
 `;

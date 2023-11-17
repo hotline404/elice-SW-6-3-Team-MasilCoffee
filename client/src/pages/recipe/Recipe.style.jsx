@@ -46,13 +46,17 @@ export const Title = styled.h1`
   margin: 0;
   flex-grow: 1;
   font-size: 30px;
+
+  @media all and (max-width: 767px) {
+    font-size: 25px;
+  }
 `;
 
 //버튼
 export const Button = styled.button`
   background: #8e0e28;
   color: white;
-  padding: 1.5% 2%;
+  padding: 8px 13px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -131,6 +135,7 @@ export const PostPre = styled.pre`
 export const CommentWrap = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 30px;
 `;
 
 //댓글 갯수

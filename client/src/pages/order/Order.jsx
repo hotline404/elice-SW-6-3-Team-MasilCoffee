@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Button from "../../components/ui/button/Button";
-import Card from "../../components/ui/card/Card";
+import Card from "./components/card/Card";
 import Payment from "../payment/Payment";
 import { StyledOrder } from "./Order.style";
-import mockupData from "../../components/ui/data/mockupdata.json";
+import mockupData from "./components/data/mockupdata.json";
 import Slider from "react-slick";
 
 const Order = () => {
@@ -22,16 +22,24 @@ const Order = () => {
         filtered = mockupData.products.filter((pd) => pd.id >= 1 && pd.id <= 9);
         break;
       case "논커피":
-        filtered = mockupData.products.filter((pd) => pd.id >= 10 && pd.id <= 16);
+        filtered = mockupData.products.filter(
+          (pd) => pd.id >= 10 && pd.id <= 16
+        );
         break;
       case "스무디":
-        filtered = mockupData.products.filter((pd) => pd.id >= 17 && pd.id <= 22);
+        filtered = mockupData.products.filter(
+          (pd) => pd.id >= 17 && pd.id <= 22
+        );
         break;
       case "티":
-        filtered = mockupData.products.filter((pd) => pd.id >= 23 && pd.id <= 30);
+        filtered = mockupData.products.filter(
+          (pd) => pd.id >= 23 && pd.id <= 30
+        );
         break;
       case "에이드":
-        filtered = mockupData.products.filter((pd) => pd.id >= 31 && pd.id <= 34);
+        filtered = mockupData.products.filter(
+          (pd) => pd.id >= 31 && pd.id <= 34
+        );
         break;
       case "즐겨찾기":
         filtered = [];
@@ -45,7 +53,15 @@ const Order = () => {
   };
 
   // 카테고리 리스트 배열
-  const categories = ["전체", "에스프레소", "논커피", "스무디", "티", "에이드", "즐겨찾기"];
+  const categories = [
+    "전체",
+    "에스프레소",
+    "논커피",
+    "스무디",
+    "티",
+    "에이드",
+    "즐겨찾기",
+  ];
 
   // 슬라이드 설정
   const settings = {
@@ -91,9 +107,9 @@ const Order = () => {
           {categories.map((category, index) => (
             <button
               key={category}
-              className={`${index === 0 ? "first-button " : ""}${index === categories.length - 1 ? "last-button " : ""}${
-                category === selectedCategory ? "selected-button" : ""
-              }`}
+              className={`${index === 0 ? "first-button " : ""}${
+                index === categories.length - 1 ? "last-button " : ""
+              }${category === selectedCategory ? "selected-button" : ""}`}
               onClick={() => handleCategoryClick(category)}
             >
               {category}

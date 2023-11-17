@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "../../ui/button/Button";
+import Button from "../../../../components/ui/button/Button";
 import { StyledCard, StyledText, StyledButtonText } from "./Card.style";
 
 const Card = ({ data }) => {

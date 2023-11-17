@@ -4,10 +4,9 @@ const { Schema } = mongoose;
 
 const boardSchema = new Schema(
     {
-        user: {
-            type: Schema.Types.ObjectId,
-            ref: 'User',
-            required: true,
+        category: {
+            type: String,
+            required: false,
         },
         title: {
             type: String,
@@ -17,7 +16,7 @@ const boardSchema = new Schema(
             type: String,
             required: true,
         },
-        images: [
+        image: [
             {
                 type: String,
                 required: true,

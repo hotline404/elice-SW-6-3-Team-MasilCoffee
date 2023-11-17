@@ -1,14 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const bodyParser = require('body-parser');
+
 dotenv.config();
 
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
 
 const PingRouter = require("./routes/PingRouter");
 const ProductRouter = require("./routes/ProductRoute");
+const BoardRouter = require("./routes/BoardRoute");
 
 // mongoose
 mongoose
@@ -21,6 +22,7 @@ mongoose
 //router
 app.use("/api/v1", PingRouter);
 app.use("/api/v1/products", ProductRouter);
+app.use("/api/v1/boards", BoardRouter);
 
 //PORT
 const PORT = process.env.PORT;

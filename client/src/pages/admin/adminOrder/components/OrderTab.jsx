@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 const tabs = ["접수 대기", "완료"];
 
-const AdminTab = ({ currTab, onClick }) => {
+const OrderTab = ({ currTab, onClick }) => {
   return (
     <Container>
       {tabs.map((tab, i) => {
@@ -16,7 +16,7 @@ const AdminTab = ({ currTab, onClick }) => {
   );
 };
 
-AdminTab.defaultProps = {
+OrderTab.defaultProps = {
   currTab: "접수 대기",
   onClick: () => {},
 };
@@ -45,4 +45,4 @@ const EactTab = styled.p`
     `}
 `;
 
-export default AdminTab;
+export default OrderTab;

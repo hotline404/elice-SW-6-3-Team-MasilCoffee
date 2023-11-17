@@ -27,5 +27,5 @@ export const Title = styled.div`
 `;
 
 export const TableBox = styled(Table)`
-  background-color: white;
+  background-color: #fff;
 `;

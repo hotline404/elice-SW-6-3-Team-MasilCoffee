@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import * as S from "./Recipe.style";
 import CategoryButton from "./components/CategoryButton";
 import PostList from "./components/PostList";
@@ -11,7 +12,9 @@ const Recipe = () => {
         <S.Container>
           <S.Wrap>
             <S.Title>나만의 꿀조합 공유</S.Title>
-            <S.Button>작성하기</S.Button>
+            <Link to="/RecipeWrite" >
+              <S.Button>작성하기</S.Button>
+            </Link>
           </S.Wrap>
           <PostInput />
           <CategoryButton />

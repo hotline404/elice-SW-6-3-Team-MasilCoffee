@@ -18,9 +18,9 @@ import OrderDetails from "../pages/mypage/orderDetails/OrderDetails.jsx";
 import WriteList from "../pages/mypage/writeList/WriteList.jsx";
 import CommentListPage from "../pages/mypage/commentList/CommentListPage.jsx";
 
-// import AdminOrder from "../pages/admin/AdminOrder";
-// import AdminMenu from "../pages/admin/AdminMenu";
-// import AdminUser from "../pages/admin/AdminUser";
+import AdminOrder from "../pages/admin/adminOrder/AdminOrder";
+import AdminMenu from "../pages/admin/adminMenu/AdminMenu";
+import AdminUser from "../pages/admin/adminUser/AdminUser.jsx";
 
 // 재사용성 강화
 // 가독성 증진
@@ -114,21 +114,22 @@ export const ROUTES = {
     link: "/CommentListpage",
     element: <CommentListPage />,
   },
-  // ADMINORDER: {
-  //   path: "/AdminOrder",
-  //   link: "/AdminOrder",
-  //   element: <AdminOrder />,
-  // },
-  // ADMINMENU: {
-  //   path: "/AdminMenu",
-  //   link: "/AdminMenu",
-  //   element: <AdminMenu />,
-  // },
-  // ADMINMUSER: {
-  //   path: "/AdminUser",
-  //   link: "/AdminUser",
-  //   element: <AdminUser />,
-  // },
+
+  ADMINORDER: {
+    path: "/admin/order",
+    link: "/admin/order",
+    element: <AdminOrder />,
+  },
+  ADMINMENU: {
+    path: "/admin/menu",
+    link: "/admin/menu",
+    element: <AdminMenu />,
+  },
+  ADMINMUSER: {
+    path: "/admin/user",
+    link: "/admin/user",
+    element: <AdminUser />,
+  },
 };
 
 // 라우트 배열

@@ -1,12 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import Container from "../UI/Container";
 import Card from "../UI/Card";
-import Contents from "../UI/Contents";
+import { InputCard } from "../UI/InputCard";
 import Title from "../UI/Title";
-import Input from "./confirmer.jsx/Input";
+import Input from "../UI/Input";
 import { useNavigate } from "react-router-dom";
 import * as S from "./ConfirmPassword.style";
+import { BtnConfirm } from "../UI/BtnConfirm";
 import { CenterBox } from "../mypageComponent/MyPage.style";
+import { ButtonBox } from "../UI/ButtonBox";
 
 const dummy_userData = {
   accounts: [
@@ -65,7 +67,7 @@ function ConfirmPassword() {
   };
 
   return (
-    <div>
+    <Fragment>
       <Container>
         <Title>
           비밀번호 확인
@@ -73,41 +75,40 @@ function ConfirmPassword() {
         </Title>
         <Card>
           <form onSubmit={handleSubmit}>
-            <S.InputCard>
+            <InputCard>
               <CenterBox>
-                  <S.InputBox>
-                    <h2>이메일</h2>
-                    <Input
-                      ref={emailRef}
-                      input={{
-                        type: "email",
-                        id: "emailIsVaild",
-                        placeholder: "이메일을 입력하세요",
-                      }}
-                    />
-                  </S.InputBox>
-                  <S.InputBox>
-                    <h2>비밀번호</h2>
-                    <Input
-                      ref={passwordRef}
-                      input={{
-                        type: "password",
-                        id: "passwordIsVaild",
-                        placeholder: "비밀번호를 입력하세요",
-                      }}
-                    />
-                  </S.InputBox>
+                <S.InputBox>
+                  <Input
+                    ref={emailRef}
+                    input={{
+                      name: "이메일",
+                      type: "email",
+                      id: "emailIsVaild",
+                      placeholder: "이메일을 입력하세요",
+                    }}
+                  />
+                </S.InputBox>
+                <S.InputBox>
+                  <Input
+                    ref={passwordRef}
+                    input={{
+                      name: "비밀번호",
+                      type: "password",
+                      id: "passwordIsVaild",
+                      placeholder: "비밀번호를 입력하세요",
+                    }}
+                  />
+                </S.InputBox>
               </CenterBox>
-              <S.BtnConfirm>확인</S.BtnConfirm>
-            </S.InputCard>
+              <ButtonBox>
+                <BtnConfirm>확인</BtnConfirm>
+              </ButtonBox>
+            </InputCard>
           </form>
         </Card>
       </Container>
-    </div>
+    </Fragment>
   );
 }
 
 export default ConfirmPassword;
-
-
-//hello world!

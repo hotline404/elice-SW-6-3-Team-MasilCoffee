@@ -2,7 +2,7 @@ import Main from "../pages/main/Main";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 
-// import Order from "../pages/order/Order";
+import Order from "../pages/order/Order";
 import Cart from "../pages/cart/Cart";
 import Payment from "../pages/payment/Payment";
 import PaymentDone from "../pages/payment/paymentDone/PaymentDone.jsx";
@@ -47,11 +47,11 @@ export const ROUTES = {
     element: <Register />,
   },
 
-  // ORDER: {
-  //   path: "/Order",
-  //   link: "/Order",
-  //   element: <Or der />,
-  // },
+  ORDER: {
+    path: "/Order",
+    link: "/Order",
+    element: <Order />,
+  },
   CART: {
     path: "/Cart",
     link: "/Cart",

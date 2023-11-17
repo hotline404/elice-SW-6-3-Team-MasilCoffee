@@ -1,6 +1,5 @@
 import React from "react";
-import { UserTitle } from "../mypageComponent/MyPage.style";
-
+import { UserTitle } from "../../../pages/mypage/style/MyPage.style";
 
 function Title(props) {
   return (

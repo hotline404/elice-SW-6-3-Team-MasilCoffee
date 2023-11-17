@@ -14,7 +14,7 @@ export const StyledOrder = styled.div`
       overflow: initial;
     }
     .slick-track {
-      width: 100%;
+      max-width: 1100px;
       display: flex;
       align-items: center;
     }

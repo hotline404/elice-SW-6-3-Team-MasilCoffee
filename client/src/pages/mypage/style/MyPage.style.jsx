@@ -23,28 +23,10 @@ export const CommentTitle = styled.h1`
   width: 100%;
 `;
 
-export const Container = styled.div`
-  width: 1920px;
-  height: 100vh;
 
-  background-color: #f5f5f5;
 
-  overflow: auto;
-`;
 
-export const Contents = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-export const Card = styled.div`
-  display: flex;
-  flex-direction: row;
-  height: 742px;
 
-  justify-content: center;
-
-  margin-top: 63px;
-`;
 
 export const ContentsByWrite = styled.div`
   display: flex;

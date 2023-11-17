@@ -180,3 +180,15 @@ export const LinkUserInfo = styled.button`
     border-color: #d9d9d9;
   }
 `;
+
+export const CenterBox = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  
+  padding-top: 74px;
+`;

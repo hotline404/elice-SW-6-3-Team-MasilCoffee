@@ -233,9 +233,13 @@ export const ModalBackground = styled.div`
 `;
 
 export const ModalBox = styled.div`
-  width: 25%;
+  width: 480px;
   background-color: white;
   z-index: 100;
+
+  @media all and (max-width: 767px) {
+    width: 80%;
+  }
 `;
 
 export const Title = styled.div`
@@ -249,7 +253,7 @@ export const Title = styled.div`
     flex: 1;
     font-size: 22px;
     width: 24px;
-    margin-left: 38%;
+    margin-left: 40%;
   }
 
   & > p {
@@ -258,13 +262,6 @@ export const Title = styled.div`
     font-size: 20px;
     margin: 0;
   }
-
-  @media all and (min-width: 768px) and (max-width: 1023px) {
-    & > div {
-      margin-left: 32%;
-      font-size: 20px;
-    }
-  }
 `;
 
 export const SubTitle = styled.div`
@@ -272,10 +269,6 @@ export const SubTitle = styled.div`
   font-size: 20px;
   font-weight: bold;
   text-align: center;
-
-  @media all and (min-width: 768px) and (max-width: 1023px) {
-    font-size: 16px;
-  }
 `;
 
 export const ReasonWrapper = styled.div`

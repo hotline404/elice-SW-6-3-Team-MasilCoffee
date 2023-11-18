@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import * as Orders from "./Style_OrderDetail";
 import OrderCancel from "./OrderCancel";
 
+// OrderDone 이랑 구조가 거의 비슷한데 하나의 component로 합치는 것이 좋은 방법인지 확인해보기
+
 const OrderReceipt = ({ date, time, orderer, request, menuCount, totalPrice, takeout, items }) => {
   const [orderStatus, setOrderStatus] = useState("pending");
   const [showCancelModal, setShowCancelModal] = useState(false);

@@ -1,13 +1,13 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const MenuSelect = ({ options }) => {
+const MenuSelect = ({ options, modal = null }) => {
   if (!options) {
     return null;
   }
 
   return (
-    <Selection>
+    <Selection modal={modal}>
       {options.map((op, i) => {
         return (
           <option value={op} key={op + i}>
@@ -29,6 +29,18 @@ const Selection = styled.select`
   font-size: 16px;
   color: #2e2e2e;
   border-radius: 3px;
+
+  ${(props) =>
+    props.modal &&
+    css`
+      width: 192px;
+      height: 32px;
+      background-color: white;
+      margin: 0;
+      font-size: 15px;
+      padding: 0 0 0 15px;
+      border: 1px solid #e5e4e4;
+    `}
 `;
 
 export default MenuSelect;

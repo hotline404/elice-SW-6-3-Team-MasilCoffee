@@ -4,7 +4,7 @@ import MenuSelect from "./components/MenuSelect";
 import AdminSidebar from "../../../components/layout/AdminSidebar";
 import MenuButtons from "./components/MenuButtons";
 import Table from "../../../components/ui/table/Table";
-import MenuModify from "./components/MenuModify";
+import MenuModal from "./components/MenuModal";
 
 const AdminMenu = ({ trData, tdData }) => {
   const [showNewMenuModal, setShowNewMenuModal] = useState(false);
@@ -21,7 +21,7 @@ const AdminMenu = ({ trData, tdData }) => {
     <>
       {/* header */}
       <Menus.Container>
-        {showNewMenuModal && <MenuModify />}
+        {showNewMenuModal && <MenuModal />}
         <AdminSidebar />
         <Menus.Content>
           <Menus.TopBox>

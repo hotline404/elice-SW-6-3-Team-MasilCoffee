@@ -2,6 +2,7 @@ import React from "react";
 
 import Contents from "../../../../components/ui/contents/Contents";
 import LinkTo from "../../../../components/ui/Link/LinkTo";
+import Table from "../../../../components/ui/table/Table";
 
 import { CommentTitle } from "../../style/MyPage.style";
 import { ListTag, TextBox, PaginationItem, Paginamtion } from "../../style/CommentList.style"
@@ -11,22 +12,7 @@ function CommentList({ comments }) {
     <div>
       <CommentTitle>내가 작성한 글</CommentTitle>
       <Contents>
-        <li>
-          <div>
-            
-          </div>
-        </li>
-        {comments.map((comment) => {
-          return (
-            <ListTag>
-              <TextBox>{comment.num}</TextBox>
-              <TextBox>
-                <LinkTo there={{ to: "#", name: comment.title }} />
-              </TextBox>
-              <TextBox>{comment.date}</TextBox>
-            </ListTag>
-          );
-        })}
+        <></>
         <Paginamtion>
           <PaginationItem href="#">&laquo;</PaginationItem>
           <PaginationItem href="#">1</PaginationItem>

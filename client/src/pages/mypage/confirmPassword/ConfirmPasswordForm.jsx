@@ -3,17 +3,18 @@ import Input from "../../../components/ui/Input/Input";
 import { CenterBox } from "../style/MyPage.style";
 import * as S from "../style/ConfirmPassword.style";
 
-function ConfirmPasswordForm({ emailRef, passwordRef }) {
+function ConfirmPasswordForm({ email, password }) {
+  
   const InputData = [
     {
-      ref: emailRef,
+      ref: email,
       name: "이메일",
       type: "email",
       id: "emailIsValid",
       placeholder: "이메일을 입력하세요",
     },
     {
-      ref: passwordRef,
+      ref: password,
       name: "비밀번호",
       type: "password",
       id: "passwordIsValid",

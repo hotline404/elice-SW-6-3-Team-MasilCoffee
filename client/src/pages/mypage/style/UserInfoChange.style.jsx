@@ -13,8 +13,8 @@ export const InputBoxColumn = styled.div`
   flex-direction: column;
 
   align-content: space-between;
-  justify-content: space-between;
-  align-items: left;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 
   padding-left: 12px;

@@ -10,6 +10,9 @@ import { useNavigate } from "react-router-dom";
 
 import ConfirmPasswordForm from "./ConfirmPasswordForm";
 
+import Headers from "../../../components/layout/Header/Headers";
+import Footer from "../../../components/layout/Footer/Footer";
+
 const dummy_userData = {
   accounts: [
     {
@@ -48,6 +51,7 @@ function ConfirmPassword() {
 
   return (
     <Fragment>
+      <Headers />
       <Container>
         <Title>
           비밀번호 확인
@@ -64,6 +68,7 @@ function ConfirmPassword() {
           </form>
         </Card>
       </Container>
+      <Footer />
     </Fragment>
   );
 }

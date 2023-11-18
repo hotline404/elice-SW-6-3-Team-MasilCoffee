@@ -14,20 +14,24 @@ export default Input;
 
 const TheBox = styled.div`
   display: flex;
-  flex-direction: row;
-  align-content: space-between;
   justify-content: space-between;
+  align-content: space-between;
   align-items: center;
-  text-align: center;
+  text-align: left;
+  
 `; 
 
 const Label = styled.h3`
-
+  width: 80px
 `;
 
 const InputArea = styled.input`
-  
   width: 703px;
   height: 77px;
   border: none;
+  margin-left: 30px;
+
+  &:focus {
+    outline: none;
+}
 `;

@@ -23,13 +23,10 @@ export const InputBox = styled.div`
   margin: 4px;
 
   display: flex;
-  flex-direction: column;
-  
-
   align-content: space-between;
-  justify-content: space-between;
-  align-items: left;
-  text-align: center;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
 
   padding-left: 12px;
   padding-right: 12px;

@@ -2,17 +2,26 @@ import React from "react";
 
 import Contents from "../../../../components/ui/contents/Contents";
 import LinkTo from "../../../../components/ui/Link/LinkTo";
-import Table from "../../../../components/ui/table/Table";
+import Container from "../../../../components/ui/container/Container";
 
 import { CommentTitle } from "../../style/MyPage.style";
-import { ListTag, TextBox, PaginationItem, Paginamtion } from "../../style/CommentList.style"
+import {
+  ListTag,
+  TextBox,
+  PaginationItem,
+  Paginamtion,
+} from "../../style/CommentList.style";
+import { StyledTable } from "../../style/StyledTable";
+import Card from "../../../../components/ui/card/Card";
 
-function CommentList({ comments }) {
+function CommentList({ trData, tdData }) {
   return (
     <div>
       <CommentTitle>내가 작성한 글</CommentTitle>
       <Contents>
-        <></>
+
+          <StyledTable trData={trData} tdData={tdData} />
+
         <Paginamtion>
           <PaginationItem href="#">&laquo;</PaginationItem>
           <PaginationItem href="#">1</PaginationItem>
@@ -31,41 +40,17 @@ function CommentList({ comments }) {
 export default CommentList;
 
 CommentList.defaultProps = {
-  comments: [
-    {
-      title: "인생의 회전목마",
-      date: "2023.11.17",
-      num: 1,
-    },
-    {
-      title: "인생은 회전목마",
-      date: "2023.11.17",
-      num: 2,
-    },
-    {
-      title: "인생은 트로이목마",
-      date: "2023.11.17",
-      num: 3,
-    },
-    {
-      title: "인생이 회전목마",
-      date: "2023.11.17",
-      num: 4,
-    },
-    {
-      title: "인생과 회전목마",
-      date: "2023.11.17",
-      num: 5,
-    },
-    {
-      title: "인생과 트로이목마",
-      date: "2023.11.17",
-      num: 6,
-    },
-    {
-      title: "인생은 회전적토마",
-      date: "2023.11.17",
-      num: 7,
-    },
+  trData: ["번호", "제목", "날짜"],
+  tdData: [
+    ["1", "인생의 회전적토마", "ASDf@naver.com"],
+    ["2", "인생의 회전적토마", "ASDf@naver.com"],
+    ["3", "인생의 회전적토마", "ASDf@naver.com"],
+    ["4", "인생의 회전적토마", "ASDf@naver.com"],
+    ["5", "인생의 회전적토마", "ASDf@naver.com"],
+    ["6", "인생의 회전적토마", "ASDf@naver.com"],
+    ["7", "인생의 회전적토마", "ASDf@naver.com"],
+    ["8", "인생의 회전적토마", "ASDf@naver.com"],
+    ["9", "인생의 회전적토마", "ASDf@naver.com"],
+    ["10", "인생의 회전적토마", "ASDf@naver.com"],
   ],
 };

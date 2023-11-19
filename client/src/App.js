@@ -1,9 +1,7 @@
+import React from "react";
+import RouterComp from "./router/RouterComp";
 function App() {
-  return (
-    <div className="App">
-      <h1>Hello!</h1>
-    </div>
-  );
+  return <RouterComp />;
 }
 
 export default App;

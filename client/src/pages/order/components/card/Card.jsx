@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Button from "../../../../components/ui/button/Button";
+import Modal from "../../components/modal/Modal";
 import { StyledCard, StyledText, StyledButtonText } from "./Card.style";
 
 const Card = ({ data }) => {
@@ -8,25 +9,24 @@ const Card = ({ data }) => {
   const handleClickMenu = () => {
     setClickMenu(!clickMenu);
   };
+  // 모달 상태 변경
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   return (
     <div className="card">
-      <StyledCard onClick={handleClickMenu} clickMenu={clickMenu}>
+      <StyledCard onClick={handleClickMenu} $clickMenu={clickMenu}>
         {clickMenu && (
           <StyledButtonText>
             <b>{data.honeyTip.title}</b>
             <p>{data.honeyTip.description}</p>
-            <Button
-              type="white"
-              text={"주문하기"}
-              onClick={() => {
-                alert("주문 하시겠습니까?");
-              }}
-            />
+            <Button type="white" text={"주문하기"} onClick={openModal} />
           </StyledButtonText>
         )}
       </StyledCard>
       <StyledText>
+        {isModalOpen && <Modal openModal={openModal} closeModal={closeModal} />}
         <b>{data.name}</b>
         <p>{data.description}</p>
         <p>칼로리 : {data.calories}</p>

@@ -13,6 +13,7 @@ export const ContainerWrap = styled.div`
   min-height: 100vh;
   box-sizing: border-box;
   margin: 0 auto;
+  padding: 30px 0;
 
   @media all and (max-width: 1023px) {
     width: 100vw;
@@ -37,7 +38,7 @@ export const Container = styled.div`
 export const Wrap = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin: 20px 0;
 `;
 
 //제목

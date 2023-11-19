@@ -1,11 +1,11 @@
 import React from "react";
-import {Wrap, SearchInput, Button} from "../Recipe.style";
+import { Wrap, SearchInput, Button } from "../Recipe.style";
 
-const PostInput = () => {
+const PostInput = ({placeholder, text}) => {
   return (
     <Wrap>
-      <SearchInput type="text" placeholder="검색어 입력" />
-      <Button>검색</Button>
+      <SearchInput type="text" placeholder={placeholder} />
+      <Button>{text}</Button>
     </Wrap>
   );
 }

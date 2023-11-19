@@ -256,12 +256,12 @@ export const Title = styled.div`
     margin-left: 40%;
   }
 
-  & > p {
+  & > .cancelIcon {
     width: 80px;
-    text-align: center;
-    font-size: 20px;
     margin: 0;
-  }
+    font-size: 32px;
+    color: black;
+    opacity: 0.8;
 `;
 
 export const SubTitle = styled.div`

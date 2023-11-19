@@ -5,8 +5,8 @@ import { TiDelete } from "react-icons/ti";
 
 import axios from "axios";
 
-const MenuModify = ({ closeModal }) => {
-  const size = ["tall", "large"];
+const MenuModal = ({ title, closeModal }) => {
+  const size = ["Tall", "Large"];
   const temp = ["Ice", "Hot"];
   const category = ["에스프레소", "논커피", "스무디", "티", "에이드"];
 
@@ -28,7 +28,7 @@ const MenuModify = ({ closeModal }) => {
         console.log(response);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
       });
   };
 
@@ -36,7 +36,7 @@ const MenuModify = ({ closeModal }) => {
     <Modal.ModalBackground>
       <Modal.ModalBox>
         <Modal.Title>
-          <p>메뉴 수정</p>
+          <p>{title}</p>
           <TiDelete className="cancelIcon" onClick={closeModal} />
         </Modal.Title>
         <Modal.Form onSubmit={handleSubmit}>
@@ -47,7 +47,7 @@ const MenuModify = ({ closeModal }) => {
           <Modal.P>
             <Modal.Label>가격 :</Modal.Label>
             <Modal.InputContainer>
-              <Modal.Input type="text" name="price" required />
+              <Modal.Input type="number" name="price" required />
               <Modal.CurrencyText>원</Modal.CurrencyText>
             </Modal.InputContainer>
           </Modal.P>
@@ -66,7 +66,7 @@ const MenuModify = ({ closeModal }) => {
           <Modal.P>
             <Modal.Label>1회 제공량 :</Modal.Label>
             <Modal.InputContainer>
-              <Modal.Input type="text" name="kcal" required />
+              <Modal.Input type="number" name="kcal" required />
               <Modal.CurrencyText>kcal</Modal.CurrencyText>
             </Modal.InputContainer>
           </Modal.P>
@@ -94,4 +94,4 @@ const MenuModify = ({ closeModal }) => {
   );
 };
 
-export default MenuModify;
+export default MenuModal;

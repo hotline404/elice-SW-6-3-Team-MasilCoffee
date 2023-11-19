@@ -1,6 +1,7 @@
 import React from "react";
 import * as Users from "./Style_User";
 import AdminSidebar from "../../../components/layout/AdminSidebar";
+import UserSearch from "./components/UserSearch";
 
 const AdminUser = ({ trData, tdData }) => {
   return (
@@ -9,9 +10,7 @@ const AdminUser = ({ trData, tdData }) => {
       <Users.Container>
         <AdminSidebar />
         <Users.Content>
-          <Users.Search>
-            <Users.Title>회원 검색</Users.Title>
-          </Users.Search>
+          <UserSearch />
           <Users.TableBox trData={trData} tdData={tdData} />
         </Users.Content>
       </Users.Container>

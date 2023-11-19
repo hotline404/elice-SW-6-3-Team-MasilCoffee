@@ -36,7 +36,7 @@ export const Title = styled.div`
   & > .cancelIcon {
     font-size: 50px;
     color: white;
-    opacity: 0.5;
+    opacity: 0.8;
   }
 
   @media all and (max-width: 768px) {

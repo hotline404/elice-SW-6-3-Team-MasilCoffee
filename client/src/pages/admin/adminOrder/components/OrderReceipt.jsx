@@ -44,7 +44,13 @@ const OrderReceipt = ({ date, time, orderer, request, menuCount, totalPrice, tak
           })}
         </Orders.CenterBox>
         <Orders.RightBox>
-          {showCancelModal && <OrderCancel />}
+          {showCancelModal && (
+            <OrderCancel
+              closeModal={() => {
+                setShowCancelModal(!showCancelModal);
+              }}
+            />
+          )}
           <Orders.CancelButton
             onClick={() => {
               setShowCancelModal(!showCancelModal);

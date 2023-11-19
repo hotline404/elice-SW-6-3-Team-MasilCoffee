@@ -23,20 +23,26 @@ export const Image = styled.img`
   object-fit: cover;
 `;
 
-export const Button = styled.button`
-  // text-align: center;
-  // background-clip: content-box;
-  // outline: 2px solid #bdbdbd;
-  // outline-offset: -30px;
-  // outline-radius: 3px;
-  // width: 25px;
-  background-color: pink;
-  border: none;
+export const ButtonsBox = styled.td`
+  text-align: center;
+`;
 
-  // &.edit {
-  //   padding-right: 10px;
-  // }
+export const Button = styled.button`
+  color: #626262;
+  font-size: 15px;
+  border: 1px solid #f3f3f5;
+  padding: 10px 12.5px;
+  line-height: 15px;
+  border-radius: 10px;
+  transition: background-color 0.3s, opacity 0.3s;
+  transition: color 0.3s, opacity 0.3s;
+
+  &:hover {
+    color: white;
+    background-color: #fc5b5b;
+  }
 
   &.deletion {
+    margin-left: 15px;
   }
 `;

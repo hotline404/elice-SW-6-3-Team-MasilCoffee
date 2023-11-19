@@ -2,6 +2,7 @@ import React from "react";
 import * as TableLayout from "./Style_Table";
 import { FiEdit } from "react-icons/fi";
 import { FiTrash } from "react-icons/fi";
+//import test_coffee from "../../../../public/assets/images/test_coffee.jpg";
 
 const Table = ({ trData, tdData, onTdClick = null, isMenuTable = false }) => {
   return (
@@ -25,14 +26,14 @@ const Table = ({ trData, tdData, onTdClick = null, isMenuTable = false }) => {
                 {rowData.slice(1).map((data, colI) => (
                   <td key={data + colI}>{data}</td>
                 ))}
-                <td>
+                <TableLayout.ButtonsBox>
                   <TableLayout.Button className="edit" onClick={() => onTdClick(rowData)}>
                     <FiEdit />
                   </TableLayout.Button>
                   <TableLayout.Button className="deletion" onClick={() => onTdClick("삭제")}>
                     <FiTrash />
                   </TableLayout.Button>
-                </td>
+                </TableLayout.ButtonsBox>
               </tr>
             ))
           : // isMenuTable이 false인 경우

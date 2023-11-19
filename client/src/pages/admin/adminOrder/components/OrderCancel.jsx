@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import * as Orders from "./Style_OrderDetail";
+import { TiDelete } from "react-icons/ti";
 
-const OrderCancel = () => {
+const OrderCancel = ({ closeModal }) => {
   const [selectedReason, setSelectedReason] = useState("");
   const cancelReasons = ["고객 요청", "재료 소진", "가게 사정"];
 
@@ -14,7 +15,7 @@ const OrderCancel = () => {
       <Orders.ModalBox>
         <Orders.Title>
           <div>주문취소</div>
-          <p>X</p>
+          <TiDelete className="cancelIcon" onClick={closeModal} />
         </Orders.Title>
         <Orders.SubTitle>주문 취소 사유를 선택하세요.</Orders.SubTitle>
         <Orders.ReasonWrapper>

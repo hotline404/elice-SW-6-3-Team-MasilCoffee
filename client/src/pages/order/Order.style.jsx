@@ -60,6 +60,8 @@ export const StyledOrder = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    min-height: 400px;
+    overflow-y: auto;
   }
   .buttons-container {
     display: flex;

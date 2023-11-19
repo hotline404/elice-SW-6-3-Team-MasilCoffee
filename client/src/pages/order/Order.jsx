@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import Button from "../../components/ui/button/Button";
 import Card from "./components/card/Card";
-import Payment from "../payment/Payment";
+
 import { StyledOrder } from "./Order.style";
 import mockupData from "./components/data/mockupdata.json";
 import Slider from "react-slick";
 
-const Order = () => {
+const Order = ({ children }) => {
   // 카테고리 필터링 하기
   const [selectedCategory, setSelectedCategory] = useState("전체");
   const [filteredProducts, setFilteredProducts] = useState(mockupData.products);
@@ -100,6 +99,7 @@ const Order = () => {
       },
     ],
   };
+
   return (
     <StyledOrder>
       <div className="button">
@@ -121,16 +121,6 @@ const Order = () => {
         {filteredProducts.map((product) => (
           <Card key={product.id} data={product} />
         ))}
-      </div>
-      <div className="buttons-container">
-        <Button
-          type="grey"
-          text={"장바구니"}
-          onClick={() => {
-            alert("장바구니로 이동하시겠습니까?");
-          }}
-        />
-        <Button type="red" text={"결제하기"} onClick={<Payment />} />
       </div>
     </StyledOrder>
   );

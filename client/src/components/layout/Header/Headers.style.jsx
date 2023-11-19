@@ -14,9 +14,11 @@ export const Header = styled.header`
 
   height: 88px;
 
-  background: #8e0e28;
+  background: ${props => (props.location === "/Recipe") ? "#F5F5F5" : "#8e0e28"};
   display: flex;
   justify-content: space-between;
   align-content: center;
   align-items: center;
 `;
+
+

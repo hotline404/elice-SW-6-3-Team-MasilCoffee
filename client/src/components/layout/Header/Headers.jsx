@@ -3,48 +3,53 @@ import React from "react";
 import LinkTo from "../../ui/Link/LinkTo";
 
 import { Header, LeftSide, RightSide } from "./Headers.style";
+import { ROUTES } from "../../../router/Routes";
 
 const linkRight = [
   {
-    to: "/login",
+    to: ROUTES.LOGIN.path,
     name: "LOGIN"
   },
   {
-    to: "/Register",
+    to: ROUTES.REGISTER.path,
     name: "REGISTER"
+  },
+  {
+    to: ROUTES.MYPAGE.path,
+    name: "MYPAGE"  
   }
 ]
 
 const linkLeft = [
   {
-    to: "/",
+    to: ROUTES.MAIN.path,
     name: "마실커피"
   },
   {
-    to: "/Order",
+    to: ROUTES.ORDER.path,
     name: "ORDER"
   },
   {
-    to: "/Recipe",
+    to: ROUTES.RECIPE.path,
     name: "RECIPE"
   }
 ]
 
-function Headers() {
+function Headers(props) {
   return (
     <div>
-      <Header>
+      <Header location={props.location}>
         <LeftSide>
           {linkLeft.map(link => {
             return (
-              <LinkTo there={{to: link.to, name: link.name}} style={{textDecoration:"none", textAlign: "center", color: "#f5f5f5", fontSize: "15px",fontWeight: "400", margin: "27px"}}/>
+              <LinkTo there={{to: link.to, name: link.name}} style={{textDecoration:"none", textAlign: "center", color: `${props.location == "/Recipe" ? "#191414" : "#f5f5f5"}`, fontSize: "15px",fontWeight: "400", margin: "27px"}}/>
             )
           })}
         </LeftSide>
         <RightSide>
           {linkRight.map(link => {
             return (
-              <LinkTo there={{to: link.to, name: link.name}} style={{textDecoration:"none", textAlign: "center", color: "#f5f5f5", fontSize: "15px",fontWeight: "400", margin: "27px"}}/>
+              <LinkTo there={{to: link.to, name: link.name}} style={{textDecoration:"none", textAlign: "center", color: `${props.location == "/Recipe" ? "#191414" : "#f5f5f5"}`, fontSize: "15px",fontWeight: "400", margin: "27px"}}/>
             )
           })}
         </RightSide>

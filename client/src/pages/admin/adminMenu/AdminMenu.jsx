@@ -21,7 +21,13 @@ const AdminMenu = ({ trData, tdData }) => {
     <>
       {/* header */}
       <Menus.Container>
-        {showNewMenuModal && <MenuModal />}
+        {showNewMenuModal && (
+          <MenuModal
+            closeModal={() => {
+              setShowNewMenuModal(!showNewMenuModal);
+            }}
+          />
+        )}
         <AdminSidebar />
         <Menus.Content>
           <Menus.TopBox>
@@ -33,7 +39,7 @@ const AdminMenu = ({ trData, tdData }) => {
                 title="메뉴 추가"
                 isClicked={() => {
                   setShowNewMenuModal(!showNewMenuModal);
-                  console.log(showNewMenuModal);
+                  console.log("메뉴추가보기", showNewMenuModal);
                 }}
               />
             </Menus.ButtonWrapper>

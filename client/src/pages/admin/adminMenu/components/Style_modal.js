@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const ModalBackground = styled.div`
   display: flex;
@@ -56,7 +56,7 @@ export const P = styled.p`
   display: inline-flex;
   justify-content: space-between;
   width: 280px;
-  margin: 0 0 20px 0;
+  margin: 0 0 15px 0;
 
   &:first-child {
     width: 100%;
@@ -69,19 +69,32 @@ export const P = styled.p`
   &:nth-child(2n) {
     margin-right: 40px;
   }
+`;
 
-  &:last-of-type {
-    display: flex;
-    width: 600px;
+export const TextareaBox = styled.p`
+  display: flex;
+  width: 600px;
+  margin: 0 0 15px 0;
 
-    :nth-child(2) {
-      width: 510px;
-      font-size: 15px;
-      border: 1px solid #e5e4e4;
-      border-radius: 3px;
-      padding: 10px 15px;
-    }
+  :nth-child(2) {
+    width: 510px;
+    font-size: 15px;
+    border: 1px solid #e5e4e4;
+    border-radius: 3px;
+    padding: 10px 15px;
+    box-sizing: border-box;
   }
+
+  ${(props) =>
+    props.large &&
+    css`
+      flex-direction: column;
+      margin: 15px 0 30px;
+
+      :nth-child(2) {
+        width: 600px;
+      }
+    `}
 `;
 
 export const Label = styled.label`
@@ -125,4 +138,48 @@ export const CurrencyText = styled.span`
   align-items: center;
   color: #b9b9b9;
   pointer-events: none;
+`;
+
+export const ImgBox = styled.div`
+  width: 100%;
+  height: 70px;
+  border: dashed 1px #c6c6c6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  & > input {
+    display: none;
+  }
+`;
+
+export const ImgLabel = styled.label`
+  width: 120px;
+  height: 30px;
+  color: white;
+  line-height: 30px;
+  background-color: #ff7070;
+  border-radius: 3px;
+  padding: 0;
+  margin-right: 20px;
+
+  &:hover {
+    background-color: #e35f5f;
+  }
+`;
+
+export const Submit = styled.button`
+  width: 150px;
+  height: 40px;
+  background-color: #ec2f56;
+  color: white;
+  border: none;
+  font-size: 16px;
+  margin: 0 auto 30px;
+  display: block;
+
+  &:hover {
+    background-color: #d12b4d;
+  }
 `;

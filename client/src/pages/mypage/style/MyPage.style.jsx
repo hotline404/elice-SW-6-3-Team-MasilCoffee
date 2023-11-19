@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { media } from "../mediaQ/media";
+import { media } from "../../../util/mediaQ/media";
 
 export const UserTitle = styled.h1`
   text-align: center;
@@ -22,11 +22,6 @@ export const CommentTitle = styled.h1`
 
   width: 100%;
 `;
-
-
-
-
-
 
 export const ContentsByWrite = styled.div`
   display: flex;
@@ -171,6 +166,6 @@ export const CenterBox = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  
+
   padding-top: 74px;
 `;

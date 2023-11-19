@@ -7,11 +7,10 @@ import { ButtonBox } from "../style/ButtonBox";
 
 import React, { Fragment, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../../router/Routes";
 
 import ConfirmPasswordForm from "./ConfirmPasswordForm";
 
-import Headers from "../../../components/layout/Header/Headers";
-import Footer from "../../../components/layout/Footer/Footer";
 
 const dummy_userData = {
   accounts: [
@@ -45,13 +44,12 @@ function ConfirmPassword() {
     if (!isMatch) {
       alert("이메일과 비밀번호를 확인해 주세요.");
     } else {
-      nav("/UserInfoChange");
+      nav(ROUTES.USERINFOCHANGE.path);
     }
   };
 
   return (
     <Fragment>
-      <Headers />
       <Container>
         <Title>
           비밀번호 확인
@@ -68,7 +66,6 @@ function ConfirmPassword() {
           </form>
         </Card>
       </Container>
-      <Footer />
     </Fragment>
   );
 }

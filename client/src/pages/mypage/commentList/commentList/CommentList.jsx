@@ -19,8 +19,7 @@ function CommentList({ trData, tdData }) {
     <div>
       <CommentTitle>내가 작성한 글</CommentTitle>
       <Contents>
-
-          <StyledTable trData={trData} tdData={tdData} />
+        <StyledTable trData={trData} tdData={tdData} />
 
         <Paginamtion>
           <PaginationItem href="#">&laquo;</PaginationItem>

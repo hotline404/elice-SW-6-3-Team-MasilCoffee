@@ -8,8 +8,8 @@ function Container(props) {
 export default Container;
 
 const SContainer = styled.div`
-  width: 1920px;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
 
   background-color: #f5f5f5;
 

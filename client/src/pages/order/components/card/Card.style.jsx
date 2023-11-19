@@ -9,8 +9,8 @@ export const StyledCard = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) =>
-    props.clickMenu ? "rgba(142,14,40,0.7)" : "initial"};
+  background-color: ${({ $clickMenu }) =>
+    $clickMenu ? "rgba(142,14,40,0.7)" : "initial"};
   color: #f5f5f5;
 `;
 export const StyledText = styled.div`
@@ -39,6 +39,5 @@ export const StyledButtonText = styled.div`
   button {
     margin: 0 auto;
     display: block;
-    background-color: aqua;
   }
 `;

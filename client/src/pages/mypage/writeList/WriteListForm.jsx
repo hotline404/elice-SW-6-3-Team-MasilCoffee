@@ -5,6 +5,8 @@ import { CommentTitle } from "../style/MyPage.style";
 
 import { usePagination } from "../../../hooks/usePagination";
 
+import sliceTen from "../../../util/forPagenation/sliceTen";
+
 function WriteListForm({ trData, tdData }) {
   const [page, setPage] = useState(1);
 
@@ -19,15 +21,15 @@ function WriteListForm({ trData, tdData }) {
 
   const currentPage = pageConst.currentPage;
 
-  console.log(tdData.length);
-
   const pageArr = usePagination(pageConst);
-  console.log("pageArr", pageArr);
 
-  const slicedTdData = tdData.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize
-  );
+  const slicedData = sliceTen({
+    currentPage: currentPage,
+    pageSize: pageSize,
+    initDataSet: tdData
+  });
+
+  console.log("slice", slicedData)
 
   const handleClick = (e) => {
     setPage(parseInt(e.target.name, 10));
@@ -36,7 +38,7 @@ function WriteListForm({ trData, tdData }) {
   return (
     <div>
       <CommentTitle>내가 작성한 글</CommentTitle>
-      <StyledTable trData={trData} tdData={slicedTdData} />
+      <StyledTable trData={trData} tdData={slicedData} />
       <Paginamtion>
         <PaginationItem href="#">&laquo;</PaginationItem>
         <div>

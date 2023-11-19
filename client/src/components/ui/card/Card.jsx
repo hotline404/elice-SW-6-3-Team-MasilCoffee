@@ -1,10 +1,16 @@
 import React from "react";
-import styled from "styled-components"
+import styled from "styled-components";
 
 function Card(props) {
+
+  console.log("non", props.NonFlex)
   return (
     <div>
-      <SCard>{props.children}</SCard>
+      {props.NonFlex ? (
+        <NoneFlexCard>{props.children}</NoneFlexCard>
+      ) : (
+        <SCard>{props.children}</SCard>
+      )}
     </div>
   );
 }
@@ -17,6 +23,16 @@ const SCard = styled.div`
   height: 742px;
 
   justify-content: center;
+
+  margin-top: 63px;
+`;
+
+const NoneFlexCard = styled.div`
+  height: 742px;
+  width: 50%;
+  justify-content: center;
+
+  margin: 0 auto;
 
   margin-top: 63px;
 `;

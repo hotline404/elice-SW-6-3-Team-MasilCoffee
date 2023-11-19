@@ -10,13 +10,13 @@ function WriteList() {
     <Fragment>
       <Headers />
       <Container>
-        <Card>
+        <Card NonFlex>
           <WriteListForm />
         </Card>
       </Container>
       <Footer />
     </Fragment>
-  );
+  ); 
 }
 
 export default WriteList;

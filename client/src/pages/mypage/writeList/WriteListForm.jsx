@@ -8,7 +8,7 @@ function WriteListForm({trData, tdData}) {
   return (
       <div>
       <CommentTitle>내가 작성한 글</CommentTitle>
-      <Contents>
+
         <StyledTable trData={trData} tdData={tdData}/>
         <Paginamtion>
           <PaginationItem href="#">&laquo;</PaginationItem>
@@ -20,7 +20,7 @@ function WriteListForm({trData, tdData}) {
           <PaginationItem href="#">6</PaginationItem>
           <PaginationItem href="#">&raquo;</PaginationItem>
         </Paginamtion>
-      </Contents>
+
     </div>
   )
 }

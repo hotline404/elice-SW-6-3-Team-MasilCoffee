@@ -4,7 +4,6 @@ import { CenterBox } from "../style/MyPage.style";
 import * as S from "../style/ConfirmPassword.style";
 
 function ConfirmPasswordForm({ email, password }) {
-  
   const InputData = [
     {
       ref: email,

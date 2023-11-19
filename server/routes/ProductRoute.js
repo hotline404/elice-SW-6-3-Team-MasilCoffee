@@ -13,11 +13,11 @@ ProductRouter.get(
   })
 );
 
-// 제품 검색 by id
+// 제품 검색 by productid
 ProductRouter.get(
-  "/:id",
+  "/:productid",
   asyncHandler(async (req, res) => {
-    const productId = req.params.id;
+    const productId = req.params.productid;
     const product = await ProductService.getProductById(productId);
     if (!product) {
       return ResponseHandler.respondWithNotFound(res);
@@ -36,11 +36,11 @@ ProductRouter.post(
   })
 );
 
-// 제품 정보 수정 by id
+// 제품 정보 수정 by productid
 ProductRouter.put(
-  "/:id",
+  "/:productid",
   asyncHandler(async (req, res) => {
-    const productId = req.params.id;
+    const productId = req.params.productid;
     const productData = req.body;
     const updatedProduct = await ProductService.updateProduct(
       productId,
@@ -53,11 +53,11 @@ ProductRouter.put(
   })
 );
 
-// 제품 삭제 by id
+// 제품 삭제 by productid
 ProductRouter.delete(
-  "/:id",
+  "/:productid",
   asyncHandler(async (req, res) => {
-    const productId = req.params.id;
+    const productId = req.params.productid;
     const deletedProduct = await ProductService.deleteProduct(productId);
     if (!deletedProduct) {
       return ResponseHandler.respondWithNotFound(res);

@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Register() {
+function boardAction() {
   return (
     <div>
-      Register
+      
     </div>
   )
 }
 
-export default Register
+export default boardAction

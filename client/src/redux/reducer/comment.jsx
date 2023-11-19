@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Register() {
+function comment() {
   return (
     <div>
-      Register
+      
     </div>
   )
 }
 
-export default Register
+export default comment

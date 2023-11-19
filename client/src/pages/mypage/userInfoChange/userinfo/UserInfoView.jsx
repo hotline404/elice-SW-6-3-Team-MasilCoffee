@@ -46,7 +46,7 @@ function UserInfoView() {
         <Card>
           <InputCard>
             <h3>회원 정보</h3>
-            <UserInfoForm emailRef={emailRef} InputInfo={InputInfo}/>
+            <UserInfoForm emailRef={emailRef} InputInfo={InputInfo} />
             <ButtonBox>
               <DeleteBtn>회원탈퇴</DeleteBtn>
               <BtnConfirm>회원정보 변경</BtnConfirm>
@@ -73,4 +73,10 @@ const DeleteBtn = styled.button`
   margin: 4px;
 
   border: none;
+
+  cursor: pointer;
+
+  &:hover {
+    background: #878585;
+  }
 `;

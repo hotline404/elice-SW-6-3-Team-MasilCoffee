@@ -1,9 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function LinkTo({there}) {
+
+
+function LinkTo({there, style}) {
+  
+
   return (
-    <Link to={there.to} style={{textDecoration:"none"}}>
+    <Link to={there.to} style={{...style}}>
       {there.name}
     </Link>
   )

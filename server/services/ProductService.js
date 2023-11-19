@@ -1,6 +1,16 @@
-const Product = require('../models/Product');
+const Product = require("../models/ProductSchema");
 
 class ProductService {
+  static async createProduct(productData) {
+    try {
+      const newProduct = new Product(productData);
+      const savedProduct = await newProduct.save();
+      return savedProduct;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static async getAllProducts() {
     try {
       const products = await Product.find();
@@ -18,17 +28,6 @@ class ProductService {
       throw error;
     }
   }
-
-  static async createProduct(productData) {  
-    try {
-      const newProduct = new Product(productData);
-      const savedProduct = await newProduct.save();
-      return savedProduct;
-    } catch (error) {
-      throw error;
-    }
-  }
-  
 
   static async updateProduct(productId, productData) {
     try {

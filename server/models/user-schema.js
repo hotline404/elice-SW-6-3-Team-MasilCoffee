@@ -22,6 +22,7 @@ const UserSchema = new Schema(
     profile_img: {
       type: String,
       default: "",
+      required:false,
     },
     role: {
       type: String,
@@ -40,6 +41,7 @@ const UserSchema = new Schema(
     },
     phone: {
       type: String,
+      unique: true,
       trim: true,
     },
     is_admin: {           // role은 User로 관리자가 승인 후 Admin으로 진화

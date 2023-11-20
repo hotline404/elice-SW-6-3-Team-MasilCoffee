@@ -28,7 +28,7 @@ BoardRouter.get(
   asyncHandler(async (req, res) => {
     const board = await BoardService.getBoardById(req.params.boardId);
     if (!board) {
-      return ResponseHandler.respondWithNotFound(res);
+      return ResponseHandler.respondWithNotfound(res);
     }
     ResponseHandler.respondWithSuccess(res, board);
   })

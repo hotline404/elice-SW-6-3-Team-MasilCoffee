@@ -13,6 +13,7 @@ app.use(express.json());
 const PingRouter = require("./routes/ping-router");
 const ProductRouter = require("./routes/product-router");
 const BoardRouter = require("./routes/board-router");
+const UserRouter = require("./routes/user-router");
 
 // mongoose
 mongoose
@@ -26,6 +27,7 @@ mongoose
 app.use("/api/v1", PingRouter);
 app.use("/api/v1/products", ProductRouter);
 app.use("/api/v1/boards", BoardRouter);
+app.use("/api/v1/users", UserRouter);
 
 //PORT
 const PORT = process.env.PORT;

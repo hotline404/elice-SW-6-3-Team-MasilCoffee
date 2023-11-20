@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { StyleSlide, StyleSlideBox, StyleSlideBoxText } from "../Modal.style";
-import { SlideAnimation } from "./SlideAnimation";
+import { SlideAnimation, Round } from "./SlideAnimation";
 
 function SyrupOptionSlide() {
   const [isAnimated, setIsAnimated] = useState(false);
@@ -43,17 +43,52 @@ function SyrupOptionSlide() {
               }`}
             >
               {showContent && (
-                <>
-                  <div>바닐라: {vanilla}</div>
-                  <button onClick={() => setVanilla(old => old + 1)}>+</button>
-                  <button onClick={() => setVanilla(old => old > 0 ? old - 1 : old)}>-</button>
-                  <div>헤이즐넛: {hazelnuts}</div>
-                  <button onClick={() => setHazelnuts(old => old + 1)}>+</button>
-                  <button onClick={() => setHazelnuts(old => old > 0 ? old - 1 : old)}>-</button>
-                  <div>카라멜: {caramel}</div>
-                  <button onClick={() => setCaramel(old => old + 1)}>+</button>
-                  <button onClick={() => setCaramel(old => old > 0 ? old - 1 : old)}>-</button>
-                </>
+                <div>
+                  <div>
+                    <span>바닐라</span>
+                    <Round>
+                      <div onClick={() => setVanilla((old) => old + 1)}>+</div>
+                      <span>{vanilla}</span>
+                      <div
+                        onClick={() =>
+                          setVanilla((old) => (old > 0 ? old - 1 : old))
+                        }
+                      >
+                        -
+                      </div>
+                    </Round>
+                  </div>
+                  <div>
+                    <span>헤이즐넛</span>
+                    <Round>
+                      <div onClick={() => setHazelnuts((old) => old + 1)}>
+                        +
+                      </div>
+                      <span>{hazelnuts}</span>
+                      <div
+                        onClick={() =>
+                          setHazelnuts((old) => (old > 0 ? old - 1 : old))
+                        }
+                      >
+                        -
+                      </div>
+                    </Round>
+                  </div>
+                  <div>
+                    <span>카라멜</span>
+                    <Round>
+                      <div onClick={() => setCaramel((old) => old + 1)}>+</div>
+                      <span>{caramel}</span>
+                      <div
+                        onClick={() =>
+                          setCaramel((old) => (old > 0 ? old - 1 : old))
+                        }
+                      >
+                        -
+                      </div>
+                    </Round>
+                  </div>
+                </div>
               )}
             </div>
           </SlideAnimation>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { StyleSlide, StyleSlideBox, StyleSlideBoxText } from "../Modal.style";
-import { SlideAnimation } from "./SlideAnimation";
+import SquareButton from "../../../../../components/ui/button/SquareButton";
+import { SlideAnimation, SquareButtonBox } from "./SlideAnimation";
 
 function IceOptionSlide() {
   const [isAnimated, setIsAnimated] = useState(false);
@@ -36,20 +37,36 @@ function IceOptionSlide() {
               }`}
             >
               {showContent && (
-                <>
-                  <button onClick={() => handleIceButtonClick("없음")}>
+                <SquareButtonBox>
+                  <SquareButton
+                    text={"없음"}
+                    type={"red"}
+                    onClick={() => handleIceButtonClick("없음")}
+                  >
                     없음
-                  </button>
-                  <button onClick={() => handleIceButtonClick("적게")}>
+                  </SquareButton>
+                  <SquareButton
+                    text={"적게"}
+                    type={"grey"}
+                    onClick={() => handleIceButtonClick("적게")}
+                  >
                     적게
-                  </button>
-                  <button onClick={() => handleIceButtonClick("보통")}>
+                  </SquareButton>
+                  <SquareButton
+                    text={"보통"}
+                    type={"grey"}
+                    onClick={() => handleIceButtonClick("보통")}
+                  >
                     보통
-                  </button>
-                  <button onClick={() => handleIceButtonClick("많이")}>
+                  </SquareButton>
+                  <SquareButton
+                    text={"많이"}
+                    type={"grey"}
+                    onClick={() => handleIceButtonClick("많이")}
+                  >
                     많이
-                  </button>
-                </>
+                  </SquareButton>
+                </SquareButtonBox>
               )}
             </div>
           </SlideAnimation>

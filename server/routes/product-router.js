@@ -2,7 +2,7 @@ const express = require("express");
 const ProductRouter = express.Router();
 const ProductService = require("../services/product-service");
 const asyncHandler = require("../middlewares/async-handler");
-const ResponseHandler = require("../middlewares/responses");
+const ResponseHandler = require("../middlewares/res-handler");
 
 // 모든 제품 검색
 ProductRouter.get(

@@ -1,8 +1,8 @@
 const express = require("express");
 const BoardRouter = express.Router();
-const BoardService = require("../services/board-service.js");
-const asyncHandler = require("../middlewares/async-handler.js");
-const ResponseHandler = require("../middlewares/responses.js");
+const BoardService = require("../services/board-service");
+const asyncHandler = require("../middlewares/async-handler");
+const ResponseHandler = require("../middlewares/res-handler");
 
 // 모든 게시글 가져오기
 BoardRouter.get(

@@ -1,5 +1,5 @@
-const User = require('../models/user-schema');
-const bcrypt = require('bcrypt');
+const User = require("../models/user-schema");
+const bcrypt = require("bcrypt");
 
 class UserService {
   async createUser(userData) {
@@ -11,10 +11,14 @@ class UserService {
 
   async authenticateUser(email, password) {
     const user = await User.findOne({ email });
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      return null;
+    if (!user) {
+      return { success: false, fail: "email" };
     }
-    return user;
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return { success: false, fail: "password" };
+    }
+    return { success: true, user };
   }
 
   async getAllUsers() {
@@ -26,9 +30,12 @@ class UserService {
   }
 
   async updateUser(userId, updates) {
-    const user = await User.findByIdAndUpdate(userId, updates, { new: true, runValidators: true });
+    const user = await User.findByIdAndUpdate(userId, updates, {
+      new: true,
+      runValidators: true,
+    });
     if (!user) {
-      throw { status: 404, message: 'User not found' };
+      throw { status: 404, message: "User not found" };
     }
     return user;
   }
@@ -36,7 +43,7 @@ class UserService {
   async deleteUser(userId) {
     const user = await User.findByIdAndDelete(userId);
     if (!user) {
-      throw { status: 404, message: 'User not found' };
+      throw { status: 404, message: "User not found" };
     }
     return user;
   }

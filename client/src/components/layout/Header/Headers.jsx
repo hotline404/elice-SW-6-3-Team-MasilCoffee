@@ -5,16 +5,7 @@ import LinkTo from "../../ui/Link/LinkTo";
 
 import { Header, LeftSide, RightSide, HeaderImg } from "./Headers.style";
 import { ROUTES } from "../../../router/Routes";
-
-const RedColorPage = [
-  ROUTES.RECIPE.path,
-  ROUTES.ORDER.path,
-  ROUTES.PAYMENT.path,
-  ROUTES.PAYMENTDONE.path,
-  ROUTES.RECIPEVIEW.path,
-  ROUTES.RECIPEWRITE.path,
-  ROUTES.RECIPE.path,
-];
+import IncludeRedPage from "../../../util/IncludeRedPage";
 
 const linkDatas = {
   right_side: [
@@ -47,20 +38,20 @@ function Headers(props) {
   const style = {
     textDecoration: "none",
     textAlign: "center",
-    color: `${props.location == ROUTES.RECIPE.path ? "#191414" : "#f5f5f5"}`,
+    color: `${IncludeRedPage(props.location) ? "#191414" : "#f5f5f5"}`,
     fontSize: "15px",
     fontWeight: "400",
     margin: "27px",
   };
 
-  const transLogo = RedColorPage.includes(props.location)
+  const transLogo = IncludeRedPage(props.location)
     ? "/assets/images/Logo_White.png"
     : "/assets/images/Logo_Red.png";
 
   const nav = useNavigate();
 
   const handleClick = () => {
-    nav(ROUTES.MAIN.path, { replace: true });
+    nav(ROUTES.MAIN.path, { replace: false });
   };
 
   return (

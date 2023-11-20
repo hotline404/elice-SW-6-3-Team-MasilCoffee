@@ -1,4 +1,5 @@
 import React from "react";
+import IncludeRedPage from "../../../../util/IncludeRedPage";
 
 const img_data = {
   red: "/assets/images/top.png",
@@ -6,14 +7,13 @@ const img_data = {
 };
 
 function GoTop(props) {
-  const src = props.location === "/Recipe" ? img_data.white : img_data.red;
-
+  const src = IncludeRedPage(props.location) ? img_data.white : img_data.red;
+  
 
   const handleClick = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  console.log(typeof(src))
 
 
 

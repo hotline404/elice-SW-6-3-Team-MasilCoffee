@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Table from "../../../components/ui/table/Table";
 
 export const Container = styled.div`
   display: flex;
@@ -13,6 +12,6 @@ export const Content = styled.div`
   margin: 70px 70px;
 `;
 
-export const TableBox = styled(Table)`
+export const TableBox = styled.div`
   background-color: #fff;
 `;

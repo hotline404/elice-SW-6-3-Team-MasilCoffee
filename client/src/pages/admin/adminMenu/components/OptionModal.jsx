@@ -1,10 +1,48 @@
 import React, { useState } from "react";
 import * as Modal from "./Style_modal";
+import MenuSelect from "./MenuSelect";
 import { TiDelete } from "react-icons/ti";
+import DynamicInput from "./OptionAddInputs";
 
 import axios from "axios";
 
 const MenuModal = ({ title, closeModal }) => {
+  const [selectedOption, setSelectedOption] = useState("");
+  const [showInput, setShowInput] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [inputComponents, setInputComponents] = useState([]);
+
+  const optionName = ["얼음", "드리즐", "휘핑", "우유", "직접입력"];
+
+  const handleSelectChange = (e) => {
+    const selected = e.target.value;
+    if (selected === "직접입력") {
+      setSelectedOption("");
+      setShowInput(true);
+    } else {
+      setSelectedOption(selected);
+      setShowInput(false);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleAddInput = () => {
+    console.log(inputComponents);
+    const newId = Math.random().toString(36).substring(7);
+    const newInput = {
+      id: newId,
+      content: <DynamicInput key={newId} handleRemoveInput={handleRemoveInput} id={newId} />,
+    };
+    setInputComponents((prevInputs) => [...prevInputs, newInput]);
+  };
+
+  const handleRemoveInput = (id) => {
+    setInputComponents((prevInputs) => prevInputs.filter((input) => input.id !== id));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -27,23 +65,32 @@ const MenuModal = ({ title, closeModal }) => {
           <p>{title}</p>
           <TiDelete className="cancelIcon" onClick={closeModal} />
         </Modal.Title>
-        <Modal.Form onSubmit={handleSubmit}>
-          <Modal.P>
-            <Modal.Label>이름 :</Modal.Label>
-            <Modal.Input type="text" name="name" required />
-          </Modal.P>
-          <Modal.P>
-            <Modal.Label>가격 :</Modal.Label>
-            <Modal.InputContainer>
-              <Modal.Input type="number" name="price" required />
-              <Modal.CurrencyText>원</Modal.CurrencyText>
-            </Modal.InputContainer>
-          </Modal.P>
-
-          <Modal.Submit type="submit" onClick={handleSubmit}>
-            제출하기
-          </Modal.Submit>
-        </Modal.Form>
+        <Modal.OptionFormBox>
+          <Modal.Form onSubmit={handleSubmit}>
+            <Modal.OptionP>
+              <Modal.Label>옵션명 :</Modal.Label>
+              <MenuSelect options={optionName} modal name="optionName" value={selectedOption} onChange={handleSelectChange} />
+              {showInput && <Modal.Input type="text" name={inputValue} value={inputValue} placeholder="예) 샷추가" onChange={handleInputChange} />}
+            </Modal.OptionP>
+            <Modal.DetailInputBox>
+              <Modal.OptionP>
+                <Modal.Label>세부항목 :</Modal.Label>
+                <Modal.Input type="text" name="name" placeholder="예) 1샷" required />
+              </Modal.OptionP>
+              <Modal.OptionP>
+                <Modal.Label>가격 :</Modal.Label>
+                <Modal.Input type="number" name="price" placeholder="0" required />
+              </Modal.OptionP>
+              <Modal.PlusIcon onClick={handleAddInput} />
+            </Modal.DetailInputBox>
+            {inputComponents.map((input, index) => (
+              <div key={input.id}>{input.content}</div>
+            ))}
+            <Modal.OptionSubmit type="submit" onClick={handleSubmit}>
+              옵션 추가하기
+            </Modal.OptionSubmit>
+          </Modal.Form>
+        </Modal.OptionFormBox>
       </Modal.ModalBox>
     </Modal.ModalBackground>
   );

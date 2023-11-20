@@ -1,4 +1,6 @@
 import styled, { css } from "styled-components";
+import { CiCirclePlus } from "react-icons/ci";
+import { CiCircleMinus } from "react-icons/ci";
 
 export const ModalBackground = styled.div`
   display: flex;
@@ -45,6 +47,68 @@ export const Title = styled.div`
     }
   }
 `;
+
+// ----------------------Option Modal -------------------
+
+export const OptionFormBox = styled.div`
+  background-color: #fafafa;
+  margin: 0 50px;
+  > Form {
+    margin: 0;
+    padding: 20px 20px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+`;
+
+export const DetailInputBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 10px 0;
+`;
+
+export const OptionP = styled.div`
+  display: block;
+  margin-right: 20px;
+
+  > Input {
+    width: 200px;
+  }
+`;
+
+export const AddInput = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 560px;
+
+  > Input {
+    width: 200px;
+  }
+`;
+
+export const PlusIcon = styled(CiCirclePlus)`
+  font-size: 40px;
+`;
+
+export const MinusIcon = styled(CiCircleMinus)`
+  font-size: 32px;
+`;
+
+export const OptionSubmit = styled.button`
+  width: 120px;
+  height: 30px;
+  background-color: #cbcbcb;
+  border: none;
+  color: white;
+  text-align: center;
+
+  font-size: 14px;
+  margin: 20px auto 0;
+  display: block;
+`;
+
+// ----------------------Option Modal -------------------
 
 export const Form = styled.form`
   font-size: 16px;

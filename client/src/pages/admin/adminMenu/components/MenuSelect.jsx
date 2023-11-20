@@ -1,13 +1,13 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-const MenuSelect = ({ options, modal = null }) => {
+const MenuSelect = ({ options, modal = null, onChange = null }) => {
   if (!options) {
     return null;
   }
 
   return (
-    <Selection modal={modal}>
+    <Selection modal={modal} onChange={onChange}>
       {options.map((op, i) => {
         return (
           <option value={op} key={op + i}>

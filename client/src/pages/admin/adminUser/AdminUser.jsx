@@ -1,13 +1,12 @@
 import React from "react";
-import * as Users from "./Style_User";
-import AdminSidebar from "../../../components/layout/AdminSidebar";
+import * as Users from "./AdminUser.style";
+import AdminSidebar from "../../../components/layout/Sidebar/Sidebar";
 import UserSearch from "./components/UserSearch";
 import Table from "../../../components/ui/table/Table";
 
 const AdminUser = ({ trData, tdData }) => {
   return (
     <>
-      {/* header */}
       <Users.Container>
         <AdminSidebar />
         <Users.Content>
@@ -17,7 +16,6 @@ const AdminUser = ({ trData, tdData }) => {
           </Users.TableBox>
         </Users.Content>
       </Users.Container>
-      {/* footer */}
     </>
   );
 };

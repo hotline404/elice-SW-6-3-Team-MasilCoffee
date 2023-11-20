@@ -1,5 +1,5 @@
 import React from "react";
-import * as Modal from "./Style_modal";
+import * as Modal from "./style/Modal.style";
 
 const DynamicInput = ({ handleRemoveInput, id }) => {
   const newInput = (

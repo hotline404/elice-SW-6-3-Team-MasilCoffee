@@ -1,4 +1,4 @@
-import * as Orders from "./Style_OrderDetail";
+import * as Orders from "./style/OrderDetail.style";
 
 const OrderDone = ({ date, time, orderer, request, menuCount, totalPrice, takeout, items, cancellation = false }) => {
   return (

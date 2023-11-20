@@ -1,18 +1,24 @@
 import React, { useState } from "react";
-import * as Orders from "./Style_OrderDetail";
+import * as Orders from "./style/OrderDetail.style";
 import OrderCancel from "./OrderCancel";
 
 // OrderDone 이랑 구조가 거의 비슷한데 하나의 component로 합치는 것이 좋은 방법인지 확인해보기
 
 const OrderReceipt = ({ date, time, orderer, request, menuCount, totalPrice, takeout, items }) => {
-  const [orderStatus, setOrderStatus] = useState("pending");
+  const ORDER_STATUS = {
+    pending: "pending",
+    accepted: "accepted",
+    completed: "completed",
+  };
+
+  const [orderStatus, setOrderStatus] = useState(ORDER_STATUS.pending);
   const [showCancelModal, setShowCancelModal] = useState(false);
 
   const handleAccept = () => {
-    if (orderStatus === "pending") {
-      setOrderStatus("accepted");
-    } else if (orderStatus === "accepted") {
-      setOrderStatus("completed");
+    if (orderStatus === ORDER_STATUS.pending) {
+      setOrderStatus(ORDER_STATUS.accepted);
+    } else if (orderStatus === ORDER_STATUS.accepted) {
+      setOrderStatus(ORDER_STATUS.completed);
     }
   };
 
@@ -58,8 +64,8 @@ const OrderReceipt = ({ date, time, orderer, request, menuCount, totalPrice, tak
           >
             취소하기
           </Orders.CancelButton>
-          <Orders.AcceptButton onClick={handleAccept} className={orderStatus === "accepted" ? "accepted" : "not-accepted"}>
-            {orderStatus === "accepted" ? "완료처리하기" : "접수하기"}
+          <Orders.AcceptButton onClick={handleAccept} className={orderStatus === ORDER_STATUS.accepted ? "accepted" : "not-accepted"}>
+            {orderStatus === ORDER_STATUS.accepted ? "완료처리하기" : "접수하기"}
           </Orders.AcceptButton>
         </Orders.RightBox>
       </Orders.Wrapper>

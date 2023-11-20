@@ -1,9 +1,9 @@
 import { useState } from "react";
-import * as Orders from "./Style_Order";
-import AdminSidebar from "../../../components/layout/AdminSidebar";
+import * as Orders from "./AdminOrder.style";
+import AdminSidebar from "../../../components/layout/Sidebar/Sidebar";
 import OrderTab from "./components/OrderTab";
 import OrderReceipt from "./components/OrderReceipt";
-import OrderDone from "./components/OrderDone";
+import OrderDone from "./components/OrderComplete";
 
 const Admin = () => {
   const [currTab, setCurrTab] = useState("접수 대기");
@@ -14,7 +14,6 @@ const Admin = () => {
 
   return (
     <>
-      {/* header */}
       <Orders.Container>
         <AdminSidebar />
         <Orders.Content>
@@ -22,7 +21,6 @@ const Admin = () => {
           {currTab === "접수 대기" ? <OrderReceipt /> : <OrderDone />}
         </Orders.Content>
       </Orders.Container>
-      {/* footer */}
     </>
   );
 };

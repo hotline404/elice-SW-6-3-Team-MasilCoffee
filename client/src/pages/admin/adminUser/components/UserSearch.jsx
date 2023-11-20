@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as Search from "./Style_UserSearch";
+import * as Search from "./style/UserSearch.style";
 
 const UserSearch = () => {
   const [isNameChecked, setIsNameChecked] = useState(false);

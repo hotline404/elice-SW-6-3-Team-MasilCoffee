@@ -2,7 +2,6 @@ import React from "react";
 import * as TableLayout from "./Style_Table";
 import { FiEdit } from "react-icons/fi";
 import { FiTrash } from "react-icons/fi";
-//import test_coffee from "../../../../public/assets/images/test_coffee.jpg";
 
 const Table = ({ trData, tdData, onTdClick = null, isMenuTable = false }) => {
   return (

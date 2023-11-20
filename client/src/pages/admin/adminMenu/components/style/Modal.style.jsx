@@ -102,7 +102,6 @@ export const OptionSubmit = styled.button`
   border: none;
   color: white;
   text-align: center;
-
   font-size: 14px;
   margin: 20px auto 0;
   display: block;

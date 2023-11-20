@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import * as Menus from "./Style_Menu";
+import * as Menus from "./AdminMenu.style.";
 import MenuSelect from "./components/MenuSelect";
-import AdminSidebar from "../../../components/layout/AdminSidebar";
+import AdminSidebar from "../../../components/layout/Sidebar/Sidebar";
 import MenuButtons from "./components/MenuButtons";
 import Table from "../../../components/ui/table/Table";
 import MenuModal from "./components/MenuModal";
@@ -21,7 +21,6 @@ const AdminMenu = ({ trData, tdData }) => {
 
   return (
     <>
-      {/* header */}
       <Menus.Container>
         {showNewMenuModal && (
           <MenuModal
@@ -63,7 +62,6 @@ const AdminMenu = ({ trData, tdData }) => {
           <Table trData={trData} tdData={tdData} isMenuTable={true} onTdClick={handleTdClick} />
         </Menus.Content>
       </Menus.Container>
-      {/* footer */}
     </>
   );
 };

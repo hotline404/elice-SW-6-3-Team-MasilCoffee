@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as Modal from "./Style_modal";
+import * as Modal from "./style/Modal.style";
 import MenuSelect from "./MenuSelect";
 import { TiDelete } from "react-icons/ti";
 

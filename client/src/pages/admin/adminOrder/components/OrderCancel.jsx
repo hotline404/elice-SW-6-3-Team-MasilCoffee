@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as Orders from "./Style_OrderDetail";
+import * as Cancel from "./style/OrderCancel.style";
 import { TiDelete } from "react-icons/ti";
 
 const OrderCancel = ({ closeModal }) => {
@@ -11,25 +11,25 @@ const OrderCancel = ({ closeModal }) => {
   };
 
   return (
-    <Orders.ModalBackground>
-      <Orders.ModalBox>
-        <Orders.Title>
+    <Cancel.ModalBackground>
+      <Cancel.ModalBox>
+        <Cancel.Title>
           <div>주문취소</div>
           <TiDelete className="cancelIcon" onClick={closeModal} />
-        </Orders.Title>
-        <Orders.SubTitle>주문 취소 사유를 선택하세요.</Orders.SubTitle>
-        <Orders.ReasonWrapper>
+        </Cancel.Title>
+        <Cancel.SubTitle>주문 취소 사유를 선택하세요.</Cancel.SubTitle>
+        <Cancel.ReasonWrapper>
           {cancelReasons.map((reason, i) => {
             return (
-              <Orders.Reason key={reason + i} className={selectedReason === reason ? "clicked" : ""} onClick={() => handleClick(reason)}>
+              <Cancel.Reason key={reason + i} className={selectedReason === reason ? "clicked" : ""} onClick={() => handleClick(reason)}>
                 {reason}
-              </Orders.Reason>
+              </Cancel.Reason>
             );
           })}
-        </Orders.ReasonWrapper>
-        <Orders.CompleteButton onClick={() => console.log(selectedReason)}>취소 완료</Orders.CompleteButton>
-      </Orders.ModalBox>
-    </Orders.ModalBackground>
+        </Cancel.ReasonWrapper>
+        <Cancel.CompleteButton onClick={() => console.log(selectedReason)}>취소 완료</Cancel.CompleteButton>
+      </Cancel.ModalBox>
+    </Cancel.ModalBackground>
   );
 };
 

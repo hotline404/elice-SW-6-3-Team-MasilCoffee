@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-// AdminOrder css
-
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;

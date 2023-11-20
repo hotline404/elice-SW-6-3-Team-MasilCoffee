@@ -13,8 +13,8 @@ function LoginForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("email", emailRef.current.value);
-    console.log("password", passwordRef.current.value);
+    console.log("email:", emailRef.current.value);
+    console.log("password:", passwordRef.current.value);
   };
 
   return (

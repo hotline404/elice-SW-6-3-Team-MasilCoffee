@@ -1,13 +1,14 @@
 import React from "react";
-import { Wrap, SearchInput, Button } from "../Recipe.style";
+import { Wrap, SearchInput } from "../Recipe.style";
+import SquareButton from "../../../components/ui/button/SquareButton";
 
-const PostInput = ({placeholder, text}) => {
+const PostInput = ({ type, placeholder, text, onclick }) => {
   return (
     <Wrap>
-      <SearchInput type="text" placeholder={placeholder} />
-      <Button>{text}</Button>
+      <SearchInput type={type} placeholder={placeholder} />
+      <SquareButton text={text} type={"red"} />
     </Wrap>
   );
-}
+};
 
 export default PostInput;

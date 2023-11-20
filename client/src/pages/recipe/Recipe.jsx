@@ -4,6 +4,7 @@ import * as S from "./Recipe.style";
 import CategoryButton from "./components/CategoryButton";
 import PostList from "./components/PostList";
 import PostInput from "./components/PostInput";
+import SquareButton from "../../components/ui/button/SquareButton";
 import postData from "./postData.json";
 
 const Recipe = () => {
@@ -14,8 +15,8 @@ const Recipe = () => {
           <S.Wrap>
             <S.Title>나만의 꿀조합 공유</S.Title>
             <Link to="/RecipeWrite">
-              <S.Button>작성하기</S.Button>
-            </Link>
+              <SquareButton text={"작성하기"} type={"red"} />
+            </Link> 
           </S.Wrap>
           <PostInput placeholder={"검색어를 입력하세요."} text="검색" />
           <CategoryButton />

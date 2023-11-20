@@ -21,4 +21,8 @@ export const Header = styled.header`
   align-items: center;
 `;
 
+export const HeaderImg = styled.img`
+  width: 300px;
+  cursor: pointer;
+`
 

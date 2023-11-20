@@ -19,14 +19,10 @@ const UserSchema = new Schema(
     password: {
       type: String,
     },
-    profile_img: {
-      type: String,
-      default: "",
-    },
     role: {
       type: String,
       enum: ["Admin", "User"],
-      default: 'User',
+      default: "User",
     },
     birth: {
       type: Date,
@@ -40,12 +36,14 @@ const UserSchema = new Schema(
     },
     phone: {
       type: String,
+      unique: true,
       trim: true,
     },
-    is_admin: {           // role은 User로 관리자가 승인 후 Admin으로 진화
+    is_admin: {
+      // role은 User로 관리자가 승인 후 Admin으로 진화
       type: Boolean,
       default: false,
-    }
+    },
   },
   {
     timestamps: true,

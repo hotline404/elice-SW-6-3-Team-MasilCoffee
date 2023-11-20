@@ -78,7 +78,7 @@ export const SearchInput = styled.input`
 export const CategoryWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin: 20px 0;
 `;
 
 //카테고리 버튼

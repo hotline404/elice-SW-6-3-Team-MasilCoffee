@@ -134,7 +134,17 @@ export const ROUTES = {
   NOTFOUND: {
     path: "/*",
     link: "/*",
-    element: <NotFound />,
+    element: <NotFound code={404}/>,
+  },
+  BADREQUEST: {
+    path: "/badrequest",
+    link: "/badrequest",
+    element: <NotFound code={400}/>,
+  },
+  INTERNALSERVERERROR: {
+    path: "/internalservererror",
+    link: "/internalservererror",
+    element: <NotFound code={500} />,
   },
 };
 

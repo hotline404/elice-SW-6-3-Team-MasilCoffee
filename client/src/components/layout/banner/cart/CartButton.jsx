@@ -23,5 +23,4 @@ function CartButton(props) {
     </div>
   );
 }
-// {(props.location === "/Recipe" ? img_data.white : img_data.red)}
 export default CartButton;

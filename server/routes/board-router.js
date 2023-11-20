@@ -1,6 +1,6 @@
 const express = require("express");
 const BoardRouter = express.Router();
-const BoardService = require("../services/BoardService.js");
+const BoardService = require("../services/board-service.js");
 const asyncHandler = require("../middlewares/async-handler.js");
 const ResponseHandler = require("../middlewares/responses.js");
 

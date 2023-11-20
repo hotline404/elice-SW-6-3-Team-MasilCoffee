@@ -8,7 +8,7 @@ const UserSchema = new Schema(
       type: String,
       maxlength: 10,
       required: true,
-      trim: true,
+      trim: true, // 공백 제거
     },
     email: {
       type: String,
@@ -19,9 +19,14 @@ const UserSchema = new Schema(
     password: {
       type: String,
     },
+    profile_img: {
+      type: String,
+      default: "",
+    },
     role: {
       type: String,
       enum: ["Admin", "User"],
+      default: 'User',
     },
     birth: {
       type: Date,
@@ -37,6 +42,10 @@ const UserSchema = new Schema(
       type: String,
       trim: true,
     },
+    is_admin: {           // role은 User로 관리자가 승인 후 Admin으로 진화
+      type: Boolean,
+      default: false,
+    }
   },
   {
     timestamps: true,

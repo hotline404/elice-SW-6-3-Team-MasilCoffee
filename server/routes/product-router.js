@@ -1,6 +1,6 @@
 const express = require("express");
 const ProductRouter = express.Router();
-const ProductService = require("../services/ProductService");
+const ProductService = require("../services/product-service");
 const asyncHandler = require("../middlewares/async-handler");
 const ResponseHandler = require("../middlewares/responses");
 
@@ -15,7 +15,7 @@ ProductRouter.get(
 
 // 제품 검색 by id
 ProductRouter.get(
-  "/:id",
+  "/:productId",
   asyncHandler(async (req, res) => {
     const productId = req.params.id;
     const product = await ProductService.getProductById(productId);
@@ -38,7 +38,7 @@ ProductRouter.post(
 
 // 제품 정보 수정 by id
 ProductRouter.put(
-  "/:id",
+  "/:productId",
   asyncHandler(async (req, res) => {
     const productId = req.params.id;
     const productData = req.body;
@@ -55,7 +55,7 @@ ProductRouter.put(
 
 // 제품 삭제 by id
 ProductRouter.delete(
-  "/:id",
+  "/:productId",
   asyncHandler(async (req, res) => {
     const productId = req.params.id;
     const deletedProduct = await ProductService.deleteProduct(productId);

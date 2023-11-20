@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "../../components/ui/button/Button";
 import {
   StyledPayment,
@@ -12,7 +13,8 @@ import {
   StyledOrderListMenu,
   StyledOrderListMenuBox,
   StyledAmountPayment,
-  StyledInfoContainer
+  StyledInfoContainer,
+  StyledActionBg,
 } from "./Payment.style";
 
 const Payment = () => {
@@ -21,10 +23,10 @@ const Payment = () => {
       <StyledPaymentBox>
         <StyledPaymentActionBox>
           <StyledAction>
-            <div>
+            <StyledActionBg>
               <span>STEP1</span>
               <b>주문결제</b>
-            </div>
+            </StyledActionBg>
           </StyledAction>
           <span>.....</span>
           <StyledAction>
@@ -90,7 +92,9 @@ const Payment = () => {
                 <i></i>
               </StyledAmountPayment>
             </StyledInfoBox>
-            <Button text={"결제하기"} type={"red"} />
+            <Link to="/PaymentDone">
+              <Button text={"결제하기"} type={"red"} />
+            </Link>
           </StyledInfoContainer>
         </StyledPayment>
       </StyledPaymentBox>

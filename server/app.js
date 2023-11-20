@@ -7,11 +7,12 @@ dotenv.config();
 
 const app = express();
 app.use(cors());
+
 app.use(express.json());
 
-const PingRouter = require("./routes/PingRouter");
-const ProductRouter = require("./routes/ProductRoute");
-const BoardRouter = require("./routes/BoardRoute");
+const PingRouter = require("./routes/ping-router");
+const ProductRouter = require("./routes/product-router");
+const BoardRouter = require("./routes/board-router");
 
 // mongoose
 mongoose

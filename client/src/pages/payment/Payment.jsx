@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import Button from "../../components/ui/button/Button";
+import SquareButton from "../../components/ui/button/SquareButton";
 import {
   StyledPayment,
   StyledPaymentcontainer,
@@ -12,7 +14,9 @@ import {
   StyledOrderListMenu,
   StyledOrderListMenuBox,
   StyledAmountPayment,
-  StyledInfoContainer
+  StyledInfoContainer,
+  StyledActionBg,
+  
 } from "./Payment.style";
 
 const Payment = () => {
@@ -21,10 +25,10 @@ const Payment = () => {
       <StyledPaymentBox>
         <StyledPaymentActionBox>
           <StyledAction>
-            <div>
+            <StyledActionBg>
               <span>STEP1</span>
               <b>주문결제</b>
-            </div>
+            </StyledActionBg>
           </StyledAction>
           <span>.....</span>
           <StyledAction>
@@ -47,8 +51,8 @@ const Payment = () => {
               <StyledInfo>
                 <StyledInputBox>
                   <h3>수령방법</h3>
-                  <Button text={"방문포장"} type={"red"} />
-                  <Button text={"매장식사"} type={"grey"} />
+                  <SquareButton text={"방문포장"} type={"red"} />
+                  <SquareButton text={"매장식사"} type={"grey"} />
                 </StyledInputBox>
               </StyledInfo>
               <StyledInfo>
@@ -64,6 +68,12 @@ const Payment = () => {
                     type="text"
                     placeholder="주문 시 요청사항을 입력하세요"
                   />
+                </StyledInputBox>
+              </StyledInfo>
+              <StyledInfo>
+                <StyledInputBox>
+                  <h3>결제수단</h3>
+                  <SquareButton text={"신용카드"} type={"red"} />
                 </StyledInputBox>
               </StyledInfo>
               <StyledOrderList>
@@ -90,7 +100,9 @@ const Payment = () => {
                 <i></i>
               </StyledAmountPayment>
             </StyledInfoBox>
-            <Button text={"결제하기"} type={"red"} />
+            <Link to="/PaymentDone">
+              <Button text={"결제하기"} type={"red"} />
+            </Link>
           </StyledInfoContainer>
         </StyledPayment>
       </StyledPaymentBox>

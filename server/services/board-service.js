@@ -1,9 +1,17 @@
-const Board = require("../models/BoardSchema");
+const Board = require('../models/board-schema');
 
 class BoardService {
-  static async createBoard(BoardData) {
+  static async createBoard({ user, product, title, post, images, search }) {
     try {
-      const newBoard = new Board(BoardData);
+      const newBoard = new Board({
+        user,
+        product,
+        title,
+        post,
+        images,
+        search,
+      });
+
       const savedBoard = await newBoard.save();
       return savedBoard;
     } catch (error) {
@@ -14,15 +22,6 @@ class BoardService {
   static async getAllBoards() {
     try {
       const boards = await Board.find();
-      return boards;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  static async getBoardsByCategory(category) {
-    try {
-      const boards = await Board.find({ category: category });
       return boards;
     } catch (error) {
       throw error;
@@ -40,9 +39,11 @@ class BoardService {
 
   static async updateBoard(boardId, updatedData) {
     try {
-      const updatedBoard = await Board.findByIdAndUpdate(boardId, updatedData, {
-        new: true,
-      });
+      const updatedBoard = await Board.findByIdAndUpdate(
+        boardId,
+        updatedData,
+        { new: true }
+      );
       return updatedBoard;
     } catch (error) {
       throw error;

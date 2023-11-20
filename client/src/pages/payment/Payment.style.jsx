@@ -11,6 +11,22 @@ export const StyledPaymentcontainer = styled.div`
 
 export const StyledPaymentBox = styled.div`
   margin-top: 100px;
+  margin: 0 auto;
+  width: 90%;
+  // 뷰포트 너비가 1024px 이하일 때
+  @media (max-width: 1024px) {
+    width: 75%; // 너비를 줄임
+  }
+
+  // 뷰포트 너비가 768px 이하일 때
+  @media (max-width: 768px) {
+    width: 90%; // 더 작은 화면에서는 더 넓게 설정
+  }
+
+  // 뷰포트 너비가 480px 이하일 때
+  @media (max-width: 480px) {
+    width: 100%; // 모바일 화면에서는 최대 너비로 설정
+  }
 `;
 
 export const StyledPaymentActionBox = styled.div`
@@ -48,6 +64,18 @@ export const StyledAction = styled.div`
   }
 `;
 
+export const StyledActionBg = styled.div`
+  width: 150px;
+  height: 95px;
+  border: none;
+  border-top-right-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #650818;
+`;
+
 export const StyledPayment = styled.div`
   box-sizing: border-box;
   margin: 0 auto;
@@ -63,6 +91,18 @@ export const StyledPayment = styled.div`
   align-items: center;
   text-align: center;
   border-radius: 30px 0px 30px 0px;
+
+  @media (max-width: 1024px) {
+    width: 75%; // 화면이 작을 때는 너비를 줄임
+  }
+
+  @media (max-width: 768px) {
+    width: 90%; // 더 작은 화면에서는 더 넓게 설정
+  }
+
+  @media (max-width: 480px) {
+    width: 100%; // 모바일 화면에서는 최대 너비로 설정
+  }
 `;
 export const StyledInfo = styled.div`
   width: 925px;
@@ -73,6 +113,18 @@ export const StyledInfo = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+
+  @media (max-width: 1024px) {
+    width: 75%; // 화면이 작을 때는 너비를 줄임
+  }
+
+  @media (max-width: 768px) {
+    width: 90%; // 더 작은 화면에서는 더 넓게 설정
+  }
+
+  @media (max-width: 480px) {
+    width: 100%; // 모바일 화면에서는 최대 너비로 설정
+  }
 `;
 export const StyledInfoContainer = styled.div`
   margin: 50px;
@@ -85,16 +137,60 @@ export const StyledInfoBox = styled.div`
 export const StyledInputBox = styled.div`
   width: 850px;
   display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  // 뷰포트 너비가 1024px 이하일 때
+  @media (max-width: 1024px) {
+    width: 75%; // 화면이 작을 때는 너비를 줄임
+    font-size: 12px;
+  }
+
+  // 뷰포트 너비가 768px 이하일 때
+  @media (max-width: 768px) {
+    width: 90%; // 더 작은 화면에서는 더 넓게 설정
+    font-size: 10px;
+  }
+
+  // 뷰포트 너비가 480px 이하일 때
+  @media (max-width: 480px) {
+    width: 100%; // 모바일 화면에서는 최대 너비로 설정
+    font-size: 5px;
+  }
+
   > h3 {
-    padding-right: 150px;
+    width: 150px;
   }
   > input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
     display: flex;
     flex: 1;
     border: none;
     outline: none;
     padding-left: 20px;
     background-color: #f5f5f5;
+    border: 1px solid #878585;
+    padding: 10px 20px;
+    font-size: 16px;
+    // 뷰포트 너비가 1024px 이하일 때
+    @media (max-width: 1024px) {
+      width: 75%; // 화면이 작을 때는 너비를 줄임
+      font-size: 12px;
+    }
+
+    // 뷰포트 너비가 768px 이하일 때
+    @media (max-width: 768px) {
+      width: 90%; // 더 작은 화면에서는 더 넓게 설정
+      font-size: 10px;
+    }
+
+    // 뷰포트 너비가 480px 이하일 때
+    @media (max-width: 480px) {
+      width: 100%; // 모바일 화면에서는 최대 너비로 설정
+      font-size: 5px;
+    }
   }
 `;
 export const StyledOrderList = styled.div`
@@ -149,49 +245,4 @@ export const StyledAmountPayment = styled.div`
 
     border: 2px solid #8e0e28;
   }
-`;
-
-// 영준님
-export const InputBox = styled.div`
-  width: 900px;
-  height: 100px;
-
-  border: 1px solid #878585;
-
-  margin: 4px;
-
-  display: flex;
-  flex-direction: column;
-
-  align-content: space-between;
-  justify-content: space-between;
-  align-items: left;
-  text-align: center;
-
-  padding-left: 12px;
-  padding-right: 12px;
-`;
-export const BtnConfirm = styled.button`
-  width: 123px;
-  height: 42px;
-
-  border-radius: 20px;
-  background: #650818;
-
-  color: #ffffff;
-
-  margin: 4px;
-
-  border: none;
-`;
-export const ButtonBox = styled.div`
-  display: flex;
-  flex-direction: row;
-
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-
-  flex: 1;
 `;

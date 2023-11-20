@@ -18,7 +18,6 @@ function WriteListForm({ trData, tdData }) {
   };
 
   const pageSize = pageConst.pageSize;
-
   const currentPage = pageConst.currentPage;
 
   const pageArr = usePagination(pageConst);
@@ -28,8 +27,6 @@ function WriteListForm({ trData, tdData }) {
     pageSize: pageSize,
     initDataSet: tdData,
   });
-
-  console.log("slice", slicedData);
 
   const handleClick = (e) => {
     setPage(parseInt(e.target.name, 10));

@@ -44,7 +44,7 @@ const InputInfo = [
   },
 ];
 
-function LoginForm() {
+function RegisterForm() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -81,7 +81,7 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default RegisterForm;
 
 // ref: password,
 // name: "비밀번호",

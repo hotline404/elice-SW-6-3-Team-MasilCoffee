@@ -3,7 +3,7 @@ class ResponseHandler {
     res.status(200).json({ message, data });
   }
 
-  static respondWithNotFound(res, message = "Not Found") {
+  static respondWithNotfound(res, message = "Not Found") {
     res.status(404).json({ error: message });
   }
 

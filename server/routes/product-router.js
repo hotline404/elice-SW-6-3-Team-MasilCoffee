@@ -2,14 +2,14 @@ const express = require("express");
 const ProductRouter = express.Router();
 const ProductService = require("../services/product-service");
 const asyncHandler = require("../middlewares/async-handler");
-const ResponseHandler = require("../middlewares/responses");
+const ResponseHandler = require("../middlewares/res-handler");
 
 // 모든 제품 검색
 ProductRouter.get(
   "/",
   asyncHandler(async (req, res) => {
     const products = await ProductService.getAllProducts();
-    ResponseHandler.respondWithSuccess(res, products);
+    ResponseHandler.resSuccess(res, products);
   })
 );
 
@@ -20,9 +20,9 @@ ProductRouter.get(
     const productId = req.params.id;
     const product = await ProductService.getProductById(productId);
     if (!product) {
-      return ResponseHandler.respondWithNotFound(res);
+      return ResponseHandler.resNotfound(res);
     }
-    ResponseHandler.respondWithSuccess(res, product);
+    ResponseHandler.resSuccess(res, product);
   })
 );
 
@@ -32,7 +32,7 @@ ProductRouter.post(
   asyncHandler(async (req, res) => {
     const productData = req.body;
     const newProduct = await ProductService.createProduct(productData);
-    ResponseHandler.respondWithSuccess(res, newProduct);
+    ResponseHandler.resSuccess(res, newProduct);
   })
 );
 
@@ -49,7 +49,7 @@ ProductRouter.put(
     if (!updatedProduct) {
       return ResponseHandler.respondWithNotFound(res);
     }
-    ResponseHandler.respondWithSuccess(res, updatedProduct);
+    ResponseHandler.resSuccess(res, updatedProduct);
   })
 );
 
@@ -62,7 +62,7 @@ ProductRouter.delete(
     if (!deletedProduct) {
       return ResponseHandler.respondWithNotFound(res);
     }
-    ResponseHandler.respondWithSuccess(res, deletedProduct);
+    ResponseHandler.resSuccess(res, deletedProduct);
   })
 );
 

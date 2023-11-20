@@ -1,4 +1,4 @@
-import Main from "../pages/main/Main";
+import Main from "../pages/main/MainPage";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 

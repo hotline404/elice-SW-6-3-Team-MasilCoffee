@@ -3,23 +3,25 @@ import { ROUTES } from "../../../../router/Routes";
 import { useNavigate } from "react-router-dom";
 
 const img_data = {
-  red: "../../../../../public/assets/images/Cart.png",
-  white: "../../../../../public/assets/images/CartWhite.png"
+  red: "/assets/images/Cart.png",
+  white: "/assets/images/CartWhite.png"
 }
 
 
 function CartButton(props) {
   const nav = useNavigate();
 
+  const src = props.location === "/Recipe" ? img_data.white : img_data.red;
+  
   const handleClick = () => {
     nav(ROUTES.CART.path);
   };
 
   return (
     <div>
-      <img src={(props.location === "/Recipe" ? img_data.white : img_data.red)} onClick={handleClick} />
+      <img src={src} onClick={handleClick} />
     </div>
   );
 }
-
+// {(props.location === "/Recipe" ? img_data.white : img_data.red)}
 export default CartButton;

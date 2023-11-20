@@ -6,9 +6,10 @@ export const StyledButton = styled.button`
   border-radius: 10px;
   padding: 10px 20px;
   font-size: 14px;
+  white-space: nowrap;
 
   &.Button_grey {
-    background-color: white;
+    background-color: d9d9d9;
     color: #8e0e28;
     font-weight: 900;
   }

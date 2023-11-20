@@ -7,6 +7,7 @@ export const StyledButton = styled.button`
   padding: 12px 35px;
   font-size: 15px;
   margin: 0 15px;
+  white-space: nowrap;
 
   &.Button_grey {
     background-color: #ececec;

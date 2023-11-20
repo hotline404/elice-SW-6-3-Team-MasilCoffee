@@ -4,9 +4,8 @@ export const StyledButton = styled.button`
   cursor: pointer;
   border: none;
   border-radius: 10px;
-  padding: 12px 20px;
-  font-size: 15px;
-  margin: 0 15px;
+  padding: 10px 20px;
+  font-size: 14px;
 
   &.Button_grey {
     background-color: #ececec;

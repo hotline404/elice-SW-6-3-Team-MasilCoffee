@@ -8,13 +8,16 @@ export const StyledButton = styled.button`
   font-size: 14px;
 
   &.Button_grey {
-    background-color: #ececec;
-    color: #650818;
-    font-weight: bold;
+    background-color: white;
+    color: #8e0e28;
+    font-weight: 900;
   }
   &.Button_red {
-    background-color: #650818;
+    background-color: #8e0e28;
     color: white;
-    font-weight: bold;
+    font-weight: 900;
+  }
+  &:not(:first-child) {
+    margin-left: 1rem;
   }
 `;

@@ -23,4 +23,7 @@ export const StyledButton = styled.button`
     color: #191414;
     font-weight: bold;
   }
+  &:not(:first-child) {
+    margin-left: 1rem;
+  }
 `;

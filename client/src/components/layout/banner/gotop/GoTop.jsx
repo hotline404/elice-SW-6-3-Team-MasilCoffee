@@ -1,19 +1,26 @@
 import React from "react";
 
 const img_data = {
-  red: "../../../../../public/assets/images/Cart.png",
-  white: "../../../../../public/assets/images/CartWhite.png",
+  red: "/assets/images/top.png",
+  white: "/assets/images/topWhite.png",
 };
 
 function GoTop(props) {
+  const src = props.location === "/Recipe" ? img_data.white : img_data.red;
+
+
   const handleClick = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  console.log(typeof(src))
+
+
+
   return (
     <div>
       <img
-        src={props.location === "/Recipe" ? img_data.white : img_data.red}
+        src={src}
         onClick={handleClick}
       />
     </div>

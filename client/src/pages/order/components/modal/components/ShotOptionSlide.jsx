@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { StyleSlide, StyleSlideBox, StyleSlideBoxText } from "../Modal.style";
-import { SlideAnimation } from "./SlideAnimation";
+import { SlideAnimation, Round } from "./SlideAnimation";
 
 function ShotOptionSlide() {
   const [isAnimated, setIsAnimated] = useState(false);
@@ -50,11 +50,14 @@ function ShotOptionSlide() {
               }`}
             >
               {showContent && (
-                <>
-                  <div>에스프레소 샷: {shotCount}</div>
-                  <button onClick={increaseShot}>+</button>
-                  <button onClick={decreaseShot}>-</button>
-                </>
+                <div>
+                  <span>에스프레소 샷</span>
+                  <Round>
+                    <div onClick={increaseShot}>+</div>
+                    <span>{shotCount}</span>
+                    <div onClick={decreaseShot}>-</div>
+                  </Round>
+                </div>
               )}
             </div>
           </SlideAnimation>

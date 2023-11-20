@@ -21,6 +21,7 @@ import CommentListPage from "../pages/mypage/commentList/CommentListPage.jsx";
 import AdminOrder from "../pages/admin/adminOrder/AdminOrder";
 import AdminMenu from "../pages/admin/adminMenu/AdminMenu";
 import AdminUser from "../pages/admin/adminUser/AdminUser.jsx";
+import NotFound from "../pages/error/NotFound.jsx";
 
 // 재사용성 강화
 // 가독성 증진
@@ -129,6 +130,11 @@ export const ROUTES = {
     path: "/admin/user",
     link: "/admin/user",
     element: <AdminUser />,
+  },
+  NOTFOUND: {
+    path: "/*",
+    link: "/*",
+    element: <NotFound />,
   },
 };
 

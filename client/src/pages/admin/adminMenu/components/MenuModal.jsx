@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import * as Modal from "./style/Modal.style";
 import MenuSelect from "./MenuSelect";
 import { TiDelete } from "react-icons/ti";
-import { createProduct } from "../../../../redux/action/productAction";
+import { actionCreateProduct } from "../../../../redux/action/productAction";
 
 const MenuModal = ({ title, closeModal }) => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const MenuModal = ({ title, closeModal }) => {
     const formData = new FormData();
     formData.append("file", selectedFile);
 
-    dispatch(createProduct(formData));
+    // dispatch(createProduct(formData));
   };
 
   return (

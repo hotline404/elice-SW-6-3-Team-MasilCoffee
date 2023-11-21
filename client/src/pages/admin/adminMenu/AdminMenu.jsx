@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as Menus from "./AdminMenu.style.";
 import MenuSelect from "./components/MenuSelect";
 import AdminSidebar from "../../../components/layout/Sidebar/Sidebar";
@@ -7,10 +7,13 @@ import MenuButtons from "./components/MenuButtons";
 import Table from "../../../components/ui/table/Table";
 import MenuModal from "./components/MenuModal";
 import OptionModal from "./components/OptionModal";
-import { getAllProducts } from "../../../redux/action/productAction";
+import { actionGetAllProducts } from "../../../redux/action/productAction";
+import { getAllProducts } from "../../../api/product";
 
 const AdminMenu = ({ trData, tdData }) => {
   const dispatch = useDispatch();
+  const tdDataFromState = useSelector((state) => state.product.products);
+  console.log("tddata", tdDataFromState);
 
   const [showMenuModal, setShowMenuModal] = useState(false);
   const [showOptionModal, setShowOptionModal] = useState(false);
@@ -18,8 +21,16 @@ const AdminMenu = ({ trData, tdData }) => {
   const options = ["전체 메뉴", "에스프레소", "논커피", "스무디", "티", "에이드"];
 
   useEffect(() => {
-    const data = dispatch(getAllProducts());
-    console.log(data);
+    const fn = async () => {
+      try {
+        const products = await getAllProducts();
+        console.log("디스패치 전 데이터", products);
+        dispatch(actionGetAllProducts(products));
+      } catch (err) {
+        console.log("err", err);
+      }
+    };
+    fn();
   }, [dispatch]);
 
   const handleTdClick = (data) => {

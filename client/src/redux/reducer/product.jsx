@@ -7,14 +7,15 @@ const initialState = {
 const product = (state = initialState, action) => {
   switch (action.type) {
     case PRODUCT_TYPE.GET_ALL_PRODUCTS:
+      console.log("reducer 데이터", action.payload.product);
       return {
         ...state,
-        products: action.payload,
+        products: [...state.products, action.payload],
       };
     case PRODUCT_TYPE.ADD_PRODUCT:
       return {
         ...state,
-        products: action.payload,
+        products: [...state.products, action.payload],
       };
     default:
       return state;

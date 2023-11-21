@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import * as Modal from "./style/Modal.style";
 import MenuSelect from "./MenuSelect";
 import { TiDelete } from "react-icons/ti";
-
-import axios from "axios";
+import { createProduct } from "../../../../redux/action/productAction";
 
 const MenuModal = ({ title, closeModal }) => {
+  const dispatch = useDispatch();
+
   const size = ["Tall", "Large"];
   const temp = ["Ice", "Hot"];
   const category = ["에스프레소", "논커피", "스무디", "티", "에이드"];
@@ -22,14 +24,7 @@ const MenuModal = ({ title, closeModal }) => {
     const formData = new FormData();
     formData.append("file", selectedFile);
 
-    axios
-      .post("http://localhost:5000/api/v1/products", formData)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    dispatch(createProduct(formData));
   };
 
   return (

@@ -9,7 +9,7 @@ ProductRouter.get(
   "/",
   asyncHandler(async (req, res) => {
     const products = await ProductService.getAllProducts();
-    ResponseHandler.resSuccess(res, products);
+    ResponseHandler.respondWithSuccess(res, products);
   })
 );
 
@@ -20,9 +20,9 @@ ProductRouter.get(
     const productId = req.params.id;
     const product = await ProductService.getProductById(productId);
     if (!product) {
-      return ResponseHandler.resNotfound(res);
+      return ResponseHandler.respondWithNotfound(res);
     }
-    ResponseHandler.resSuccess(res, product);
+    ResponseHandler.respondWithSuccess(res, product);
   })
 );
 
@@ -32,7 +32,7 @@ ProductRouter.post(
   asyncHandler(async (req, res) => {
     const productData = req.body;
     const newProduct = await ProductService.createProduct(productData);
-    ResponseHandler.resSuccess(res, newProduct);
+    ResponseHandler.respondWithSuccess(res, newProduct);
   })
 );
 
@@ -49,7 +49,7 @@ ProductRouter.put(
     if (!updatedProduct) {
       return ResponseHandler.respondWithNotFound(res);
     }
-    ResponseHandler.resSuccess(res, updatedProduct);
+    ResponseHandler.respondWithSuccess(res, updatedProduct);
   })
 );
 
@@ -62,7 +62,7 @@ ProductRouter.delete(
     if (!deletedProduct) {
       return ResponseHandler.respondWithNotFound(res);
     }
-    ResponseHandler.resSuccess(res, deletedProduct);
+    ResponseHandler.respondWithSuccess(res, deletedProduct);
   })
 );
 

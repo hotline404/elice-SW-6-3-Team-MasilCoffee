@@ -1,11 +1,18 @@
 import React from 'react'
+import { createStore } from "redux"
+import { Provider } from "react-redux"
 
-function user() {
-  return (
-    <div>
-      
-    </div>
-  )
+const initState = {
+  users: [],
+  message: "",
+  
+
 }
 
-export default user
+const reducer = () => {
+  switch (Action.type) {
+
+  }
+}
+
+

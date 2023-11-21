@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import * as Menus from "./Style_Menu";
+import * as Menus from "./AdminMenu.style.";
 import MenuSelect from "./components/MenuSelect";
-import AdminSidebar from "../../../components/layout/AdminSidebar";
+import AdminSidebar from "../../../components/layout/Sidebar/Sidebar";
 import MenuButtons from "./components/MenuButtons";
 import Table from "../../../components/ui/table/Table";
-import MenuModify from "./components/MenuModify";
+import MenuModal from "./components/MenuModal";
+import OptionModal from "./components/OptionModal";
 
 const AdminMenu = ({ trData, tdData }) => {
   const [showNewMenuModal, setShowNewMenuModal] = useState(false);
+  const [showOptionsModal, setShowOptionsModal] = useState(false);
 
   const options = ["전체 메뉴", "에스프레소", "논커피", "스무디", "티", "에이드"];
 
@@ -19,29 +21,47 @@ const AdminMenu = ({ trData, tdData }) => {
 
   return (
     <>
-      {/* header */}
       <Menus.Container>
-        {showNewMenuModal && <MenuModify />}
+        {showNewMenuModal && (
+          <MenuModal
+            title="메뉴 추가"
+            closeModal={() => {
+              setShowNewMenuModal(!showNewMenuModal);
+            }}
+          />
+        )}
+        {showOptionsModal && (
+          <OptionModal
+            title="옵션 수정"
+            closeModal={() => {
+              setShowOptionsModal(!showOptionsModal);
+            }}
+          />
+        )}
         <AdminSidebar />
         <Menus.Content>
           <Menus.TopBox>
             <MenuSelect options={options} />
             <Menus.ButtonWrapper>
-              <MenuButtons name="optionAndNewMenu" title="옵션 정보 수정" />
+              <MenuButtons
+                name="optionAndNewMenu"
+                title="옵션 정보 수정"
+                isClicked={() => {
+                  setShowOptionsModal(!showOptionsModal);
+                }}
+              />
               <MenuButtons
                 name="optionAndNewMenu"
                 title="메뉴 추가"
                 isClicked={() => {
                   setShowNewMenuModal(!showNewMenuModal);
-                  console.log(showNewMenuModal);
                 }}
               />
             </Menus.ButtonWrapper>
           </Menus.TopBox>
-          <Table trData={trData} tdData={tdData} isButtons={true} onTdClick={handleTdClick} />
+          <Table trData={trData} tdData={tdData} isMenuTable={true} onTdClick={handleTdClick} />
         </Menus.Content>
       </Menus.Container>
-      {/* footer */}
     </>
   );
 };
@@ -49,13 +69,12 @@ const AdminMenu = ({ trData, tdData }) => {
 AdminMenu.defaultProps = {
   trData: ["이미지", "종류", "이름", "사이즈", "ICE/HOT", "가격"],
   tdData: [
-    ["이미지", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
-    ["이미지", "에이드", "레몬 에이드", "tall", "ICE", "6,300원"],
-    ["이미지", "에이드", "체리 에이드", "tall", "ICE", "6,300원"],
-    ["이미지", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
-    ["이미지", "에이드", "레몬 에이드", "tall", "ICE", "6,300원"],
-    ["이미지", "에이드", "체리 에이드", "tall", "ICE", "6,300원"],
-    ["이미지", "에이드", "체리 에이드", "tall", "ICE", "6,300원"],
+    ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
+    ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
+    ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
+    ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
+    ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
+    ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
   ],
 };
 

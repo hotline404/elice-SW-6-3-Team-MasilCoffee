@@ -17,19 +17,32 @@ export const Table = styled.table`
   }
 `;
 
-export const Button = styled.td`
-  text-align: center;
-  background-clip: content-box;
-  outline: 2px solid #bdbdbd;
-  outline-offset: -30px;
-  outline-radius: 3px;
-  width: 5%;
-  padding: 12px 20px;
+export const Image = styled.img`
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+`;
 
-  // &.edit {
-  //   padding-right: 10px;
-  // }
+export const ButtonsBox = styled.td`
+  text-align: center;
+`;
+
+export const Button = styled.button`
+  color: #626262;
+  font-size: 15px;
+  border: 1px solid #f3f3f5;
+  padding: 10px 12.5px;
+  line-height: 15px;
+  border-radius: 10px;
+  transition: background-color 0.3s, opacity 0.3s;
+  transition: color 0.3s, opacity 0.3s;
+
+  &:hover {
+    color: white;
+    background-color: #fc5b5b;
+  }
 
   &.deletion {
+    margin-left: 15px;
   }
 `;

@@ -71,10 +71,12 @@ const reducer = () => {
       return { ...state, filter: rest };
     }
 
+
    case "get.user": {
       const { initData } = action.payload;
       return { ...state,
         users: initData
+
       }
    }
 

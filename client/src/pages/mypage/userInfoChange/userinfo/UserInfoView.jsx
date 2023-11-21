@@ -26,10 +26,10 @@ function UserInfoView() {
     },
     {
       ref: birthRef,
-      name: "생년월일",
-      type: "date",
-      id: "change_birth",
-      placeholder: "변경할 생년월일을 입력해주세요.",
+      name: "닉네임",
+      type: "text",
+      id: "change_nkname",
+      placeholder: "변경할 닉네임을 입력해주세요.",
     },
     {
       ref: phoneRef,

@@ -1,11 +1,16 @@
-import React from 'react'
+import { PRODUCT_TYPE } from "./_types";
 
-function productAction() {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+export const actionGetAllProducts = async (products) => {
+  console.log("action data", products);
+  return {
+    type: PRODUCT_TYPE.GET_ALL_PRODUCTS,
+    payload: products,
+  };
+};
 
-export default productAction
+export const actionCreateProduct = (newProduct) => {
+  return {
+    type: PRODUCT_TYPE.ADD_PRODUCT,
+    payload: newProduct,
+  };
+};

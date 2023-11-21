@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as Menus from "./AdminMenu.style.";
 import MenuSelect from "./components/MenuSelect";
 import AdminSidebar from "../../../components/layout/Sidebar/Sidebar";
@@ -6,35 +7,55 @@ import MenuButtons from "./components/MenuButtons";
 import Table from "../../../components/ui/table/Table";
 import MenuModal from "./components/MenuModal";
 import OptionModal from "./components/OptionModal";
+import { actionGetAllProducts } from "../../../redux/action/productAction";
+import { getAllProducts } from "../../../api/product";
 
 const AdminMenu = ({ trData, tdData }) => {
-  const [showNewMenuModal, setShowNewMenuModal] = useState(false);
-  const [showOptionsModal, setShowOptionsModal] = useState(false);
+  const dispatch = useDispatch();
+  const tdDataFromState = useSelector((state) => state.product.products);
+  console.log("tddata", tdDataFromState);
+
+  const [showMenuModal, setShowMenuModal] = useState(false);
+  const [showOptionModal, setShowOptionModal] = useState(false);
 
   const options = ["전체 메뉴", "에스프레소", "논커피", "스무디", "티", "에이드"];
+
+  useEffect(() => {
+    const fn = async () => {
+      try {
+        const products = await getAllProducts();
+        console.log("디스패치 전 데이터", products);
+        dispatch(actionGetAllProducts(products));
+      } catch (err) {
+        console.log("err", err);
+      }
+    };
+    fn();
+  }, [dispatch]);
 
   const handleTdClick = (data) => {
     // 클릭된 데이터에 따라 모달을 열도록 로직 작성
     console.log("Clicked:", data);
+    setShowMenuModal(!showMenuModal);
     // 모달을 열거나 상태를 변경하는 등의 로직 수행
   };
 
   return (
     <>
       <Menus.Container>
-        {showNewMenuModal && (
+        {showMenuModal && (
           <MenuModal
             title="메뉴 추가"
             closeModal={() => {
-              setShowNewMenuModal(!showNewMenuModal);
+              setShowMenuModal(!showMenuModal);
             }}
           />
         )}
-        {showOptionsModal && (
+        {showOptionModal && (
           <OptionModal
             title="옵션 수정"
             closeModal={() => {
-              setShowOptionsModal(!showOptionsModal);
+              setShowOptionModal(!showOptionModal);
             }}
           />
         )}
@@ -47,14 +68,14 @@ const AdminMenu = ({ trData, tdData }) => {
                 name="optionAndNewMenu"
                 title="옵션 정보 수정"
                 isClicked={() => {
-                  setShowOptionsModal(!showOptionsModal);
+                  setShowOptionModal(!showOptionModal);
                 }}
               />
               <MenuButtons
                 name="optionAndNewMenu"
                 title="메뉴 추가"
                 isClicked={() => {
-                  setShowNewMenuModal(!showNewMenuModal);
+                  setShowMenuModal(!showMenuModal);
                 }}
               />
             </Menus.ButtonWrapper>

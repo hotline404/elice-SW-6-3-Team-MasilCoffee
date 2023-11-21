@@ -5,48 +5,68 @@ import Button from "../../components/ui/button/Button.jsx";
 
 import { ButtonBox, InputBox } from "./Register.style.jsx";
 
+
 const InputInfo = [
   {
     name: "이름",
     type: "text",
     id: "name",
     placeholder: "이름을 입력해주세요",
+    doublecheck: true,
   },
   {
     name: "이메일",
     type: "email",
     id: "email",
     placeholder: "이메일 형식을 지켜주세요(abcd@QQQ.com)",
+    doublecheck: true,
   },
   {
     name: "닉네임",
     type: "text",
     id: "nkname",
     placeholder: "닉네임을 입력해주세요",
+    doublecheck: false,
   },
   {
     name: "전화번호",
     type: "tel",
     id: "tel",
     placeholder: "전화번호를 입력해주세요",
+    doublecheck: false,
   },
   {
     name: "비밀번호",
     type: "password",
     id: "password",
     placeholder: "비밀번호를 입력해주세요",
+    doublecheck: false,
   },
   {
     name: "비밀번호 확인",
     type: "password",
     id: "password",
     placeholder: "비밀번호 확인을 위해 한번 더 비밀번호를 입력해주세요",
+    doublecheck: false,
   },
 ];
 
 function RegisterForm() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+
+  const DoubleCheck = (props) => {
+
+    const handleClick = () => {
+      
+    }
+
+    return (
+      <p onClick={handleClick}>
+        중복확인
+      </p>
+    )
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -70,6 +90,7 @@ function RegisterForm() {
                   placeholder: info.placeholder,
                 }}
               />
+              {info.doublecheck ? <DoubleCheck /> : <></>}
             </InputBox>
           );
         })}

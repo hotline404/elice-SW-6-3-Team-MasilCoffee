@@ -2,9 +2,7 @@ import axios from "axios";
 
 export const getAllProducts = async () => {
   const res = await axios.get("http://localhost:5000/api/v1/products");
-  const products = res.data.data[0];
-
-  console.log("allPro", res, products);
+  const products = res.data.data;
 
   return products;
 };

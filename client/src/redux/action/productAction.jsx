@@ -1,7 +1,6 @@
 import { PRODUCT_TYPE } from "./_types";
 
-export const actionGetAllProducts = async (products) => {
-  console.log("action data", products);
+export const actionGetAllProducts = (products) => {
   return {
     type: PRODUCT_TYPE.GET_ALL_PRODUCTS,
     payload: products,

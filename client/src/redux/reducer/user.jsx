@@ -38,14 +38,6 @@ const initUsersState = {
   message: "",
 };
 
-const initUserState = {
-  name: "",
-  id: "",
-  password: "",
-  phone: "",
-  nickname: "",
-};
-
 const reducer = () => {
   switch (action.type) {
     case "get.all_user": {
@@ -79,31 +71,30 @@ const reducer = () => {
       return { ...state, filter: rest };
     }
 
-    case "get.user": {
-      const { userData } = action.payload;
-      return {
-        name: userData.name,
-        id: userData.id,
-        phone: userData.phone,
-        nickname: userData.nickname,
-      };
-    }
 
-    case "post.user": {
-      const { id, userName, nkName, phone } = action.payload;
+   case "get.user": {
+      const { initData } = action.payload;
+      return { ...state,
+        users: initData
 
-      return {
-        name: userName,
-        id: id,
-        nickname: nkName,
-        phone: phone,
-      };
+      }
+   }
+
+   case "post.user": {
+    const { updateUser } = action.payload;
+    
+    return {
+      ...state,
+      users: updateUser
+
     }
+   }
 
     default:
       return state;
   }
 };
-export default function User(props) {
-  return <Provider store={UserStore}>{props.children}</Provider>;
-}
+
+export const userSearchStore = createStore(reducer, initUsersState)
+
+

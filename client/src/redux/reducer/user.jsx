@@ -86,6 +86,7 @@ const reducer = () => {
     return {
       ...state,
       users: updateUser
+
     }
    }
 

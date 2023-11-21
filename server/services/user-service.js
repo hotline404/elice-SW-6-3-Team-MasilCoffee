@@ -25,18 +25,29 @@ class UserService {
     return User.find();
   }
 
+  // 관리자 권한
   async getUserById(userId) {
-    return User.findById(userId);
+    return await User.findById(userId);
   }
 
+  // 사용자 권한, req.token.userId == getUserById
+  async getUserByToken(tokenUserId) {
+    const user = await User.findById(tokenUserId);
+
+    if (!user) {
+      return null; // 사용자를 찾지 못한 경우 null 반환
+    }
+
+    return user.toObject(); // toObject 메서드 호출
+  }
+
+
+  // 사용자 권한
   async updateUser(userId, updates) {
     const user = await User.findByIdAndUpdate(userId, updates, {
       new: true,
       runValidators: true,
     });
-    if (!user) {
-      throw { status: 404, message: "User not found" };
-    }
     return user;
   }
 

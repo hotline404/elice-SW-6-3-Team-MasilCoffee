@@ -92,8 +92,6 @@ const reducer = () => {
     case "post.user": {
       const { id, userName, nkName, phone } = action.payload;
       
-
-
       return {
         name: userName,
         id: id,

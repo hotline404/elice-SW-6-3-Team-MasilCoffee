@@ -40,61 +40,75 @@ const Bottom = () => {
   };
   const slideData = [
     {
-      id: "아이디1",
+      id: "1",
 
       communityText:
         "커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.",
     },
     {
-      id: "아이디2",
+      id: "2",
 
       communityText:
         "커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.",
     },
     {
-      id: "아이디3",
+      id: "3",
 
       communityText:
         "커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.",
     },
     {
-      id: "아이디4",
+      id: "4",
 
       communityText:
-        "커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.",
+        "커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.",
     },
     {
-      id: "아이디5",
+      id: "5",
 
       communityText:
-        "커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.",
+        "커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.",
     },
     {
-      id: "아이디6",
+      id: "6",
 
-      communityText: "다른 커뮤니티 글 내용 ...",
+      communityText:
+        "커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.",
     },
     {
-      id: "아이디7",
+      id: "7",
 
-      communityText: "다른 커뮤니티 글 내용 ...",
+      communityText:
+        "커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.",
     },
     {
-      id: "아이디8",
+      id: "8",
 
-      communityText: "다른 커뮤니티 글 내용 ...",
+      communityText:
+        "커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.",
     },
     {
-      id: "아이디9",
+      id: "9",
 
-      communityText: "다른 커뮤니티 글 내용 ...",
+      communityText:
+        "커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.",
     },
     {
-      id: "아이디10",
+      id: "10",
 
-      communityText: "다른 커뮤니티 글 내용 ...",
+      communityText:
+        "커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.커뮤니티에 작성한 글이 보여집니다.",
     },
   ];
+
+  // communityText를 57자 이하로 제한하는 함수
+  const truncateText = (text, maxLength) => {
+    return text.length > maxLength
+      ? text.substring(0, maxLength) + "..."
+      : text;
+  };
+  // 고정된 배경색을 사용
+  const fixedBackgroundColor = "#8e0e28";
   const [backgroundColor, setBackgroundColor] = useState("");
   useEffect(() => {
     const hue = Math.floor(Math.random() * 360);
@@ -105,32 +119,43 @@ const Bottom = () => {
   return (
     <S.BottomSlide>
       <Slider {...settings}>
-        {slideData.map((slide, index) => (
-          <S.Bottom key={index}>
-            <S.BottomBox bgColor={backgroundColor}>
-              <div>
-                <b>{slide.id}</b>
+        {slideData.map((slide, index) => {
+          const idNumber = parseInt(slide.id);
+          const isOdd = idNumber % 2 === 0;
+          const boxBgColor = isOdd ? "#d9d9d9" : fixedBackgroundColor; // 홀수이면 그레이, 아니면 기존 색상
 
-                <p>{slide.communityText}</p>
-              </div>
-              <S.SquareButtonBox>
-                <S.SquareButton>
-                  <SquareButton text={"에스프레소"} bgColor={backgroundColor} />
-                </S.SquareButton>
-                <S.SquareButton>
-                  <SquareButton text={"헤이즐넛"} bgColor={backgroundColor} />
-                </S.SquareButton>
-                <S.SquareButton>
-                  <SquareButton text={"아메리카노"} bgColor={backgroundColor} />
-                </S.SquareButton>
-              </S.SquareButtonBox>
-              <S.BsChat>
-                <BsChat />
-                <span>11</span>
-              </S.BsChat>
-            </S.BottomBox>
-          </S.Bottom>
-        ))}
+          return (
+            <S.Bottom key={index}>
+              <S.BottomBox $bgColor={boxBgColor} isEven={isOdd}>
+                <div>
+                  <b>{slide.id}</b>
+                  <p>{truncateText(slide.communityText, 57)}</p>
+                </div>
+                <S.SquareButtonBox>
+                  <S.SquareButton>
+                    <SquareButton
+                      text={"에스프레소"}
+                      bgColor={backgroundColor}
+                    />
+                  </S.SquareButton>
+                  <S.SquareButton>
+                    <SquareButton text={"헤이즐넛"} bgColor={backgroundColor} />
+                  </S.SquareButton>
+                  <S.SquareButton>
+                    <SquareButton
+                      text={"아메리카노"}
+                      bgColor={backgroundColor}
+                    />
+                  </S.SquareButton>
+                </S.SquareButtonBox>
+                <S.BsChat>
+                  <BsChat />
+                  <span>11</span>
+                </S.BsChat>
+              </S.BottomBox>
+            </S.Bottom>
+          );
+        })}
       </Slider>
     </S.BottomSlide>
   );

@@ -17,3 +17,13 @@ export const removeFilter = (name) => ({
   type: "remove.filter",
   payload: { name }
 })
+
+export const getUser = (userData) ({
+  type: "get.user",
+  payload: { userData }
+})
+
+export const postUser = (id, userName, nkName, phone) ({
+  type: "post.user",
+  payload: { id, userName, nkName, phone }
+})

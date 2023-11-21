@@ -2,6 +2,7 @@ import React from "react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import FilterFn from "../../util/FilterCheckBox/FilterFn";
+import matchUser from "../../util/matchUser/matchUser";
 
 // const checkboxes = [
 //   {
@@ -22,13 +23,27 @@ import FilterFn from "../../util/FilterCheckBox/FilterFn";
 //     pathFn: (user) => user.phone,
 //     label: "Filter user tel",
 //   },
+//{
+//     id: "filter-id",
+//     name: "filter-id",
+//     pathFn: (user) => user.id,
+//     label: "Filter user id",
+//   },
 // ];
 
-const initState = {
+const initUsersState = {
   filter: {},
   searchData: [],
   users: [],
   message: "",
+};
+
+const initUserState = {
+  name: "",
+  id: "",
+  password: "",
+  phone: "",
+  nickname: "",
 };
 
 const reducer = () => {
@@ -63,10 +78,34 @@ const reducer = () => {
       const { [action.payload.name]: _, ...rest } = state.filter;
       return { ...state, filter: rest };
     }
+
+    case "get.user": {
+      const { userData } = action.payload;
+      return {
+        name: userData.name,
+        id: userData.id,
+        phone: userData.phone,
+        nickname: userData.nickname,
+      };
+    }
+
+    case "post.user": {
+      const { id, userName, nkName, phone } = action.payload;
+      
+
+
+      return {
+        name: userName,
+        id: id,
+        nickname: nkName,
+        phone: phone,
+      }
+    }
+
+    default:
+      return state;
   }
 };
-const UserStore = createStore(reducer, initState);
-
-export default function user(props) {
+export default function User(props) {
   return <Provider store={UserStore}>{props.children}</Provider>;
 }

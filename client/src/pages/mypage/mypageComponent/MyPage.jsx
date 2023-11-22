@@ -23,8 +23,10 @@ function MyPage() {
       try {
         const users = await axiosGetUsers();
         dispatch(initUserSearch(users));
+
+        console.log(">>> [my page] ✅ SUCCESS", users);
       } catch (err) {
-        console.log("error:", err);
+        console.log(">>> [my page] ❌ ERROR", err);
       }
     };
     fn();

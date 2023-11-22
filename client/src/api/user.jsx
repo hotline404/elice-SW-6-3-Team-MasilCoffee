@@ -15,16 +15,4 @@ export const axiosPostUser = async (updateUser) => {
   const data = res.data;
 
   console.log("Updata User:", data)
-}
-
-export const axiosPostLogin = async (email, password) => {
-  const loginIput = {
-    email: email,
-    password: password
-  }
-
-  const res = await axios.post(url, loginIput);
-  const data = res.data;
-
-  console.log("login:", data);
-}
+};

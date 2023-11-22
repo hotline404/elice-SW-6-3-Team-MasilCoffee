@@ -33,3 +33,8 @@ export const loginUser = (loginUser) => ({
   payload: { loginUser }
 })
 
+export const logoutUser = (logoutUser) => ({
+  type: "logout.user",
+  payload: { logoutUser }
+})
+

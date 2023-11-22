@@ -37,10 +37,8 @@ const login = (state = initUsersState, action) => {
   switch (action.type) {
     case "post.login": {
 
-      const token = action.payload.token;
-      const role = action.payload.role;
-      
-      localStorage.setItem("authToken", token);
+      const token = action.payload.resData.data.token;
+      const role = action.payload.resData.data.user
 
       return {
         ...state,

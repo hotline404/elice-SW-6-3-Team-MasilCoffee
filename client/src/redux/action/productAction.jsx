@@ -13,3 +13,17 @@ export const actionCreateProduct = (newProduct) => {
     payload: newProduct,
   };
 };
+
+export const actionUpdateProduct = (product) => {
+  return {
+    type: PRODUCT_TYPE.UPDATE_PRODUCTS,
+    payload: product,
+  };
+};
+
+export const actionDeleteProduct = (productId) => {
+  return {
+    type: PRODUCT_TYPE.DELETE_PRODUCT,
+    payload: productId,
+  };
+};

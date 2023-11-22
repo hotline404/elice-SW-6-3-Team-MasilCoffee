@@ -16,6 +16,7 @@ const MenuModal = ({ title, closeModal }) => {
 
   const handleSelectChange = (e) => {
     const selected = e.target.value;
+    console.log(selected);
     if (selected === "직접입력") {
       setSelectedOption("");
       setShowInput(true);
@@ -47,6 +48,15 @@ const MenuModal = ({ title, closeModal }) => {
     e.preventDefault();
 
     const formData = new FormData();
+    const form = e.target; // 현재 이벤트가 발생한 폼 요소를 가져옴
+
+    // 폼 요소의 각 필드를 FormData에 추가
+    for (let i = 0; i < form.length; i++) {
+      const field = form[i];
+      if (field.name) {
+        formData.append(field.name, field.value);
+      }
+    }
 
     axios
       .post("http://localhost:5000/api/v1/products", formData)

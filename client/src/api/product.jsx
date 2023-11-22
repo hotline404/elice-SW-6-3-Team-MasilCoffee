@@ -9,12 +9,24 @@ export const getAllProducts = async () => {
 
 export const createProduct = async (data) => {
   console.log("form", data);
-  const res = await axios.post("http://localhost:5000/api/v1/products", data).then((res) => res.data);
-  const newProduct = res.data.data;
+  await axios
+    .post("http://localhost:5000/api/v1/products", data, {
+      headers: {
+        "Contest-Type": "multipart/form-data",
+      },
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      alert("등록을 실패하였습니다.");
+    });
 
-  console.log("create", res, newProduct);
+  //const newProduct = res.data;
 
-  return newProduct;
+  //console.log("create", res, newProduct);
+
+  // return newProduct;
 };
 
 export const updateProduct = async (id, data) => {

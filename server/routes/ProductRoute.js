@@ -15,7 +15,7 @@ ProductRouter.get(
 
 // 제품 검색 by productid
 ProductRouter.get(
-  "/:productid",
+  "/:productId",
   asyncHandler(async (req, res) => {
     const productId = req.params.productid;
     const product = await ProductService.getProductById(productId);
@@ -38,7 +38,7 @@ ProductRouter.post(
 
 // 제품 정보 수정 by productid
 ProductRouter.put(
-  "/:productid",
+  "/:productId",
   asyncHandler(async (req, res) => {
     const productId = req.params.productid;
     const productData = req.body;
@@ -55,7 +55,7 @@ ProductRouter.put(
 
 // 제품 삭제 by productid
 ProductRouter.delete(
-  "/:productid",
+  "/:productId",
   asyncHandler(async (req, res) => {
     const productId = req.params.productid;
     const deletedProduct = await ProductService.deleteProduct(productId);

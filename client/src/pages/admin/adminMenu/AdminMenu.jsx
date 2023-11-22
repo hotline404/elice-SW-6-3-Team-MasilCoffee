@@ -10,10 +10,12 @@ import OptionModal from "./components/OptionModal";
 import { actionGetAllProducts } from "../../../redux/action/productAction";
 import { getAllProducts } from "../../../api/product";
 
-const AdminMenu = ({ trData, tdData }) => {
+const AdminMenu = ({ trData }) => {
   const dispatch = useDispatch();
-  const tdDataFromState = useSelector((state) => state.product.products);
-  console.log("tddata", tdDataFromState);
+  const allProduct = useSelector((state) => state.product.products);
+
+  const tdData = allProduct.map((data) => [data.image, data.category, data.name, data.size, data.temp, data.price]);
+  console.log("tdData", tdData);
 
   const [showMenuModal, setShowMenuModal] = useState(false);
   const [showOptionModal, setShowOptionModal] = useState(false);
@@ -24,14 +26,13 @@ const AdminMenu = ({ trData, tdData }) => {
     const fn = async () => {
       try {
         const products = await getAllProducts();
-        console.log("디스패치 전 데이터", products);
         dispatch(actionGetAllProducts(products));
       } catch (err) {
         console.log("err", err);
       }
     };
     fn();
-  }, [dispatch]);
+  }, []);
 
   const handleTdClick = (data) => {
     // 클릭된 데이터에 따라 모달을 열도록 로직 작성
@@ -89,14 +90,14 @@ const AdminMenu = ({ trData, tdData }) => {
 
 AdminMenu.defaultProps = {
   trData: ["이미지", "종류", "이름", "사이즈", "ICE/HOT", "가격"],
-  tdData: [
-    ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
-    ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
-    ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
-    ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
-    ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
-    ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
-  ],
+  // tdData: [
+  //   ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
+  //   ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
+  //   ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
+  //   ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
+  //   ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
+  //   ["/assets/images/test_coffee.jpg", "에스프레소", "아이스 아메리카노", "tall", "ICE", "5,100원"],
+  // ],
 };
 
 export default AdminMenu;

@@ -68,27 +68,23 @@ const user = (state = initUsersState, action) => {
       return { ...state, filter: rest };
     }
 
-
-   case "get.user": {
+    case "get.user": {
       const { initData } = action.payload;
-      return { ...state,
-        users: initData
-
-      }
-   }
-
-   case "post.user": {
-    const { updateUser } = action.payload;
-    
-    return {
-      ...state,
-      users: updateUser
+      return { ...state, users: initData };
     }
-   }
-   
+
+    case "post.user": {
+      const { updateUser } = action.payload;
+
+      return {
+        ...state,
+        users: updateUser,
+      };
+    }
+
     default:
       return state;
   }
 };
 
-export default user
+export default user;

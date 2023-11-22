@@ -1,6 +1,6 @@
 import Main from "../pages/main/MainPage";
 import Login from "../pages/login/Login";
-import Logout from "../pages/login/Logout.jsx";
+import Logout from "../pages/login/Logout";
 import Register from "../pages/register/Register";
 
 import Order from "../pages/order/Order";

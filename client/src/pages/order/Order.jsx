@@ -1,51 +1,72 @@
-import React, { useState } from "react";
-import Card from "./components/card/Card";
+import React, { useState, useEffect } from "react";
 
+import { useDispatch, useSelector } from "react-redux";
+import { actionGetAllProducts } from "../../redux/action/productAction";
+import { getAllProducts } from "../../api/product";
+
+import Card from "./components/card/Card";
 import { StyledOrder } from "./Order.style";
-import mockupData from "./components/data/mockupdata.json";
 import Slider from "react-slick";
 
 const Order = ({ children }) => {
+  const dispatch = useDispatch();
+
+  const tdDataFromState = useSelector((state) => state);
+  console.log("tddata", tdDataFromState);
+  const productsFromState = useSelector((state) => state.product.products);
+  console.log("productsFromState", productsFromState);
+
+  useEffect(() => {
+    const fn = async () => {
+      try {
+        const products = await getAllProducts(); //비동기
+        console.log("디스패치 전 데이터", products);
+        dispatch(actionGetAllProducts(products));
+      } catch (err) {
+        console.log("err", err);
+      }
+    };
+    fn();
+  }, [dispatch]);
+
   // 카테고리 필터링 하기
   const [selectedCategory, setSelectedCategory] = useState("전체");
-  const [filteredProducts, setFilteredProducts] = useState(mockupData.products);
+  const [filteredProducts, setFilteredProducts] = useState(productsFromState);
+
+  useEffect(() => {
+    setFilteredProducts(productsFromState);
+  }, [productsFromState]);
+
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
-
     let filtered;
     switch (category) {
       case "전체":
-        filtered = mockupData.products;
+        filtered = productsFromState;
         break;
       case "에스프레소":
-        filtered = mockupData.products.filter((pd) => pd.id >= 1 && pd.id <= 9);
+        filtered = productsFromState.filter(
+          (pd) => pd.category === "에스프레소"
+        );
         break;
       case "논커피":
-        filtered = mockupData.products.filter(
-          (pd) => pd.id >= 10 && pd.id <= 16
-        );
+        filtered = productsFromState.filter((pd) => pd.category === "논커피");
         break;
       case "스무디":
-        filtered = mockupData.products.filter(
-          (pd) => pd.id >= 17 && pd.id <= 22
-        );
+        filtered = productsFromState.filter((pd) => pd.category === "스무디");
         break;
       case "티":
-        filtered = mockupData.products.filter(
-          (pd) => pd.id >= 23 && pd.id <= 30
-        );
+        filtered = productsFromState.filter((pd) => pd.category === "티");
         break;
       case "에이드":
-        filtered = mockupData.products.filter(
-          (pd) => pd.id >= 31 && pd.id <= 34
-        );
+        filtered = productsFromState.filter((pd) => pd.category === "에이드");
         break;
-      case "즐겨찾기":
+      case "꿀조합":
         filtered = [];
         break;
 
       default:
-        filtered = mockupData.products;
+        filtered = productsFromState;
     }
 
     setFilteredProducts(filtered);
@@ -59,7 +80,7 @@ const Order = ({ children }) => {
     "스무디",
     "티",
     "에이드",
-    "즐겨찾기",
+    "꿀조합",
   ];
 
   // 슬라이드 설정
@@ -118,9 +139,10 @@ const Order = ({ children }) => {
         </Slider>
       </div>
       <div className="cards-container">
-        {filteredProducts.map((product) => (
-          <Card key={product.id} data={product} />
-        ))}
+        {Array.isArray(filteredProducts) &&
+          filteredProducts.map((product) => (
+            <Card key={product.id} data={product} />
+          ))}
       </div>
     </StyledOrder>
   );

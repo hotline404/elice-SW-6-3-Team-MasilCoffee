@@ -27,3 +27,9 @@ export const postUser = (updateUser) => ({
   type: "post.user",
   payload: { updateUser }
 })
+
+export const loginUser = (loginUser) => ({
+  type: "login.user",
+  payload: { loginUser }
+})
+

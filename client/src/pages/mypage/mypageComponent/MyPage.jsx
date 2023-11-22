@@ -1,4 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { axiosGetUsers } from "../../../api/user";
+import { initUserSearch } from "../../../redux/action/userAction";
+
 import Container from "../../../components/ui/container/Container";
 import Title from "../../../components/ui/title/Title";
 import Card from "../../../components/ui/card/Card";
@@ -12,10 +16,32 @@ import CommentLink from "./Links/CommentLink";
 import WriteListLink from "./Links/WriteListLink";
 
 function MyPage() {
+  const dispatch = useDispatch()
+  const selector = useSelector(state => state.user)
+  const token = localStorage.getItem("token");
+
+  console.log("selector1", selector);
+
+  useEffect(() => {
+    const fn = async (token) => {
+      try {
+        const users = await axiosGetUsers(token);
+        console.log(">>> [my page] ✅ SUCCESS", users); 
+        
+        dispatch(initUserSearch(users));
+      } catch (err) {
+        console.log(">>> [my page] ❌ ERROR", err);
+      }
+      console.log("selector2", selector);
+    };
+    fn(token);
+  }, [dispatch]);
+
+
   return (
     <Fragment>
       <Container>
-        <Title>MyPage</Title>
+        <Title>{selector.users}</Title>
         <Card>
           <Contents>
             <User />

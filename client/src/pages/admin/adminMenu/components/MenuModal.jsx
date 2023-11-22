@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
 import * as Modal from "./style/Modal.style";
 import MenuSelect from "./MenuSelect";
 import { TiDelete } from "react-icons/ti";
-
-import axios from "axios";
+import { actionCreateProduct } from "../../../../redux/action/productAction";
+import { createProduct } from "../../../../api/product";
 
 const MenuModal = ({ title, closeModal }) => {
+  const dispatch = useDispatch();
+  const formRef = useRef(null);
+
   const size = ["Tall", "Large"];
   const temp = ["Ice", "Hot"];
   const category = ["에스프레소", "논커피", "스무디", "티", "에이드"];
@@ -19,17 +23,25 @@ const MenuModal = ({ title, closeModal }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("file", selectedFile);
+    const formData = new FormData(formRef.current);
+    const selectedValue = formRef.current.size.value;
+    formData.append("image", selectedFile);
+    formData.append("size", selectedValue);
 
-    axios
-      .post("http://localhost:5000/api/v1/products", formData)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    for (const pair of formData.entries()) {
+      console.log("formdata", pair[0] + ", " + pair[1]);
+    }
+
+    const fn = async () => {
+      try {
+        const newProducts = await createProduct(formData);
+        console.log(newProducts);
+        dispatch(actionCreateProduct(newProducts));
+      } catch (err) {
+        console.log("err", err);
+      }
+    };
+    fn();
   };
 
   return (
@@ -39,7 +51,7 @@ const MenuModal = ({ title, closeModal }) => {
           <p>{title}</p>
           <TiDelete className="cancelIcon" onClick={closeModal} />
         </Modal.Title>
-        <Modal.Form onSubmit={handleSubmit}>
+        <Modal.Form ref={formRef} onSubmit={handleSubmit}>
           <Modal.P>
             <Modal.Label>이름 :</Modal.Label>
             <Modal.Input type="text" name="name" required />

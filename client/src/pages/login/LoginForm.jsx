@@ -1,4 +1,11 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import { axiosPostLogin } from "../../api/login.jsx";
+import { loginUser } from "../../redux/action/userAction.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../router/Routes.jsx";
+
+
 import Contents from "../../components/ui/contents/Contents";
 import Input from "../../components/ui/Input/Input";
 import Button from "../../components/ui/button/Button.jsx";
@@ -9,12 +16,30 @@ import LinkTo from "../../components/ui/Link/LinkTo.jsx";
 function LoginForm() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const dispatch = useDispatch()
+  const nav = useNavigate()
+  const selector = useSelector(state => state);
+  console.log("login selector", selector)
+
+  const fn = async (email, password) => {
+    try {
+      const res = await axiosPostLogin(email, password);
+      dispatch(loginUser(res));
+
+      console.log("login in page:", res);
+    } catch (err) {
+      console.log("login in page error:", err);
+      nav(ROUTES.INTERNALSERVERERROR.path);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("email:", emailRef.current.value);
-    console.log("password:", passwordRef.current.value);
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    
+    fn(email, password);
   };
 
   return (

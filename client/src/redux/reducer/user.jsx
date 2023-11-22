@@ -84,9 +84,7 @@ const user = (state = initUsersState, action) => {
       users: updateUser
     }
    }
-
-
-
+   
     default:
       return state;
   }

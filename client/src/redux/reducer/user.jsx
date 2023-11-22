@@ -1,8 +1,4 @@
-import React from "react";
-import { createStore } from "redux";
-import { Provider } from "react-redux";
 import FilterFn from "../../util/FilterCheckBox/FilterFn";
-import matchUser from "../../util/matchUser/matchUser";
 
 // const checkboxes = [
 //   {
@@ -38,7 +34,7 @@ const initUsersState = {
   message: "",
 };
 
-const reducer = () => {
+const user = (state = initUsersState, action) => {
   switch (action.type) {
     case "get.all_user": {
       return {
@@ -86,15 +82,14 @@ const reducer = () => {
     return {
       ...state,
       users: updateUser
-
     }
    }
+
+
 
     default:
       return state;
   }
 };
 
-export const userSearchStore = createStore(reducer, initUsersState)
-
-
+export default user

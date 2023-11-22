@@ -1,4 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { axiosGetUsers } from "../../../api/user";
+import { initUserSearch } from "../../../redux/action/userAction";
+
 import Container from "../../../components/ui/container/Container";
 import Title from "../../../components/ui/title/Title";
 import Card from "../../../components/ui/card/Card";
@@ -12,6 +16,21 @@ import CommentLink from "./Links/CommentLink";
 import WriteListLink from "./Links/WriteListLink";
 
 function MyPage() {
+  const dispatch = useDispatch
+
+  useEffect(() => {
+    const fn = async () => {
+      try {
+        const users = await axiosGetUsers();
+        dispatch(initUserSearch(users));
+      } catch (err) {
+        console.log("error:", err);
+      }
+    };
+    fn();
+  }, [dispatch]);
+
+
   return (
     <Fragment>
       <Container>

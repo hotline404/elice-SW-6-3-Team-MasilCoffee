@@ -20,23 +20,23 @@ function MilkOptionSlide() {
   }, [selectedMilk]);
 
   const handleMilkButtonClick = (option) => {
+    // 옵션이 선택되면 새로운 옵션으로 업데이트
     setSelectedMilk(option);
+  };
+  const toggleMilkOptionSlide = () => {
+    // 슬라이드 상태를 토글
     setIsAnimated(!isAnimated);
-    if (!isAnimated) {
-      setShowContent(true);
-    } else {
-      setTimeout(() => setShowContent(false), 1000); // 애니메이션이 완료된 후 숨김
-    }
+    setShowContent(!isAnimated);
   };
 
   return (
     <StyleSlide>
       <StyleSlideBox isSlideOpen={true}>
         <div>
-          <StyleSlideBoxText onClick={() => handleMilkButtonClick()}>
+          <StyleSlideBoxText onClick={toggleMilkOptionSlide}>
             <div>
               <span>우유</span>
-              <span>{totalPrice}원🔽</span>
+              <span>{totalPrice}원▼ </span>
             </div>
             <i />
           </StyleSlideBoxText>
@@ -48,48 +48,16 @@ function MilkOptionSlide() {
             >
               {showContent && (
                 <SquareButtonBox>
-                  <SquareButton
-                    text={"없음"}
-                    type={"red"}
-                    onClick={() => handleMilkButtonClick("없음")}
-                  >
-                    없음
-                  </SquareButton>
-                  <SquareButton
-                    text={"일반"}
-                    type={"grey"}
-                    onClick={() => handleMilkButtonClick("일반")}
-                  >
-                    일반
-                  </SquareButton>
-                  <SquareButton
-                    text={"저지방"}
-                    type={"grey"}
-                    onClick={() => handleMilkButtonClick("저지방")}
-                  >
-                    저지방
-                  </SquareButton>
-                  <SquareButton
-                    text={"무지방"}
-                    type={"grey"}
-                    onClick={() => handleMilkButtonClick("무지방")}
-                  >
-                    무지방
-                  </SquareButton>
-                  <SquareButton
-                    text={"오트"}
-                    type={"grey"}
-                    onClick={() => handleMilkButtonClick("오트")}
-                  >
-                    오트
-                  </SquareButton>
-                  <SquareButton
-                    text={"두유"}
-                    type={"grey"}
-                    onClick={() => handleMilkButtonClick("두유")}
-                  >
-                    두유
-                  </SquareButton>
+                  {["없음", "적게", "보통", "많이"].map((option) => (
+                    <SquareButton
+                      key={option}
+                      text={option}
+                      type={selectedMilk === option ? "red" : "grey"}
+                      onClick={() => handleMilkButtonClick(option)}
+                    >
+                      {option}
+                    </SquareButton>
+                  ))}
                 </SquareButtonBox>
               )}
             </div>

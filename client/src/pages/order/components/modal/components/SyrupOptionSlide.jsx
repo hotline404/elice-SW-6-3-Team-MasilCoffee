@@ -14,7 +14,7 @@ function SyrupOptionSlide() {
 
   useEffect(() => {
     setTotalPrice(vanilla * PRICE + hazelnuts * PRICE + caramel * PRICE); // 시럽 수에 따라 가격 업데이트
-  }, [vanilla, hazelnuts, caramel]); // 바닐라가 변경될 때만 실행
+  }, [vanilla, hazelnuts, caramel]); 
 
   const handleShotButtonClick = () => {
     setIsAnimated(!isAnimated);
@@ -32,7 +32,7 @@ function SyrupOptionSlide() {
           <StyleSlideBoxText onClick={() => handleShotButtonClick()}>
             <div>
               <span>시럽</span>
-              <span>{totalPrice}원🔽</span>
+              <span>{totalPrice}원▼ </span>
             </div>
             <i />
           </StyleSlideBoxText>

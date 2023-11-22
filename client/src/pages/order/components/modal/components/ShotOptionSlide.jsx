@@ -39,7 +39,7 @@ function ShotOptionSlide() {
           <StyleSlideBoxText onClick={() => handleShotButtonClick()}>
             <div>
               <span>샷</span>
-              <span>{totalPrice}원🔽</span>
+              <span>{totalPrice}원▼ </span>
             </div>
             <i />
           </StyleSlideBoxText>

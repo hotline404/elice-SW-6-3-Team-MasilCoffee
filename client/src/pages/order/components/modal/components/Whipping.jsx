@@ -20,23 +20,23 @@ function WhippingOptionSlide() {
   }, [selectedWhipping]);
 
   const handleWhippingButtonClick = (option) => {
+    // 옵션이 선택되면 새로운 옵션으로 업데이트
     setSelectedWhipping(option);
+  };
+  const toggleWhippingOptionSlide = () => {
+    // 슬라이드 상태를 토글
     setIsAnimated(!isAnimated);
-    if (!isAnimated) {
-      setShowContent(true);
-    } else {
-      setTimeout(() => setShowContent(false), 1000); // 애니메이션이 완료된 후 숨김
-    }
+    setShowContent(!isAnimated);
   };
 
   return (
     <StyleSlide>
       <StyleSlideBox isSlideOpen={true}>
         <div>
-          <StyleSlideBoxText onClick={() => handleWhippingButtonClick()}>
+          <StyleSlideBoxText onClick={toggleWhippingOptionSlide}>
             <div>
               <span>휘핑</span>
-              <span>{totalPrice}원🔽</span>
+              <span>{totalPrice}원▼</span>
             </div>
             <i />
           </StyleSlideBoxText>
@@ -48,34 +48,16 @@ function WhippingOptionSlide() {
             >
               {showContent && (
                 <SquareButtonBox>
-                  <SquareButton
-                    text={"없음"}
-                    type={"red"}
-                    onClick={() => handleWhippingButtonClick("없음")}
-                  >
-                    없음
-                  </SquareButton>
-                  <SquareButton
-                    text={"적게"}
-                    type={"grey"}
-                    onClick={() => handleWhippingButtonClick("적게")}
-                  >
-                    적게
-                  </SquareButton>
-                  <SquareButton
-                    text={"보통"}
-                    type={"grey"}
-                    onClick={() => handleWhippingButtonClick("보통")}
-                  >
-                    보통
-                  </SquareButton>
-                  <SquareButton
-                    text={"많이"}
-                    type={"grey"}
-                    onClick={() => handleWhippingButtonClick("많이")}
-                  >
-                    많이
-                  </SquareButton>
+                  {["없음", "적게", "보통", "많이"].map((option) => (
+                    <SquareButton
+                      key={option}
+                      text={option}
+                      type={selectedWhipping === option ? "red" : "grey"}
+                      onClick={() => handleWhippingButtonClick(option)}
+                    >
+                      {option}
+                    </SquareButton>
+                  ))}
                 </SquareButtonBox>
               )}
             </div>

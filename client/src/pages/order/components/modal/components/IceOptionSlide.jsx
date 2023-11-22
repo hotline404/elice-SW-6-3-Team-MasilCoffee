@@ -9,24 +9,38 @@ function IceOptionSlide() {
   const [totalPrice] = useState(0);
   const [showContent, setShowContent] = useState(false);
 
+  // const handleIceButtonClick = (option) => {
+  //   // 이미 선택된 옵션을 다시 선택하면 아무런 변경 없음
+  //   if (selectedIceOption !== option) {
+  //     setSelectedIceOption(option); // 다른 옵션이 선택되면 새로운 옵션으로 업데이트
+  //   }
+  //   setIsAnimated(!isAnimated); // 슬라이드 상태를 토글
+  //   if (!isAnimated) {
+  //     setShowContent(true);
+  //   } else {
+  //     setShowContent(false); // 슬라이드가 닫힐 때 내용을 숨김
+  //     // setTimeout(() => setShowContent(false), 1000); // 애니메이션이 완료된 후 숨김
+  //   }
+  // };
+
   const handleIceButtonClick = (option) => {
-    setSelectedIceOption(option); // 선택된 옵션 업데이트
+    // 옵션이 선택되면 새로운 옵션으로 업데이트
+    setSelectedIceOption(option);
+  };
+  const toggleIceOptionSlide = () => {
+    // 슬라이드 상태를 토글
     setIsAnimated(!isAnimated);
-    if (!isAnimated) {
-      setShowContent(true);
-    } else {
-      setTimeout(() => setShowContent(false), 1000); // 애니메이션이 완료된 후 숨김
-    }
+    setShowContent(!isAnimated);
   };
 
   return (
     <StyleSlide>
       <StyleSlideBox isSlideOpen={true}>
         <div>
-          <StyleSlideBoxText onClick={handleIceButtonClick}>
+          <StyleSlideBoxText onClick={toggleIceOptionSlide}>
             <div>
               <span>얼음</span>
-              <span>{totalPrice}원🔽</span>
+              <span>{totalPrice}원▼ </span>
             </div>
             <i />
           </StyleSlideBoxText>
@@ -38,34 +52,16 @@ function IceOptionSlide() {
             >
               {showContent && (
                 <SquareButtonBox>
-                  <SquareButton
-                    text={"없음"}
-                    type={"red"}
-                    onClick={() => handleIceButtonClick("없음")}
-                  >
-                    없음
-                  </SquareButton>
-                  <SquareButton
-                    text={"적게"}
-                    type={"grey"}
-                    onClick={() => handleIceButtonClick("적게")}
-                  >
-                    적게
-                  </SquareButton>
-                  <SquareButton
-                    text={"보통"}
-                    type={"grey"}
-                    onClick={() => handleIceButtonClick("보통")}
-                  >
-                    보통
-                  </SquareButton>
-                  <SquareButton
-                    text={"많이"}
-                    type={"grey"}
-                    onClick={() => handleIceButtonClick("많이")}
-                  >
-                    많이
-                  </SquareButton>
+                  {["없음", "적게", "보통", "많이"].map((option) => (
+                    <SquareButton
+                      key={option}
+                      text={option}
+                      type={selectedIceOption === option ? "red" : "grey"}
+                      onClick={() => handleIceButtonClick(option)}
+                    >
+                      {option}
+                    </SquareButton>
+                  ))}
                 </SquareButtonBox>
               )}
             </div>

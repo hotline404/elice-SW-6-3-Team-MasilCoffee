@@ -10,10 +10,6 @@ import IncludeRedPage from "../../../util/IncludeRedPage";
 const linkDatas = {
   right_side: [
     {
-      to: ROUTES.LOGIN.path,
-      name: "로그인",
-    },
-    {
       to: ROUTES.REGISTER.path,
       name: "회원가입",
     },
@@ -42,6 +38,7 @@ function Headers(props) {
     fontSize: "15px",
     fontWeight: "400",
     margin: "27px",
+    cursor: "pointer"
   };
 
   const transLogo = IncludeRedPage(props.location)
@@ -49,6 +46,15 @@ function Headers(props) {
     : "/assets/images/Logo_Red.png";
 
   const nav = useNavigate();
+  const tokenData = localStorage.getItem("token");
+
+  const isToken = tokenData ? true : false;
+
+  const inandout = !isToken ? "로그인" : "로그아웃"
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+  };
 
   const handleClick = () => {
     nav(ROUTES.MAIN.path, { replace: false });
@@ -66,6 +72,16 @@ function Headers(props) {
           })}
         </LeftSide>
         <RightSide>
+          {!isToken ? (
+            <LinkTo
+              there={{ to: ROUTES.LOGIN.path, name: "로그인" }}
+              style={style}
+            />
+          ) : (
+            <div style={style} onClick={handleLogout}>
+              로그아웃
+            </div>
+          )}
           {linkDatas.right_side.map((link) => {
             return (
               <LinkTo there={{ to: link.to, name: link.name }} style={style} />

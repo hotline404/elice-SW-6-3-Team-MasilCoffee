@@ -6,14 +6,23 @@ const ResponseHandler = require("../middlewares/res-handler.js");
 const JwtMiddleware = require("../middlewares/jwt-handler");
 const JWT = require("../utils/jwt-token");
 
-// 사용자 생성 (회원 가입)
-UserRouter.post(
-    "/",
-    asyncHandler(async (req, res) => {
-        const user = await userService.createUser(req.body);
-        ResponseHandler.respondWithSuccess(res, user, 201);
-    })
-);
+// 회원가입 (인증코드발송)
+UserRouter.post("/login/send-mail", async (req, res) => {
+    const { email } = req.body;
+    await userService.transportVerificationCode(email, res);
+});
+
+// 회원가입 (인증코드 확인)
+UserRouter.post("/login/verify-code", async (req, res) => {
+    const { email, code } = req.body;
+    
+    try {
+        await userService.verifyCode(email, code);
+        res.status(200).json({ message: '이메일 인증이 완료되었습니다.' });
+    } catch (error) {
+        res.status(400).json({ error: '유효하지 않은 코드입니다.' });
+    }
+});
 
 // 사용자 로그인
 UserRouter.post(
@@ -42,7 +51,7 @@ UserRouter.post(
         // 로그인 성공
         const tokenPayload = { user: authUser.user };
         const token = JWT.createToken(tokenPayload);
-        ResponseHandler.respondWithSuccess(res, { user: authUser.user.role , token });
+        ResponseHandler.respondWithSuccess(res, { user: authUser.user.role, token });
     })
 );
 

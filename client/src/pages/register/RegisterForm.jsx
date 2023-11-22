@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import Contents from "../../components/ui/contents/Contents";
 import Input from "../../components/ui/Input/Input";
 import Button from "../../components/ui/button/Button.jsx";
+import Title from "../../components/ui/title/Title.jsx";
 
 import { ButtonBox, InputBox } from "./Register.style.jsx";
 
@@ -12,7 +13,7 @@ const InputInfo = [
     type: "text",
     id: "name",
     placeholder: "이름을 입력해주세요",
-    doublecheck: true,
+    doublecheck: false,
   },
   {
     name: "이메일",
@@ -26,7 +27,7 @@ const InputInfo = [
     type: "text",
     id: "nkname",
     placeholder: "닉네임을 입력해주세요",
-    doublecheck: false,
+    doublecheck: true,
   },
   {
     name: "전화번호",
@@ -77,6 +78,7 @@ function RegisterForm() {
 
   return (
     <Contents>
+      <Title>모두 입력 해주세요.</Title>
       <form onSubmit={handleSubmit}>
         {InputInfo.map((info) => {
           return (

@@ -1,7 +1,36 @@
 const User = require("../models/user-schema");
+const { sendMail } = require('../utils/email-send');
 const bcrypt = require("bcrypt");
 
 class UserService {
+  emailVerificationcode = {};
+
+  // 이메일 인증 번호 생성
+  generateRandomNum = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
+  // 이메일 인증 코드 발송
+  async transportVerificationCode(email, res) {
+    const checkEmail = await User.findOne({ email });
+    if (checkEmail) {
+      throw new Error("이미 가입된 이메일 입니다.");
+    }
+
+    const verificationCode = this.generateRandomNum(11111, 99999);
+    this.emailVerificationcode[email] = verificationCode;
+    await sendMail(res, email, this.emailVerificationcode[email]);
+  }
+
+  async verifyCode(email, code) {
+    const savedCode = this.emailVerificationcode[email];
+    if (savedCode === code) {
+      delete this.emailVerificationcode[email];
+    } else {
+      throw new Error('유효하지 않은 코드입니다.');
+    }
+  }
+
   async createUser(userData) {
     const hashedPassword = await bcrypt.hash(userData.password, 10);
     userData.password = hashedPassword;

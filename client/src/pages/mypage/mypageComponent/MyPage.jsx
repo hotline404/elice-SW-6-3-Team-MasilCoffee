@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { axiosGetUsers } from "../../../api/user";
 import { initUserSearch } from "../../../redux/action/userAction";
 
@@ -16,27 +16,32 @@ import CommentLink from "./Links/CommentLink";
 import WriteListLink from "./Links/WriteListLink";
 
 function MyPage() {
-  const dispatch = useDispatch
+  const dispatch = useDispatch()
+  const selector = useSelector(state => state.user)
+  const token = localStorage.getItem("token");
+
+  console.log("selector1", selector);
 
   useEffect(() => {
-    const fn = async () => {
+    const fn = async (token) => {
       try {
-        const users = await axiosGetUsers();
+        const users = await axiosGetUsers(token);
+        console.log(">>> [my page] ✅ SUCCESS", users); 
+        
         dispatch(initUserSearch(users));
-
-        console.log(">>> [my page] ✅ SUCCESS", users);
       } catch (err) {
         console.log(">>> [my page] ❌ ERROR", err);
       }
+      console.log("selector2", selector);
     };
-    fn();
+    fn(token);
   }, [dispatch]);
 
 
   return (
     <Fragment>
       <Container>
-        <Title>MyPage</Title>
+        <Title>{selector.users}</Title>
         <Card>
           <Contents>
             <User />

@@ -6,6 +6,7 @@ import order from "./order";
 import orderDetail from "./orderDetail";
 import product from "./product";
 import user from "./user";
+import login from "./login"
 
 const rootReducer = combineReducers({
   board,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   orderDetail,
   product,
   user,
+  login,
 });
 
 export default rootReducer;

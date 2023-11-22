@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { axiosPostLogin } from "../../api/login.jsx";
 import { loginUser } from "../../redux/action/userAction.jsx";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../router/Routes.jsx";
 
@@ -18,6 +18,8 @@ function LoginForm() {
   const passwordRef = useRef(null);
   const dispatch = useDispatch()
   const nav = useNavigate()
+  const selector = useSelector(state => state);
+  console.log("login selector", selector)
 
   const fn = async (email, password) => {
     try {

@@ -31,17 +31,18 @@ const initUsersState = {
   filter: {},
   searchData: [],
   users: [],
-  message: "",
 };
 
 const user = (state = initUsersState, action) => {
   switch (action.type) {
-    case "get.all_user": {
+    case "init": {
+      console.log("state", state);
+      console.log("action.payload", action.payload);
+
       return {
         ...state,
-        searchData: action.payload.allUser,
-        users: action.payload.allUser,
-        message: action.payload.message,
+        searchData: [action.payload.users],
+        users: [action.payload.users],
       };
     }
 

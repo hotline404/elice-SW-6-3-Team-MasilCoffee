@@ -6,13 +6,10 @@ import LinkTo from "../../ui/Link/LinkTo";
 import { Header, LeftSide, RightSide, HeaderImg } from "./Headers.style";
 import { ROUTES } from "../../../router/Routes";
 import IncludeRedPage from "../../../util/IncludeRedPage";
+import { useSelector } from "react-redux";
 
 const linkDatas = {
   right_side: [
-    {
-      to: ROUTES.LOGIN.path,
-      name: "로그인",
-    },
     {
       to: ROUTES.REGISTER.path,
       name: "회원가입",
@@ -35,6 +32,13 @@ const linkDatas = {
 };
 
 function Headers(props) {
+  const nav = useNavigate();
+  const isLogin = useSelector((state) => state.login.loginState);
+
+  const transLog = !isLogin ? "로그인" : "로그아웃";
+  const transPath = !isLogin ? ROUTES.LOGIN.path : ROUTES.LOGOUT.path;
+  
+  // style need amending
   const style = {
     textDecoration: "none",
     textAlign: "center",
@@ -42,15 +46,15 @@ function Headers(props) {
     fontSize: "15px",
     fontWeight: "400",
     margin: "27px",
+    cursor: "pointer",
   };
 
+  // transLogo need amending
   const transLogo = IncludeRedPage(props.location)
     ? "/assets/images/Logo_White.png"
     : "/assets/images/Logo_Red.png";
 
-  const nav = useNavigate();
-
-  const handleClick = () => {
+  const handleClickLogo = () => {
     nav(ROUTES.MAIN.path, { replace: false });
   };
 
@@ -58,7 +62,7 @@ function Headers(props) {
     <div>
       <Header location={props.location}>
         <LeftSide>
-          <HeaderImg src={transLogo} onClick={handleClick} />
+          <HeaderImg src={transLogo} onClick={handleClickLogo} />
           {linkDatas.left_side.map((link) => {
             return (
               <LinkTo there={{ to: link.to, name: link.name }} style={style} />
@@ -66,6 +70,11 @@ function Headers(props) {
           })}
         </LeftSide>
         <RightSide>
+          <LinkTo
+            there={{ to: `${transPath}`, name: `${transLog}` }}
+            style={style}
+          />
+
           {linkDatas.right_side.map((link) => {
             return (
               <LinkTo there={{ to: link.to, name: link.name }} style={style} />

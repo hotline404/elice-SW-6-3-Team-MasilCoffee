@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { axiosPostLogin } from "../../api/login.jsx";
-import { loginUser } from "../../redux/action/userAction.jsx";
+import { postLogin } from "../../redux/action/loginAction.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../router/Routes.jsx";
@@ -18,17 +18,17 @@ function LoginForm() {
   const passwordRef = useRef(null);
   const dispatch = useDispatch()
   const nav = useNavigate()
-  const selector = useSelector(state => state);
-  console.log("login selector", selector)
+  
+
+  
 
   const fn = async (email, password) => {
     try {
       const res = await axiosPostLogin(email, password);
-      dispatch(loginUser(res));
 
-      console.log("login in page:", res);
+      dispatch(postLogin(res));
+
     } catch (err) {
-      console.log("login in page error:", err);
       nav(ROUTES.INTERNALSERVERERROR.path);
     }
   };
@@ -40,6 +40,8 @@ function LoginForm() {
     const password = passwordRef.current.value;
     
     fn(email, password);
+
+    nav(ROUTES.MAIN.path)
   };
 
   return (

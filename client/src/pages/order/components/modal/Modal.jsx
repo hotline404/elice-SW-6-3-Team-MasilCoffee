@@ -21,6 +21,8 @@ import ShotOptionSlide from "./components/ShotOptionSlide";
 import SyrupOptionSlide from "./components/SyrupOptionSlide";
 import IceOptionSlide from "./components/IceOptionSlide";
 import WhippingOptionSlide from "./components/Whipping";
+import DrizzleOptionSlide from "./components/Drizzle";
+
 import MilkOptionSlide from "./components/MilkOptionSlide";
 
 const Modal = ({ openModal, closeModal, data }) => {
@@ -61,6 +63,7 @@ const Modal = ({ openModal, closeModal, data }) => {
         <SyrupOptionSlide />
         <IceOptionSlide />
         <WhippingOptionSlide />
+        <DrizzleOptionSlide />
         <MilkOptionSlide />
         <b>총가격 : </b>
         <StyleButton>

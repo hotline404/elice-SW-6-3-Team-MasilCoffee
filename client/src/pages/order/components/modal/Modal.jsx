@@ -1,5 +1,6 @@
-import Button from "../../../../components/ui/button/Button";
+import React, { useState } from "react";
 
+import Button from "../../../../components/ui/button/Button";
 import { Link } from "react-router-dom";
 
 import {
@@ -22,7 +23,18 @@ import IceOptionSlide from "./components/IceOptionSlide";
 import WhippingOptionSlide from "./components/Whipping";
 import MilkOptionSlide from "./components/MilkOptionSlide";
 
-const Modal = ({ openModal, closeModal }) => {
+const Modal = ({ openModal, closeModal, data }) => {
+  const [increase, setIncrease] = useState(1);
+  const handleIncreaseOnClick = () => {
+    setIncrease(increase + 1);
+  };
+  const handleDecreaseOnClick = () => {
+    if (increase > 1) {
+      setIncrease(increase - 1);
+    }
+  };
+  const totalPrice = data.price * increase;
+
   return (
     <StyledModal>
       <StyleModalContainer>
@@ -32,16 +44,16 @@ const Modal = ({ openModal, closeModal }) => {
         <StyleText>
           <StyleImg></StyleImg>
           <StyleInfo>
-            <span>에스프레소</span>
-            <StylePaddingSpan>가격</StylePaddingSpan>
+            <span>{data.name}</span>
+            <StylePaddingSpan>{totalPrice}</StylePaddingSpan>
             <StyleQuantity>
-              <button>-</button>
-              <span>0</span>
-              <button>+</button>
+              <button onClick={handleIncreaseOnClick}>+</button>
+              <span>{increase}</span>
+              <button onClick={handleDecreaseOnClick}>-</button>
             </StyleQuantity>
             <StyleDisplay>
-              <span>HOT</span>
-              <span>Tall</span>
+              <span>{data.temp}</span>
+              <span>{data.size}</span>
             </StyleDisplay>
           </StyleInfo>
         </StyleText>
@@ -50,6 +62,7 @@ const Modal = ({ openModal, closeModal }) => {
         <IceOptionSlide />
         <WhippingOptionSlide />
         <MilkOptionSlide />
+        <b>총가격 : </b>
         <StyleButton>
           <Link to="/Cart">
             <Button type="grey" text={"장바구니"} />

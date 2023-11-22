@@ -1,5 +1,6 @@
 import Main from "../pages/main/MainPage";
 import Login from "../pages/login/Login";
+import Logout from "../pages/login/Logout.jsx";
 import Register from "../pages/register/Register";
 
 import Order from "../pages/order/Order";
@@ -41,6 +42,11 @@ export const ROUTES = {
     path: "/login",
     link: "/login",
     element: <Login />,
+  },
+  LOGOUT: {
+    path: "/logout",
+    link: "/logout",
+    element: <Logout />,
   },
   REGISTER: {
     path: "/Register",

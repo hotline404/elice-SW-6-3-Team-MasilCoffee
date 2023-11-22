@@ -18,11 +18,9 @@ function LoginForm() {
   const passwordRef = useRef(null);
   const dispatch = useDispatch()
   const nav = useNavigate()
-  const selector = useSelector(state => state);
+  
 
-  console.log("login selector", selector);
-
-  localStorage.setItem("token", selector.login.token)
+  
 
   const fn = async (email, password) => {
     try {
@@ -31,7 +29,6 @@ function LoginForm() {
       dispatch(postLogin(res));
 
     } catch (err) {
-      console.log("login in page error:", err);
       nav(ROUTES.INTERNALSERVERERROR.path);
     }
   };

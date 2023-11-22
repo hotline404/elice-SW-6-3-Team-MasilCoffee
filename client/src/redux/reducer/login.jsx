@@ -39,6 +39,8 @@ const login = (state = initUsersState, action) => {
 
       const token = action.payload.resData.data.token;
       const role = action.payload.resData.data.user
+      localStorage.setItem("token", token);
+
 
       return {
         ...state,
@@ -48,15 +50,15 @@ const login = (state = initUsersState, action) => {
       };
     }
 
-    case "post.logout": {
-      localStorage.removeItem('authToken');
+
+    case "logout": {
 
       return {
         ...state,
         loginState : false,
         token: "",
-        role: ""
-      }
+        role : ""
+      };
     }
 
     default:

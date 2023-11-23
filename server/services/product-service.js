@@ -1,8 +1,9 @@
 const Product = require("../models/product-schema");
 
 class ProductService {
-  static async createProduct(productData) {
+  static async createProduct(productData, imageURL) {
     try {
+      productData.imageURL = imageURL;
       const newProduct = new Product(productData);
       const savedProduct = await newProduct.save();
       return savedProduct;

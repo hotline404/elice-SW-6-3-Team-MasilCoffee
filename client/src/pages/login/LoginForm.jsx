@@ -11,6 +11,8 @@ import Button from "../../components/ui/button/Button.jsx";
 
 import { ButtonBox, InputBox } from "./Login.style.jsx";
 import LinkTo from "../../components/ui/Link/LinkTo.jsx";
+import { axiosGetUser } from "../../api/user/user.jsx";
+import { getUser } from "../../redux/action/user/userAction.jsx";
 
 function LoginForm() {
   const emailRef = useRef(null);
@@ -20,9 +22,13 @@ function LoginForm() {
 
   const fn = async (email, password) => {
     try {
-      const res = await axiosPostLogin(email, password);
+      const LoginRes = await axiosPostLogin(email, password);
+      const token = LoginRes.data.token;
+      const UserRes = await axiosGetUser(token)
 
-      dispatch(postLogin(res));
+    
+      dispatch(postLogin(LoginRes));
+      dispatch(getUser(UserRes));
     } catch (err) {
       nav(ROUTES.INTERNALSERVERERROR.path);
     }

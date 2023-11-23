@@ -7,7 +7,7 @@ function WriteListLink() {
   return (
     <div>
       <Link to={ROUTES.WRITELIST.path} style={{textDecoration: "none"}}>
-        <S.WriteLinkBox>Link to Wrtier</S.WriteLinkBox>
+        <S.WriteLinkBox>내가 쓴 글</S.WriteLinkBox>
         </Link>
     </div>
   )

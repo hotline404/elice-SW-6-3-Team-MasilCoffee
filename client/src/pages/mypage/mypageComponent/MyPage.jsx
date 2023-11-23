@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosGetUsers } from "../../../api/user";
-import { initUserSearch } from "../../../redux/action/userAction";
+import { axiosGetUser } from "../../../api/user/user";
+import { getUser } from "../../../redux/action/user/userAction";
 
 import Container from "../../../components/ui/container/Container";
 import Title from "../../../components/ui/title/Title";
@@ -17,22 +17,21 @@ import WriteListLink from "./Links/WriteListLink";
 
 function MyPage() {
   const dispatch = useDispatch()
-  const selector = useSelector(state => state.user)
-  const token = localStorage.getItem("token");
+  const token = useSelector(state => state.login.token);
+  const userInfo = useSelector(state => state.user);
 
-  console.log("selector1", selector);
+  console.log("userInfo", userInfo)
 
   useEffect(() => {
     const fn = async (token) => {
       try {
-        const users = await axiosGetUsers(token);
-        console.log(">>> [my page] ✅ SUCCESS", users); 
+        const user = await axiosGetUser(token);
+        console.log(">>> [my page] ✅ SUCCESS", user); 
         
-        dispatch(initUserSearch(users));
+        dispatch(getUser(user));
       } catch (err) {
         console.log(">>> [my page] ❌ ERROR", err);
       }
-      console.log("selector2", selector);
     };
     fn(token);
   }, [dispatch]);
@@ -41,10 +40,10 @@ function MyPage() {
   return (
     <Fragment>
       <Container>
-        <Title>{selector.users}</Title>
+        <Title>MY PAGE</Title>
         <Card>
           <Contents>
-            <User />
+            <User userName={userInfo.nickname}/>
           </Contents>
           <Contents>
             <OrderLink />

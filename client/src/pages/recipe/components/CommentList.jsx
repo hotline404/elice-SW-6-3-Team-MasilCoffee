@@ -1,19 +1,20 @@
 import React from "react";
-import { Container, PostNickname, PostDate } from "../Recipe.style";
+import * as S from "./style/Post.style";
+import { Container } from "../Recipe.style";
 import { TextWrap } from "../recipeView/RecipeView.style";
 
-const CommentList = ({comment}) => {
+const CommentList = ({ comment }) => {
   return (
     <TextWrap>
       <Container>
         <div>
-          <PostNickname>{comment.nickname}</PostNickname>
-          <PostDate>{comment.date}</PostDate>
+          <S.PostNickname>{comment.nickname}</S.PostNickname>
+          <S.PostDate>{comment.date}</S.PostDate>
           <div>{comment.content}</div>
         </div>
       </Container>
     </TextWrap>
   );
-}
+};
 
 export default CommentList;

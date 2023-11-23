@@ -1,5 +1,5 @@
 const User = require("../models/user-schema");
-const { sendMail } = require('../utils/email-send');
+const { sendMail } = require("../utils/email-send");
 const bcrypt = require("bcrypt");
 
 class UserService {
@@ -27,8 +27,16 @@ class UserService {
     if (savedCode === code) {
       delete this.emailVerificationcode[email];
     } else {
-      throw new Error('유효하지 않은 코드입니다.');
+      throw new Error("유효하지 않은 코드입니다.");
     }
+  }
+
+  async findUserByEmail(email) {
+    return User.findOne({ email });
+  }
+
+  async findUserByNickname(nickname) {
+    return User.findOne({ nickname });
   }
 
   async createUser(userData) {
@@ -69,7 +77,6 @@ class UserService {
 
     return user.toObject(); // toObject 메서드 호출
   }
-
 
   // 사용자 권한
   async updateUser(userId, updates) {

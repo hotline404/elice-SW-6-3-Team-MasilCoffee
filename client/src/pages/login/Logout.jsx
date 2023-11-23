@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Contents from "../../components/ui/contents/Contents.jsx";
 import { useDispatch } from "react-redux";
 import { actionLogout } from "../../redux/action/login/loginAction.jsx";
+import { removeUser } from "../../redux/action/user/userAction.jsx";
 
 function Logout() {
   const nav = useNavigate();
@@ -18,6 +19,7 @@ function Logout() {
     localStorage.removeItem("token");
 
     dispatch(actionLogout());
+    dispatch(removeUser())
 
     nav(ROUTES.MAIN.path);
   };

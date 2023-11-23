@@ -11,6 +11,8 @@ const initUserState = {
   user_id: "",
 };
 
+const nonData = ""
+
 const user = (state = initUserState, action) => {
   switch (action.type) {
     case "get.user": {
@@ -38,14 +40,19 @@ const user = (state = initUserState, action) => {
       };
     }
 
-    case "get.admin": {
-      const { initData } = action.payload;
-      return { ...state, users: initData };
-    }
-
-    case "get.admin": {
-      const { initData } = action.payload;
-      return { ...state, users: initData };
+    case "remove.user": {
+      return {
+        ...state,
+        birth: nonData,
+        create_at: nonData,
+        email: nonData,
+        name: nonData,
+        nickname: nonData,
+        password: nonData,
+        phone: nonData,
+        role: nonData,
+        user_id: nonData
+      }
     }
 
     default:

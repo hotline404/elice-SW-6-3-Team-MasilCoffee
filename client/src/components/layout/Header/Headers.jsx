@@ -1,6 +1,6 @@
 import React from "react";
 import LeftSideItem from "./heander_item/LeftSideItem";
-import RightSideItem from "./heander_item/RightSideItem";
+import UserRightSideItem from "./heander_item/UserRightSideItem";
 import AdminRightSideItem from "./heander_item/AdminRightSideItem";
 import NonUserRightSideItem from "./heander_item/NonUserRightSideItem";
 
@@ -45,9 +45,9 @@ function Headers(props) {
         );
       }
 
-      case "user": {
+      case "User": {
         return (
-          <RightSideItem
+          <UserRightSideItem
             item={linkDatas.right_side}
             location={props.location}
           />

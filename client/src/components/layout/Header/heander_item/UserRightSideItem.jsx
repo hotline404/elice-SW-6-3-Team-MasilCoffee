@@ -2,7 +2,6 @@ import React from 'react'
 import LinkTo from '../../../ui/Link/LinkTo';
 import IncludeRedPage from '../../../../util/IncludeRedPage';
 import { ROUTES } from '../../../../router/Routes';
-import { useSelector } from 'react-redux';
 import { RightSide } from '../Headers.style';
 
 const items = [
@@ -16,12 +15,7 @@ const items = [
   }
 ]
 
-function RightSideItem(props) {
-  const isLogin = useSelector((state) => state.login.loginState);
-
-  const transLog = !isLogin ? "로그인" : "로그아웃";
-  const transPath = !isLogin ? ROUTES.LOGIN.path : ROUTES.LOGOUT.path;
-
+function UserRightSideItem(props) {
 
   const style = {
     textDecoration: "none",
@@ -35,11 +29,6 @@ function RightSideItem(props) {
 
   return (
     <RightSide>
-      <LinkTo
-            there={{ to: `${transPath}`, name: `${transLog}` }}
-            style={style}
-          />
-
           {items.map((link) => {
             return (
               <LinkTo there={{ to: link.to, name: link.name }} style={style} />
@@ -49,4 +38,4 @@ function RightSideItem(props) {
   )
 }
 
-export default RightSideItem
+export default UserRightSideItem

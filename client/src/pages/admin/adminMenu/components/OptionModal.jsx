@@ -6,7 +6,7 @@ import DynamicInput from "./OptionAddInputs";
 
 import axios from "axios";
 
-const MenuModal = ({ title, closeModal }) => {
+const OptionModal = ({ options, title, closeModal }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -101,9 +101,10 @@ const MenuModal = ({ title, closeModal }) => {
             </Modal.OptionSubmit>
           </Modal.Form>
         </Modal.OptionFormBox>
+        <Modal.AllOption />
       </Modal.ModalBox>
     </Modal.ModalBackground>
   );
 };
 
-export default MenuModal;
+export default OptionModal;

@@ -20,16 +20,16 @@ const Table = ({ trData, tdData, onTdClick = null, isMenuTable = false }) => {
             tdData.map((rowData, rowI) => (
               <tr key={rowI}>
                 <td>
-                  <TableLayout.Image src={rowData[0]} alt="coffee" />
+                  <TableLayout.Image src={rowData[1]} alt="coffee" />
                 </td>
-                {rowData.slice(1).map((data, colI) => (
+                {rowData.slice(2).map((data, colI) => (
                   <td key={data + colI}>{data}</td>
                 ))}
                 <TableLayout.ButtonsBox>
-                  <TableLayout.Button className="edit" onClick={() => onTdClick(rowData)}>
+                  <TableLayout.Button className="edit" onClick={() => onTdClick(rowData, "edit")}>
                     <FiEdit />
                   </TableLayout.Button>
-                  <TableLayout.Button className="deletion" onClick={() => onTdClick("삭제")}>
+                  <TableLayout.Button className="deletion" onClick={() => onTdClick(rowData, "deletion")}>
                     <FiTrash />
                   </TableLayout.Button>
                 </TableLayout.ButtonsBox>

@@ -16,26 +16,7 @@ import CommentLink from "./Links/CommentLink";
 import WriteListLink from "./Links/WriteListLink";
 
 function MyPage() {
-  const dispatch = useDispatch()
-  const token = useSelector(state => state.login.token);
   const userInfo = useSelector(state => state.user);
-
-  console.log("userInfo", userInfo)
-
-  useEffect(() => {
-    const fn = async (token) => {
-      try {
-        const user = await axiosGetUser(token);
-        console.log(">>> [my page] ✅ SUCCESS", user); 
-        
-        dispatch(getUser(user));
-      } catch (err) {
-        console.log(">>> [my page] ❌ ERROR", err);
-      }
-    };
-    fn(token);
-  }, [dispatch]);
-
 
   return (
     <Fragment>

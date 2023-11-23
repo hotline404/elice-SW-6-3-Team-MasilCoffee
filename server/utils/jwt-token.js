@@ -8,7 +8,8 @@ class JWT {
   static createToken(payload) {
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1h" });
     return token;
-  };
+  }
+
   // 토큰 검증하기
   static verifyToken(token) {
     try {
@@ -24,7 +25,6 @@ class JWT {
       }
     }
   }
-  
 }
 
 module.exports = JWT;

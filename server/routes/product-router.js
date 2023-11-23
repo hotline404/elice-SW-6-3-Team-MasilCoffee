@@ -3,6 +3,14 @@ const ProductRouter = express.Router();
 const ProductService = require("../services/product-service");
 const asyncHandler = require("../middlewares/async-handler");
 const ResponseHandler = require("../middlewares/res-handler");
+const imageUploader = require('../middlewares/s3-handler');
+
+
+// single("여기이름이랑") Key 값이 일치해야함
+// posturl : http://localhost:5000/test/image?directory=product
+// /test/image 는 라우터 호출하는 주소,
+// ? 뒤부터는 directory 는 aws 에 저장되는 폴더
+// product는 그 폴더명
 
 // 모든 제품 검색
 ProductRouter.get(
@@ -29,12 +37,23 @@ ProductRouter.get(
 // 제품 생성
 ProductRouter.post(
   "/",
+  imageUploader.single('image'),
   asyncHandler(async (req, res) => {
-    const productData = req.body;
-    const newProduct = await ProductService.createProduct(productData);
-    ResponseHandler.respondWithSuccess(res, newProduct);
+    try {
+      const productData = req.body;
+      if (!req.file) {
+        return res.status(400).send('이미지를 업로드해주세요.');
+      }
+      const imageURL = req.file.location;
+      const newProduct = await ProductService.createProductWithImage(productData, imageURL);
+      ResponseHandler.respondWithSuccess(res, newProduct);
+    } catch (error) {
+      console.error(error);
+      ResponseHandler.respondWithError(res, '제품 생성에 실패했습니다.');
+    }
   })
 );
+
 
 // 제품 정보 수정 by productid
 ProductRouter.put(

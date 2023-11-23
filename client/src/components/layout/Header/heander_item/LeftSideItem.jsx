@@ -10,7 +10,6 @@ import { useNavigate } from 'react-router-dom';
 function LeftSideItem(props) {
   const nav = useNavigate();
   
-
   const style = {
     textDecoration: "none",
     textAlign: "center",

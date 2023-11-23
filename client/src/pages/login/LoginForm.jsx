@@ -30,7 +30,7 @@ function LoginForm() {
       dispatch(postLogin(LoginRes));
       dispatch(getUser(UserRes));
     } catch (err) {
-      nav(ROUTES.INTERNALSERVERERROR.path);
+      alert("아이디 비밀번호를 확인해 주세요")
     }
   };
 

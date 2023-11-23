@@ -1,7 +1,5 @@
-import React, { Fragment, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { axiosGetUser } from "../../../api/user/user";
-import { getUser } from "../../../redux/action/user/userAction";
+import React, { Fragment } from "react";
+import {  useSelector } from "react-redux";
 
 import Container from "../../../components/ui/container/Container";
 import Title from "../../../components/ui/title/Title";
@@ -24,14 +22,14 @@ function MyPage() {
         <Title>MY PAGE</Title>
         <Card>
           <Contents>
-            <User userName={userInfo.nickname}/>
+            <User userName={userInfo.nickname} userId={userInfo.user_id} email={userInfo.email}/>
           </Contents>
           <Contents>
-            <OrderLink />
-            <CommentLink />
+            <OrderLink userId={userInfo.user_id}/>
+            <CommentLink userId={userInfo.user_id}/>
           </Contents>
           <ContentsByWrite>
-            <WriteListLink />
+            <WriteListLink userId={userInfo.user_id}/>
           </ContentsByWrite>
         </Card>
       </Container>

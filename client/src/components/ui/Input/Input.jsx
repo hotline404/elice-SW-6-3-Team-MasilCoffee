@@ -18,11 +18,10 @@ const TheBox = styled.div`
   align-content: space-between;
   align-items: center;
   text-align: left;
-  
-`; 
+`;
 
 const Label = styled.h3`
-  width: 80px
+  width: 80px;
 `;
 
 const InputArea = styled.input`
@@ -33,5 +32,5 @@ const InputArea = styled.input`
 
   &:focus {
     outline: none;
-}
+  }
 `;

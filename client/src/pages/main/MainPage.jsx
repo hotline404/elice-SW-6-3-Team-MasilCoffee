@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 
 import Top from "./components/Top";
 import MiddleOne from "./components/MiddleOne";

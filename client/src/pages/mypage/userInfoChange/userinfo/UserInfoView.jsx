@@ -10,7 +10,7 @@ import styled from "styled-components";
 
 import UserInfoForm from "./UserInfoForm";
 
-function UserInfoView() {
+function UserInfoView({ userEmail }) {
   const emailRef = useRef(null);
   const nameRef = useRef(null);
   const birthRef = useRef(null);
@@ -30,6 +30,7 @@ function UserInfoView() {
       type: "text",
       id: "change_nkname",
       placeholder: "변경할 닉네임을 입력해주세요.",
+      double: true
     },
     {
       ref: phoneRef,
@@ -46,7 +47,7 @@ function UserInfoView() {
         <Card>
           <InputCard>
             <h3>회원 정보</h3>
-            <UserInfoForm emailRef={emailRef} InputInfo={InputInfo} />
+            <UserInfoForm emailRef={emailRef} InputInfo={InputInfo} email={userEmail}/>
             <ButtonBox>
               <DeleteBtn>회원탈퇴</DeleteBtn>
               <BtnConfirm>회원정보 변경</BtnConfirm>

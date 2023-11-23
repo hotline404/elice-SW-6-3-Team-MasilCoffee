@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { axiosPostLogin } from "../../api/login/login.jsx";
 import { postLogin } from "../../redux/action/login/loginAction.jsx";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../router/Routes.jsx";
 

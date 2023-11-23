@@ -1,11 +1,8 @@
-import React from 'react'
+import { BOARD_TYPE } from "./_types";
 
-function boardAction() {
-  return (
-    <div>
-      
-    </div>
-  )
+export const actionGetAllBoards = (boards) => {
+  return {
+    type: BOARD_TYPE.GET_ALL_BOARDS,
+    payload: boards,
+  }
 }
-
-export default boardAction

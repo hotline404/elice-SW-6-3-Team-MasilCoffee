@@ -5,7 +5,11 @@ const Input = React.forwardRef((props, ref) => {
   return (
     <TheBox>
       <Label>{props.input.name}</Label>
-      <InputArea ref={ref} {...props.input} />
+      {props.input.readonly === true ? (
+        <InputArea ref={ref} {...props.input} readonly="readonly"/>
+      ) : (
+        <InputArea ref={ref} {...props.input} />
+      )}
     </TheBox>
   );
 });

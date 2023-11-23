@@ -31,11 +31,7 @@ class ProductService {
 
   static async updateProduct(productId, productData) {
     try {
-      const updatedProduct = await Product.findByIdAndUpdate(
-        productId,
-        productData,
-        { new: true }
-      );
+      const updatedProduct = await Product.findByIdAndUpdate(productId, productData, { new: true });
       return updatedProduct;
     } catch (error) {
       throw error;

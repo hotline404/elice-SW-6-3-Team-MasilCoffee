@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import Button from "../../../../components/ui/button/Button";
 import Modal from "../../components/modal/Modal";
 import { StyledCard, StyledText, StyledButtonText } from "./Card.style";
+import ModalContents from "../modalcontents/ModalContents";
+
+
 
 const Card = ({ data }) => {
   // 카드 클릭 시 추천 꿀 조합 텍스트와 주문하기 버튼 나옴
@@ -28,8 +31,11 @@ const Card = ({ data }) => {
       </StyledCard>
       <StyledText>
         {isModalOpen && (
-          <Modal data={data} openModal={openModal} closeModal={closeModal} />
+          <Modal openModal={openModal} closeModal={closeModal}>
+            <ModalContents data={data} />
+          </Modal>
         )}
+
         <b>{data.name}</b>
         <p>{data.info}</p>
         <p>칼로리 : {data.kcal}</p>

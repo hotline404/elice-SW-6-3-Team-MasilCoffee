@@ -8,7 +8,6 @@ import {
   StyledPaymentBox,
   StyledInfoBox,
   StyledOrderList,
-
   StyledAmountPayment,
   StyledInfoContainer,
   StyledCheck,
@@ -109,7 +108,6 @@ const Cart = () => {
                     text={"메뉴추가"}
                     type={"grey"}
                   />
-
                   <Button
                     onClick={() => {
                       dispatch(paymentAction(orderList));

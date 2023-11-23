@@ -140,9 +140,9 @@ const Order = ({ children }) => {
       </div>
       <div className="cards-container">
         {Array.isArray(filteredProducts) &&
-          filteredProducts.map((product) => (
-            <Card key={product.id} data={product} />
-          ))}
+          filteredProducts.map((product) => 
+            <Card key={product._id} data={product} />
+          )}
       </div>
     </StyledOrder>
   );

@@ -1,5 +1,14 @@
 import { ORDEROPTION_TYPE } from "./_types";
 
+export const actionSetMenuOption = ({ itemPrice, menu }) => {
+  return {
+    type: ORDEROPTION_TYPE.ADD_MENU_ORDEROPTION,
+    payload: {
+      itemPrice,
+      menu
+    },
+  };
+};
 export const actionSetShotOption = (shotOption) => {
   return {
     type: ORDEROPTION_TYPE.ADD_SHOT_ORDEROPTION,
@@ -36,3 +45,7 @@ export const actionSetMilkOption = (milkOption) => {
     payload: milkOption,
   };
 };
+export const actionResetOption = {
+    type: ORDEROPTION_TYPE.RESET_OPTION,
+    payload: null, //state로 갈거니까 아무것도 안넣을 거임
+  };

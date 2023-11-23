@@ -6,13 +6,13 @@ const ResponseHandler = require("../middlewares/res-handler.js");
 const JwtMiddleware = require("../middlewares/jwt-handler");
 const JWT = require("../utils/jwt-token");
 
-// 회원가입 (인증코드발송)
+// 회원가입 (인증코드발송) 및 비밀번호 변경
 UserRouter.post("/signup/send-mail", async (req, res) => {
   const { email } = req.body;
   await userService.transportVerificationCode(email, res);
 });
 
-// 회원가입 (인증코드 확인)
+// 회원가입 (인증코드 확인) 및 비밀번호 변경
 UserRouter.post("/signup/verify-code", async (req, res) => {
   const { email, code } = req.body;
 
@@ -102,6 +102,26 @@ UserRouter.post(
   })
 );
 
+// 사용자 로그아웃 , 클라에서 토큰 삭제해야함!
+UserRouter.post("/logout", JwtMiddleware.checkToken, (req, res) => {
+  ResponseHandler.respondWithSuccess(res, { message: "로그아웃이 완료되었습니다." });
+});
+
+
+// 사용자 로그인 상태 확인
+UserRouter.get("/check-login", JwtMiddleware.checkToken, (req, res) => {
+  try {
+    if (JWT.isTokenPresent(req)) {
+      res.status(200).json({ isLoggedIn: true, user: req.user });
+    } else {
+      res.status(200).json({ isLoggedIn: false });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "서버 오류" });
+  }
+});
+
 // ---------------- User -------------------- //
 
 // 본인 상세 정보
@@ -109,7 +129,7 @@ UserRouter.get(
   "/",
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
-    const userIdFromToken = req.token.userId;
+    const userIdFromToken = req.tokenData._id;
     const user = await userService.getUserByToken(userIdFromToken);
     if (!user) {
       return ResponseHandler.respondWithError(
@@ -127,7 +147,7 @@ UserRouter.patch(
   "/",
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
-    const user = await userService.updateUser(req.token.userId, req.body);
+    const user = await userService.updateUser(req.tokenData._id, req.body);
     ResponseHandler.respondWithSuccess(res, user);
   })
 );
@@ -137,7 +157,7 @@ UserRouter.delete(
   "/",
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
-    const user = await userService.deleteUser(req.token.userId);
+    const user = await userService.deleteUser(req.tokenData._Id);
     ResponseHandler.respondWithSuccess(res, user);
   })
 );

@@ -1,11 +1,20 @@
 import { useState, useEffect } from "react";
-import { StyleSlide, StyleSlideBox, StyleSlideBoxText } from "../Modal.style";
+import {
+  StyleSlide,
+  StyleSlideBox,
+  StyleSlideBoxText,
+} from "../ModalContents.style";
 import SquareButton from "../../../../../components/ui/button/SquareButton";
 import { SlideAnimation, SquareButtonBox } from "./SlideAnimation";
 
+import { useDispatch, useSelector } from "react-redux";
+import { actionSetDrizzleOption } from "../../../../../redux/action/orderOptionAction";
+
 function DrizzleOptionSlide() {
+  const dispatch = useDispatch();
+  const selectedDrizzle = useSelector(state => state.orderOption.drizzle);
+
   const [isAnimated, setIsAnimated] = useState(false);
-  const [selectedDrizzle, setselectedDrizzle] = useState(""); // 선택된 드리즐 옵션
   const [totalPrice, setTotalPrice] = useState(0);
   const [showContent, setShowContent] = useState(false);
 
@@ -18,10 +27,11 @@ function DrizzleOptionSlide() {
       setTotalPrice(PRICE);
     }
   }, [selectedDrizzle]);
-
+  
   const handleDrizzleButtonClick = (option) => {
     // 옵션이 선택되면 새로운 옵션으로 업데이트
-    setselectedDrizzle(option);
+    // 리덕스 보여주기
+    dispatch(actionSetDrizzleOption(option));
   };
   const toggleDrizzleOptionSlide = () => {
     // 슬라이드 상태를 토글

@@ -1,11 +1,18 @@
 import { useState, useEffect } from "react";
-import { StyleSlide, StyleSlideBox, StyleSlideBoxText } from "../Modal.style";
+import {
+  StyleSlide,
+  StyleSlideBox,
+  StyleSlideBoxText,
+} from "../ModalContents.style";
 import SquareButton from "../../../../../components/ui/button/SquareButton";
 import { SlideAnimation, SquareButtonBox } from "./SlideAnimation";
+import { useDispatch, useSelector } from "react-redux";
+import { actionSetWhippingOption } from "../../../../../redux/action/orderOptionAction";
 
 function WhippingOptionSlide() {
+  const dispatch = useDispatch();
+  const selectedWhipping = useSelector(state => state.orderOption.whipping); // 선택된 휘핑 옵션
   const [isAnimated, setIsAnimated] = useState(false);
-  const [selectedWhipping, setSelectedWhipping] = useState(""); // 선택된 휘핑 옵션
   const [totalPrice, setTotalPrice] = useState(0);
   const [showContent, setShowContent] = useState(false);
 
@@ -18,10 +25,10 @@ function WhippingOptionSlide() {
       setTotalPrice(PRICE);
     }
   }, [selectedWhipping]);
-
+  
   const handleWhippingButtonClick = (option) => {
     // 옵션이 선택되면 새로운 옵션으로 업데이트
-    setSelectedWhipping(option);
+    dispatch(actionSetWhippingOption(option));
   };
   const toggleWhippingOptionSlide = () => {
     // 슬라이드 상태를 토글

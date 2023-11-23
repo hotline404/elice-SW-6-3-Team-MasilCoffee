@@ -1,19 +1,22 @@
 import { useState, useEffect } from "react";
-import { StyleSlide, StyleSlideBox, StyleSlideBoxText } from "../Modal.style";
+import {
+  StyleSlide,
+  StyleSlideBox,
+  StyleSlideBoxText,
+} from "../ModalContents.style";
 import { SlideAnimation, Round } from "./SlideAnimation";
+import { useDispatch, useSelector } from "react-redux";
+import { actionSetShotOption } from "../../../../../redux/action/orderOptionAction";
 
 function ShotOptionSlide() {
+  const dispatch = useDispatch();
+  const shotCount = useSelector(state => state.orderOption.shot);
   const [isAnimated, setIsAnimated] = useState(false);
-  const [shotCount, setShotCount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [showContent, setShowContent] = useState(false);
 
   const SHOT_PRICE = 600; // 샷 하나의 가격
-
-  useEffect(() => {
-    setTotalPrice(shotCount * SHOT_PRICE); // 샷 수에 따라 가격 업데이트
-  }, [shotCount]); // shotCount가 변경될 때만 실행
-
+  
   const handleShotButtonClick = () => {
     setIsAnimated(!isAnimated);
     if (!isAnimated) {
@@ -22,16 +25,21 @@ function ShotOptionSlide() {
       setTimeout(() => setShowContent(false), 1000); // 애니메이션이 완료된 후 숨김
     }
   };
-
+  
   const increaseShot = () => {
-    setShotCount(shotCount + 1);
+    dispatch(actionSetShotOption(shotCount + 1));
   };
-
+  
   const decreaseShot = () => {
     if (shotCount > 0) {
-      setShotCount(shotCount - 1);
+      dispatch(actionSetShotOption(shotCount - 1));
     }
   };
+  
+  useEffect(() => {
+    setTotalPrice(shotCount * SHOT_PRICE); // 샷 수에 따라 가격 업데이트
+  }, [shotCount]); // shotCount가 변경될 때만 실행
+
   return (
     <StyleSlide>
       <StyleSlideBox isSlideOpen={true}>

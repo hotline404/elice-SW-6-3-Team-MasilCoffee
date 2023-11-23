@@ -1,11 +1,20 @@
-import { useState } from "react";
-import { StyleSlide, StyleSlideBox, StyleSlideBoxText } from "../Modal.style";
+import { useState, useEffect } from "react";
+import {
+  StyleSlide,
+  StyleSlideBox,
+  StyleSlideBoxText,
+} from "../ModalContents.style";
 import SquareButton from "../../../../../components/ui/button/SquareButton";
 import { SlideAnimation, SquareButtonBox } from "./SlideAnimation";
 
+import { useDispatch, useSelector } from "react-redux";
+import { actionSetIceOption } from "../../../../../redux/action/orderOptionAction";
+
 function IceOptionSlide() {
+  const dispatch = useDispatch();
+  const selectedIceOption = useSelector(state => state.orderOption.ice); // 선택된 얼음 옵션
+
   const [isAnimated, setIsAnimated] = useState(false);
-  const [selectedIceOption, setSelectedIceOption] = useState(""); // 선택된 얼음 옵션
   const [totalPrice] = useState(0);
   const [showContent, setShowContent] = useState(false);
 
@@ -25,7 +34,7 @@ function IceOptionSlide() {
 
   const handleIceButtonClick = (option) => {
     // 옵션이 선택되면 새로운 옵션으로 업데이트
-    setSelectedIceOption(option);
+    dispatch(actionSetIceOption(option));
   };
   const toggleIceOptionSlide = () => {
     // 슬라이드 상태를 토글

@@ -5,9 +5,9 @@ import orderOption from "./orderOption";
 import order from "./order";
 import orderDetail from "./orderDetail";
 import product from "./product";
-<<<<<<< HEAD
-import user from "./user";
-import login from "./login";
+import users from "./user/users";
+import user from "./user/user";
+import login from "./login/login";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 
@@ -16,11 +16,6 @@ const persistConfig = {
   storage, // localStorage
   whitelist: ["auth"], // target (reducer name)
 };
-=======
-import users from "./user/users";
-import user from "./user/user";
-import login from "./login/login";
->>>>>>> 1c710268fb21444eb4684a589f18fbaefd21c96a
 
 const rootReducer = combineReducers({
   board,

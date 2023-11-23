@@ -84,6 +84,9 @@ class UserService {
       new: true,
       runValidators: true,
     });
+    if(!user){
+      throw new Error("해당하는 유저를 찾을 수 없습니다.");
+    }
     return user;
   }
 

@@ -14,9 +14,7 @@ class JWT {
   static verifyToken(token) {
     try {
       const decodedToken = jwt.verify(token, SECRET_KEY);
-      const userId = decodedToken.user._id;
-      const role = decodedToken.user.role;
-      return { userId, role };
+      return decodedToken.user;
     } catch (error) {
       if (error.name == "TokenExpiredError") {
         throw new Error("토큰이 만료되었습니다.");
@@ -25,6 +23,11 @@ class JWT {
       }
     }
   }
+    // 토큰 존재 여부 확인하기
+    static isTokenPresent(req) {
+      const auth = req.header("Authorization");
+      return auth !== undefined;
+    }
 }
 
 module.exports = JWT;

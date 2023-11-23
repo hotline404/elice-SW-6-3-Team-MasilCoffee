@@ -30,13 +30,3 @@ export const HeaderImg = styled.img`
   cursor: pointer;
 `
 
-const RedColorPage = [
-  ROUTES.RECIPE.path,
-  ROUTES.ORDER.path,
-  ROUTES.PAYMENT.path,
-  ROUTES.PAYMENTDONE.path,
-  ROUTES.RECIPEVIEW.path,
-  ROUTES.RECIPEWRITE.path,
-  ROUTES.RECIPE.path,
-];
-

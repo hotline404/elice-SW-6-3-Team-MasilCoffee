@@ -137,6 +137,7 @@ export const ROUTES = {
     link: "/admin/user",
     element: <AdminUser />,
   },
+  
   NOTFOUND: {
     path: "/*",
     link: "/*",

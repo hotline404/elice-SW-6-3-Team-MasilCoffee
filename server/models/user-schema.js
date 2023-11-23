@@ -24,9 +24,6 @@ const UserSchema = new Schema(
       enum: ["Admin", "User"],
       default: "User",
     },
-    birth: {
-      type: Date,
-    },
     nickname: {
       type: String,
       maxlength: 10,

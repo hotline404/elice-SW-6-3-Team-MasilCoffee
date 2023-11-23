@@ -43,7 +43,7 @@ export const InputBox = styled.div`
 
   display: flex;
   align-content: space-between;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
 

@@ -1,10 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import { axiosPostLogin } from "../../api/login.jsx";
-import { postLogin } from "../../redux/action/loginAction.jsx";
+import { axiosPostLogin } from "../../api/login/login.jsx";
+import { postLogin } from "../../redux/action/login/loginAction.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../router/Routes.jsx";
-
 
 import Contents from "../../components/ui/contents/Contents";
 import Input from "../../components/ui/Input/Input";
@@ -12,22 +11,24 @@ import Button from "../../components/ui/button/Button.jsx";
 
 import { ButtonBox, InputBox } from "./Login.style.jsx";
 import LinkTo from "../../components/ui/Link/LinkTo.jsx";
+import { axiosGetUser } from "../../api/user/user.jsx";
+import { getUser } from "../../redux/action/user/userAction.jsx";
 
 function LoginForm() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-  const dispatch = useDispatch()
-  const nav = useNavigate()
-  
-
-  
+  const dispatch = useDispatch();
+  const nav = useNavigate();
 
   const fn = async (email, password) => {
     try {
-      const res = await axiosPostLogin(email, password);
+      const LoginRes = await axiosPostLogin(email, password);
+      const token = LoginRes.data.token;
+      const UserRes = await axiosGetUser(token)
 
-      dispatch(postLogin(res));
-
+    
+      dispatch(postLogin(LoginRes));
+      dispatch(getUser(UserRes));
     } catch (err) {
       nav(ROUTES.INTERNALSERVERERROR.path);
     }
@@ -38,10 +39,10 @@ function LoginForm() {
 
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    
+
     fn(email, password);
 
-    nav(ROUTES.MAIN.path)
+    nav(ROUTES.MAIN.path);
   };
 
   return (

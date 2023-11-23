@@ -18,23 +18,7 @@ export const removeFilter = (name) => ({
   payload: { name }
 })
 
-export const getUser = (initData) => ({
-  type: "get.user",
+export const getAdmin = (initData) => ({
+  type: "get.admin",
   payload: { initData }
 })
-
-export const postUser = (updateUser) => ({
-  type: "post.user",
-  payload: { updateUser }
-})
-
-export const loginUser = (loginUser) => ({
-  type: "login.user",
-  payload: { loginUser }
-})
-
-export const logoutUser = (logoutUser) => ({
-  type: "logout.user",
-  payload: { logoutUser }
-})
-

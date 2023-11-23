@@ -7,7 +7,7 @@ function OrderLink() {
   return (
     <div>
       <Link to={ROUTES.ORDERDETAILS.path} style={{textDecoration: "none"}}>
-        <S.OrderLinkBox>Link to Order</S.OrderLinkBox>
+        <S.OrderLinkBox>주문정보</S.OrderLinkBox>
       </Link>
     </div>
   );

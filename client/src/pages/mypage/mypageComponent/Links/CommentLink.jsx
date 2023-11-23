@@ -7,7 +7,7 @@ function CommentLink() {
   return (
     <div>
       <Link to={ROUTES.COMMENTLISTPAGE.path} style={{textDecoration: "none"}}>
-        <S.CommentLinkBox>Link to Comment</S.CommentLinkBox>
+        <S.CommentLinkBox>내가 쓴 댓글</S.CommentLinkBox>
       </Link>
     </div>
   );

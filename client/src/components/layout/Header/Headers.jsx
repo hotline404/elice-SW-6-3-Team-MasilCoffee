@@ -1,11 +1,11 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import LeftSideItem from "./heander_item/LeftSideItem";
+import RightSideItem from "./heander_item/RightSideItem";
+import AdminRightSideItem from "./heander_item/AdminRightSideItem";
+import NonUserRightSideItem from "./heander_item/NonUserRightSideItem";
 
-import LinkTo from "../../ui/Link/LinkTo";
-
-import { Header, LeftSide, RightSide, HeaderImg } from "./Headers.style";
+import { Header } from "./Headers.style";
 import { ROUTES } from "../../../router/Routes";
-import IncludeRedPage from "../../../util/IncludeRedPage";
 import { useSelector } from "react-redux";
 
 const linkDatas = {
@@ -32,58 +32,48 @@ const linkDatas = {
 };
 
 function Headers(props) {
-  const nav = useNavigate();
-  const isLogin = useSelector((state) => state.login.loginState);
+  const role = useSelector((state) => state.user.role);
 
-  const transLog = !isLogin ? "로그인" : "로그아웃";
-  const transPath = !isLogin ? ROUTES.LOGIN.path : ROUTES.LOGOUT.path;
-  
-  // style need amending
-  const style = {
-    textDecoration: "none",
-    textAlign: "center",
-    color: `${IncludeRedPage(props.location) ? "#191414" : "#f5f5f5"}`,
-    fontSize: "15px",
-    fontWeight: "400",
-    margin: "27px",
-    cursor: "pointer",
-  };
+  const TransComponent = () => {
+    switch (role) {
+      case "Admin": {
+        return (
+          <AdminRightSideItem
+            item={linkDatas.right_side}
+            location={props.location}
+          />
+        );
+      }
 
-  // transLogo need amending
-  const transLogo = IncludeRedPage(props.location)
-    ? "/assets/images/Logo_White.png"
-    : "/assets/images/Logo_Red.png";
+      case "user": {
+        return (
+          <RightSideItem
+            item={linkDatas.right_side}
+            location={props.location}
+          />
+        );
+      }
 
-  const handleClickLogo = () => {
-    nav(ROUTES.MAIN.path, { replace: false });
+      default:
+        return (
+          <NonUserRightSideItem
+            item={linkDatas.right_side}
+            location={props.location}
+          />
+        );
+    }
   };
 
   return (
     <div>
       <Header location={props.location}>
-        <LeftSide>
-          <HeaderImg src={transLogo} onClick={handleClickLogo} />
-          {linkDatas.left_side.map((link) => {
-            return (
-              <LinkTo there={{ to: link.to, name: link.name }} style={style} />
-            );
-          })}
-        </LeftSide>
-        <RightSide>
-          <LinkTo
-            there={{ to: `${transPath}`, name: `${transLog}` }}
-            style={style}
-          />
-
-          {linkDatas.right_side.map((link) => {
-            return (
-              <LinkTo there={{ to: link.to, name: link.name }} style={style} />
-            );
-          })}
-        </RightSide>
+        <LeftSideItem item={linkDatas.left_side} location={props.location} />
+        <TransComponent/>
       </Header>
     </div>
   );
 }
 
 export default Headers;
+
+//

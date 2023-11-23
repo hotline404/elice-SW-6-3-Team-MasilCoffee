@@ -1,4 +1,4 @@
-import FilterFn from "../../util/FilterCheckBox/FilterFn";
+import FilterFn from "../../../util/FilterCheckBox/FilterFn";
 
 // const checkboxes = [
 //   {
@@ -33,11 +33,9 @@ const initUsersState = {
   users: [],
 };
 
-const user = (state = initUsersState, action) => {
+const users = (state = initUsersState, action) => {
   switch (action.type) {
     case "init": {
-      console.log("state", state);
-      console.log("action.payload", action.payload);
 
       return {
         ...state,
@@ -82,9 +80,11 @@ const user = (state = initUsersState, action) => {
       };
     }
 
+    
+
     default:
       return state;
   }
 };
 
-export default user;
+export default users;

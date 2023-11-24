@@ -39,7 +39,7 @@ ProductRouter.post(
   "/",
   JwtMiddleware.checkToken,
   JwtMiddleware.checkAdmin,
-  imageUploader.single('image'),
+  imageUploader.single("file"),
   asyncHandler(async (req, res) => {
     try {
       const productData = req.body;

@@ -11,6 +11,11 @@ const board = (state = initialState, action) => {
         ...state,
         boards: action.payload,
       };
+    case BOARD_TYPE.GET_BOARD:
+      return {
+        ...state,
+        boards: action.payload,
+      }
     default:
       return state;
   }

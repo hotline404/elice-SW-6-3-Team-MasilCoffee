@@ -6,3 +6,10 @@ export const actionGetAllBoards = (boards) => {
     payload: boards,
   }
 }
+
+export const actionGetBoard = (board) => {
+  return {
+    type: BOARD_TYPE.GET_BOARD,
+    payload: board,
+  }
+}

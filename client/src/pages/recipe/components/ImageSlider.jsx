@@ -14,7 +14,7 @@ const ImageSlider = ({ images }) => {
   };
 
   return (
-    <ImageWrap>
+    <ImageWrap onClick={(e) => e.preventDefault()}>
       <StyledSlider {...settings}>
         {images.map((image) => (
           <Image src={image} alt="" />
@@ -61,6 +61,7 @@ const StyledSlider = styled(Slider)`
 const ImageWrap = styled.div`
   width: 70%;
   margin: 0 auto;
+  cursor: auto;
 
   @media all and (max-width: 767px) {
     width: 90%;

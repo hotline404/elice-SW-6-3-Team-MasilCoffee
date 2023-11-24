@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 //배경
 export const Background = styled.div`
@@ -113,4 +114,7 @@ export const PostWrap = styled.div`
   }
 `;
 
-
+export const StyledLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+`;

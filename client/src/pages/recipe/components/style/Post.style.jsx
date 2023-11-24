@@ -27,8 +27,10 @@ export const CommentWrap = styled.div`
 `;
 
 // 좋아요 div
-export const HeartWrap = styled.div`
+export const LikedWrap = styled.div`
   display: flex;
+  cursor: pointer;
+  color: ${({ liked }) => (liked ? "red" : "black")};
 
   &:hover {
     color: red;

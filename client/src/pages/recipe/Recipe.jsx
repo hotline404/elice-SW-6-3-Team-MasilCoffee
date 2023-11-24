@@ -12,7 +12,7 @@ import { actionGetAllBoards } from "../../redux/action/boardAction";
 const Recipe = () => {
   const dispatch = useDispatch();
   const allBoards = useSelector((state) => state.board.boards);
-  
+
   useEffect(() => {
     const fn = async () => {
       try {
@@ -38,11 +38,15 @@ const Recipe = () => {
           <PostInput placeholder={"검색어를 입력하세요."} text="검색" />
           <CategoryButton />
         </S.Container>
-        {/* 나중에 link 넣기 */}
-        {allBoards.map((post) => (
-          <S.PostWrap>
-            <PostList post={post} />
-          </S.PostWrap>
+        {Array.isArray(allBoards) && allBoards.map((post) => (
+          <S.StyledLink
+            to={`/RecipeView/${post._id}`}
+            state= {{ post: post._id }}
+          >
+            <S.PostWrap>
+              <PostList post={post} />
+            </S.PostWrap>
+          </S.StyledLink>
         ))}
       </S.ContainerWrap>
     </S.Background>

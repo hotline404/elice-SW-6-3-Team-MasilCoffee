@@ -10,10 +10,6 @@ import {
   StyledInfoBox,
   StyledInfo,
   StyledInputBox,
-  StyledOrderList,
-  StyledOrderListMenu,
-  StyledOrderListMenuBox,
-  StyledAmountPayment,
   StyledInfoContainer,
   StyledActionBg,
 } from "./Payment.style";
@@ -23,8 +19,21 @@ import { useSelector } from "react-redux";
 import OderList from "./oderList/OderList";
 
 const Payment = () => {
+  const name = useSelector((state) => state.user.name);
+  const phone = useSelector((state) => state.user.phone);
+  console.log("페이먼트", phone);
+
   const navigate = useNavigate();
-  
+  const handleOnClickToPayment = () => {
+    // confirm 대화상자를 표시하고, 사용자의 응답을 확인
+    const isConfirmed = window.confirm("정말 결제 하시겠습니까?");
+
+    // 사용자가 '확인'을 누른 경우, PaymentDone 페이지로 이동
+    if (isConfirmed) {
+      navigate("/PaymentDone");
+    }
+  };
+
   return (
     <StyledPaymentcontainer>
       <StyledPaymentBox>
@@ -50,7 +59,7 @@ const Payment = () => {
               <StyledInfo>
                 <StyledInputBox>
                   <h3>수령인</h3>
-                  <input type="text" placeholder="김다빈" />
+                  <input type="text" value={name} readOnly="readOnly" />
                 </StyledInputBox>
               </StyledInfo>
               <StyledInfo>
@@ -63,7 +72,7 @@ const Payment = () => {
               <StyledInfo>
                 <StyledInputBox>
                   <h3>전화번호</h3>
-                  <input type="text" placeholder="010 - 0000 - 0000" />
+                  <input type="text" value={phone} readOnly="readOnly" />
                 </StyledInputBox>
               </StyledInfo>
               <StyledInfo>
@@ -86,7 +95,7 @@ const Payment = () => {
               <OderList />
             </StyledInfoBox>
             <Button
-              onClick={() => navigate("/PaymentDone")}
+              onClick={handleOnClickToPayment}
               text={"결제하기"}
               type={"red"}
             />

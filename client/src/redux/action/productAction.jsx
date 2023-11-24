@@ -1,11 +1,29 @@
-import React from 'react'
+import { PRODUCT_TYPE } from "./_types";
 
-function productAction() {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+export const actionGetAllProducts = (products) => {
+  return {
+    type: PRODUCT_TYPE.GET_ALL_PRODUCTS,
+    payload: products,
+  };
+};
 
-export default productAction
+export const actionCreateProduct = (newProduct) => {
+  return {
+    type: PRODUCT_TYPE.ADD_PRODUCT,
+    payload: newProduct,
+  };
+};
+
+export const actionUpdateProduct = (product) => {
+  return {
+    type: PRODUCT_TYPE.UPDATE_PRODUCTS,
+    payload: product,
+  };
+};
+
+export const actionDeleteProduct = (productId) => {
+  return {
+    type: PRODUCT_TYPE.DELETE_PRODUCT,
+    payload: productId,
+  };
+};

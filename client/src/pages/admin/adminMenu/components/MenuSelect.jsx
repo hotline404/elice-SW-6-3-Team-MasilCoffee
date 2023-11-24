@@ -7,7 +7,7 @@ const MenuSelect = ({ options, modal = null, onChange = null }) => {
   }
 
   return (
-    <Selected.Selection modal={modal} onChange={onChange}>
+    <Selected.Selection modal={modal} onChang={onChange}>
       {options.map((op, i) => {
         return (
           <option value={op} key={op + i}>

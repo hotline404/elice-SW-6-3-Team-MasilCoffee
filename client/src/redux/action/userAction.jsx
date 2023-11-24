@@ -1,11 +1,40 @@
-import React from 'react'
+export const initUserSearch = (initData) => ({
+  type: "init",
+  payload: { initData }
+} )
 
-function userAction() {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+export const search = (quary) => ({
+  type: "get.search",
+  payload: { quary }
+})
 
-export default userAction
+export const addFilter = (name, pathFn) => ({
+  type: "add.filter",
+  payload: { name, pathFn }
+})
+
+export const removeFilter = (name) => ({
+  type: "remove.filter",
+  payload: { name }
+})
+
+export const getUser = (initData) => ({
+  type: "get.user",
+  payload: { initData }
+})
+
+export const postUser = (updateUser) => ({
+  type: "post.user",
+  payload: { updateUser }
+})
+
+export const loginUser = (loginUser) => ({
+  type: "login.user",
+  payload: { loginUser }
+})
+
+export const logoutUser = (logoutUser) => ({
+  type: "logout.user",
+  payload: { logoutUser }
+})
+

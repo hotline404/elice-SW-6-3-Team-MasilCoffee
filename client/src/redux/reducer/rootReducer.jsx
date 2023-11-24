@@ -3,6 +3,7 @@ import board from "./board";
 import comment from "./comment";
 import orderOption from "./orderOption";
 import order from "./order";
+import orderDetail from "./orderDetail";
 import payment from "./payment";
 import product from "./product";
 import users from "./user/users";
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   board,
   comment,
   orderOption,
+  orderDetail,
   order,
   payment,
   product,

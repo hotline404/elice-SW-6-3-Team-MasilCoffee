@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../../../components/ui/button/Button";
 import {
   StyledPayment,
@@ -14,6 +14,7 @@ import {
 import OderList from "../oderList/OderList";
 
 const PaymentDone = () => {
+  const navigate = useNavigate();
   return (
     <StyledPaymentcontainer>
       <StyledPaymentBox>
@@ -37,12 +38,18 @@ const PaymentDone = () => {
             <StyledInfoBox>
               <OderList />
             </StyledInfoBox>
-            <Link to="/">
-              <Button text={"홈으로"} type={"grey"} />
-            </Link>
-            <Link to="/Cart">
-              <Button text={"마이페이지"} type={"red"} />
-            </Link>
+
+            <Button
+              onClick={() => navigate("/")}
+              text={"홈으로"}
+              type={"grey"}
+            />
+
+            <Button
+              onClick={() => navigate("/MyPage")}
+              text={"마이페이지"}
+              type={"red"}
+            />
           </StyledInfoContainer>
         </StyledPayment>
       </StyledPaymentBox>

@@ -8,11 +8,11 @@ import SquareButton from "../../../../../components/ui/button/SquareButton";
 import { SlideAnimation, SquareButtonBox } from "./SlideAnimation";
 
 import { useDispatch, useSelector } from "react-redux";
-import { actionSetMilkOption } from "../../../../../redux/action/orderOptionAction";
+import { actionSetMilkOption } from "../../../../../redux/action/orderDetailAction";
 
 function MilkOptionSlide() {
   const dispatch = useDispatch();
-  const selectedMilk = useSelector(state => state.orderOption.milk); // 선택된 우유 옵션
+  const selectedMilk = useSelector((state) => state.orderDetail.milk); // 선택된 우유 옵션
 
   const [isAnimated, setIsAnimated] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -27,12 +27,12 @@ function MilkOptionSlide() {
       setTotalPrice(PRICE);
     }
   }, [selectedMilk]);
-  
+
   const handleMilkButtonClick = (option) => {
     // 옵션이 선택되면 새로운 옵션으로 업데이트
     dispatch(actionSetMilkOption(option));
   };
-  
+
   const toggleMilkOptionSlide = () => {
     // 슬라이드 상태를 토글
     setIsAnimated(!isAnimated);

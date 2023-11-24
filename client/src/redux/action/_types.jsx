@@ -30,3 +30,24 @@ export const COMMENT_TYPE = {
   UPDATE_COMMENT: "update_comment",
   DELETE_COMMENT: "delete_comment",
 };
+
+export const ORDEROPTION_TYPE = {
+  ADD_MENU_ORDEROPTION: "add_menu_orderoption",
+  ADD_SHOT_ORDEROPTION: "add_shot_orderoption",
+  ADD_SYRUPS_ORDEROPTION: "add_syrups_orderoption",
+  ADD_ICE_ORDEROPTION: "add_ice_orderoption",
+  ADD_WHIPPING_ORDEROPTION: "add_whipping_orderoption",
+  ADD_DRIZZLE_ORDEROPTION: "add_drizzle_orderoption",
+  ADD_MILK_ORDEROPTION: "add_milk_orderoption",
+  RESET_OPTION: "reset_option",
+};
+
+export const ORDERS_TYPE = {
+  ADD_ORDER: "add_order",
+  REMOVE_ORDER: "remove_order",
+  UPDATE_ORDER: "update_order",
+};
+export const PAYMENT_TYPE = {
+  PAYMENT: "payment",
+  RESET: "reset",
+};

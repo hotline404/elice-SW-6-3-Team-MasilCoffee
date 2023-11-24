@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/ui/button/Button";
 import SquareButton from "../../components/ui/button/SquareButton";
 import {
@@ -16,10 +16,15 @@ import {
   StyledAmountPayment,
   StyledInfoContainer,
   StyledActionBg,
-  
 } from "./Payment.style";
 
+import { useSelector } from "react-redux";
+
+import OderList from "./oderList/OderList";
+
 const Payment = () => {
+  const navigate = useNavigate();
+  
   return (
     <StyledPaymentcontainer>
       <StyledPaymentBox>
@@ -76,33 +81,15 @@ const Payment = () => {
                   <SquareButton text={"신용카드"} type={"red"} />
                 </StyledInputBox>
               </StyledInfo>
-              <StyledOrderList>
-                <h2>주문내역</h2>
-                <i></i>
-                <StyledOrderListMenu>
-                  <StyledOrderListMenuBox>
-                    <div>
-                      <b>에스프레소</b>
-                      <span>샷1</span>
-                    </div>
-                    <div>2잔</div>
-                    <div>9,000원</div>
-                  </StyledOrderListMenuBox>
-                  <i></i>
-                </StyledOrderListMenu>
-              </StyledOrderList>
-              <StyledAmountPayment>
-                <div>
-                  <h2>총 결제 금액</h2>
-                  <h2>9,000원</h2>
-                </div>
-
-                <i></i>
-              </StyledAmountPayment>
             </StyledInfoBox>
-            <Link to="/PaymentDone">
-              <Button text={"결제하기"} type={"red"} />
-            </Link>
+            <StyledInfoBox>
+              <OderList />
+            </StyledInfoBox>
+            <Button
+              onClick={() => navigate("/PaymentDone")}
+              text={"결제하기"}
+              type={"red"}
+            />
           </StyledInfoContainer>
         </StyledPayment>
       </StyledPaymentBox>

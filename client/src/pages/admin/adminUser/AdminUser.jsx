@@ -1,13 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useSelector } from "react";
 import * as Users from "./AdminUser.style";
 import AdminSidebar from "../../../components/layout/Sidebar/Sidebar";
 import UserSearch from "./components/UserSearch";
 import Table from "../../../components/ui/table/Table";
 import { usePagination } from "../../../hooks/usePagination";
 import sliceTen from "../../../util/forPagenation/sliceTen";
+// import { actionGetAllProducts, actionDeleteProduct } from "../../../redux/action/user/usersAction";
+import { axiosGetUsers } from "../../../api/user/users";
 
 const AdminUser = ({ trData, tdData }) => {
+  const token = useSelector((state) => state.login.token);
   const [page, setPage] = useState(1);
+
+  //const users = useSelector((state) => state.users);
+  //console.log(users);
+  useEffect(() => {
+    const fn = async () => {
+      try {
+        const getUsers = await axiosGetUsers(token);
+        console.log(getUsers);
+        //dispatch(actionGetAllProducts(products));
+      } catch (err) {
+        console.log("err", err);
+      }
+    };
+    fn();
+  }, []);
 
   const pageConst = {
     totalCount: tdData.length,

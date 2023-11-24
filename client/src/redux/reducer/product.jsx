@@ -19,7 +19,7 @@ const product = (state = initialState, action) => {
     case PRODUCT_TYPE.UPDATE_PRODUCTS:
       const updatedProduct = action.payload;
       const updatedProducts = state.products.map((product) => {
-        return product.id === updatedProduct.id ? updatedProduct : product;
+        return product._id === updatedProduct._id ? updatedProduct : product;
       });
 
       return {

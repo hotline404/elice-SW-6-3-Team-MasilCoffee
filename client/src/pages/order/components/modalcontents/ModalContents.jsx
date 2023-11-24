@@ -3,7 +3,7 @@ import Button from "../../../../components/ui/button/SquareButton";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import * as orderOptionAction from "../../../../redux/action/orderOptionAction";
+import * as orderDetailAction from "../../../../redux/action/orderDetailAction";
 import { addOrder } from "../../../../redux/action/orderAction";
 import { paymentAction } from "../../../../redux/action/paymentAction";
 
@@ -29,12 +29,12 @@ const ModalContents = ({ data }) => {
   const navigate = useNavigate();
   // 리덕스 가져오기
   const dispatch = useDispatch();
-  const options = useSelector((state) => state.orderOption);
+  const options = useSelector((state) => state.orderDetail);
   // const [price, setPrice] = useState(data.price);
 
   const handleIncreaseOnClick = () => {
     dispatch(
-      orderOptionAction.actionSetMenuOption({
+      orderDetailAction.actionSetMenuOption({
         itemPrice: data.price,
         menu: options.menu + 1,
       })
@@ -43,23 +43,26 @@ const ModalContents = ({ data }) => {
   const handleDecreaseOnClick = () => {
     if (options.menu > 1) {
       dispatch(
-        orderOptionAction.actionSetMenuOption({
+        orderDetailAction.actionSetMenuOption({
           itemPrice: data.price,
           menu: options.menu - 1,
         })
       );
     }
   };
-  
+
   useEffect(() => {
     dispatch(
-      orderOptionAction.actionSetMenuOption({
+      orderDetailAction.actionSetMenuOption({
         itemPrice: data.price,
         menu: options.menu,
       })
     );
+    console.log(data);
+    console.log(options);
+
     // 모달 콘텐츠가 닫힐 때 실행되는 함수(클리어펑션)
-    return () => dispatch(orderOptionAction.actionResetOption);
+    return () => dispatch(orderDetailAction.actionResetOption);
   }, []);
 
   return (
@@ -98,7 +101,9 @@ const ModalContents = ({ data }) => {
         />
         <Button
           onClick={() => {
-            dispatch(paymentAction([{ ...options, id: new Date(), name: data.name }]));
+            dispatch(
+              paymentAction([{ ...options, id: new Date(), name: data.name }])
+            );
             navigate("/Payment");
           }}
           type="red"

@@ -18,6 +18,7 @@ export const BOARD_TYPE = {
   GET_CATEGORY_BOARDS: "get_category_boards",
   GET_FILTER_BOARDS: "get_filter_boards",
   GET_MY_BOARDS: "get_my_boards",
+  GET_BOARD: "get_board",
   ADD_BOARD: "add_board",
   UPDATE_BOARD: "update_board",
   DELETE_BOARD: "delete_board",
@@ -31,15 +32,15 @@ export const COMMENT_TYPE = {
   DELETE_COMMENT: "delete_comment",
 };
 
-export const ORDEROPTION_TYPE = {
-  ADD_MENU_ORDEROPTION: "add_menu_orderoption",
-  ADD_SHOT_ORDEROPTION: "add_shot_orderoption",
-  ADD_SYRUPS_ORDEROPTION: "add_syrups_orderoption",
-  ADD_ICE_ORDEROPTION: "add_ice_orderoption",
-  ADD_WHIPPING_ORDEROPTION: "add_whipping_orderoption",
-  ADD_DRIZZLE_ORDEROPTION: "add_drizzle_orderoption",
-  ADD_MILK_ORDEROPTION: "add_milk_orderoption",
-  RESET_OPTION: "reset_option",
+export const ORDER_DETAIL_TYPE = {
+  ADD_MENU_ORDER_DETAIL: "add_menu_order_detail",
+  ADD_SHOT_ORDER_DETAIL: "add_shot_order_detail",
+  ADD_SYRUPS_ORDER_DETAIL: "add_syrups_order_detail",
+  ADD_ICE_ORDER_DETAIL: "add_ice_order_detail",
+  ADD_WHIPPING_ORDER_DETAIL: "add_whipping_order_detail",
+  ADD_DRIZZLE_ORDER_DETAIL: "add_drizzle_order_detail",
+  ADD_MILK_ORDER_DETAIL: "add_milk_order_detail",
+  RESET_ORDER_DETAIL: "reset_order_detail",
 };
 
 export const ORDERS_TYPE = {

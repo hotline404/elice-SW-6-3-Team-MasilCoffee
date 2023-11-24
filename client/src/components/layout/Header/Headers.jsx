@@ -1,8 +1,6 @@
 import React from "react";
 import LeftSideItem from "./heander_item/LeftSideItem";
-import UserRightSideItem from "./heander_item/UserRightSideItem";
-import AdminRightSideItem from "./heander_item/AdminRightSideItem";
-import NonUserRightSideItem from "./heander_item/NonUserRightSideItem";
+import TransComponent from "./heander_item/TransComponent";
 
 import { Header } from "./Headers.style";
 import { ROUTES } from "../../../router/Routes";
@@ -38,50 +36,17 @@ const linkDatas = {
 };
 
 function Headers(props) {
-  const role = useSelector((state) => state.user.role);
-  const token = useSelector((state) => state.login);
-  console.log("header token", token)
-
-  const TransComponent = () => {
-    switch (role) {
-      case "Admin": {
-        return (
-          <AdminRightSideItem
-            item={linkDatas.right_side}
-            location={props.location}
-          />
-        );
-      }
-
-      case "User": {
-        return (
-          <UserRightSideItem
-            item={linkDatas.right_side}
-            location={props.location}
-          />
-        );
-      }
-
-      default:
-        return (
-          <NonUserRightSideItem
-            item={linkDatas.non_user_right}
-            location={props.location}
-          />
-        );
-    }
-  };
+  const role = useSelector((state) => state.login);
+  console.log("header role", role)
 
   return (
     <div>
       <Header location={props.location}>
         <LeftSideItem item={linkDatas.left_side} location={props.location} />
-        <TransComponent />
+        <TransComponent userRole={role} linkDatas={linkDatas} />
       </Header>
     </div>
   );
 }
 
 export default Headers;
-
-//

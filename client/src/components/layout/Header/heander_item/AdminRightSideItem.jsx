@@ -5,29 +5,6 @@ import { ROUTES } from '../../../../router/Routes';
 import { useSelector } from 'react-redux';
 import { RightSide } from '../Headers.style';
 
-// const linkDatas = {
-//   right_side: [
-//     {
-//       to: ROUTES.REGISTER.path,
-//       name: "회원가입",
-//     },
-//     {
-//       to: ROUTES.MYPAGE.path,
-//       name: "마이페이지",
-//     },
-//   ],
-//   left_side: [
-//     {
-//       to: ROUTES.ORDER.path,
-//       name: "MENU",
-//     },
-//     {
-//       to: ROUTES.RECIPE.path,
-//       name: "꿀조합",
-//     },
-//   ],
-// };
-
 const items = [
   {
     to: ROUTES.ADMINORDER.path,
@@ -41,7 +18,6 @@ const items = [
 
 
 function AdminRightSideItem(props) {
-  const isLogin = useSelector((state) => state.login.loginState);
 
   const style = {
     textDecoration: "none",

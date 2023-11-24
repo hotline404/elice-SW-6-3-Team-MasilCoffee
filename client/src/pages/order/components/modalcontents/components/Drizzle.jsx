@@ -8,11 +8,11 @@ import SquareButton from "../../../../../components/ui/button/SquareButton";
 import { SlideAnimation, SquareButtonBox } from "./SlideAnimation";
 
 import { useDispatch, useSelector } from "react-redux";
-import { actionSetDrizzleOption } from "../../../../../redux/action/orderOptionAction";
+import { actionSetDrizzleOption } from "../../../../../redux/action/orderDetailAction";
 
 function DrizzleOptionSlide() {
   const dispatch = useDispatch();
-  const selectedDrizzle = useSelector(state => state.orderOption.drizzle);
+  const selectedDrizzle = useSelector(state => state.orderDetail.drizzle);
 
   const [isAnimated, setIsAnimated] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);

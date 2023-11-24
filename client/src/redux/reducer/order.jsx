@@ -1,5 +1,5 @@
 import { ORDERS_TYPE } from "../action/_types";
-import { calculatePrice } from "./orderOption";
+import { calculatePrice } from "./orderDetail";
 
 const initialState = []; //주문이 쌓이는 곳
 
@@ -13,14 +13,15 @@ const order = (state = initialState, action) => {
     }
     case ORDERS_TYPE.UPDATE_ORDER: {
       const newState = state.map((current) => {
-        if(current.id === action.payload.id) {
+        if (current.id === action.payload.id) {
           const copyOrder = JSON.parse(JSON.stringify(action.payload.order));
-          const result = {...copyOrder, totalPrice: calculatePrice(copyOrder)};
+          const result = {
+            ...copyOrder,
+            totalPrice: calculatePrice(copyOrder),
+          };
           return result;
-        }
-        else return current;
-      }
-      );
+        } else return current;
+      });
       return [...newState];
     }
     default:

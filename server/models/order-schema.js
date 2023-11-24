@@ -9,11 +9,18 @@ const OrderSchema = new Schema(
             ref: "User",
             required: true,
         },
-        orderDetails: [
+        // orderDetails: [
+        //     {
+        //         type: Schema.Types.ObjectId,
+        //         ref: "OrderDetail",
+        //         required: true,
+        //     }
+        // ],
+        orderDetail: [
             {
-                type: Schema.Types.ObjectId,
-                ref: "OrderDetail",
-                required: true,
+                name: String,
+                options: String,
+                price:Number
             }
         ],
         date: {

@@ -36,14 +36,18 @@ const linkDatas = {
 };
 
 function Headers(props) {
-  const role = useSelector((state) => state.login);
-  console.log("header role", role)
+  const role = useSelector((state) => state.login.role);
+  console.log("header role", role);
 
   return (
     <div>
       <Header location={props.location}>
         <LeftSideItem item={linkDatas.left_side} location={props.location} />
-        <TransComponent userRole={role} linkDatas={linkDatas} />
+        <TransComponent
+          userRole={role}
+          linkDatas={linkDatas}
+          location={props.location}
+        />
       </Header>
     </div>
   );

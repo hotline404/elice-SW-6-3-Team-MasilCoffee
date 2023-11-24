@@ -1,24 +1,22 @@
-import React from 'react'
-import LinkTo from '../../../ui/Link/LinkTo';
-import IncludeRedPage from '../../../../util/IncludeRedPage';
-import { ROUTES } from '../../../../router/Routes';
-import { useSelector } from 'react-redux';
-import { RightSide } from '../Headers.style';
+import React from "react";
+import LinkTo from "../../../ui/Link/LinkTo";
+import IncludeRedPage from "../../../../util/IncludeRedPage";
+import { ROUTES } from "../../../../router/Routes";
+import { useSelector } from "react-redux";
+import { RightSide } from "../Headers.style";
 
 const items = [
   {
     to: ROUTES.ADMINORDER.path,
-    name: "관리자 페이지"
+    name: "관리자 페이지",
   },
   {
     to: ROUTES.LOGOUT.path,
-    name: "로그아웃"
-  }
-]
-
+    name: "로그아웃",
+  },
+];
 
 function AdminRightSideItem(props) {
-
   const style = {
     textDecoration: "none",
     textAlign: "center",
@@ -31,14 +29,13 @@ function AdminRightSideItem(props) {
 
   return (
     <RightSide>
-     
-          {items.map((link) => {
-            return (
-              <LinkTo there={{ to: link.to, name: link.name }} style={style} />
-            );
-          })}
+      {items.map((link) => {
+        return (
+          <LinkTo there={{ to: link.to, name: link.name }} style={style} />
+        );
+      })}
     </RightSide>
-  )
+  );
 }
 
-export default AdminRightSideItem
+export default AdminRightSideItem;

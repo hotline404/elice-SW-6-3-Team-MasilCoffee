@@ -5,7 +5,7 @@ const urlAuthNum = "http://localhost:5000/api/v1/users/signup/verify-code"
 
 //register
 export const axiosRegister = async (name, email, nickname, phone, password) => {
-  const registerHeaders = {
+  const registerBody = {
     name: name,
     email: email,
     nickname: nickname,
@@ -14,7 +14,7 @@ export const axiosRegister = async (name, email, nickname, phone, password) => {
   };
 
   try {
-    const res = await axios.post(urlRegister, registerHeaders);
+    const res = await axios.post(urlRegister, registerBody);
     const data = res.data;
 
     return data;
@@ -25,12 +25,12 @@ export const axiosRegister = async (name, email, nickname, phone, password) => {
 };
 //send-email
 export const authEmail = async (email) => {
-  const authHeaders = {
+  const authBody = {
     "email": email,
   };
 
   try {
-    const res = await axios.post(urlAuthEmail, authHeaders);
+    const res = await axios.post(urlAuthEmail, authBody);
     const data = res.data;
 
     return data;
@@ -42,7 +42,7 @@ export const authEmail = async (email) => {
 
 //send-code
 export const authComplete = async (email, code) => {
-  const authHeaders = {
+  const authBody = {
     "email": email,
     "code": parseInt(code)
   };
@@ -51,7 +51,7 @@ export const authComplete = async (email, code) => {
   console.log("code type", typeof(parseInt(code)))
 
   try {
-    const res = await axios.post(urlAuthNum, authHeaders);
+    const res = await axios.post(urlAuthNum, authBody);
     const data = res.data;
 
     return data;

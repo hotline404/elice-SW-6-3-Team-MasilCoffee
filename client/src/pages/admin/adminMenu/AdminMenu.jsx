@@ -14,6 +14,8 @@ import { getAllProducts, deleteProduct } from "../../../api/product";
 
 const AdminMenu = ({ trData }) => {
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.login.token);
+  console.log("pageToken", token);
 
   const allProduct = useSelector((state) => state.product.products);
   const tdData = allProduct.map((data) => [data._id, data.image, data.category, data.name, data.size, data.temp, data.price]);
@@ -101,7 +103,8 @@ const AdminMenu = ({ trData }) => {
           <MenuModal
             title={modifyProduct ? "메뉴 수정" : "메뉴 추가"} // 값에 따라 제목 변경
             closeModal={() => {
-              setShowMenuModal(!showMenuModal);
+              setModifyProduct(undefined);
+              setShowMenuModal(false);
             }}
             modifyProduct={modifyProduct}
           />

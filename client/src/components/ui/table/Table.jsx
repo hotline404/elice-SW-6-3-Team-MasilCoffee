@@ -19,9 +19,11 @@ const Table = ({ trData, tdData, onTdClick = null, isMenuTable = false }) => {
           ? // isMenuTable이 true인 경우
             tdData.map((rowData, rowI) => (
               <tr key={rowI}>
-                <td>
-                  <TableLayout.Image src={rowData[1]} alt="coffee" />
-                </td>
+                {rowData[1] !== "" && (
+                  <td>
+                    <TableLayout.Image src={rowData[1]} alt="coffee" />
+                  </td>
+                )}
                 {rowData.slice(2).map((data, colI) => (
                   <td key={data + colI}>{data}</td>
                 ))}

@@ -15,7 +15,7 @@ import { persistReducer } from "redux-persist";
 const persistConfig = {
   key: "root", // localStorage key
   storage, // localStorage
-  whitelist: ["user"], // target (reducer name)
+  whitelist: ["login"], // target (reducer name)
 };
 
 const rootReducer = combineReducers({

@@ -1,24 +1,23 @@
 import * as Options from "./style/GetAllOption.style";
 
 const GetAllOption = ({ options }) => {
-  console.log(options);
   return (
     <Options.Container>
       {options.map((option, index) => {
         const optionName = Object.keys(option)[0];
-        const optionValues = Object.entries(option[optionName]); // 옵션의 값 배열
+        const optionValues = Object.entries(option[optionName]);
 
         return (
-          <div key={index}>
-            <h3>{optionName}</h3>
-            <ul>
+          <Options.Content key={index}>
+            <p>{optionName}</p>
+            <Options.Ul>
               {optionValues.map(([key, value]) => (
                 <li key={key}>
-                  {key}: {value}
+                  {key}({value})
                 </li>
               ))}
-            </ul>
-          </div>
+            </Options.Ul>
+          </Options.Content>
         );
       })}
     </Options.Container>

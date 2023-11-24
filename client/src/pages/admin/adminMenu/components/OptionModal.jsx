@@ -12,11 +12,9 @@ const OptionModal = ({ options, title, closeModal }) => {
   const [inputValue, setInputValue] = useState("");
   const [inputComponents, setInputComponents] = useState([]);
 
-  const optionName = ["얼음", "드리즐", "휘핑", "우유", "직접입력"];
+  const optionName = ["선택없음", "얼음", "드리즐", "휘핑", "우유", "직접입력"];
 
-  const handleSelectChange = (e) => {
-    const selected = e.target.value;
-    console.log(selected);
+  const handleSelectChange = (selected) => {
     if (selected === "직접입력") {
       setSelectedOption("");
       setShowInput(true);

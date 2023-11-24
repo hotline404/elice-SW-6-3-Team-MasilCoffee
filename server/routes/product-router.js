@@ -4,7 +4,7 @@ const ProductService = require("../services/product-service");
 const asyncHandler = require("../middlewares/async-handler");
 const ResponseHandler = require("../middlewares/res-handler");
 const imageUploader = require('../middlewares/s3-handler');
-
+const JwtMiddleware = require('../middlewares/jwt-handler');
 
 // single("여기이름이랑") Key 값이 일치해야함
 // posturl : http://localhost:5000/test/image?directory=product
@@ -37,6 +37,8 @@ ProductRouter.get(
 // 제품 생성
 ProductRouter.post(
   "/",
+  JwtMiddleware.checkToken,
+  JwtMiddleware.checkAdmin,
   imageUploader.single('image'),
   asyncHandler(async (req, res) => {
     try {
@@ -45,7 +47,7 @@ ProductRouter.post(
         return res.status(400).send('이미지를 업로드해주세요.');
       }
       const imageURL = req.file.location;
-      const newProduct = await ProductService.createProductWithImage(productData, imageURL);
+      const newProduct = await ProductService.createProduct(productData, imageURL);
       ResponseHandler.respondWithSuccess(res, newProduct);
     } catch (error) {
       console.error(error);
@@ -58,6 +60,8 @@ ProductRouter.post(
 // 제품 정보 수정 by productid
 ProductRouter.put(
   "/:productId",
+  JwtMiddleware.checkToken,
+  JwtMiddleware.checkAdmin,
   asyncHandler(async (req, res) => {
     const productId = req.params.productid;
     const productData = req.body;
@@ -75,6 +79,8 @@ ProductRouter.put(
 // 제품 삭제 by productid
 ProductRouter.delete(
   "/:productId",
+  JwtMiddleware.checkToken,
+  JwtMiddleware.checkAdmin,
   asyncHandler(async (req, res) => {
     const productId = req.params.productid;
     const deletedProduct = await ProductService.deleteProduct(productId);

@@ -17,7 +17,7 @@ const allowedExtensions = [".png", ".jpg", ".jpeg", ".bmp"];
 const imageUploader = multer({
   storage: multerS3({
     s3,
-    bucket: "elice-mailcoffee",
+    bucket: process.env.AWS_BUCKET_NAME,
     key: (req, file, callback) => {
       const uploadDirectoy = req.query.directory ?? "";
       const extension = path.extname(file.originalname);

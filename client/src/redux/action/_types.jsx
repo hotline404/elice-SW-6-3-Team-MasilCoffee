@@ -32,3 +32,24 @@ export const COMMENT_TYPE = {
   UPDATE_COMMENT: "update_comment",
   DELETE_COMMENT: "delete_comment",
 };
+
+export const ORDER_DETAIL_TYPE = {
+  ADD_MENU_ORDER_DETAIL: "add_menu_order_detail",
+  ADD_SHOT_ORDER_DETAIL: "add_shot_order_detail",
+  ADD_SYRUPS_ORDER_DETAIL: "add_syrups_order_detail",
+  ADD_ICE_ORDER_DETAIL: "add_ice_order_detail",
+  ADD_WHIPPING_ORDER_DETAIL: "add_whipping_order_detail",
+  ADD_DRIZZLE_ORDER_DETAIL: "add_drizzle_order_detail",
+  ADD_MILK_ORDER_DETAIL: "add_milk_order_detail",
+  RESET_ORDER_DETAIL: "reset_order_detail",
+};
+
+export const ORDERS_TYPE = {
+  ADD_ORDER: "add_order",
+  REMOVE_ORDER: "remove_order",
+  UPDATE_ORDER: "update_order",
+};
+export const PAYMENT_TYPE = {
+  PAYMENT: "payment",
+  RESET: "reset",
+};

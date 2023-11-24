@@ -22,6 +22,7 @@ const InputInfo = [
     id: "email",
     placeholder: "이메일 형식을 지켜주세요(abcd@QQQ.com)",
     auth: true,
+    readonly: true
   },
   {
     name: "닉네임",
@@ -90,7 +91,7 @@ function RegisterForm() {
             <Input
               ref={info.id === "email" ? emailRef : passwordRef}
               input={info}
-            />
+              />
             {info.auth && <div onClick={openAuthModal}>인증</div>}
             {info.doublecheck && (
               <div onClick={() => handleClick(info.id)}>비밀번호 확인</div>

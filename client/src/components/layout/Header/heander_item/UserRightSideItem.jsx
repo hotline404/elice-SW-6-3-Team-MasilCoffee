@@ -1,22 +1,21 @@
-import React from 'react'
-import LinkTo from '../../../ui/Link/LinkTo';
-import IncludeRedPage from '../../../../util/IncludeRedPage';
-import { ROUTES } from '../../../../router/Routes';
-import { RightSide } from '../Headers.style';
+import React from "react";
+import LinkTo from "../../../ui/Link/LinkTo";
+import IncludeRedPage from "../../../../util/IncludeRedPage";
+import { ROUTES } from "../../../../router/Routes";
+import { RightSide } from "../Headers.style";
 
 const items = [
   {
     to: ROUTES.MYPAGE.path,
-    name: "마이페이지"
+    name: "마이페이지",
   },
   {
     to: ROUTES.LOGOUT.path,
-    name: "로그아웃"
-  }
-]
+    name: "로그아웃",
+  },
+];
 
 function UserRightSideItem(props) {
-
   const style = {
     textDecoration: "none",
     textAlign: "center",
@@ -29,13 +28,13 @@ function UserRightSideItem(props) {
 
   return (
     <RightSide>
-          {items.map((link) => {
-            return (
-              <LinkTo there={{ to: link.to, name: link.name }} style={style} />
-            );
-          })}
+      {items.map((link) => {
+        return (
+          <LinkTo there={{ to: link.to, name: link.name }} style={style} />
+        );
+      })}
     </RightSide>
-  )
+  );
 }
 
-export default UserRightSideItem
+export default UserRightSideItem;

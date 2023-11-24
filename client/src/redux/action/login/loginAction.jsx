@@ -1,8 +1,8 @@
 export const postLogin = (resData) => ({
   type: "post.login",
-  payload: { resData }
-} )
+  payload: { resData },
+});
 
 export const actionLogout = () => ({
-  type: "logout"
-})
+  type: "logout",
+});

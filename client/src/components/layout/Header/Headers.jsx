@@ -1,14 +1,18 @@
 import React from "react";
 import LeftSideItem from "./heander_item/LeftSideItem";
-import UserRightSideItem from "./heander_item/UserRightSideItem";
-import AdminRightSideItem from "./heander_item/AdminRightSideItem";
-import NonUserRightSideItem from "./heander_item/NonUserRightSideItem";
+import TransComponent from "./heander_item/TransComponent";
 
 import { Header } from "./Headers.style";
 import { ROUTES } from "../../../router/Routes";
 import { useSelector } from "react-redux";
 
 const linkDatas = {
+  non_user_right: [
+    {
+      to: ROUTES.REGISTER.path,
+      name: "회원가입",
+    },
+  ],
   right_side: [
     {
       to: ROUTES.REGISTER.path,
@@ -32,48 +36,21 @@ const linkDatas = {
 };
 
 function Headers(props) {
-  const role = useSelector((state) => state.user.role);
-
-  const TransComponent = () => {
-    switch (role) {
-      case "Admin": {
-        return (
-          <AdminRightSideItem
-            item={linkDatas.right_side}
-            location={props.location}
-          />
-        );
-      }
-
-      case "User": {
-        return (
-          <UserRightSideItem
-            item={linkDatas.right_side}
-            location={props.location}
-          />
-        );
-      }
-
-      default:
-        return (
-          <NonUserRightSideItem
-            item={linkDatas.right_side}
-            location={props.location}
-          />
-        );
-    }
-  };
+  const role = useSelector((state) => state.login.role);
+  console.log("header role", role);
 
   return (
     <div>
       <Header location={props.location}>
         <LeftSideItem item={linkDatas.left_side} location={props.location} />
-        <TransComponent/>
+        <TransComponent
+          userRole={role}
+          linkDatas={linkDatas}
+          location={props.location}
+        />
       </Header>
     </div>
   );
 }
 
 export default Headers;
-
-//

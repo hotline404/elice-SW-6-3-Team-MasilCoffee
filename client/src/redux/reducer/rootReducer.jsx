@@ -4,6 +4,7 @@ import comment from "./comment";
 import orderOption from "./orderOption";
 import order from "./order";
 import orderDetail from "./orderDetail";
+import payment from "./payment";
 import product from "./product";
 import users from "./user/users";
 import user from "./user/user";
@@ -14,15 +15,16 @@ import { persistReducer } from "redux-persist";
 const persistConfig = {
   key: "root", // localStorage key
   storage, // localStorage
-  whitelist: ["auth"], // target (reducer name)
+  whitelist: ["login"], // target (reducer name)
 };
 
 const rootReducer = combineReducers({
   board,
   comment,
   orderOption,
-  order,
   orderDetail,
+  order,
+  payment,
   product,
   users,
   user,

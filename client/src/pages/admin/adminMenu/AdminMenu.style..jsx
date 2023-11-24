@@ -22,3 +22,16 @@ export const TopBox = styled.div`
 export const ButtonWrapper = styled.div`
   margin: 40px 40px 0 0;
 `;
+
+export const Pagination = styled.div`
+  margin: 38.2px;
+  display: flex;
+  justify-content: center;
+`;
+
+export const PaginationItem = styled.a`
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+`;

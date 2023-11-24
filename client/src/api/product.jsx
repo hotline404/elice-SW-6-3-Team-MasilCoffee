@@ -7,12 +7,13 @@ export const getAllProducts = async () => {
   return products;
 };
 
-export const createProduct = async (formData) => {
-  console.log("form", formData);
+export const createProduct = async (data, token) => {
+  console.log("form", token);
   const res = await axios
-    .post("http://localhost:5000/api/v1/products/", formData, {
+    .post("http://localhost:5000/api/v1/products/", data, {
       headers: {
         "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
       },
     })
     .then((res) => {
@@ -27,17 +28,16 @@ export const createProduct = async (formData) => {
 };
 
 export const updateProduct = async (id, data) => {
-  const res = await axios.put(`http://localhost:5000/api/v1/products/${id}`, data);
+  const res = await axios.put(`http://localhost:5000/api/v1/products/${id}`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   const products = res.data.data;
 
   return products;
 };
 
 export const deleteProduct = async (id) => {
-  const res = await axios.delete(`http://localhost:5000/api/v1/products/${id}`);
-  const products = res.data.data;
-
-  console.log("deleted", res, products);
-
-  return products;
+  await axios.delete(`http://localhost:5000/api/v1/products/${id}`);
 };

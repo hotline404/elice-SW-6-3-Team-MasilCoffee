@@ -1,11 +1,19 @@
-import React from 'react'
+import { BOARD_TYPE } from "../action/_types";
 
-function board() {
-  return (
-    <div>
-      
-    </div>
-  )
+const initialState = {
+  boards: [],
+};
+
+const board = (state = initialState, action) => {
+  switch (action.type) {
+    case BOARD_TYPE.GET_ALL_BOARDS:
+      return {
+        ...state,
+        boards: action.payload,
+      };
+    default:
+      return state;
+  }
 }
 
-export default board
+export default board;

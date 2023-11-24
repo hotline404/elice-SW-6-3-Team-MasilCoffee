@@ -92,33 +92,33 @@ export const ROUTES = {
   },
 
   MYPAGE: {
-    path: "/MyPage",
-    link: "/MyPage",
+    path: "/myPage",
+    link: "/myPage",
     element: <MyPage />,
   },
   USERINFOCHANGE: {
-    path: "/UserInfoChange",
-    link: "/UserInfoChange",
+    path: "/mypage/userInfoChange",
+    link: "/mypage/userInfoChange/:user_id/:email",
     element: <UserInfoChange />,
   },
   CONFIRMPASSWORD: {
-    path: "/ConfirmPassword",
-    link: "/ConfirmPassword",
+    path: "/mypage/confirmPassword",
+    link: "/mypage/confirmPassword/:user_id",
     element: <ConfirmPassword />,
   },
   ORDERDETAILS: {
-    path: "/OrderDetails",
-    link: "/OrderDetails",
+    path: "/mypage/orderDetails",
+    link: "/mypage/orderDetails/:user_id",
     element: <OrderDetails />,
   },
   WRITELIST: {
-    path: "/WriteList",
-    link: "/WriteList",
+    path: "/mypage/writeList",
+    link: "/mypage/writeList/:user_id",
     element: <WriteList />,
   },
   COMMENTLISTPAGE: {
-    path: "/CommentListpage",
-    link: "/CommentListpage",
+    path: "/mypage/commentListpage",
+    link: "/mypage/commentListpage/:user_id",
     element: <CommentListPage />,
   },
 
@@ -137,6 +137,7 @@ export const ROUTES = {
     link: "/admin/user",
     element: <AdminUser />,
   },
+  
   NOTFOUND: {
     path: "/*",
     link: "/*",

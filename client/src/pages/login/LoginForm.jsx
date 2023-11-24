@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { axiosPostLogin } from "../../api/login/login.jsx";
 import { postLogin } from "../../redux/action/login/loginAction.jsx";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../router/Routes.jsx";
 
@@ -30,7 +30,7 @@ function LoginForm() {
       dispatch(postLogin(LoginRes));
       dispatch(getUser(UserRes));
     } catch (err) {
-      nav(ROUTES.INTERNALSERVERERROR.path);
+      alert("아이디 비밀번호를 확인해 주세요")
     }
   };
 

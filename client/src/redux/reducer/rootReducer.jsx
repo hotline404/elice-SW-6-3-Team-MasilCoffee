@@ -8,6 +8,14 @@ import product from "./product";
 import users from "./user/users";
 import user from "./user/user";
 import login from "./login/login";
+import storage from "redux-persist/lib/storage";
+import { persistReducer } from "redux-persist";
+
+const persistConfig = {
+  key: "root", // localStorage key
+  storage, // localStorage
+  whitelist: ["auth"], // target (reducer name)
+};
 
 const rootReducer = combineReducers({
   board,
@@ -21,4 +29,4 @@ const rootReducer = combineReducers({
   login,
 });
 
-export default rootReducer;
+export default persistReducer(persistConfig, rootReducer);

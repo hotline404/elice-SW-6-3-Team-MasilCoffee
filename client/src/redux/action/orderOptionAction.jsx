@@ -1,51 +1,36 @@
-import { ORDEROPTION_TYPE } from "./_types";
+import { OPTION_TYPE } from "./_types";
 
-export const actionSetMenuOption = ({ itemPrice, menu }) => {
+export const actionGetAllOptions = (options) => {
   return {
-    type: ORDEROPTION_TYPE.ADD_MENU_ORDEROPTION,
-    payload: {
-      itemPrice,
-      menu
-    },
+    type: OPTION_TYPE.GET_ALL_OPTIONS,
+    payload: options,
   };
 };
-export const actionSetShotOption = (shotOption) => {
+
+export const actionGetOption = (optionId) => {
   return {
-    type: ORDEROPTION_TYPE.ADD_SHOT_ORDEROPTION,
-    payload: shotOption,
+    type: OPTION_TYPE.GET_OPTION,
+    payload: optionId,
   };
 };
-export const actionSetSyrupsOption = (syrupsOption) => {
+
+export const actionCreateOption = (newOption) => {
   return {
-    type: ORDEROPTION_TYPE.ADD_SYRUPS_ORDEROPTION,
-    payload: syrupsOption,
+    type: OPTION_TYPE.ADD_OPTION,
+    payload: newOption,
   };
 };
-export const actionSetIceOption = (iceOption) => {
+
+export const actionUpdateOption = (option) => {
   return {
-    type: ORDEROPTION_TYPE.ADD_ICE_ORDEROPTION,
-    payload: iceOption,
+    type: OPTION_TYPE.UPDATE_OPTION,
+    payload: option,
   };
 };
-export const actionSetWhippingOption = (whippingOption) => {
+
+export const actionDeleteOption = (optionId) => {
   return {
-    type: ORDEROPTION_TYPE.ADD_WHIPPING_ORDEROPTION,
-    payload: whippingOption,
+    type: OPTION_TYPE.DELETE_OPTION,
+    payload: optionId,
   };
 };
-export const actionSetDrizzleOption = (drizzleOption) => {
-  return {
-    type: ORDEROPTION_TYPE.ADD_DRIZZLE_ORDEROPTION,
-    payload: drizzleOption,
-  };
-};
-export const actionSetMilkOption = (milkOption) => {
-  return {
-    type: ORDEROPTION_TYPE.ADD_MILK_ORDEROPTION,
-    payload: milkOption,
-  };
-};
-export const actionResetOption = {
-    type: ORDEROPTION_TYPE.RESET_OPTION,
-    payload: null, //state로 갈거니까 아무것도 안넣을 거임
-  };

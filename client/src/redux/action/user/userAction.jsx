@@ -7,3 +7,7 @@ export const postUser = (updateUser) => ({
   type: "post.user",
   payload: { updateUser },
 });
+
+export const removeUser = () => ({
+  type: "remove.user"
+})

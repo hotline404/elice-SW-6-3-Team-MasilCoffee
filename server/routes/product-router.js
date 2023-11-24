@@ -42,10 +42,7 @@ ProductRouter.put(
   asyncHandler(async (req, res) => {
     const productId = req.params.productid;
     const productData = req.body;
-    const updatedProduct = await ProductService.updateProduct(
-      productId,
-      productData
-    );
+    const updatedProduct = await ProductService.updateProduct(productId, productData);
     if (!updatedProduct) {
       return ResponseHandler.respondWithNotFound(res);
     }

@@ -3,7 +3,7 @@ import { InputBox } from '../../style/ConfirmPassword.style'
 import Input from '../../../../components/ui/Input/Input'
 import { InputBoxColumn } from '../../style/UserInfoChange.style'
 
-function UserInfoForm({InputInfo, emailRef}) {
+function UserInfoForm({InputInfo, emailRef, email}) {
   return (
     <div>
       <InputBox>
@@ -13,7 +13,7 @@ function UserInfoForm({InputInfo, emailRef}) {
                   name: "이메일",
                   type: "email",
                   id: "change_email",
-                  placeholder: "변경할 이메일을 입력해주세요.",
+                  value: `${email}`,
                 }}
               />
             </InputBox>

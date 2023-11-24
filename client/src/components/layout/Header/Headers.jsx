@@ -9,6 +9,12 @@ import { ROUTES } from "../../../router/Routes";
 import { useSelector } from "react-redux";
 
 const linkDatas = {
+  non_user_right: [
+    {
+      to: ROUTES.REGISTER.path,
+      name: "회원가입",
+    },
+  ],
   right_side: [
     {
       to: ROUTES.REGISTER.path,
@@ -33,6 +39,8 @@ const linkDatas = {
 
 function Headers(props) {
   const role = useSelector((state) => state.user.role);
+  const token = useSelector((state) => state.login);
+  console.log("header token", token)
 
   const TransComponent = () => {
     switch (role) {
@@ -57,7 +65,7 @@ function Headers(props) {
       default:
         return (
           <NonUserRightSideItem
-            item={linkDatas.right_side}
+            item={linkDatas.non_user_right}
             location={props.location}
           />
         );
@@ -68,7 +76,7 @@ function Headers(props) {
     <div>
       <Header location={props.location}>
         <LeftSideItem item={linkDatas.left_side} location={props.location} />
-        <TransComponent/>
+        <TransComponent />
       </Header>
     </div>
   );

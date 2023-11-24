@@ -19,7 +19,7 @@ const AdminMenu = ({ trData }) => {
   const tdData = allProduct.map((data) => [data._id, data.image, data.category, data.name, data.size, data.temp, data.price]);
   const [showMenuModal, setShowMenuModal] = useState(false);
   const [showOptionModal, setShowOptionModal] = useState(false);
-  const [modifyProduct, setModifyProduct] = useState(null);
+  const [modifyProduct, setModifyProduct] = useState(undefined);
   const options = ["전체 메뉴", "에스프레소", "논커피", "스무디", "티", "에이드"];
 
   const [page, setPage] = useState(1);
@@ -63,7 +63,7 @@ const AdminMenu = ({ trData }) => {
       setShowMenuModal(!showMenuModal);
       setModifyProduct(selectedProduct);
     } else {
-      const isDeleted = alert("메뉴를 삭제하시겠습니까?");
+      const isDeleted = window.confirm("메뉴를 삭제하시겠습니까?");
       if (isDeleted) {
         const fn = async () => {
           try {
@@ -81,7 +81,7 @@ const AdminMenu = ({ trData }) => {
   return (
     <>
       <Menus.Container>
-        {!modifyProduct ? (
+        {/* {modifyProduct && showMenuModal === false ? (
           <MenuModal
             title="메뉴 수정"
             closeModal={() => {
@@ -96,7 +96,16 @@ const AdminMenu = ({ trData }) => {
               setShowMenuModal(!showMenuModal);
             }}
           />
-        )}
+        )} */}
+        {modifyProduct !== undefined || showMenuModal ? ( // 여기서 null 대신에 undefined로 체크
+          <MenuModal
+            title={modifyProduct ? "메뉴 수정" : "메뉴 추가"} // 값에 따라 제목 변경
+            closeModal={() => {
+              setShowMenuModal(!showMenuModal);
+            }}
+            modifyProduct={modifyProduct}
+          />
+        ) : null}
         {showOptionModal && (
           <OptionModal
             title="옵션 수정"

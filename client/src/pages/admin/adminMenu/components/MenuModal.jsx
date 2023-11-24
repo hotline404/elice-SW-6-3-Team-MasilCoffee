@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as Modal from "./style/Modal.style";
 import MenuSelect from "./MenuSelect";
 import { TiDelete } from "react-icons/ti";
@@ -8,6 +8,8 @@ import { createProduct, updateProduct } from "../../../../api/product";
 
 const MenuModal = ({ title, closeModal, modifyProduct }) => {
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.login);
+  console.log("pageToken", token);
 
   const sizeOptions = ["선택없음", "Tall", "Large"];
   const tempOptions = ["선택없음", "Ice", "Hot"];
@@ -43,7 +45,7 @@ const MenuModal = ({ title, closeModal, modifyProduct }) => {
   formData.append("temp", temp);
   formData.append("kcal", kcal);
   formData.append("info", info);
-  formData.append("image", image);
+  formData.append("image_url", image);
   formData.append("bestCombo", bestCombo);
 
   useEffect(() => {
@@ -92,7 +94,8 @@ const MenuModal = ({ title, closeModal, modifyProduct }) => {
         }
       } else {
         try {
-          const newProduct = await createProduct(formData);
+          const newProduct = await createProduct(formData, token);
+          console.log(token);
           dispatch(actionCreateProduct(newProduct));
         } catch (error) {
           console.error("Failed to create product", error);

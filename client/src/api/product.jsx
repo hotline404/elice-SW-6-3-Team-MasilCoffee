@@ -7,12 +7,13 @@ export const getAllProducts = async () => {
   return products;
 };
 
-export const createProduct = async (data) => {
-  console.log("form", data);
+export const createProduct = async (data, token) => {
+  console.log("form", token);
   const res = await axios
     .post("http://localhost:5000/api/v1/products/", data, {
       headers: {
         "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
       },
     })
     .then((res) => {

@@ -25,7 +25,7 @@ ProductRouter.get(
 ProductRouter.get(
   "/:productId",
   asyncHandler(async (req, res) => {
-    const productId = req.params.productid;
+    const productId = req.params.productId;
     const product = await ProductService.getProductById(productId);
     if (!product) {
       return ResponseHandler.respondWithNotfound(res);
@@ -63,15 +63,16 @@ ProductRouter.put(
   JwtMiddleware.checkToken,
   JwtMiddleware.checkAdmin,
   asyncHandler(async (req, res) => {
-    const productId = req.params.productid;
+    const productId = req.params.productId;
     const productData = req.body;
     const updatedProduct = await ProductService.updateProduct(
       productId,
       productData
     );
     if (!updatedProduct) {
-      return ResponseHandler.respondWithNotFound(res);
+      return ResponseHandler.respondWithNotFound(res, "Product not found");
     }
+    
     ResponseHandler.respondWithSuccess(res, updatedProduct);
   })
 );
@@ -82,7 +83,7 @@ ProductRouter.delete(
   JwtMiddleware.checkToken,
   JwtMiddleware.checkAdmin,
   asyncHandler(async (req, res) => {
-    const productId = req.params.productid;
+    const productId = req.params.productId;
     const deletedProduct = await ProductService.deleteProduct(productId);
     if (!deletedProduct) {
       return ResponseHandler.respondWithNotFound(res);

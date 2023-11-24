@@ -62,9 +62,13 @@ ProductRouter.put(
   "/:productId",
   JwtMiddleware.checkToken,
   JwtMiddleware.checkAdmin,
+  imageUploader.single("file"),
   asyncHandler(async (req, res) => {
     const productId = req.params.productId;
     const productData = req.body;
+    if(req.file){
+      productData.image_url=req.file.location;
+    }
     const updatedProduct = await ProductService.updateProduct(
       productId,
       productData

@@ -32,9 +32,17 @@ class ProductService {
 
   static async updateProduct(productId, productData) {
     try {
+      if (productData.image_url) {
+        const product = await Product.findById(productId);
+        if (!product) {
+          return null;
+        }
+        product.image_url = productData.image_url;
+        await product.save();
+      }
       const updatedProduct = await Product.findByIdAndUpdate(
         productId,
-        productData,
+        { $set: productData },
         { new: true }
       );
       return updatedProduct;

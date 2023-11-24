@@ -1,9 +1,9 @@
 
-import { ORDEROPTION_TYPE } from "./_types";
+import { ORDER_DETAIL_TYPE} from "./_types";
 
 export const actionSetMenuOption = ({ itemPrice, menu }) => {
   return {
-    type: ORDEROPTION_TYPE.ADD_MENU_ORDEROPTION,
+    type: ORDER_DETAIL_TYPE.ADD_MENU_ORDER_DETAIL,
     payload: {
       itemPrice,
       menu
@@ -12,41 +12,41 @@ export const actionSetMenuOption = ({ itemPrice, menu }) => {
 };
 export const actionSetShotOption = (shotOption) => {
   return {
-    type: ORDEROPTION_TYPE.ADD_SHOT_ORDEROPTION,
+    type: ORDER_DETAIL_TYPE.ADD_SHOT_ORDER_DETAIL,
     payload: shotOption,
   };
 };
 export const actionSetSyrupsOption = (syrupsOption) => {
   return {
-    type: ORDEROPTION_TYPE.ADD_SYRUPS_ORDEROPTION,
+    type: ORDER_DETAIL_TYPE.ADD_SYRUPS_ORDER_DETAIL,
     payload: syrupsOption,
   };
 };
 export const actionSetIceOption = (iceOption) => {
   return {
-    type: ORDEROPTION_TYPE.ADD_ICE_ORDEROPTION,
+    type: ORDER_DETAIL_TYPE.ADD_ICE_ORDER_DETAIL,
     payload: iceOption,
   };
 };
 export const actionSetWhippingOption = (whippingOption) => {
   return {
-    type: ORDEROPTION_TYPE.ADD_WHIPPING_ORDEROPTION,
+    type: ORDER_DETAIL_TYPE.ADD_WHIPPING_ORDER_DETAIL,
     payload: whippingOption,
   };
 };
 export const actionSetDrizzleOption = (drizzleOption) => {
   return {
-    type: ORDEROPTION_TYPE.ADD_DRIZZLE_ORDEROPTION,
+    type: ORDER_DETAIL_TYPE.ADD_DRIZZLE_ORDER_DETAIL,
     payload: drizzleOption,
   };
 };
 export const actionSetMilkOption = (milkOption) => {
   return {
-    type: ORDEROPTION_TYPE.ADD_MILK_ORDEROPTION,
+    type: ORDER_DETAIL_TYPE.ADD_MILK_ORDER_DETAIL,
     payload: milkOption,
   };
 };
 export const actionResetOption = {
-    type: ORDEROPTION_TYPE.RESET_OPTION,
+    type: ORDER_DETAIL_TYPE.RESET_ORDER_DETAIL,
     payload: null, //state로 갈거니까 아무것도 안넣을 거임
   };

@@ -8,11 +8,11 @@ import SquareButton from "../../../../../components/ui/button/SquareButton";
 import { SlideAnimation, SquareButtonBox } from "./SlideAnimation";
 
 import { useDispatch, useSelector } from "react-redux";
-import { actionSetIceOption } from "../../../../../redux/action/orderOptionAction";
+import { actionSetIceOption } from "../../../../../redux/action/orderDetailAction";
 
 function IceOptionSlide() {
   const dispatch = useDispatch();
-  const selectedIceOption = useSelector(state => state.orderOption.ice); // 선택된 얼음 옵션
+  const selectedIceOption = useSelector((state) => state.orderDetail.ice); // 선택된 얼음 옵션
 
   const [isAnimated, setIsAnimated] = useState(false);
   const [totalPrice] = useState(0);

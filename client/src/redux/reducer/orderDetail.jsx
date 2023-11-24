@@ -1,4 +1,4 @@
-import { ORDEROPTION_TYPE } from "../action/_types";
+import { ORDER_DETAIL_TYPE } from "../action/_types";
 
 const initialState = {
   id: "",
@@ -23,44 +23,44 @@ export const calculatePrice = (state) => (state.itemPrice * state.menu)
 + (state.drizzle !== "없음" ? 600 : 0)
 + (state.milk !== "없음" ? 600 : 0)
 
-const orderOption = (state = initialState, action) => {
+const orderDetail = (state = initialState, action) => {
   let newState = JSON.parse(JSON.stringify(state));
 
   switch (action.type) {
-    case ORDEROPTION_TYPE.ADD_MENU_ORDEROPTION:
+    case ORDER_DETAIL_TYPE.ADD_MENU_ORDER_DETAIL:
         newState.itemPrice = action.payload.itemPrice;
         newState.menu = action.payload.menu;
         break;
       
-    case ORDEROPTION_TYPE.ADD_SHOT_ORDEROPTION: 
+    case ORDER_DETAIL_TYPE.ADD_SHOT_ORDER_DETAIL: 
     newState.shot = action.payload;
       break;
       
     
-    case ORDEROPTION_TYPE.ADD_SYRUPS_ORDEROPTION: 
+    case ORDER_DETAIL_TYPE.ADD_SYRUPS_ORDER_DETAIL: 
         newState.syrups = action.payload
         break;
         
     
-    case ORDEROPTION_TYPE.ADD_ICE_ORDEROPTION:
+    case ORDER_DETAIL_TYPE.ADD_ICE_ORDER_DETAIL:
         newState.ice = action.payload
         break;
       
 
-    case ORDEROPTION_TYPE.ADD_WHIPPING_ORDEROPTION: 
+    case ORDER_DETAIL_TYPE.ADD_WHIPPING_ORDER_DETAIL: 
         newState.whipping = action.payload;
         break;
     
       
-    case ORDEROPTION_TYPE.ADD_DRIZZLE_ORDEROPTION:
+    case ORDER_DETAIL_TYPE.ADD_DRIZZLE_ORDER_DETAIL:
         newState.drizzle = action.payload;
         break;
       
-    case ORDEROPTION_TYPE.ADD_MILK_ORDEROPTION:
+    case ORDER_DETAIL_TYPE.ADD_MILK_ORDER_DETAIL:
         newState.milk = action.payload;
         break;
       
-    case ORDEROPTION_TYPE.RESET_OPTION:
+    case ORDER_DETAIL_TYPE.RESET_ORDER_DETAIL:
       return initialState;
 
     default:
@@ -71,4 +71,4 @@ const orderOption = (state = initialState, action) => {
 
   return newState;
 };
-export default orderOption;
+export default orderDetail;

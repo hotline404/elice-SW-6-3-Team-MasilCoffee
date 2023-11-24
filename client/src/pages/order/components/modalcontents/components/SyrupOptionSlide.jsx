@@ -6,7 +6,7 @@ import {
 } from "../ModalContents.style";
 import { SlideAnimation, Round } from "./SlideAnimation";
 import { useDispatch } from "react-redux";
-import { actionSetSyrupsOption } from "../../../../../redux/action/orderOptionAction";
+import { actionSetSyrupsOption } from "../../../../../redux/action/orderDetailAction";
 
 function SyrupOptionSlide() {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function SyrupOptionSlide() {
 
   useEffect(() => {
     setTotalPrice(vanilla * PRICE + hazelnut * PRICE + caramel * PRICE); // 시럽 수에 따라 가격 업데이트
-    dispatch(actionSetSyrupsOption({vanilla, hazelnut, caramel}));
+    dispatch(actionSetSyrupsOption({ vanilla, hazelnut, caramel }));
   }, [vanilla, hazelnut, caramel, dispatch]);
 
   const handleShotButtonClick = () => {
@@ -69,9 +69,7 @@ function SyrupOptionSlide() {
                   <div>
                     <span>헤이즐넛</span>
                     <Round>
-                      <div onClick={() => setHazelnut((old) => old + 1)}>
-                        +
-                      </div>
+                      <div onClick={() => setHazelnut((old) => old + 1)}>+</div>
                       <span>{hazelnut}</span>
                       <div
                         onClick={() =>

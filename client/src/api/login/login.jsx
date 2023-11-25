@@ -18,12 +18,15 @@ export const axiosPostLogin = async (email, password) => {
   }
 };
 
-export const axiosPostLogout = async (token) => {
+export const axiosPostLogout = async (token, userEmail) => {
   const logOutHeader = { "Authorization": `Bearer ${token}` };
+  const body = {
+    "email": `${userEmail}`
+  }
   
 
   try {
-    const res = await axios.post(logoutUrl, logOutHeader);
+    const res = await axios.post(logoutUrl, body, logOutHeader);
     const data = res.data;
 
     return data;
@@ -47,3 +50,5 @@ export const getCheckLogin = async (token) => {
     console.error("Error:", error);
   }
 };
+
+

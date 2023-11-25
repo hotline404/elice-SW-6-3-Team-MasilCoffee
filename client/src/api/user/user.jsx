@@ -1,93 +1,78 @@
 import axios from "axios";
 
+const urlAdmin = "http://localhost:5000/api/v1/users/admin";
+const urluser = "http://localhost:5000/api/v1/users";
 
-const urladminId = "http://localhost:5000/api/v1/users/admin/:userId"
-const urluser = "http://localhost:5000/api/v1/users"; 
-
+//common user
 
 export const axiosGetUser = async (token) => {
-
   const res = await axios.get(urluser, {
     headers: {
-      "Authorization": `Bearer ${token}`
-    }
-  })
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   const user = res.data.data;
 
-  return user
-}
-
+  return user;
+};
 
 export const axiosPatchUser = async (token, newNickname, newPhone) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  const body = { nickname: newNickname, phone: newPhone };
 
-  const res = await axios.patch(urluser, {
-    headers: {
-      "Authorization": `Bearer ${token}`,
-      "nickname": newNickname,
-      "phone": newPhone
-    }
-  })
+  const res = await axios.patch(urluser, body, headers);
 
   const newUser = res.data.data;
 
-  return newUser
-}
+  return newUser;
+};
 
 export const axiosDelUser = async (token) => {
+  const headers = { Authorization: `Bearer ${token}` };
 
-  const res = await axios.del(urluser, {
-    headers: {
-      "Authorization": `Bearer ${token}`,
-    }
-  })
+  const res = await axios.del(urluser, headers);
 
   const delUser = res.data.data;
 
-  return delUser
-}
+  return delUser;
+};
 
-export const axiosGetAdmin = async (token) => {
+//admin user
 
-  const res = await axios.get(urladminId, {
-    headers: {
-      "Authorization": `Bearer ${token}`
-    }
-  })
+export const axiosGetAdmin = async (token, userId) => {
+  const headers = { Authorization: `Bearer ${token}` };
+
+  const res = await axios.get(`${urlAdmin}/${userId}`, headers);
 
   const admin = res.data.data;
 
-  return admin
-
+  return admin;
 };
 
-export const axiosPatchAdmin = async (token, newName, newNickname, newPhone) => {
+export const axiosPatchAdmin = async (
+  token,
+  userId,
+  newName,
+  newNickname,
+  newPhone
+) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  const body = { name: newName, nickname: newNickname, phone: newPhone };
 
-  const res = await axios.patch(urladminId, {
-    headers: {
-      "Authorization": `Bearer ${token}`,
-      "name": newName,
-      "nickname": newNickname,
-      "phone": newPhone
-    }
-  })
+  const res = await axios.patch(`${urlAdmin}/${userId}`, body, headers);
 
   const newAdim = res.data.data;
 
-  return newAdim
-
+  return newAdim;
 };
 
-export const axiosDelAdmin = async (token) => {
+export const axiosDelAdmin = async (token, userId) => {
+  const headers = { Authorization: `Bearer ${token}` };
 
-  const res = await axios.del(urladminId, {
-    headers: {
-      "Authorization": `Bearer ${token}`,
-    }
-  })
+  const res = await axios.del(`${urlAdmin}/${userId}`, headers);
 
   const delAdim = res.data.data;
 
-  return delAdim
-
+  return delAdim;
 };

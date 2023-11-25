@@ -11,8 +11,13 @@ import { actionGetAllBoards } from "../../redux/action/boardAction";
 
 const Recipe = () => {
   const dispatch = useDispatch();
-  const allBoards = useSelector((state) => state.board.boards);
-  
+  const allBoards = useSelector((state) => state.board.searchBoards);
+  const [inputQuery, setInputQuery] = useState(null);
+
+  const handleInsert = (value) => {
+    setInputQuery(value);
+  }
+
   useEffect(() => {
     const fn = async () => {
       try {
@@ -35,15 +40,30 @@ const Recipe = () => {
               <SquareButton text={"작성하기"} type={"red"} />
             </Link>
           </S.Wrap>
-          <PostInput placeholder={"검색어를 입력하세요."} text="검색" />
-          <CategoryButton />
+          <PostInput
+            onInsert={handleInsert}
+            input={{
+              type: "text",
+              placeholder: "검색어를 입력하세요.",
+            }}
+            button={{
+              text: "검색",
+              type: "red",
+            }}
+          />
+          <CategoryButton query={inputQuery} />
         </S.Container>
-        {/* 나중에 link 넣기 */}
-        {allBoards.map((post) => (
-          <S.PostWrap>
-            <PostList post={post} />
-          </S.PostWrap>
-        ))}
+        {Array.isArray(allBoards) &&
+          allBoards.map((post) => (
+            <S.StyledLink
+              to={`/RecipeView/${post._id}`}
+              state={{ post: post._id }}
+            >
+              <S.PostWrap>
+                <PostList post={post} />
+              </S.PostWrap>
+            </S.StyledLink>
+          ))}
       </S.ContainerWrap>
     </S.Background>
   );

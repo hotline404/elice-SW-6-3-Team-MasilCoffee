@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 //배경
 export const Background = styled.div`
@@ -68,7 +69,6 @@ export const Button = styled.button`
 export const SearchInput = styled.input`
   width: 100%;
   padding: 0px 15px;
-  margin-right: 10px;
   box-sizing: border-box;
   border: 1px solid #d9d9d9;
   border-radius: 5px;
@@ -89,6 +89,9 @@ export const CategoryBtn = styled.button`
   cursor: pointer;
   white-space: nowrap;
   transition: background 0.3s, color 0.3s ease, border 0.3s;
+
+  background-color: ${(props) => props.className === "active" ? "#8e0e28" : "#f5f5f5"};
+  color: ${(props) => props.className === "active" ? "white" : "black"};
 
   &:hover {
     background: #8e0e28;
@@ -113,4 +116,7 @@ export const PostWrap = styled.div`
   }
 `;
 
-
+export const StyledLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+`;

@@ -1,48 +1,22 @@
-import React from 'react'
-import LinkTo from '../../../ui/Link/LinkTo';
-import IncludeRedPage from '../../../../util/IncludeRedPage';
-import { ROUTES } from '../../../../router/Routes';
-import { useSelector } from 'react-redux';
-import { RightSide } from '../Headers.style';
-
-// const linkDatas = {
-//   right_side: [
-//     {
-//       to: ROUTES.REGISTER.path,
-//       name: "회원가입",
-//     },
-//     {
-//       to: ROUTES.MYPAGE.path,
-//       name: "마이페이지",
-//     },
-//   ],
-//   left_side: [
-//     {
-//       to: ROUTES.ORDER.path,
-//       name: "MENU",
-//     },
-//     {
-//       to: ROUTES.RECIPE.path,
-//       name: "꿀조합",
-//     },
-//   ],
-// };
+import React from "react";
+import LinkTo from "../../../ui/Link/LinkTo";
+import IncludeRedPage from "../../../../util/IncludeRedPage";
+import { ROUTES } from "../../../../router/Routes";
+import { useSelector } from "react-redux";
+import { RightSide } from "../Headers.style";
 
 const items = [
   {
     to: ROUTES.ADMINORDER.path,
-    name: "관리자 페이지"
+    name: "관리자 페이지",
   },
   {
     to: ROUTES.LOGOUT.path,
-    name: "로그아웃"
-  }
-]
-
+    name: "로그아웃",
+  },
+];
 
 function AdminRightSideItem(props) {
-  const isLogin = useSelector((state) => state.login.loginState);
-
   const style = {
     textDecoration: "none",
     textAlign: "center",
@@ -55,14 +29,13 @@ function AdminRightSideItem(props) {
 
   return (
     <RightSide>
-     
-          {items.map((link) => {
-            return (
-              <LinkTo there={{ to: link.to, name: link.name }} style={style} />
-            );
-          })}
+      {items.map((link) => {
+        return (
+          <LinkTo there={{ to: link.to, name: link.name }} style={style} />
+        );
+      })}
     </RightSide>
-  )
+  );
 }
 
-export default AdminRightSideItem
+export default AdminRightSideItem;

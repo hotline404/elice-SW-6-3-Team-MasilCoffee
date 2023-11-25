@@ -1,5 +1,5 @@
 import { ORDERS_TYPE } from "../action/_types";
-import { calculatePrice } from "./orderDetail";
+import { calculatePrice } from "../../util/calculatePrice/calculatePrice";
 
 const initialState = []; //주문이 쌓이는 곳
 

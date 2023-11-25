@@ -1,11 +1,17 @@
 import axios from "axios";
-const urlRegister = "http://localhost:5000/api/v1/users/signup";
-const urlAuthEmail = "http://localhost:5000/api/v1/users/signup/send-mail"
-const urlAuthNum = "http://localhost:5000/api/v1/users/signup/verify-code"
+const BASE_URL = {
+  USER: {
+    url : "http://localhost:5000/api/v1/users"
+  },
+  ADMIN: {
+    url : "http://localhost:5000/api/v1/users/admin"
+  }
+}
+
 
 //register
 export const axiosRegister = async (name, email, nickname, phone, password) => {
-  const registerHeaders = {
+  const registerBody = {
     name: name,
     email: email,
     nickname: nickname,
@@ -14,7 +20,7 @@ export const axiosRegister = async (name, email, nickname, phone, password) => {
   };
 
   try {
-    const res = await axios.post(urlRegister, registerHeaders);
+    const res = await axios.post(`${BASE_URL.USER.url}/signup`, registerBody);
     const data = res.data;
 
     return data;
@@ -25,12 +31,12 @@ export const axiosRegister = async (name, email, nickname, phone, password) => {
 };
 //send-email
 export const authEmail = async (email) => {
-  const authHeaders = {
+  const authBody = {
     "email": email,
   };
 
   try {
-    const res = await axios.post(urlAuthEmail, authHeaders);
+    const res = await axios.post(`${BASE_URL.USER.url}/signup/send-mail`, authBody);
     const data = res.data;
 
     return data;
@@ -42,7 +48,7 @@ export const authEmail = async (email) => {
 
 //send-code
 export const authComplete = async (email, code) => {
-  const authHeaders = {
+  const authBody = {
     "email": email,
     "code": parseInt(code)
   };
@@ -51,7 +57,7 @@ export const authComplete = async (email, code) => {
   console.log("code type", typeof(parseInt(code)))
 
   try {
-    const res = await axios.post(urlAuthNum, authHeaders);
+    const res = await axios.post(`${BASE_URL.USER.url}/signup/verify-code`, authBody);
     const data = res.data;
 
     return data;
@@ -60,3 +66,37 @@ export const authComplete = async (email, code) => {
     console.error("Error:", error);
   }
 };
+
+//delete user
+
+export const deleteUser = async (token) => {
+  const headers = {
+    "Authorization": `Bearer ${token}`
+  }
+
+  try {
+    const res = await axios.delete(`${base.USER.url}`, headers);
+    const data = res.data;
+
+    return data
+  } catch (err) {
+    console.error("회원탈퇴 에러:", err);
+  }
+}
+
+//delete admin
+
+export const deleteAdmin = async (token, userId) => {
+  const headers = {
+    "Authorization": `Bearer ${token}`
+  } 
+
+  try {
+    const res = await axios.delete(`${BASE_URL.ADMIN.url}/${userId}`, headers);
+    const data = res.data;
+
+    return data
+  } catch (err) {
+    console.error("관리자 탈퇴:", err)
+  }
+}

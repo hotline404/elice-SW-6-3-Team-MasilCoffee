@@ -13,9 +13,11 @@ import OrderLink from "./Links/OrderLink";
 import CommentLink from "./Links/CommentLink";
 import WriteListLink from "./Links/WriteListLink";
 
+
 function MyPage() {
   const userInfo = useSelector(state => state.user);
-
+  const userI = useSelector(state => state);
+  console.log("userI", userInfo);
   return (
     <Fragment>
       <Container>

@@ -8,35 +8,12 @@ import { BsChat } from "react-icons/bs";
 const Bottom = () => {
   // 슬라이더 설정
   const settings = {
-    dots: false, // 하단의 점 표시 여부
-    infinite: false, // 무한 반복 여부
-    speed: 500, // 슬라이드 전환 속도
-    slidesToShow: 4, // 한 번에 보여줄 슬라이드 개수
-    slidesToScroll: 1, // 스크롤할 때 넘어가는 슬라이드 개수
-    responsive: [
-      {
-        breakpoint: 1920,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 420,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-      // 여기에 다른 반응형 설정 추가 가능
-    ],
+    infinite: true,
+    speed: 15000, // 슬라이드 전환 속도
+    slidesToShow: 3, // 한 번에 보여줄 슬라이드 개수
+    autoplay: true, // 자동 슬라이드 활성화
+    autoplaySpeed: 0, // 자동 슬라이드 간격
+    cssEase: "linear", // 일정한 속도로 움직이도록 설정
   };
   const slideData = [
     {

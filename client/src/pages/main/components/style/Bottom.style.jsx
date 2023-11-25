@@ -1,76 +1,52 @@
 import styled from "styled-components";
 
-export const Bottom = styled.div``;
-export const BottomBox = styled.div`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-  padding: 30px;
-  border-radius: 20px;
-
-  background-color: ${(props) => props.$bgColor || "defaultColor"};
-  color: ${(props) => (props.$bgColor === "#d9d9d9" ? "black" : "white")};
-  border: ${(props) => (props.isEven ? "1px solid #191414" : "none")};
-  width: 100%;
-
-  @media (max-width: 768px) {
-    width: 100%; // 화면이 작을 때 가로 크기 조절
-    font-size: smaller;
-  }
-
-  > div > b {
-    font-size: 20px;
-  }
-  > div > p {
-    font-size: 17px;
-  }
-  @media (max-width: 768px) {
-    padding: 5px;
-    font-size: smaller;
-  }
-`;
 export const BottomSlide = styled.div`
+  width: 100%;
   background-color: ${(props) => props.$bgColor || "defaultColor"};
 
   .slick-slider {
     overflow-x: hidden;
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
-  }
-
-  // 네비게이션 버튼 숨김
-  .slick-prev,
-  .slick-next {
-    display: none;
   }
 
   .slick-track {
-    margin: 10px 0;
-    display: flex;
-    justify-content: space-between;
   }
 
   .slick-track > div {
     box-sizing: border-box;
     height: auto;
-    margin: 0 30px;
-
     word-wrap: break-word;
     overflow-wrap: break-word;
     color: white;
     cursor: pointer;
-
-    display: flex;
-    align-items: center;
   }
   .slick-track > div > div {
     display: block;
-    padding: 20px;
   }
   .slick-track > div > div > div {
     display: block;
   }
+`;
+
+export const Bottom = styled.div`
+  width: 400px;
+  @media (max-width: 768px) {
+    width: 100%; // 화면이 작을 때 너비 조절
+  }
+`;
+export const BottomBox = styled.div`
+  width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 30px;
+  border-radius: 20px;
+  margin: 40px 0;
+  @media (max-width: 768px) {
+    width: 100%; // 화면이 작을 때 너비 조절
+  }
+
+  background-color: ${(props) => props.$bgColor || "defaultColor"};
+  color: ${(props) => (props.$bgColor === "#d9d9d9" ? "black" : "white")};
+  border: ${(props) => (props.isEven ? "1px solid #191414" : "none")};
 `;
 
 export const SquareButtonBox = styled.div`
@@ -79,7 +55,7 @@ export const SquareButtonBox = styled.div`
 `;
 export const SquareButton = styled.div`
   margin-right: 10px;
-  padding: 10px 0;
+  /* padding: 10px 0; */
   background-color: ${(props) => props.$bgColor || "defaultColor"};
   > Button {
     font-size: 14px;

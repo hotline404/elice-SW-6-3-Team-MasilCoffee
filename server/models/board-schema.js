@@ -29,6 +29,10 @@ const boardSchema = new Schema(
   }
 );
 
+boardSchema.path('image').validate(function (value) {
+  return value.length <= 3;
+}, '이미지 갯수는 최대 3개까지만 허용됩니다.');
+
 const Board = mongoose.model("Board", boardSchema);
 
 module.exports = Board;

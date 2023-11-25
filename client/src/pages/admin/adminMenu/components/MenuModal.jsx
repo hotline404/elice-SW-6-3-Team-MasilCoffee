@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as Modal from "./style/Modal.style";
 import MenuSelect from "./MenuSelect";
 import { TiDelete } from "react-icons/ti";
-import { actionCreateProduct } from "../../../../redux/action/productAction";
-import { createProduct } from "../../../../api/product";
+import { actionCreateProduct, actionUpdateProduct } from "../../../../redux/action/productAction";
+import { createProduct, updateProduct } from "../../../../api/product";
 
-const MenuModal = ({ title, closeModal }) => {
+const MenuModal = ({ title, closeModal, modifyProduct }) => {
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.login.token);
+  console.log("pageToken", token);
 
   const sizeOptions = ["선택없음", "Tall", "Large"];
   const tempOptions = ["선택없음", "Ice", "Hot"];
@@ -24,6 +26,17 @@ const MenuModal = ({ title, closeModal }) => {
   const [info, setInfo] = useState("");
   const [image, setImage] = useState("");
   const [bestCombo, setBestCombo] = useState("");
+  const [editedProduct, setEditedProduct] = useState({
+    name: "",
+    price: "",
+    category: "",
+    size: "",
+    temp: "",
+    kcal: "",
+    info: "",
+    image: "",
+    bestCombo: "",
+  });
 
   formData.append("name", name);
   formData.append("price", price);
@@ -32,8 +45,27 @@ const MenuModal = ({ title, closeModal }) => {
   formData.append("temp", temp);
   formData.append("kcal", kcal);
   formData.append("info", info);
-  formData.append("image", image);
+  formData.append("image_url", image);
   formData.append("bestCombo", bestCombo);
+
+  useEffect(() => {
+    if (modifyProduct) {
+      setEditedProduct({ ...modifyProduct[0] });
+    } else {
+      setEditedProduct({
+        name: "",
+        price: "",
+        category: "",
+        size: "",
+        temp: "",
+        kcal: "",
+        info: "",
+        image: "",
+        bestCombo: "",
+      });
+    }
+  }, [modifyProduct]);
+  console.log(editedProduct);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,16 +75,36 @@ const MenuModal = ({ title, closeModal }) => {
     }
 
     const fn = async () => {
-      try {
-        console.log("서버 전 데이터", formData);
-        const newProduct = await createProduct(formData);
-        console.log("서버에 전송된 데이터", newProduct);
-        dispatch(actionCreateProduct(newProduct));
-      } catch (err) {
-        console.log("err");
+      // try {
+      //   console.log("서버 전 데이터", formData);
+      //   const newProduct = await createProduct(formData);
+      //   console.log("서버에 전송된 데이터", newProduct);
+      //   dispatch(actionCreateProduct(newProduct));
+      // } catch (err) {
+      //   console.log("err");
+      // }
+
+      if (modifyProduct) {
+        try {
+          const updatedProduct = await updateProduct(modifyProduct.id, formData);
+          console.log("updatedProduct", updatedProduct);
+          dispatch(actionUpdateProduct(updatedProduct));
+        } catch (error) {
+          console.error("Failed to update product", error);
+        }
+      } else {
+        try {
+          const newProduct = await createProduct(formData, token);
+          console.log(token);
+          dispatch(actionCreateProduct(newProduct));
+        } catch (error) {
+          console.error("Failed to create product", error);
+        }
       }
     };
     fn();
+
+    closeModal();
   };
 
   return (
@@ -68,6 +120,7 @@ const MenuModal = ({ title, closeModal }) => {
             <Modal.Input
               type="text"
               name="name"
+              defaultValue={editedProduct.name || ""}
               onChange={(e) => {
                 setName(e.target.value);
               }}
@@ -80,6 +133,7 @@ const MenuModal = ({ title, closeModal }) => {
               <Modal.Input
                 type="number"
                 name="price"
+                defaultValue={editedProduct.price || ""}
                 onChange={(e) => {
                   setPrice(e.target.value);
                 }}
@@ -94,6 +148,7 @@ const MenuModal = ({ title, closeModal }) => {
               options={categoryOptions}
               modal
               name="category"
+              defaultValue={editedProduct.category || ""}
               onChange={(selected) => {
                 setCategory(selected);
               }}
@@ -105,6 +160,7 @@ const MenuModal = ({ title, closeModal }) => {
               options={sizeOptions}
               modal
               name="size"
+              defaultValue={editedProduct.size || ""}
               onChange={(selected) => {
                 setSize(selected);
               }}
@@ -116,6 +172,7 @@ const MenuModal = ({ title, closeModal }) => {
               options={tempOptions}
               modal
               name="temp"
+              defaultValue={editedProduct.temp || ""}
               onChange={(selected) => {
                 setTemp(selected);
               }}
@@ -127,6 +184,7 @@ const MenuModal = ({ title, closeModal }) => {
               <Modal.Input
                 type="number"
                 name="kcal"
+                defaultValue={editedProduct.kcal || ""}
                 onChange={(e) => {
                   setKcal(e.target.value);
                 }}
@@ -141,6 +199,7 @@ const MenuModal = ({ title, closeModal }) => {
               name="info"
               cols="30"
               rows="3"
+              defaultValue={editedProduct.info || ""}
               onChange={(e) => {
                 setInfo(e.target.value);
               }}
@@ -154,6 +213,7 @@ const MenuModal = ({ title, closeModal }) => {
               type="file"
               id="file"
               name="image"
+              defaultValue={editedProduct.image || ""}
               onChange={(e) => {
                 setImage(e.target.files[0]);
               }}
@@ -166,6 +226,7 @@ const MenuModal = ({ title, closeModal }) => {
             <textarea
               name="bestCombo"
               cols="30"
+              defaultValue={editedProduct.bestCombo || ""}
               onChange={(e) => {
                 setBestCombo(e.target.value);
               }}

@@ -8,9 +8,22 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   flex: 1;
-  margin: 70px 70px;
+  margin: 70px 70px 0;
 `;
 
 export const TableBox = styled.div`
   background-color: #fff;
+`;
+
+export const Pagination = styled.div`
+  margin: 38.2px;
+  display: flex;
+  justify-content: center;
+`;
+
+export const PaginationItem = styled.a`
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
 `;

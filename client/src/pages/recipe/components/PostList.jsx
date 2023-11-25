@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "./style/Post.style";
 import { Container } from "../Recipe.style";
 import { BsChat } from "react-icons/bs";
@@ -8,26 +8,35 @@ import ImageSlider from "./ImageSlider";
 import DateFormat from "../../../util/DateFormat/DateFormat";
 
 const PostList = ({ post }) => {
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0); //나중에 값 바꿔야함!
   const createDate = DateFormat("dateTime", post.createdAt);
+
+  const handleLikedClick = (event) => {
+    event.preventDefault();
+    
+    setLiked((prevLiked) => !prevLiked);
+    setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
+  }
 
   return (
     <>
       <Container>
         <div>
-          <S.PostNickname>닉네임</S.PostNickname>
+          <S.PostNickname>닉네임</S.PostNickname>{/*나중에 값 바꿔야함*/}
           <S.PostDate>{createDate}</S.PostDate>
         </div>
         <S.PostPre>{post.post}</S.PostPre>
         {post.image.length > 0 && <ImageSlider images={post.image} />}
         <S.CommentWrap>
-          <S.HeartWrap>
-            <GoHeart
-              style={{
-                fontSize: "1.4rem",
-              }}
-            />
-            <S.CommentNum>110</S.CommentNum>
-          </S.HeartWrap>
+          <S.LikedWrap onClick={handleLikedClick} liked={liked}>
+            {liked ? (
+              <GoHeartFill style={{ fontSize: "1.4rem" }} />
+            ) : (
+              <GoHeart style={{ fontSize: "1.4rem" }} />
+            )}
+            <S.CommentNum>{likeCount}</S.CommentNum>
+          </S.LikedWrap>
           <BsChat
             style={{
               fontSize: "1.2rem",
@@ -35,7 +44,7 @@ const PostList = ({ post }) => {
               marginRight: "1px",
             }}
           />
-          <S.CommentNum>13</S.CommentNum>
+          <S.CommentNum>13</S.CommentNum>{/*나중에 값 바꿔야함*/}
         </S.CommentWrap>
       </Container>
     </>

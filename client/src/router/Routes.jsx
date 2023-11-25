@@ -82,7 +82,7 @@ export const ROUTES = {
   },
   RECIPEVIEW: {
     path: "/RecipeView",
-    link: "/RecipeView",
+    link: "/RecipeView/:boardId",
     element: <RecipeView />,
   },
   RECIPEWRITE: {

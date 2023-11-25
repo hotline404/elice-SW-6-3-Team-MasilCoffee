@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 //배경
 export const Background = styled.div`
@@ -90,6 +91,9 @@ export const CategoryBtn = styled.button`
   white-space: nowrap;
   transition: background 0.3s, color 0.3s ease, border 0.3s;
 
+  background-color: ${(props) => props.className === "active" ? "#8e0e28" : "#f5f5f5"};
+  color: ${(props) => props.className === "active" ? "white" : "black"};
+
   &:hover {
     background: #8e0e28;
     color: white;
@@ -113,4 +117,7 @@ export const PostWrap = styled.div`
   }
 `;
 
-
+export const StyledLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+`;

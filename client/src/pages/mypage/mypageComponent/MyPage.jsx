@@ -1,4 +1,6 @@
 import React, { Fragment } from "react";
+import {  useSelector } from "react-redux";
+
 import Container from "../../../components/ui/container/Container";
 import Title from "../../../components/ui/title/Title";
 import Card from "../../../components/ui/card/Card";
@@ -11,21 +13,25 @@ import OrderLink from "./Links/OrderLink";
 import CommentLink from "./Links/CommentLink";
 import WriteListLink from "./Links/WriteListLink";
 
+
 function MyPage() {
+  const userInfo = useSelector(state => state.user);
+  const userI = useSelector(state => state);
+  console.log("userI", userInfo);
   return (
     <Fragment>
       <Container>
-        <Title>MyPage</Title>
+        <Title>MY PAGE</Title>
         <Card>
           <Contents>
-            <User />
+            <User userName={userInfo.nickname} userId={userInfo.user_id} email={userInfo.email}/>
           </Contents>
           <Contents>
-            <OrderLink />
-            <CommentLink />
+            <OrderLink userId={userInfo.user_id}/>
+            <CommentLink userId={userInfo.user_id}/>
           </Contents>
           <ContentsByWrite>
-            <WriteListLink />
+            <WriteListLink userId={userInfo.user_id}/>
           </ContentsByWrite>
         </Card>
       </Container>

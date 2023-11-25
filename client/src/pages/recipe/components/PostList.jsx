@@ -1,24 +1,55 @@
-import React from "react";
-import * as S from "../Recipe.style";
+import React, { useState } from "react";
+import * as S from "./style/Post.style";
+import { Container } from "../Recipe.style";
 import { BsChat } from "react-icons/bs";
+import { GoHeart } from "react-icons/go";
+import { GoHeartFill } from "react-icons/go";
 import ImageSlider from "./ImageSlider";
+import DateFormat from "../../../util/DateFormat/DateFormat";
 
-const PostList = ({post}) => {
+const PostList = ({ post }) => {
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0); //나중에 값 바꿔야함!
+  const createDate = DateFormat("dateTime", post.createdAt);
+
+  const handleLikedClick = (event) => {
+    event.preventDefault();
+    
+    setLiked((prevLiked) => !prevLiked);
+    setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
+  }
+
   return (
     <>
-      <S.Container>
+      <Container>
         <div>
-          <S.PostNickname>{post.nickname}</S.PostNickname>
-          <S.PostDate>{post.date}</S.PostDate>
+          <S.PostNickname>닉네임</S.PostNickname>{/*나중에 값 바꿔야함*/}
+          <S.PostDate>{createDate}</S.PostDate>
         </div>
         <S.PostPre>{post.post}</S.PostPre>
-        {/* ImageSlider 조건문 넣기 */}
-        <ImageSlider />
+        {post.image.length > 0 && <ImageSlider images={post.image} />}
+        <S.TagWrap>
+          <S.TagBox>{post.category}</S.TagBox>
+        </S.TagWrap>
         <S.CommentWrap>
-          <BsChat />
-          <S.CommentNum>{post.comment}</S.CommentNum>
+          <S.LikedWrap onClick={handleLikedClick} liked={liked}>
+            {liked ? (
+              <GoHeartFill style={{ fontSize: "1.4rem" }} />
+            ) : (
+              <GoHeart style={{ fontSize: "1.4rem" }} />
+            )}
+            <S.CommentNum>{likeCount}</S.CommentNum>
+          </S.LikedWrap>
+          <BsChat
+            style={{
+              fontSize: "1.2rem",
+              transform: "scaleX(-1)",
+              marginRight: "1px",
+            }}
+          />
+          <S.CommentNum>13</S.CommentNum>{/*나중에 값 바꿔야함*/}
         </S.CommentWrap>
-      </S.Container>
+      </Container>
     </>
   );
 };

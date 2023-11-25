@@ -1,20 +1,50 @@
 import React, { useRef } from "react";
+import { axiosPostLogin } from "../../api/login/login.jsx";
+import { postLogin } from "../../redux/action/login/loginAction.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../router/Routes.jsx";
+
 import Contents from "../../components/ui/contents/Contents";
 import Input from "../../components/ui/Input/Input";
 import Button from "../../components/ui/button/Button.jsx";
 
 import { ButtonBox, InputBox } from "./Login.style.jsx";
 import LinkTo from "../../components/ui/Link/LinkTo.jsx";
+import { axiosGetUser } from "../../api/user/user.jsx";
+import { getUser } from "../../redux/action/user/userAction.jsx";
 
 function LoginForm() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const dispatch = useDispatch();
+  const nav = useNavigate();
+  const asdf = useSelector(state => state.user);
+  console.log("loginForm user data", asdf)
+
+  const fn = async (email, password) => {
+    try {
+      const LoginRes = await axiosPostLogin(email, password);
+      const token = LoginRes.data.token;
+      const UserRes = await axiosGetUser(token)
+
+    
+      dispatch(postLogin(LoginRes));
+      dispatch(getUser(UserRes));
+    } catch (err) {
+      alert("아이디 비밀번호를 확인해 주세요")
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("email:", emailRef.current.value);
-    console.log("password:", passwordRef.current.value);
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+    fn(email, password);
+
+    nav(ROUTES.MAIN.path);
   };
 
   return (

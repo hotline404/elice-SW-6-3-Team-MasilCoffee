@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledOrder = styled.div`
   max-width: 1100px;
-  margin: 0 auto;
+  margin: 100px auto;
   box-sizing: border-box;
 
   /* 슬라이더 slick */

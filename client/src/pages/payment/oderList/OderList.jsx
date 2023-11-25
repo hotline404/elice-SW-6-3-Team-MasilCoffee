@@ -1,9 +1,12 @@
+import SquareButton from "../../../components/ui/button/SquareButton";
 import { useSelector } from "react-redux";
 import {
   StyledOrderList,
   StyledOrderListMenu,
   StyledOrderListMenuBox,
   StyledAmountPayment,
+  StyledOrderListMenuText,
+  StyledOrderListMednuRequest,
 } from "./OderList.style";
 
 function OderList() {
@@ -21,19 +24,36 @@ function OderList() {
                 <StyledOrderListMenuBox>
                   <div>
                     <b>{order.name}</b>
-                    <span>{`샷 : ${order.shot}`}</span>
-                    <span>{`시럽 : 바닐라 ${order.syrups.vanilla} 헤이즐넛 ${order.syrups.hazelnut} 카라멜  ${order.syrups.caramel} `}</span>
-                    <span>{`얼음 : ${order.ice}`}</span>
-                    <span>{`휘핑 : ${order.whipping}`}</span>
-                    <span>{`드리즐 : ${order.drizzle}`}</span>
-                    <span>{`우유 : ${order.milk}`}</span>
+                    <StyledOrderListMenuText>
+                      <span>{`샷 : ${order.shot}`}</span>
+                      <span>{`시럽 : 바닐라 ${order.syrups.vanilla} 헤이즐넛 ${order.syrups.hazelnut} 카라멜  ${order.syrups.caramel} `}</span>
+                    </StyledOrderListMenuText>
+                    <StyledOrderListMenuText>
+                      <span>{`얼음 : ${order.ice}`}</span>
+                      <span>{`휘핑 : ${order.whipping}`}</span>
+                      <span>{`드리즐 : ${order.drizzle}`}</span>
+                      <span>{`우유 : ${order.milk}`}</span>
+                    </StyledOrderListMenuText>
                   </div>
                   <div>{order.menu}</div>
                   <div>{order.totalPrice}원</div>
+                  <SquareButton text={"선택삭제"} type={"grey"} />
                 </StyledOrderListMenuBox>
                 <i></i>
-                <div>주문 요청사항 : </div>
-                <div>수령방법:</div>
+                <StyledOrderListMenuBox>
+                  <StyledOrderListMednuRequest>
+                    주문 요청사항 :
+                  </StyledOrderListMednuRequest>
+                </StyledOrderListMenuBox>
+
+                <i></i>
+                <StyledOrderListMenuBox>
+                  <StyledOrderListMednuRequest>
+                    수령방법 :
+                  </StyledOrderListMednuRequest>
+                </StyledOrderListMenuBox>
+
+                <i></i>
               </>
             ))}
         </StyledOrderListMenu>

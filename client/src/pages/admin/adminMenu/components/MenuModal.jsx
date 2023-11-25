@@ -3,13 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Modal from "./style/Modal.style";
 import MenuSelect from "./MenuSelect";
 import { TiDelete } from "react-icons/ti";
-import { actionCreateProduct, actionUpdateProduct } from "../../../../redux/action/productAction";
+import { actionGetAllProducts, actionCreateProduct, actionUpdateProduct } from "../../../../redux/action/productAction";
 import { createProduct, updateProduct } from "../../../../api/product";
 
 const MenuModal = ({ title, closeModal, modifyProduct }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
-  console.log("pageToken", token);
 
   const sizeOptions = ["선택없음", "Tall", "Large"];
   const tempOptions = ["선택없음", "Ice", "Hot"];
@@ -24,8 +23,8 @@ const MenuModal = ({ title, closeModal, modifyProduct }) => {
   const [temp, setTemp] = useState("");
   const [kcal, setKcal] = useState("");
   const [info, setInfo] = useState("");
-  const [image, setImage] = useState("");
-  const [bestCombo, setBestCombo] = useState("");
+  const [file, setFile] = useState("");
+  const [recipe, setRecipe] = useState("");
   const [editedProduct, setEditedProduct] = useState({
     name: "",
     price: "",
@@ -34,8 +33,8 @@ const MenuModal = ({ title, closeModal, modifyProduct }) => {
     temp: "",
     kcal: "",
     info: "",
-    image: "",
-    bestCombo: "",
+    file: "",
+    recipe: "",
   });
 
   formData.append("name", name);
@@ -45,12 +44,13 @@ const MenuModal = ({ title, closeModal, modifyProduct }) => {
   formData.append("temp", temp);
   formData.append("kcal", kcal);
   formData.append("info", info);
-  formData.append("image_url", image);
-  formData.append("bestCombo", bestCombo);
+  formData.append("file", file);
+  formData.append("recipe", recipe);
 
   useEffect(() => {
     if (modifyProduct) {
       setEditedProduct({ ...modifyProduct[0] });
+      console.log(modifyProduct);
     } else {
       setEditedProduct({
         name: "",
@@ -60,43 +60,35 @@ const MenuModal = ({ title, closeModal, modifyProduct }) => {
         temp: "",
         kcal: "",
         info: "",
-        image: "",
-        bestCombo: "",
+        file: "",
+        recipe: "",
       });
     }
   }, [modifyProduct]);
-  console.log(editedProduct);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    for (const pair of formData.entries()) {
-      console.log("formDataPair", pair);
+    for (const entry of formData.entries()) {
+      console.log(entry);
     }
 
     const fn = async () => {
-      // try {
-      //   console.log("서버 전 데이터", formData);
-      //   const newProduct = await createProduct(formData);
-      //   console.log("서버에 전송된 데이터", newProduct);
-      //   dispatch(actionCreateProduct(newProduct));
-      // } catch (err) {
-      //   console.log("err");
-      // }
-
       if (modifyProduct) {
+        //console.log("modifyProduct", modifyProduct[0]._id);
         try {
-          const updatedProduct = await updateProduct(modifyProduct.id, formData);
+          const updatedProduct = await updateProduct(modifyProduct[0]._id, formData, token);
           console.log("updatedProduct", updatedProduct);
           dispatch(actionUpdateProduct(updatedProduct));
+          //dispatch(actionGetAllProducts());
         } catch (error) {
           console.error("Failed to update product", error);
         }
       } else {
         try {
           const newProduct = await createProduct(formData, token);
-          console.log(token);
           dispatch(actionCreateProduct(newProduct));
+          //dispatch(actionGetAllProducts());
         } catch (error) {
           console.error("Failed to create product", error);
         }
@@ -212,23 +204,23 @@ const MenuModal = ({ title, closeModal, modifyProduct }) => {
             <input
               type="file"
               id="file"
-              name="image"
-              defaultValue={editedProduct.image || ""}
+              name="file"
+              defaultValue={editedProduct.file || ""}
               onChange={(e) => {
-                setImage(e.target.files[0]);
+                setFile(e.target.files[0]);
               }}
               required
             />
-            <p>{image && image.name}</p>
+            <p>{file && file.name}</p>
           </Modal.ImgBox>
           <Modal.TextareaBox large>
             <Modal.Label>꿀조합 추천 정보 :</Modal.Label>
             <textarea
-              name="bestCombo"
+              name="recipe"
               cols="30"
-              defaultValue={editedProduct.bestCombo || ""}
+              defaultValue={editedProduct.recipe || ""}
               onChange={(e) => {
-                setBestCombo(e.target.value);
+                setRecipe(e.target.value);
               }}
               rows="3"
               required

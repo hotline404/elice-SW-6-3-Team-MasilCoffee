@@ -21,7 +21,6 @@ import OderList from "./oderList/OderList";
 const Payment = () => {
   const name = useSelector((state) => state.user.name);
   const phone = useSelector((state) => state.user.phone);
-  console.log("페이먼트", phone);
 
   const navigate = useNavigate();
   const handleOnClickToPayment = () => {
@@ -82,6 +81,7 @@ const Payment = () => {
                     type="text"
                     placeholder="주문 시 요청사항을 입력하세요"
                   />
+                  <SquareButton text={"확인"} type={"red"} />
                 </StyledInputBox>
               </StyledInfo>
               <StyledInfo>

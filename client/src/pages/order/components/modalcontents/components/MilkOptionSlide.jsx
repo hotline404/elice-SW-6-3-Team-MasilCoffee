@@ -58,16 +58,18 @@ function MilkOptionSlide() {
             >
               {showContent && (
                 <SquareButtonBox>
-                  {["없음", "적게", "보통", "많이"].map((option) => (
-                    <SquareButton
-                      key={option}
-                      text={option}
-                      type={selectedMilk === option ? "red" : "grey"}
-                      onClick={() => handleMilkButtonClick(option)}
-                    >
-                      {option}
-                    </SquareButton>
-                  ))}
+                  {["없음", "일반", "무지방", "저지방", "오트", "두유"].map(
+                    (option) => (
+                      <SquareButton
+                        key={option}
+                        text={option}
+                        type={selectedMilk === option ? "red" : "grey"}
+                        onClick={() => handleMilkButtonClick(option)}
+                      >
+                        {option}
+                      </SquareButton>
+                    )
+                  )}
                 </SquareButtonBox>
               )}
             </div>

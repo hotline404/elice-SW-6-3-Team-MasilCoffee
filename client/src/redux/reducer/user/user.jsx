@@ -17,9 +17,13 @@ const user = (state = initUserState, action) => {
   switch (action.type) {
     case "get.user": {
       const { userData } = action.payload;
+
+      console.log("get.user - 현재 상태:", state);
+      console.log("get.user - 업데이트할 데이터:", userData);
+      
       return {
         ...state,
-        birth: userData.birth,
+        birth: `${userData.birth}`,
         create_at: userData.createAt,
         email: userData.email,
         name: userData.name,

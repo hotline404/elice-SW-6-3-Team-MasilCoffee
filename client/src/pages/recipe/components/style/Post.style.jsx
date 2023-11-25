@@ -16,14 +16,13 @@ export const PostPre = styled.pre`
   font-size: 1rem;
   white-space: pre-wrap;
   word-break: break-all;
-  margin: 0.5rem 0;
 `;
 
 //댓글, 좋아요 감싸는 div
 export const CommentWrap = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 20px;
 `;
 
 // 좋아요 div
@@ -41,4 +40,20 @@ export const LikedWrap = styled.div`
 export const CommentNum = styled.span`
   margin-left: 3px;
   width: 40px;
+`;
+
+//태그 감싸는 div
+export const TagWrap = styled.div`
+  display: flex;
+  margin-top: 30px;
+`;
+
+//태그
+export const TagBox = styled.span`
+  padding: 1.5% 3%;
+  background-color: #8e0e28;
+  color: white;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  white-space: nowrap;
 `;

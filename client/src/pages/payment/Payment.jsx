@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/ui/button/Button";
 import SquareButton from "../../components/ui/button/SquareButton";
@@ -16,9 +17,15 @@ import {
 
 import { useSelector } from "react-redux";
 
-import OderList from "./oderList/OderList";
-
 const Payment = () => {
+  // 수령 방법을 관리하는 상태
+  const [delivery, setDelivery] = useState("");
+
+  // 수령 방법 버튼 클릭 핸들러
+  const handleDeliveryClick = (method) => {
+    setDelivery(method);
+  };
+
   const name = useSelector((state) => state.user.name);
   const phone = useSelector((state) => state.user.phone);
 
@@ -64,8 +71,16 @@ const Payment = () => {
               <StyledInfo>
                 <StyledInputBox>
                   <h3>수령방법</h3>
-                  <SquareButton text={"방문포장"} type={"red"} />
-                  <SquareButton text={"매장식사"} type={"grey"} />
+                  <SquareButton
+                    text={"방문포장"}
+                    type={delivery === "방문포장" ? "red" : "grey"}
+                    onClick={() => handleDeliveryClick("방문포장")}
+                  />
+                  <SquareButton
+                    text={"매장식사"}
+                    type={delivery === "매장식사" ? "red" : "grey"}
+                    onClick={() => handleDeliveryClick("매장식사")}
+                  />
                 </StyledInputBox>
               </StyledInfo>
               <StyledInfo>
@@ -90,9 +105,6 @@ const Payment = () => {
                   <SquareButton text={"신용카드"} type={"red"} />
                 </StyledInputBox>
               </StyledInfo>
-            </StyledInfoBox>
-            <StyledInfoBox>
-              <OderList />
             </StyledInfoBox>
             <Button
               onClick={handleOnClickToPayment}

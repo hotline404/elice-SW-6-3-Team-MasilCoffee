@@ -125,3 +125,6 @@ export const StyleShotModal = styled.div`
     transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
   }
 `;
+export const StyledTotalPrice = styled.div`
+  padding-top: 60px;
+`;

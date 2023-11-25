@@ -15,6 +15,7 @@ import {
   StylePaddingSpan,
   StyleQuantity,
   StyleButton,
+  StyledTotalPrice,
 } from "./ModalContents.style";
 
 import ShotOptionSlide from "./components/ShotOptionSlide";
@@ -89,7 +90,10 @@ const ModalContents = ({ data }) => {
       <WhippingOptionSlide />
       <DrizzleOptionSlide />
       <MilkOptionSlide />
-      <b>총가격 : {options.totalPrice}원 </b>
+      <StyledTotalPrice>
+        <b>총가격 : {options.totalPrice}원 </b>
+      </StyledTotalPrice>
+
       <StyleButton>
         <Button
           onClick={() => {

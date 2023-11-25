@@ -1,4 +1,4 @@
-import FilterFn from "../../../util/FilterCheckBox/FilterFn";
+//import FilterFn from "../../../util/FilterCheckBox/FilterFn";
 
 // const checkboxes = [
 //   {
@@ -36,34 +36,41 @@ const initUsersState = {
 const users = (state = initUsersState, action) => {
   switch (action.type) {
     case "init": {
-
       return {
         ...state,
-        searchData: [action.payload.users],
-        users: [action.payload.users],
+        searchData: [action.payload],
+        users: [action.payload],
       };
     }
 
     case "get.search": {
-      const { searchData, filter } = state;
-      const { query } = action.payload;
-
-      if (!query) {
+      const { searchData } = state;
+      console.log("state", state);
+      if (!action.payload) {
         return { ...state, users: searchData };
       }
+      const { name, phone, nickname } = action.payload;
 
-      const filteredUser = searchData.filter(FilterFn(filter, query));
-      return { ...state, users: filteredUser };
-    }
+      const findUser = searchData[0].filter((user) => {
+        let filterName = true;
+        let filterPhone = true;
+        let filterNick = true;
+        console.log("searchDatass", searchData);
 
-    case "add.filter": {
-      const { name, pathFn } = action.payload;
-      return { ...state, filter: { ...state.filter, [name]: pathFn } };
-    }
+        if (phone !== "") {
+          filterPhone = user.phone === phone;
+        }
+        if (name !== "") {
+          filterName = user.name === name;
+        }
+        if (nickname !== "") {
+          filterNick = user.nickname === nickname;
+        }
 
-    case "remove.filter": {
-      const { [action.payload.name]: _, ...rest } = state.filter;
-      return { ...state, filter: rest };
+        return filterName && filterPhone && filterNick;
+      });
+
+      return { ...state, users: findUser };
     }
 
     case "get.user": {
@@ -79,8 +86,6 @@ const users = (state = initUsersState, action) => {
         users: updateUser,
       };
     }
-
-    
 
     default:
       return state;

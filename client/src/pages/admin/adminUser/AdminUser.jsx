@@ -1,25 +1,41 @@
-import React, { useState, useEffect, useSelector } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as Users from "./AdminUser.style";
 import AdminSidebar from "../../../components/layout/Sidebar/Sidebar";
 import UserSearch from "./components/UserSearch";
 import Table from "../../../components/ui/table/Table";
 import { usePagination } from "../../../hooks/usePagination";
 import sliceTen from "../../../util/forPagenation/sliceTen";
-// import { actionGetAllProducts, actionDeleteProduct } from "../../../redux/action/user/usersAction";
+import { initUserSearch, search } from "../../../redux/action/user/usersAction";
 import { axiosGetUsers } from "../../../api/user/users";
 
 const AdminUser = ({ trData, tdData }) => {
+  const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
   const [page, setPage] = useState(1);
+  const users = useSelector((state) => state.users.searchData);
+  console.log("users", users);
+  // const tdData = users.map((data) => [data._id, "", data.name, data.email, data.phone, data.nickname, data.role]);
 
-  //const users = useSelector((state) => state.users);
-  //console.log(users);
   useEffect(() => {
     const fn = async () => {
       try {
         const getUsers = await axiosGetUsers(token);
-        console.log(getUsers);
-        //dispatch(actionGetAllProducts(products));
+        console.log("getUsers", getUsers);
+        const reduxData = dispatch(initUserSearch(getUsers.users));
+        console.log("reduxDataaa", reduxData);
+        console.log("reduxData", reduxData.payload);
+        const searchData = reduxData.payload;
+        console.log("searchData", searchData);
+        const query = {
+          name: "샐러리쿵야",
+          phone: "010-0000-4444",
+          nickname: "샐러드",
+        };
+
+        const filteredData = dispatch(search({ name: query.name, phone: query.phone, nickname: query.nickname }));
+
+        console.log("filteredData", filteredData);
       } catch (err) {
         console.log("err", err);
       }
@@ -75,7 +91,7 @@ const AdminUser = ({ trData, tdData }) => {
 };
 
 AdminUser.defaultProps = {
-  trData: ["이름", "아이디", "이메일", "전화번호", "닉네임", "등급"],
+  trData: ["이름", "이메일", "전화번호", "닉네임", "등급"],
   tdData: [
     ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
     ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],

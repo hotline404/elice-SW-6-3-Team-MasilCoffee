@@ -1,11 +1,11 @@
 export const initUserSearch = (initData) => ({
   type: "init",
-  payload: { initData },
+  payload: initData,
 });
 
-export const search = (quary) => ({
+export const search = ({ name, phone, nickname }) => ({
   type: "get.search",
-  payload: { quary },
+  payload: { name, phone, nickname },
 });
 
 export const addFilter = (name, pathFn) => ({

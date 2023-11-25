@@ -28,16 +28,19 @@ export const StyledText = styled.div`
 export const StyledButtonText = styled.div`
   margin: 0 auto;
   max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-  b {
+  div > b {
     font-size: 16px;
     font-weight: 900;
   }
-  p {
+  div > p {
     font-size: 14px;
   }
   button {
-    margin: 0 auto;
     display: block;
   }
 `;

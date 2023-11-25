@@ -28,6 +28,9 @@ const PostList = ({ post }) => {
         </div>
         <S.PostPre>{post.post}</S.PostPre>
         {post.image.length > 0 && <ImageSlider images={post.image} />}
+        <S.TagWrap>
+          <S.TagBox>{post.category}</S.TagBox>
+        </S.TagWrap>
         <S.CommentWrap>
           <S.LikedWrap onClick={handleLikedClick} liked={liked}>
             {liked ? (

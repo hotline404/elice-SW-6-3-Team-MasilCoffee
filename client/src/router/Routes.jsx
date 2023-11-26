@@ -103,7 +103,7 @@ export const ROUTES = {
   },
   CONFIRMPASSWORD: {
     path: "/mypage/confirmPassword",
-    link: "/mypage/confirmPassword/:user_id",
+    link: "/mypage/confirmPassword/:req",
     element: <ConfirmPassword />,
   },
   ORDERDETAILS: {

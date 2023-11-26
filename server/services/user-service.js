@@ -1,4 +1,4 @@
-const User = require("../models/user-schema");
+const { User } = require("../models/user-schema");
 const { sendMail } = require("../utils/email-send");
 const bcrypt = require("bcrypt");
 
@@ -32,7 +32,12 @@ class UserService {
   }
 
   async findUserByEmail(email) {
-    return User.findOne({ email });
+    try {
+      return await User.findOne({ email });
+    } catch (error) {
+      console.error("이메일로 사용자 찾기 중 오류 발생:", error);
+      throw error;
+    }
   }
 
   async findUserByNickname(nickname) {

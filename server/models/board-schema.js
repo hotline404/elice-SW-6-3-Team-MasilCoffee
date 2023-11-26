@@ -4,14 +4,15 @@ const { Schema } = mongoose;
 
 const boardSchema = new Schema(
   {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true
+    },
     category: {
       type: String,
       required: true,
       enum: ["에스프레소", "논커피", "스무디", "티", "에이드"],
-    },
-    title: {
-      type: String,
-      required: true,
     },
     post: {
       type: String,

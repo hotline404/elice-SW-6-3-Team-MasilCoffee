@@ -8,9 +8,16 @@ const JWT = require("../utils/jwt-token");
 
 // 회원가입 (인증코드발송) 및 비밀번호 변경
 UserRouter.post("/signup/send-mail", async (req, res) => {
-  const { email } = req.body;
-  await userService.transportVerificationCode(email, res);
+  try {
+    const { email } = req.body;
+    await userService.transportVerificationCode(email, res);
+    res.status(200).json({ success: true, message: "인증 코드가 성공적으로 전송되었습니다." });
+  } catch (error) {
+    console.error("인증 코드 전송 중 오류 발생:", error);
+    res.status(500).json({ success: false, message: "인증 코드 전송에 실패했습니다." });
+  }
 });
+
 
 // 회원가입 (인증코드 확인) 및 비밀번호 변경
 UserRouter.post("/signup/verify-code", async (req, res) => {
@@ -28,7 +35,7 @@ UserRouter.post("/signup/verify-code", async (req, res) => {
 UserRouter.post("/signup", async (req, res) => {
   try {
     const { name, email, nickname, phone, password } = req.body;
-    
+
     // 필수 필드가 누락되지 않았는지 확인
     if (!name || !email || !nickname || !phone || !password) {
       return res.status(400).json({ error: "모든 필수 정보를 입력하세요." });
@@ -48,9 +55,8 @@ UserRouter.post("/signup", async (req, res) => {
 
     // 닉네임 중복 확인
     const existingNicknameUser = await userService.findUserByNickname(nickname);
-    if (existingNicknameUser) {
+    if (existingNicknameUser)
       return res.status(400).json({ error: "이미 사용 중인 닉네임입니다." });
-    }
 
     const newUser = await userService.createUser({
       name,
@@ -83,7 +89,7 @@ UserRouter.post(
           "가입되지 않은 이메일 입니다.",
           401
         );
-      } else if (authUser.fail === "password") {
+      } else {
         // 비밀번호 실패
         return ResponseHandler.respondWithError(
           res,
@@ -170,8 +176,13 @@ UserRouter.get(
   JwtMiddleware.checkToken,
   JwtMiddleware.checkAdmin,
   asyncHandler(async (req, res) => {
-    const users = await userService.getAllUsers();
-    ResponseHandler.respondWithSuccess(res, { users, token: req.user });
+    try {
+      const users = await userService.getAllUsers();
+      ResponseHandler.respondWithSuccess(res, { users, token: req.user });
+    } catch (error) {
+      console.error("모든 사용자 가져오기 중 오류 발생:", error);
+      ResponseHandler.respondWithError(res, 500, "사용자 정보를 가져오는 중 오류가 발생했습니다.");
+    }
   })
 );
 
@@ -181,11 +192,16 @@ UserRouter.get(
   JwtMiddleware.checkToken,
   JwtMiddleware.checkAdmin,
   asyncHandler(async (req, res) => {
-    const user = await userService.getUserById(req.params.userId);
-    if (!user) {
-      return ResponseHandler.respondWithNotfound(res);
+    try {
+      const user = await userService.getUserById(req.params.userId);
+      if (!user) {
+        return ResponseHandler.respondWithNotfound(res);
+      }
+      ResponseHandler.respondWithSuccess(res, user);
+    } catch (error) {
+      console.error("특정 사용자 가져오기 중 오류 발생:", error);
+      ResponseHandler.respondWithError(res, 500, "사용자 정보를 가져오는 중 오류가 발생했습니다.");
     }
-    ResponseHandler.respondWithSuccess(res, user);
   })
 );
 
@@ -195,19 +211,31 @@ UserRouter.patch(
   JwtMiddleware.checkToken,
   JwtMiddleware.checkAdmin,
   asyncHandler(async (req, res) => {
-    const user = await userService.updateUser(req.params.userId, req.body);
-    ResponseHandler.respondWithSuccess(res, user);
+    try {
+      const user = await userService.updateUser(req.params.userId, req.body);
+      ResponseHandler.respondWithSuccess(res, user);
+    } catch (error) {
+      console.error("회원 정보 수정 중 오류 발생:", error);
+      ResponseHandler.respondWithError(res, 500, "회원 정보를 수정하는 중 오류가 발생했습니다.");
+    }
   })
 );
+
 // 회원탈퇴 (관리자)
 UserRouter.delete(
   "/admin/:userId",
   JwtMiddleware.checkToken,
   JwtMiddleware.checkAdmin,
   asyncHandler(async (req, res) => {
-    const user = await userService.deleteUser(req.params.userId);
-    ResponseHandler.respondWithSuccess(res, user);
+    try {
+      const user = await userService.deleteUser(req.params.userId);
+      ResponseHandler.respondWithSuccess(res, user);
+    } catch (error) {
+      console.error("회원 탈퇴 중 오류 발생:", error);
+      ResponseHandler.respondWithError(res, 500, "회원을 탈퇴하는 중 오류가 발생했습니다.");
+    }
   })
 );
+
 
 module.exports = UserRouter;

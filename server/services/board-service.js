@@ -37,6 +37,16 @@ class BoardService {
     }
   }
 
+  static async getBoardsByCategory(category) {
+    try {
+      const boards = await Board.find({ category });
+      return boards;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
   static async updateBoard(boardId, updatedData) {
     try {
       const updatedBoard = await Board.findByIdAndUpdate(

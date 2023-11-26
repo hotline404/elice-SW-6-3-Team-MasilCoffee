@@ -8,11 +8,19 @@ class JwtMiddleware {
     }
     try {
       const token = req.header("Authorization").split(" ")[1];
-      req.token = token;
       req.tokenData = JWT.verifyToken(token);
       next();
     } catch (error) {
       return res.status(401).json({ error: error.message });
+    }
+  }
+
+  // 관리자 혹은 본인
+  static checkGrant(req, res, next) {
+    if (req.tokenData.role === "Admin") {
+      next();
+    } else {
+      return res.status(403).json({ error: "권한이 없습니다." });
     }
   }
 

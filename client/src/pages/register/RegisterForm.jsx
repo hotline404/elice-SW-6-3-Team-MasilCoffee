@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useSelector } from "react-redux";
 
 import { axiosRegister } from "../../api/register/axiosRegister.jsx";
+import doubleCheck from "../../util/doubleCheck/doubleCheck.jsx";
+import AuthEmail from "./AuthEmail.jsx";
 
 import Contents from "../../components/ui/contents/Contents";
 import Input from "../../components/ui/Input/Input";
 import Button from "../../components/ui/button/Button.jsx";
 import Title from "../../components/ui/title/Title.jsx";
 import { ButtonBox, InputBox, AuthButton } from "./Register.style.jsx";
-import AuthEmail from "./AuthEmail.jsx";
-import { useSelector } from "react-redux";
-import doubleCheck from "../../util/doubleCheck/doubleCheck.jsx";
 
 const initRegisterInfo = {
   name: "",
@@ -29,13 +29,13 @@ function RegisterForm(props) {
   const secPasswordRef = useRef();
 
   useEffect(() => {
-    setRegInfo(current => {
+    setRegInfo((current) => {
       return {
         ...current,
-        email: authEmail
-      }
-    })
-  }, [auth])
+        email: authEmail,
+      };
+    });
+  }, [auth]);
 
   const handleInputChange = (e) => {
     switch (e.target.id) {
@@ -69,29 +69,33 @@ function RegisterForm(props) {
           });
         }
         break;
-        default:
-          return;
+      default:
+        return;
     }
   };
 
-  const doubleCheckhandler = () => { 
-    const isMatch = doubleCheck(firstPasswordRef.current.value, secPasswordRef.current.value);
+  const doubleCheckhandler = () => {
+    const isMatch = doubleCheck(
+      firstPasswordRef.current.value,
+      secPasswordRef.current.value
+    );
     if (isMatch) {
-      setRegInfo(current => {
+      setRegInfo((current) => {
         return {
           ...current,
-          password: secPasswordRef.current.value
-        }
-      })
-    } else {alert("비밀번호를 확인해주새엘몬")
-  setRegInfo(current => {
-    return {
-      ...current,
-      password: ""
+          password: secPasswordRef.current.value,
+        };
+      });
+    } else {
+      alert("비밀번호를 확인해주새엘몬");
+      setRegInfo((current) => {
+        return {
+          ...current,
+          password: "",
+        };
+      });
     }
-  })
-  }
-  }
+  };
 
   const openAuthModal = () => {
     setAuth(true);
@@ -103,8 +107,14 @@ function RegisterForm(props) {
 
   const fn = async (regInfo) => {
     try {
-      const {name, email, nickname, password, phone} = regInfo
-      const registerRes = await axiosRegister(name, email, nickname, password, phone);
+      const { name, email, nickname, password, phone } = regInfo;
+      const registerRes = await axiosRegister(
+        name,
+        email,
+        nickname,
+        password,
+        phone
+      );
       alert(registerRes);
     } catch (err) {
       alert("다시 입력 해주세요");
@@ -116,22 +126,23 @@ function RegisterForm(props) {
     fn(regInfo);
   };
 
-  
   return (
     <Contents>
       {auth && <AuthEmail onClose={closeAuthModal} />}
       <Title>모두 입력 해주세요.</Title>
       <form onSubmit={handleSubmit}>
         <InputBox>
-          <Input input={{
-                name: "이메일",
-                type: "email",
-                id: "email",
-                placeholder: "이메일 형식을 지켜주세요(abcd@QQQ.com)",
-                value: `${regInfo.email}`,
-                readonly: true
-          }}/>
-           <AuthButton onClick={openAuthModal}>인증</AuthButton>  
+          <Input
+            input={{
+              name: "이메일",
+              type: "email",
+              id: "email",
+              placeholder: "이메일 형식을 지켜주세요(abcd@QQQ.com)",
+              value: `${regInfo.email}`,
+              readonly: true,
+            }}
+          />
+          <AuthButton onClick={openAuthModal}>인증</AuthButton>
         </InputBox>
         {props.input.map((info) => (
           <InputBox key={info.id}>

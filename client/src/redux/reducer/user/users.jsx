@@ -38,8 +38,8 @@ const users = (state = initUsersState, action) => {
     case "init": {
       return {
         ...state,
-        searchData: [action.payload],
-        users: [action.payload],
+        searchData: [action.payload.initData],
+        users: [action.payload.initData],
       };
     }
 

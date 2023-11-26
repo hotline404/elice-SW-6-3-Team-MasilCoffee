@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as Users from "./AdminUser.style";
 import AdminSidebar from "../../../components/layout/Sidebar/Sidebar";
@@ -9,14 +9,15 @@ import sliceTen from "../../../util/forPagenation/sliceTen";
 import { initUserSearch, search } from "../../../redux/action/user/usersAction";
 import { axiosGetUsers } from "../../../api/user/users";
 
-const AdminUser = ({ trData, tdData }) => {
+const AdminUser = ({ trData }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
   const [page, setPage] = useState(1);
-  const users = useSelector((state) => state.users.searchData);
+  const users = useSelector((state) => state.users.users[0]);
   console.log("users", users);
-  // const tdData = users.map((data) => [data._id, "", data.name, data.email, data.phone, data.nickname, data.role]);
-
+  const tdData = users.map((data) => [data._id, "", data.name, data.email, data.phone, data.nickname, data.role]);
+  // const tdDataRef = useRef([]);
+  console.log("tdData", tdData);
   useEffect(() => {
     const fn = async () => {
       try {
@@ -35,6 +36,7 @@ const AdminUser = ({ trData, tdData }) => {
 
         const filteredData = dispatch(search({ name: query.name, phone: query.phone, nickname: query.nickname }));
 
+        // tdDataRef.current = users.map((data) => [data._id, "", data.name, data.email, data.phone, data.nickname, data.role]);
         console.log("filteredData", filteredData);
       } catch (err) {
         console.log("err", err);
@@ -44,7 +46,7 @@ const AdminUser = ({ trData, tdData }) => {
   }, []);
 
   const pageConst = {
-    totalCount: tdData.length,
+    totalCount: useRef.current.length,
     pageSize: 10,
     siblingCount: 1,
     currentPage: page,
@@ -55,7 +57,7 @@ const AdminUser = ({ trData, tdData }) => {
   const slicedData = sliceTen({
     currentPage: pageConst.currentPage,
     pageSize: pageConst.pageSize,
-    initDataSet: tdData,
+    initDataSet: useRef.current,
   });
 
   const handleClick = (e) => {
@@ -92,19 +94,19 @@ const AdminUser = ({ trData, tdData }) => {
 
 AdminUser.defaultProps = {
   trData: ["이름", "이메일", "전화번호", "닉네임", "등급"],
-  tdData: [
-    ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
-    ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
-    ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
-    ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
-    ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
-    ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
-    ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
-    ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
-    ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
-    ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
-    ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
-  ],
+  // tdData: [
+  //   ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
+  //   ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
+  //   ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
+  //   ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
+  //   ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
+  //   ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
+  //   ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
+  //   ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
+  //   ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
+  //   ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
+  //   ["", "", "홍길동", "hong1231", "hong1231@naver.com", "010-1231-1231", "홍카페", "회원"],
+  // ],
 };
 
 export default AdminUser;

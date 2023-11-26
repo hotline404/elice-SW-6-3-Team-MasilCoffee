@@ -1,6 +1,6 @@
 export const initUserSearch = (initData) => ({
   type: "init",
-  payload: initData,
+  payload: { initData },
 });
 
 export const search = ({ name, phone, nickname }) => ({

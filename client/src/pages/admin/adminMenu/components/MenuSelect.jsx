@@ -1,25 +1,23 @@
 import React from "react";
 import * as Selected from "./style/MenuSelect.style";
 
-const MenuSelect = ({ options, modal = null, name = null, onChange = null, modify = null }) => {
+const MenuSelect = ({ options, modal = null, onChange = null, defaultOption = null }) => {
   if (!options) {
     return null;
   }
 
-  // if(modify){
-  //   Select.value = modify
-  // }
-  const defaultOption = options[0];
+  const defaultValue = defaultOption !== null ? defaultOption : null;
+  console.log("defaultValue", defaultValue);
 
   const handleSelectChange = (e) => {
-    const selected = e.target.value;
+    const selected = e;
     if (onChange) {
       onChange(selected);
     }
   };
 
   return (
-    <Selected.Selection modal={modal} onChange={handleSelectChange} defaultValue={defaultOption}>
+    <Selected.Selection modal={modal} onChange={handleSelectChange} value={defaultValue}>
       {options.map((op, i) => {
         return (
           <option value={op} key={op + i}>

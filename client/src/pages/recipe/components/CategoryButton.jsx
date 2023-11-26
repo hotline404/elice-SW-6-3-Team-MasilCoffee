@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { CategoryWrap, CategoryBtn } from "../Recipe.style";
 import {
@@ -7,7 +7,7 @@ import {
   actionSearchBoards,
 } from "../../../redux/action/boardAction";
 
-const categorys = [
+const categorysArr = [
   {
     id: "filter-espresso",
     name: "에스프레소",
@@ -30,32 +30,58 @@ const categorys = [
   },
 ];
 
-const CategoryButton = ({ query }) => {
+const CategoryButton = ({ query, category, setCategory, defaultValue}) => {
   const dispatch = useDispatch();
-  const [activeStates, setActiveStates] = useState(Array(categorys.length).fill(false));
+  const [activeStates, setActiveStates] = useState(Array(categorysArr.length).fill(false));
+
+  useEffect(() => {
+    if (query === "edit") {
+      const newActiveStates = [...activeStates];
+
+      if (defaultValue) { //게시글 수정
+        const defaultIndex = categorysArr.findIndex((category) => category.name === defaultValue);
+        
+        newActiveStates[defaultIndex] = true;
+        setCategory(defaultValue);
+      } else { //게시글 작성
+        newActiveStates[0] = true; //첫 번째 카테고리를 활성화
+        setCategory(categorysArr[0].name);
+      }
+      setActiveStates(newActiveStates);
+    }
+  }, []);
  
   const handleClick = (index, category) => {
     const newActiveStates = [...activeStates];
-
-    if (newActiveStates[index]) { //카테고리 선택된걸 해제
-      newActiveStates.fill(false);
-    } else { //카테고리 선택하기
+    
+    if (query === "edit") {
+      //게시글 작성
       newActiveStates.fill(false);
       newActiveStates[index] = !newActiveStates[index];
-    }
-    setActiveStates(newActiveStates);
-
-    if (newActiveStates[index]) {
-      dispatch(actionGetFilter(category));
+      setActiveStates(newActiveStates);
+      setCategory(category); //formData에 넘겨줄 값
     } else {
-      dispatch(actionRemoveFilter(category));
+      //게시글 리스트
+      if (newActiveStates[index]) { //카테고리 선택된걸 해제
+        newActiveStates.fill(false);
+      } else { //카테고리 선택하기
+        newActiveStates.fill(false);
+        newActiveStates[index] = !newActiveStates[index];
+      }
+      setActiveStates(newActiveStates);
+
+      if (newActiveStates[index]) { //카테고리 선택
+        dispatch(actionGetFilter(category));
+      } else { //카테고리 선택 해제
+        dispatch(actionRemoveFilter(category));
+      }
+      dispatch(actionSearchBoards(query));
     }
-    dispatch(actionSearchBoards(query));
   };
 
   return (
     <CategoryWrap>
-      {categorys.map((category, index) => (
+      {categorysArr.map((category, index) => (
         <CategoryBtn
           key={category.id}
           type="button"

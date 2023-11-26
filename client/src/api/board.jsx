@@ -52,7 +52,7 @@ export const getMyBoards = async (userId) => {
 //게시글 작성하기
 export const addBoard = async (token, formData) => {
   const boardHeader = {
-    "Content-Type": "application/json",
+    "Content-Type": "multipart/form-data",
     "Authorization": `Bearer ${token}`,
   };
   const boardBody = {formData};
@@ -67,6 +67,7 @@ export const addBoard = async (token, formData) => {
 
     return board;
   } catch (error) {
+    alert("게시글 작성을 실패하였습니다.");
     console.error("error(addBoard)", error);
   }
 }
@@ -74,11 +75,16 @@ export const addBoard = async (token, formData) => {
 //게시글 수정하기
 export const updateBoard = async (boardId, data) => {
   try {
-    const res = await axios.put(`http://localhost:5000/api/v1/boards/${boardId}`, data);
+    const res = await axios.put(`http://localhost:5000/api/v1/boards/${boardId}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     const board = res.data.data;
 
     return board;
   } catch (error) {
+    alert("게시글 수정에 실패하였습니다.");
     console.error("error(updateBoard)", error);
   }
 }

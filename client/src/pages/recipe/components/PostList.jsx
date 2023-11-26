@@ -6,6 +6,7 @@ import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
 import ImageSlider from "./ImageSlider";
 import DateFormat from "../../../util/DateFormat/DateFormat";
+import RandomColor from "../../../util/RandomColor/RandomColor";
 
 const PostList = ({ post }) => {
   const [liked, setLiked] = useState(false);
@@ -30,6 +31,9 @@ const PostList = ({ post }) => {
         {post.image.length > 0 && <ImageSlider images={post.image} />}
         <S.TagWrap>
           <S.TagBox>{post.category}</S.TagBox>
+          <S.TagBox style={{ background: RandomColor(), color: "black", }}>
+            헤이즐넛 시럽
+          </S.TagBox>
         </S.TagWrap>
         <S.CommentWrap>
           <S.LikedWrap onClick={handleLikedClick} liked={liked}>

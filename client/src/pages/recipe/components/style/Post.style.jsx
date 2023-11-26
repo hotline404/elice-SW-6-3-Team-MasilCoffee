@@ -46,11 +46,13 @@ export const CommentNum = styled.span`
 export const TagWrap = styled.div`
   display: flex;
   margin-top: 30px;
+  flex-wrap: wrap;
 `;
 
 //태그
 export const TagBox = styled.span`
-  padding: 1.5% 3%;
+  padding: 1% 2%;
+  margin: 0 5px 5px 0;
   background-color: #8e0e28;
   color: white;
   border-radius: 30px;

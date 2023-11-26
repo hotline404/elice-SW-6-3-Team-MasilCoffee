@@ -24,17 +24,18 @@ const OrderList = ({ handleOnSelect, checkedStates }) => {
     <StyledOrderListMenu>
       {orders.length > 0 &&
         orders.map((order) => (
-          <StyledOrderListMenuBox key={order.id}>
+          <StyledOrderListMenuBox key={order.orderId}>
             <div>
               <div>
                 <input
                   onClick={() => handleOnSelect(order)}
-                  checked={checkedStates[order.id]}
+                  checked={checkedStates[order.orderId]}
                   type="checkbox"
                 />
                 <b>{order.name}</b>
               </div>
               <span>{`샷 : ${order.shot}`}</span>
+              {order.shot.map(item => (<span>`샷 : ${item.name} ${item.quantity}`</span>))}
               <span>{`시럽 : 바닐라 ${order.syrups.vanilla} 헤이즐넛 ${order.syrups.hazelnut} 카라멜  ${order.syrups.caramel} `}</span>
               <span>{`얼음 : ${order.ice}`}</span>
               <span>{`휘핑 : ${order.whipping}`}</span>

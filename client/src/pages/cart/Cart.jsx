@@ -29,7 +29,7 @@ const Cart = () => {
   const handleOnCheck = (e) => {
     if (e.target.checked) {
       const newCheckedStates = orders.reduce((acc, order) => {
-        acc[order.id] = true;
+        acc[order.orderId] = true;
         return acc;
       }, {});
       setCheckedStates(newCheckedStates);
@@ -43,27 +43,27 @@ const Cart = () => {
   const handleOnSelect = (order) => {
     const updatedCheckedStates = {
       ...checkedStates,
-      [order.id]: !checkedStates[order.id],
+      [order.orderId]: !checkedStates[order.orderId],
     };
     setCheckedStates(updatedCheckedStates);
 
-    if (updatedCheckedStates[order.id]) {
+    if (updatedCheckedStates[order.orderId]) {
       setOrderList((orders) => [...orders, order]);
     } else {
-      setOrderList((orders) => orders.filter((o) => o.id !== order.id));
+      setOrderList((orders) => orders.filter((o) => o.orderId !== order.orderId));
     }
   };
 
   const handleOnClickToRemove = () => {
     if(window.confirm("삭제하시겠습니까?")) {
-      orderList.forEach(order => dispatch(removeOrder(order.id)))
+      orderList.forEach(order => dispatch(removeOrder(order.orderId)))
     }
   }
 
   useEffect(() => {
     // 주문 목록이 변경될 때마다 checkedStates 초기화
     const initialCheckedStates = orders.reduce((acc, order) => {
-      acc[order.id] = false;
+      acc[order.orderId] = false;
       return acc;
     }, {});
     setCheckedStates(initialCheckedStates);

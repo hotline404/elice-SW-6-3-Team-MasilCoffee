@@ -23,7 +23,7 @@ const user = (state = initUserState, action) => {
       
       return {
         ...state,
-        birth: `${userData.birth}`,
+        birth: userData.birth,
         create_at: userData.createAt,
         email: userData.email,
         name: userData.name,
@@ -40,7 +40,8 @@ const user = (state = initUserState, action) => {
 
       return {
         ...state,
-        users: updateUser,
+        nickname: updateUser.nickname,
+        phone: updateUser.phone
       };
     }
 

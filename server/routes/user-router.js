@@ -28,7 +28,7 @@ UserRouter.post("/signup/verify-code", async (req, res) => {
 UserRouter.post("/signup", async (req, res) => {
   try {
     const { name, email, nickname, phone, password } = req.body;
-
+    
     // 필수 필드가 누락되지 않았는지 확인
     if (!name || !email || !nickname || !phone || !password) {
       return res.status(400).json({ error: "모든 필수 정보를 입력하세요." });

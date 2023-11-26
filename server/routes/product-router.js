@@ -3,8 +3,8 @@ const ProductRouter = express.Router();
 const ProductService = require("../services/product-service");
 const asyncHandler = require("../middlewares/async-handler");
 const ResponseHandler = require("../middlewares/res-handler");
-const imageUploader = require('../middlewares/s3-handler');
-const JwtMiddleware = require('../middlewares/jwt-handler');
+const imageUploader = require("../middlewares/s3-handler");
+const JwtMiddleware = require("../middlewares/jwt-handler");
 
 // single("여기이름이랑") Key 값이 일치해야함
 // posturl : http://localhost:5000/test/image?directory=product
@@ -44,32 +44,35 @@ ProductRouter.post(
     try {
       const productData = req.body;
       if (!req.file) {
-        return res.status(400).send('이미지를 업로드해주세요.');
+        return res.status(400).send("이미지를 업로드해주세요.");
       }
       const imageURL = req.file.location;
       const newProduct = await ProductService.createProduct(productData, imageURL);
       ResponseHandler.respondWithSuccess(res, newProduct);
     } catch (error) {
       console.error(error);
-      ResponseHandler.respondWithError(res, '제품 생성에 실패했습니다.');
+      ResponseHandler.respondWithError(res, "제품 생성에 실패했습니다.");
     }
   })
 );
-
 
 // 제품 정보 수정 by productid
 ProductRouter.put(
   "/:productId",
   JwtMiddleware.checkToken,
   JwtMiddleware.checkAdmin,
+  imageUploader.single("file"),
   asyncHandler(async (req, res) => {
     const productId = req.params.productId;
     const productData = req.body;
+    if (req.file) {
+      productData.image_url = req.file.location;
+    }
     const updatedProduct = await ProductService.updateProduct(productId, productData);
     if (!updatedProduct) {
       return ResponseHandler.respondWithNotFound(res, "Product not found");
     }
-    
+
     ResponseHandler.respondWithSuccess(res, updatedProduct);
   })
 );

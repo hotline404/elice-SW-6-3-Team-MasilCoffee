@@ -18,7 +18,7 @@ export const updateOrder = (updatedOrder, orderId) => {
   return {
     type: ORDERS_TYPE.UPDATE_ORDER,
     payload: {
-      id: orderId,
+      orderId: orderId,
       order: updatedOrder
     },
   };

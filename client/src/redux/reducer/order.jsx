@@ -8,12 +8,12 @@ const order = (state = initialState, action) => {
     case ORDERS_TYPE.ADD_ORDER:
       return [...state, action.payload];
     case ORDERS_TYPE.REMOVE_ORDER: {
-      const newState = state.filter((current) => current.id !== action.payload); // action.payload로 삭제할 주문의 인덱스를 받아야 됨
+      const newState = state.filter((current) => current.orderId !== action.payload); // action.payload로 삭제할 주문의 인덱스를 받아야 됨
       return [...newState];
     }
     case ORDERS_TYPE.UPDATE_ORDER: {
       const newState = state.map((current) => {
-        if (current.id === action.payload.id) {
+        if (current.orderId === action.payload.orderId) {
           const copyOrder = JSON.parse(JSON.stringify(action.payload.order));
           const result = {
             ...copyOrder,

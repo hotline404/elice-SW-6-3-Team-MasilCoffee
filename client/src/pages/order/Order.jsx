@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetAllProducts } from "../../redux/action/productAction";
 import { getAllProducts } from "../../api/product";
+import { setOrderDetail } from "../../redux/action/orderDetailAction";
 
 import Card from "./components/card/Card";
 import { StyledOrder } from "./Order.style";
@@ -16,11 +17,27 @@ const Order = ({ children }) => {
   const productsFromState = useSelector((state) => state.product.products);
   console.log("productsFromState", productsFromState);
 
+  // orderDetail api가 Order 페이지 렌더링 시 한 번만 호출하는 최적화 용도
+  // api 나오면 수정 필요
+  const fetchOrderDetail = async () => {
+    try {
+      const response = await fetch("./components/data/menuMockup.json");
+      const data = await response.json();
+
+      dispatch(setOrderDetail(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrderDetail();
+  }, []);
+
   useEffect(() => {
     const fn = async () => {
       try {
         const products = await getAllProducts(); //비동기
-        console.log("디스패치 전 데이터", products);
         dispatch(actionGetAllProducts(products));
       } catch (err) {
         console.log("err", err);

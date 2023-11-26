@@ -10,13 +10,14 @@ const BASE_URL = {
 
 
 //register
-export const axiosRegister = async (name, email, nickname, phone, password) => {
+export const axiosRegister = async (name, email, nickname, password, phone) => {
   const registerBody = {
     name: name,
     email: email,
     nickname: nickname,
     phone: phone,
     password: password,
+    role: "Admin"
   };
 
   try {
@@ -75,7 +76,7 @@ export const deleteUser = async (token) => {
   }
 
   try {
-    const res = await axios.delete(`${base.USER.url}`, headers);
+    const res = await axios.delete(`${BASE_URL.USER.url}`, headers);
     const data = res.data;
 
     return data

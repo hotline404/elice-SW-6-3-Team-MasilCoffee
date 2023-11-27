@@ -1,3 +1,4 @@
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/ui/button/Button";
 import SquareButton from "../../components/ui/button/SquareButton";
@@ -14,21 +15,33 @@ import {
   StyledActionBg,
 } from "./Payment.style";
 
-import { useSelector } from "react-redux";
-
-import OderList from "./oderList/OderList";
+import { useDispatch, useSelector } from "react-redux";
+import { addRequestDeliveryAction } from "../../redux/action/paymentAction";
 
 const Payment = () => {
-  const name = useSelector((state) => state.user.name);
-  const phone = useSelector((state) => state.user.phone);
-
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // 수령 방법을 관리하는 상태
+  const [delivery, setDelivery] = useState("");
+  const orderRequest = useRef(null);
+
+  // 수령 방법 버튼 클릭 핸들러
+  const handleDeliveryClick = (method) => {
+    setDelivery(method);
+  };
+
+  const name = useSelector((state) => state.user.name);
+  console.log(name);
+  const phone = useSelector((state) => state.user.phone);
+  console.log(phone);
+
   const handleOnClickToPayment = () => {
     // confirm 대화상자를 표시하고, 사용자의 응답을 확인
     const isConfirmed = window.confirm("정말 결제 하시겠습니까?");
 
     // 사용자가 '확인'을 누른 경우, PaymentDone 페이지로 이동
     if (isConfirmed) {
+      dispatch(addRequestDeliveryAction(orderRequest.current.value, delivery));
       navigate("/PaymentDone");
     }
   };
@@ -58,20 +71,28 @@ const Payment = () => {
               <StyledInfo>
                 <StyledInputBox>
                   <h3>수령인</h3>
-                  <input type="text" value={name} readOnly="readOnly" />
+                  <input type="text" value={name} readOnly={true} />
                 </StyledInputBox>
               </StyledInfo>
               <StyledInfo>
                 <StyledInputBox>
                   <h3>수령방법</h3>
-                  <SquareButton text={"방문포장"} type={"red"} />
-                  <SquareButton text={"매장식사"} type={"grey"} />
+                  <SquareButton
+                    text={"방문포장"}
+                    type={delivery === "방문포장" ? "red" : "grey"}
+                    onClick={() => handleDeliveryClick("방문포장")}
+                  />
+                  <SquareButton
+                    text={"매장식사"}
+                    type={delivery === "매장식사" ? "red" : "grey"}
+                    onClick={() => handleDeliveryClick("매장식사")}
+                  />
                 </StyledInputBox>
               </StyledInfo>
               <StyledInfo>
                 <StyledInputBox>
                   <h3>전화번호</h3>
-                  <input type="text" value={phone} readOnly="readOnly" />
+                  <input type="text" value={phone} readOnly={true} />
                 </StyledInputBox>
               </StyledInfo>
               <StyledInfo>
@@ -80,6 +101,7 @@ const Payment = () => {
                   <input
                     type="text"
                     placeholder="주문 시 요청사항을 입력하세요"
+                    ref={orderRequest}
                   />
                   <SquareButton text={"확인"} type={"red"} />
                 </StyledInputBox>
@@ -90,9 +112,6 @@ const Payment = () => {
                   <SquareButton text={"신용카드"} type={"red"} />
                 </StyledInputBox>
               </StyledInfo>
-            </StyledInfoBox>
-            <StyledInfoBox>
-              <OderList />
             </StyledInfoBox>
             <Button
               onClick={handleOnClickToPayment}

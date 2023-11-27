@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Button from "../../../../components/ui/button/SquareButton";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import * as orderDetailAction from "../../../../redux/action/orderDetailAction";
+import { setInitialOption } from "../../../../redux/action/orderDetailAction";
 import { addOrder } from "../../../../redux/action/orderAction";
 import { paymentAction } from "../../../../redux/action/paymentAction";
 
@@ -15,55 +15,82 @@ import {
   StylePaddingSpan,
   StyleQuantity,
   StyleButton,
+  StyledTotalPrice,
 } from "./ModalContents.style";
 
-import ShotOptionSlide from "./components/ShotOptionSlide";
-import SyrupOptionSlide from "./components/SyrupOptionSlide";
-import IceOptionSlide from "./components/IceOptionSlide";
-import WhippingOptionSlide from "./components/Whipping";
-import DrizzleOptionSlide from "./components/Drizzle";
+import QuantityOption from "./components/QuantityOption";
+import SelectOption from "./components/SelectOption";
 
-import MilkOptionSlide from "./components/MilkOptionSlide";
+// import ShotOptionSlide from "./components/ShotOptionSlide";
+// import SyrupOptionSlide from "./components/SyrupOptionSlide";
+// import IceOptionSlide from "./components/IceOptionSlide";
+// import WhippingOptionSlide from "./components/Whipping";
+// import DrizzleOptionSlide from "./components/Drizzle";
+
+// import MilkOptionSlide from "./components/MilkOptionSlide";
 
 const ModalContents = ({ data }) => {
   const navigate = useNavigate();
+  // 로그인 정보 가져오기
+  const isLogin = useSelector((state) => state.login.loginState);
+
   // 리덕스 가져오기
   const dispatch = useDispatch();
   const options = useSelector((state) => state.orderDetail);
-  // const [price, setPrice] = useState(data.price);
+  const [quantity, setQuantity] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(data.price);
 
   const handleIncreaseOnClick = () => {
-    dispatch(
-      orderDetailAction.actionSetMenuOption({
-        itemPrice: data.price,
-        menu: options.menu + 1,
-      })
-    );
+    setQuantity((old) => old + 1);
   };
   const handleDecreaseOnClick = () => {
-    if (options.menu > 1) {
-      dispatch(
-        orderDetailAction.actionSetMenuOption({
-          itemPrice: data.price,
-          menu: options.menu - 1,
-        })
-      );
+    if (quantity > 1) {
+      setQuantity((old) => old - 1);
     }
   };
 
-  useEffect(() => {
+  const handleSetResultOrder = (route, action) => {
+    // if(isLogin === false && route === "/Payment") {
+    //   if(window.confirm("로그인 상태가 아닙니다. 로그인하여 결제를 진행해주세요.")) {
+    //     navigate("/Login");
+    //   }
+    //   return;
+    // }
     dispatch(
-      orderDetailAction.actionSetMenuOption({
-        itemPrice: data.price,
-        menu: options.menu,
+      action({
+        ...options.selectedOptions,
+        orderId: new Date(),
+        name: data.name,
+        id: data.id,
+        totalPrice,
+        quantity
       })
     );
-    console.log(data);
-    console.log(options);
+    navigate(route);
+  };
+
+  useEffect(() => {
+    dispatch(setInitialOption());
 
     // 모달 콘텐츠가 닫힐 때 실행되는 함수(클리어펑션)
-    return () => dispatch(orderDetailAction.actionResetOption);
+    return () => dispatch(setInitialOption());
   }, []);
+
+  // 임시 totalPrice 계산 함수
+  useEffect(() => {
+    let resultPrice = 0;
+
+    for (const optionName in options.selectedOptions) {
+      for (const detail of options.selectedOptions[optionName]) {
+        const originPrice = options.orderDetail[optionName].find(
+          (item) => item.name === detail.name
+        ).price;
+        resultPrice += originPrice * detail.quantity;
+      }
+    }
+
+    setTotalPrice(() => (data.price + resultPrice) * quantity);
+  }, [options, quantity]);
 
   return (
     <>
@@ -71,10 +98,10 @@ const ModalContents = ({ data }) => {
         <StyleImg></StyleImg>
         <StyleInfo>
           <span>{data.name}</span>
-          <StylePaddingSpan>{options.menu * data.price}</StylePaddingSpan>
+          <StylePaddingSpan>{quantity * data.price}</StylePaddingSpan>
           <StyleQuantity>
             <button onClick={handleIncreaseOnClick}>+</button>
-            <span>{options.menu}</span>
+            <span>{quantity}</span>
             <button onClick={handleDecreaseOnClick}>-</button>
           </StyleQuantity>
           <StyleDisplay>
@@ -83,29 +110,26 @@ const ModalContents = ({ data }) => {
           </StyleDisplay>
         </StyleInfo>
       </StyleText>
-      <ShotOptionSlide />
-      <SyrupOptionSlide />
-      <IceOptionSlide />
-      <WhippingOptionSlide />
-      <DrizzleOptionSlide />
-      <MilkOptionSlide />
-      <b>총가격 : {options.totalPrice}원 </b>
+      {Object.keys(options.selectedOptions).length > 0 &&
+        Object.keys(options.selectedOptions).map((optionName) => {
+          if (optionName === "shot" || optionName === "syrups") {
+            return <QuantityOption key={optionName} optionName={optionName} />;
+          } else {
+            return <SelectOption key={optionName} optionName={optionName} />;
+          }
+        })}
+      <StyledTotalPrice>
+        <b>총가격 : {totalPrice}원 </b>
+      </StyledTotalPrice>
+
       <StyleButton>
         <Button
-          onClick={() => {
-            dispatch(addOrder({ ...options, id: new Date(), name: data.name }));
-            navigate("/Cart");
-          }}
+          onClick={() => handleSetResultOrder("/Cart", addOrder)}
           type="grey"
           text={"장바구니"}
         />
         <Button
-          onClick={() => {
-            dispatch(
-              paymentAction([{ ...options, id: new Date(), name: data.name }])
-            );
-            navigate("/Payment");
-          }}
+          onClick={() => handleSetResultOrder("/Payment", paymentAction)}
           type="red"
           text={"결제하기"}
         />

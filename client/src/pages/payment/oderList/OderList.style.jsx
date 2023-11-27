@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const StyledOrderList = styled.div`
-  padding-top: 30px;
   > i {
     display: block;
     width: 100%;
@@ -39,6 +38,11 @@ export const StyledOrderListMenuBox = styled.div`
     font-weight: 600;
   }
 `;
+export const StyledOrderListMednuRequest = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+`;
+
 export const StyledAmountPayment = styled.div`
   padding-top: 30px;
   padding-bottom: 30px;
@@ -52,5 +56,12 @@ export const StyledAmountPayment = styled.div`
     width: 100%;
 
     border: 2px solid #8e0e28;
+  }
+`;
+export const StyledOrderListMenuText = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+  > span {
+    padding-right: 10px;
   }
 `;

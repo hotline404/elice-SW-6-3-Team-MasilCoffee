@@ -1,6 +1,8 @@
 const Product = require("../models/product-schema");
 
 class ProductService {
+
+  // 제품 생성
   static async createProduct(productData, imageURL) {
     try {
       productData.image_url = imageURL;

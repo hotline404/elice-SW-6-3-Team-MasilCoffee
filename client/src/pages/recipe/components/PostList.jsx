@@ -31,9 +31,14 @@ const PostList = ({ post }) => {
         {post.image.length > 0 && <ImageSlider images={post.image} />}
         <S.TagWrap>
           <S.TagBox>{post.category}</S.TagBox>
-          <S.TagBox style={{ background: RandomColor(), color: "black", }}>
-            헤이즐넛 시럽
-          </S.TagBox>
+          {post.tags.map((tag, index) => (
+            <S.TagBox
+              key={index}
+              style={{ background: RandomColor(), color: "black" }}
+            >
+              {tag}
+            </S.TagBox>
+          ))}
         </S.TagWrap>
         <S.CommentWrap>
           <S.LikedWrap onClick={handleLikedClick} liked={liked}>

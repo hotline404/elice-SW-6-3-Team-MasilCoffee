@@ -3,7 +3,7 @@ import axios from "axios";
 //모든 게시판 불러오기
 export const getAllBoards = async () => {
   try { 
-    const res = await axios.get("http://localhost:5000/api/v1/boards");
+    const res = await axios.get("http://localhost:5000/api/v1/boards/all");
     const boards = res.data.data;
 
     return boards;
@@ -15,7 +15,7 @@ export const getAllBoards = async () => {
 //해당 게시글 불러오기
 export const getBoard = async (boardId) => {
   try {
-    const res = await axios.get(`http://localhost:5000/api/v1/boards/${boardId}`);
+    const res = await axios.get(`http://localhost:5000/api/v1/boards/id/${boardId}`);
     const board = res.data.data;
 
     return board;
@@ -28,7 +28,7 @@ export const getBoard = async (boardId) => {
 //카테고리별 게시판 불러오기
 export const getCategoryBoards = async (category) => {
   try {
-    const res = await axios.get(`http://localhost:5000/api/v1/category/${category}`);
+    const res = await axios.get(`http://localhost:5000/api/v1/boards/category/${category}`);
     const board = res.data.data;
 
     return board;

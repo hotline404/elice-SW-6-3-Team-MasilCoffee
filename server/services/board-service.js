@@ -1,17 +1,11 @@
 const Board = require('../models/board-schema');
 
 class BoardService {
-  static async createBoard({ user, product, title, post, images, search }) {
-    try {
-      const newBoard = new Board({
-        user,
-        product,
-        title,
-        post,
-        images,
-        search,
-      });
 
+  // 게시글 생성
+  static async createBoard(boardData) {
+    try {
+      const newBoard = new Board(boardData);
       const savedBoard = await newBoard.save();
       return savedBoard;
     } catch (error) {
@@ -19,11 +13,23 @@ class BoardService {
     }
   }
 
+  // 모든 게시글 조회
   static async getAllBoards() {
     try {
       const boards = await Board.find();
       return boards;
     } catch (error) {
+      throw error;
+    }
+  }
+
+  // 본인 모든 게시글 조회
+  static async getAllBoardsByUserId(userId) {
+    try {
+      const boards = await Board.find({ user: userId });
+      return boards;
+    } catch (error) {
+      console.error("모든 게시글 가져오기 중 오류 발생:", error);
       throw error;
     }
   }
@@ -36,6 +42,16 @@ class BoardService {
       throw error;
     }
   }
+
+  static async getBoardsByCategory(category) {
+    try {
+      const boards = await Board.find({ category });
+      return boards;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 
   static async updateBoard(boardId, updatedData) {
     try {

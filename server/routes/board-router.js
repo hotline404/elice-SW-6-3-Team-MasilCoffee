@@ -1,14 +1,28 @@
 const express = require("express");
 const BoardRouter = express.Router();
 const BoardService = require("../services/board-service");
+const imageUploader = require('../middlewares/s3-handler');
 const asyncHandler = require("../middlewares/async-handler");
 const ResponseHandler = require("../middlewares/res-handler");
+const JwtMiddleware = require("../middlewares/jwt-handler");
 
-// 모든 게시글 가져오기
+// 모든 게시글 가져오기 (모든 사용자, 모든 게시물)
 BoardRouter.get(
-  "/",
+  "/all",
   asyncHandler(async (req, res) => {
     const boards = await BoardService.getAllBoards();
+    ResponseHandler.respondWithSuccess(res, boards);
+  })
+);
+
+// 본인이 작성한 모든 게시글 가져오기
+BoardRouter.get(
+  "/mypost",
+  JwtMiddleware.checkToken,
+  asyncHandler(async (req, res) => {
+    const user = req.tokenData._id;
+    console.log (user);
+    const boards = await BoardService.getAllBoardsByUserId(user);
     ResponseHandler.respondWithSuccess(res, boards);
   })
 );
@@ -24,8 +38,9 @@ BoardRouter.get(
 
 // 특정 board ID의 게시글 가져오기
 BoardRouter.get(
-  "/:boardId",
+  "/id/:boardId",
   asyncHandler(async (req, res) => {
+    console.log(req.params.boardId);
     const board = await BoardService.getBoardById(req.params.boardId);
     if (!board) {
       return ResponseHandler.respondWithNotfound(res);
@@ -37,15 +52,25 @@ BoardRouter.get(
 // 새로운 게시글 생성
 BoardRouter.post(
   "/",
+  JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
-    const savedBoard = await BoardService.createBoard(req.body);
+    const user = req.tokenData._id;
+    const {category, post, image, tags} = req.body;
+    const boardData = {
+      user,
+      category,
+      post,
+      image,
+      tags
+    }
+    const savedBoard = await BoardService.createBoard(boardData);
     ResponseHandler.respondWithSuccess(res, savedBoard);
   })
 );
 
 // 특정 ID의 게시글 수정
 BoardRouter.put(
-  "/:boardId",
+  "/update/:boardId",
   asyncHandler(async (req, res) => {
     const updatedBoard = await BoardService.updateBoard(
       req.params.boardId,
@@ -57,7 +82,7 @@ BoardRouter.put(
 
 // 특정 ID의 게시글 삭제
 BoardRouter.delete(
-  "/:boardId",
+  "/delete/:boardId",
   asyncHandler(async (req, res) => {
     const deletedBoard = await BoardService.deleteBoard(req.params.boardId);
     ResponseHandler.respondWithSuccess(res, deletedBoard);

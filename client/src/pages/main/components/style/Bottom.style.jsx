@@ -1,14 +1,17 @@
 import styled from "styled-components";
 
 export const BottomSlide = styled.div`
-  width: 100%;
+  width: 2000px;
+  margin: 0 auto;
   background-color: ${(props) => props.$bgColor || "defaultColor"};
 
   .slick-slider {
+    width: 2000px;
     overflow-x: hidden;
   }
 
   .slick-track {
+    width: 1920px;
   }
 
   .slick-track > div {
@@ -20,6 +23,7 @@ export const BottomSlide = styled.div`
     cursor: pointer;
   }
   .slick-track > div > div {
+    width: 460px;
     display: block;
   }
   .slick-track > div > div > div {
@@ -29,20 +33,13 @@ export const BottomSlide = styled.div`
 
 export const Bottom = styled.div`
   width: 400px;
-  @media (max-width: 768px) {
-    width: 100%; // 화면이 작을 때 너비 조절
-  }
 `;
 export const BottomBox = styled.div`
-  width: 400px;
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 30px;
   border-radius: 20px;
-  margin: 40px 0;
-  @media (max-width: 768px) {
-    width: 100%; // 화면이 작을 때 너비 조절
-  }
+  margin: 40px 10px;
 
   background-color: ${(props) => props.$bgColor || "defaultColor"};
   color: ${(props) => (props.$bgColor === "#d9d9d9" ? "black" : "white")};

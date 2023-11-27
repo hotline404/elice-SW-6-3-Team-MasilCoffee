@@ -10,7 +10,7 @@ const Bottom = () => {
   const settings = {
     infinite: true,
     speed: 15000, // 슬라이드 전환 속도
-    slidesToShow: 3, // 한 번에 보여줄 슬라이드 개수
+    slidesToShow: 4, // 한 번에 보여줄 슬라이드 개수
     autoplay: true, // 자동 슬라이드 활성화
     autoplaySpeed: 0, // 자동 슬라이드 간격
     cssEase: "linear", // 일정한 속도로 움직이도록 설정

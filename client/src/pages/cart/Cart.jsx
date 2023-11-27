@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/ui/button/Button";
 import OrderList from "./OrderList";
 import {
@@ -11,6 +11,8 @@ import {
   StyledAmountPayment,
   StyledInfoContainer,
   StyledCheck,
+  StyledButton,
+  StyleTotalText,
 } from "./Cart.style";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +27,8 @@ const Cart = () => {
   const [orderList, setOrderList] = useState([]);
   // 각 주문에 대한 체크 상태를 관리하는 로컬 상태
   const [checkedStates, setCheckedStates] = useState({});
+  // 로그인 상태에 따라 주문하기 클릭시 로그인 화면으로 라우트 or 결제 진행
+  const isLogin = useSelector(state => state.login.loginState);
 
   const handleOnCheck = (e) => {
     if (e.target.checked) {
@@ -50,15 +54,17 @@ const Cart = () => {
     if (updatedCheckedStates[order.orderId]) {
       setOrderList((orders) => [...orders, order]);
     } else {
-      setOrderList((orders) => orders.filter((o) => o.orderId !== order.orderId));
+      setOrderList((orders) =>
+        orders.filter((o) => o.orderId !== order.orderId)
+      );
     }
   };
 
   const handleOnClickToRemove = () => {
-    if(window.confirm("삭제하시겠습니까?")) {
-      orderList.forEach(order => dispatch(removeOrder(order.orderId)))
+    if (window.confirm("삭제하시겠습니까?")) {
+      orderList.forEach((order) => dispatch(removeOrder(order.orderId)));
     }
-  }
+  };
 
   useEffect(() => {
     // 주문 목록이 변경될 때마다 checkedStates 초기화
@@ -82,7 +88,13 @@ const Cart = () => {
                     <input onClick={handleOnCheck} type="checkbox" />
                     <h2>전체선택</h2>
                   </div>
-                  <Button onClick={() => handleOnClickToRemove()} text={"선택삭제"} type={"grey"} />
+                  <StyledButton>
+                    <Button
+                      onClick={() => handleOnClickToRemove()}
+                      text={"선택삭제"}
+                      type={"grey"}
+                    />
+                  </StyledButton>{" "}
                 </StyledCheck>
                 <i></i>
                 <OrderList
@@ -92,30 +104,42 @@ const Cart = () => {
               </StyledOrderList>
               <StyledAmountPayment>
                 <div>
-                  <h2>총 결제 금액</h2>
-                  <h2>
-                    {orders.length > 0
-                      ? orders
-                          .reduce((acc, order) => acc + order.totalPrice, 0)
-                          .toLocaleString()
-                      : 0}
-                    원
-                  </h2>
-                  <Button
-                    onClick={() => {
-                      navigate("/Order");
-                    }}
-                    text={"메뉴추가"}
-                    type={"grey"}
-                  />
-                  <Button
-                    onClick={() => {
-                      dispatch(paymentAction(orderList));
-                      navigate("/Payment");
-                    }}
-                    text={"주문하기"}
-                    type={"red"}
-                  />
+                  <StyleTotalText>
+                    <h2>총 결제 금액</h2>
+                    <h2>
+                      {orders.length > 0
+                        ? orders
+                            .reduce((acc, order) => acc + order.totalPrice, 0)
+                            .toLocaleString()
+                        : 0}
+                      원
+                    </h2>
+                  </StyleTotalText>
+
+                  <StyledButton>
+                    <Button
+                      onClick={() => {
+                        navigate("/Order");
+                      }}
+                      text={"메뉴추가"}
+                      type={"grey"}
+                    />
+
+                    <Button
+                      onClick={() => {
+                        // if(isLogin === false) {
+                        //   if(window.confirm("로그인 상태가 아닙니다. 로그인하여 결제를 진행해주세요.")) {
+                        //     navigate("/Login");
+                        //   }
+                        //   return;
+                        // }
+                        dispatch(paymentAction(orderList));
+                        navigate("/Payment");
+                      }}
+                      text={"주문하기"}
+                      type={"red"}
+                    />
+                  </StyledButton>
                 </div>
               </StyledAmountPayment>
             </StyledInfoBox>

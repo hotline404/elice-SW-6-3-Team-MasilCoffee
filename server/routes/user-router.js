@@ -157,15 +157,20 @@ UserRouter.patch(
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
     const user = await userService.getUserById(req.tokenData._id);
-    const isPassowrdValid = await bcrypt.compare(req.body.password, user.password);
-    if (isPassowrdValid) {
-      const user = await userService.updateUser(req.tokenData._id, req.body);
-      ResponseHandler.respondWithSuccess(res, user);
+    const checkPasswordMatch = await bcrypt.compare(req.body.checkPassword, user.password);
+    const updatedUserData = {
+      ...req.body,
+      role: user.role,
+    };
+    if (checkPasswordMatch) {
+      const updatedUser = await userService.updateUser(req.tokenData._id, updatedUserData);
+      ResponseHandler.respondWithSuccess(res, updatedUser);
     } else {
       ResponseHandler.respondWithError(res, 401, "비밀번호가 일치하지 않습니다.");
     }
   })
 );
+
 
 // 회원탈퇴 (사용자)
 UserRouter.delete(

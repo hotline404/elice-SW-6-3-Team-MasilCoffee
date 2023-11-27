@@ -15,8 +15,8 @@ class JwtMiddleware {
     }
   }
 
-  // 관리자 혹은 본인
-  static checkGrant(req, res, next) {
+  // 본인 확인 --> 수정해야함!!!!!!!!!!!!!!!
+  static checkOwn(req, res, next) {
     if (req.tokenData.role === "Admin") {
       next();
     } else {

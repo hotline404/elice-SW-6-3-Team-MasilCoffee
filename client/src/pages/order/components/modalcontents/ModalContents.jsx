@@ -21,23 +21,24 @@ import {
 import QuantityOption from "./components/QuantityOption";
 import SelectOption from "./components/SelectOption";
 
-import ShotOptionSlide from "./components/ShotOptionSlide";
-import SyrupOptionSlide from "./components/SyrupOptionSlide";
-import IceOptionSlide from "./components/IceOptionSlide";
-import WhippingOptionSlide from "./components/Whipping";
-import DrizzleOptionSlide from "./components/Drizzle";
+// import ShotOptionSlide from "./components/ShotOptionSlide";
+// import SyrupOptionSlide from "./components/SyrupOptionSlide";
+// import IceOptionSlide from "./components/IceOptionSlide";
+// import WhippingOptionSlide from "./components/Whipping";
+// import DrizzleOptionSlide from "./components/Drizzle";
 
-import MilkOptionSlide from "./components/MilkOptionSlide";
+// import MilkOptionSlide from "./components/MilkOptionSlide";
 
 const ModalContents = ({ data }) => {
   const navigate = useNavigate();
+  // 로그인 정보 가져오기
+  const isLogin = useSelector((state) => state.login.loginState);
+
   // 리덕스 가져오기
   const dispatch = useDispatch();
   const options = useSelector((state) => state.orderDetail);
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(data.price);
-  const resultOrder = useRef();
-  // const [price, setPrice] = useState(data.price);
 
   const handleIncreaseOnClick = () => {
     setQuantity((old) => old + 1);
@@ -49,21 +50,24 @@ const ModalContents = ({ data }) => {
   };
 
   const handleSetResultOrder = (route, action) => {
-    dispatch(action({ ...options.selectedOptions, orderId: new Date(), name: data.name, id: data.id, totalPrice }));
+    // if(isLogin === false && route === "/Payment") {
+    //   if(window.confirm("로그인 상태가 아닙니다. 로그인하여 결제를 진행해주세요.")) {
+    //     navigate("/Login");
+    //   }
+    //   return;
+    // }
+    dispatch(
+      action({
+        ...options.selectedOptions,
+        orderId: new Date(),
+        name: data.name,
+        id: data.id,
+        totalPrice,
+        quantity
+      })
+    );
     navigate(route);
-  }
-
-  // const handleChangeOption = (optionName, selectedItem) => {
-  //   dispatch(orderDetailAction.modifyOption({ name: optionName, value: selectedItem }));
-  // };
-
-  // const handleIncreaseOption = (optionName, itemName) => {
-  //   dispatch(orderDetailAction.increaseOption(optionName, itemName));
-  // };
-
-  // const handleDecreaseOption = (optionName, itemName) => {
-  //   dispatch(orderDetailAction.decreaseOption(optionName, itemName));
-  // };
+  };
 
   useEffect(() => {
     dispatch(setInitialOption());
@@ -76,14 +80,16 @@ const ModalContents = ({ data }) => {
   useEffect(() => {
     let resultPrice = 0;
 
-    for(const optionName in options.selectedOptions) {
-      for(const detail of options.selectedOptions[optionName]) {
-        const originPrice = options.orderDetail[optionName].find(item => item.name === detail.name).price;
-        resultPrice += (originPrice * detail.quantity);
+    for (const optionName in options.selectedOptions) {
+      for (const detail of options.selectedOptions[optionName]) {
+        const originPrice = options.orderDetail[optionName].find(
+          (item) => item.name === detail.name
+        ).price;
+        resultPrice += originPrice * detail.quantity;
       }
     }
 
-    setTotalPrice(resultPrice * quantity);
+    setTotalPrice(() => (data.price + resultPrice) * quantity);
   }, [options, quantity]);
 
   return (
@@ -104,19 +110,14 @@ const ModalContents = ({ data }) => {
           </StyleDisplay>
         </StyleInfo>
       </StyleText>
-      {/* <ShotOptionSlide />
-      <SyrupOptionSlide />
-      <IceOptionSlide />
-      <WhippingOptionSlide />
-      <DrizzleOptionSlide />
-      <MilkOptionSlide /> */}
-      {Object.keys(options.orderDetail).length > 0 && Object.keys(options.orderDetail).map(optionName => {
-        if(optionName === "shot" || optionName === "syrups") {
-          return (<QuantityOption key={optionName} optionName={optionName}/>)
-        } else {
-          return (<SelectOption key={optionName} optionName={optionName}/>)
-        }
-      })}
+      {Object.keys(options.selectedOptions).length > 0 &&
+        Object.keys(options.selectedOptions).map((optionName) => {
+          if (optionName === "shot" || optionName === "syrups") {
+            return <QuantityOption key={optionName} optionName={optionName} />;
+          } else {
+            return <SelectOption key={optionName} optionName={optionName} />;
+          }
+        })}
       <StyledTotalPrice>
         <b>총가격 : {totalPrice}원 </b>
       </StyledTotalPrice>

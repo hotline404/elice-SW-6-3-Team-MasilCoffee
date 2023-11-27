@@ -35,6 +35,7 @@ function QuantityOption({optionName}) {
 
   useEffect(() => {
     let rusultPrice = 0;
+    console.log(details)
     details.forEach(detail => {
         rusultPrice += detail.quantity * origin.find(item => item.name === detail.name).price;
     })
@@ -59,8 +60,8 @@ function QuantityOption({optionName}) {
               }`}
             >
               {showContent && details.length > 0 && details.map(detail => 
-                (<div>
-                  <span>{detail} 샷</span>
+                (<div key={detail.name}>
+                  <span>{detail.name}</span>
                   <Round>
                     <div onClick={() => handleIncreaseOption(detail.name)}>+</div>
                     <span>{detail.name}</span>

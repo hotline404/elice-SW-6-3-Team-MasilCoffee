@@ -7,24 +7,30 @@ import {
 import { SlideAnimation, Round } from "./SlideAnimation";
 import { useDispatch, useSelector } from "react-redux";
 import { modifyOption } from "../../../../../redux/action/orderDetailAction";
+import SquareButton from "../../../../../components/ui/button/SquareButton";
+import { SquareButtonBox } from "./SlideAnimation";
 
-function SelectOption({optionName}) {
+function SelectOption({ optionName }) {
   const dispatch = useDispatch();
-  const origin = useSelector(state => state.orderDetail.orderDetail[optionName]);
-  const details = useSelector((state) => state.orderDetail.selectedOptions[optionName]);
+  const origin = useSelector(
+    (state) => state.orderDetail.orderDetail[optionName]
+  );
+  const details = useSelector(
+    (state) => state.orderDetail.selectedOptions[optionName]
+  );
   const [isAnimated, setIsAnimated] = useState(false);
-//   const [vanilla, setVanilla] = useState(0);
-//   const [hazelnut, setHazelnut] = useState(0);
-//   const [caramel, setCaramel] = useState(0);
+  //   const [vanilla, setVanilla] = useState(0);
+  //   const [hazelnut, setHazelnut] = useState(0);
+  //   const [caramel, setCaramel] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [showContent, setShowContent] = useState(false);
 
-//   const PRICE = 600; // 샷 하나의 가격
+  //   const PRICE = 600; // 샷 하나의 가격
 
-//   useEffect(() => {
-//     setTotalPrice(vanilla * PRICE + hazelnut * PRICE + caramel * PRICE); // 시럽 수에 따라 가격 업데이트
-//     dispatch(actionSetSyrupsOption({ vanilla, hazelnut, caramel }));
-//   }, [vanilla, hazelnut, caramel, dispatch]);
+  //   useEffect(() => {
+  //     setTotalPrice(vanilla * PRICE + hazelnut * PRICE + caramel * PRICE); // 시럽 수에 따라 가격 업데이트
+  //     dispatch(actionSetSyrupsOption({ vanilla, hazelnut, caramel }));
+  //   }, [vanilla, hazelnut, caramel, dispatch]);
 
   const handleAnimationButtonClick = () => {
     setIsAnimated(!isAnimated);
@@ -35,17 +41,19 @@ function SelectOption({optionName}) {
     }
   };
 
-    const handleChangeOption = (selectedItem) => {
-        dispatch(modifyOption({ name: optionName, value: selectedItem }));
-    };
+  const handleChangeOption = (selectedItem) => {
+    dispatch(modifyOption(optionName, selectedItem));
+  };
 
-    useEffect(() => {
-        let rusultPrice = 0;
-        details.forEach(detail => {
-            rusultPrice += detail.quantity * origin.find(item => item.name === detail.name).price;
-        })
-        setTotalPrice(rusultPrice);
-    }, [details]);
+  useEffect(() => {
+    let rusultPrice = 0;
+    details.forEach((detail) => {
+      rusultPrice +=
+        detail.quantity *
+        origin.find((item) => item.name === detail.name).price;
+    });
+    setTotalPrice(rusultPrice);
+  }, [details]);
 
   return (
     <StyleSlide>
@@ -66,21 +74,18 @@ function SelectOption({optionName}) {
             >
               {showContent && details.length > 0 && (
                 <SquareButtonBox>
-                  {details.map(
-                    ({name, quantity}) => (
-                      <SquareButton
-                        key={name}
-                        text={name}
-                        type={quantity === 1 ? "red" : "grey"}
-                        onClick={() => handleChangeOption(name)}
-                      >
-                        {name}
-                      </SquareButton>
-                    )
-                  )}
+                  {details.map(({ name, quantity }) => (
+                    <SquareButton
+                      key={name}
+                      text={name}
+                      type={quantity === 1 ? "red" : "grey"}
+                      onClick={() => handleChangeOption(name)}
+                    >
+                      {name}
+                    </SquareButton>
+                  ))}
                 </SquareButtonBox>
               )}
-                
             </div>
           </SlideAnimation>
         </div>

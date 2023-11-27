@@ -1,5 +1,29 @@
+import { ORDER_DETAIL_TYPE } from "./_types";
 
-import { ORDER_DETAIL_TYPE} from "./_types";
+export const setOrderDetail = (detail) => ({
+  type: ORDER_DETAIL_TYPE.SET_ORDER_DETAIL,
+  payload: detail,
+});
+
+export const setInitialOption = () => ({
+  type: ORDER_DETAIL_TYPE.SET_INITIAL_OPTION,
+  payload: null,
+});
+
+export const modifyOption = (optionName, itemName) => ({
+  type: ORDER_DETAIL_TYPE.MODIFY_OPTION,
+  payload: { optionName, itemName },
+});
+
+export const increaseOption = (optionName, itemName) => ({
+  type: ORDER_DETAIL_TYPE.INCREASE_OPTION,
+  payload: { optionName, itemName },
+});
+
+export const decreaseOption = (optionName, itemName) => ({
+  type: ORDER_DETAIL_TYPE.DECREASE_OPTION,
+  payload: { optionName, itemName },
+});
 
 // export const actionSetMenuOption = ({ itemPrice, menu }) => {
 //   return {
@@ -50,28 +74,3 @@ import { ORDER_DETAIL_TYPE} from "./_types";
 //     type: ORDER_DETAIL_TYPE.RESET_ORDER_DETAIL,
 //     payload: null, //state로 갈거니까 아무것도 안넣을 거임
 //   };
-
-export const setOrderDetail = (detail) => ({
-  type: ORDER_DETAIL_TYPE.SET_ORDER_DETAIL,
-  payload: detail,
-});
-
-export const setInitialOption= () => ({
-  type: ORDER_DETAIL_TYPE.SET_INITIAL_OPTION,
-  payload: null,
-});
-
-export const modifyOption = (optionName, itemName) => ({
-  type: ORDER_DETAIL_TYPE.MODIFY_OPTION,
-  payload: { optionName, itemName },
-});
-
-export const increaseOption = (optionName, itemName) => ({
-  type: ORDER_DETAIL_TYPE.INCREASE_OPTION,
-  payload: { optionName, itemName },
-});
-
-export const decreaseOption = (optionName, itemName) => ({
-  type: ORDER_DETAIL_TYPE.DECREASE_OPTION,
-  payload: { optionName, itemName },
-});

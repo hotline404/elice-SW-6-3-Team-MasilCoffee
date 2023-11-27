@@ -1,23 +1,23 @@
 const express = require("express");
 const BoardRouter = express.Router();
 const BoardService = require("../services/board-service");
+const imageUploader = require('../middlewares/s3-handler');
 const asyncHandler = require("../middlewares/async-handler");
 const ResponseHandler = require("../middlewares/res-handler");
 const JwtMiddleware = require("../middlewares/jwt-handler");
 
-// // 모든 게시글 가져오기 (모든 사용자, 모든 게시물)
-// BoardRouter.get(
-//   "/",
-//   asyncHandler(async (req, res) => {
-//     const user = req.TokenData._id;
-//     const boards = await BoardService.getAllBoards(user);
-//     ResponseHandler.respondWithSuccess(res, boards);
-//   })
-// );
+// 모든 게시글 가져오기 (모든 사용자, 모든 게시물)
+BoardRouter.get(
+  "/all",
+  asyncHandler(async (req, res) => {
+    const boards = await BoardService.getAllBoards();
+    ResponseHandler.respondWithSuccess(res, boards);
+  })
+);
 
 // 본인이 작성한 모든 게시글 가져오기
 BoardRouter.get(
-  "/",
+  "/mypost",
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
     const user = req.tokenData._id;
@@ -38,8 +38,9 @@ BoardRouter.get(
 
 // 특정 board ID의 게시글 가져오기
 BoardRouter.get(
-  "/:boardId",
+  "/id/:boardId",
   asyncHandler(async (req, res) => {
+    console.log(req.params.boardId);
     const board = await BoardService.getBoardById(req.params.boardId);
     if (!board) {
       return ResponseHandler.respondWithNotfound(res);
@@ -69,7 +70,7 @@ BoardRouter.post(
 
 // 특정 ID의 게시글 수정
 BoardRouter.put(
-  "/:boardId",
+  "/update/:boardId",
   asyncHandler(async (req, res) => {
     const updatedBoard = await BoardService.updateBoard(
       req.params.boardId,
@@ -81,7 +82,7 @@ BoardRouter.put(
 
 // 특정 ID의 게시글 삭제
 BoardRouter.delete(
-  "/:boardId",
+  "/delete/:boardId",
   asyncHandler(async (req, res) => {
     const deletedBoard = await BoardService.deleteBoard(req.params.boardId);
     ResponseHandler.respondWithSuccess(res, deletedBoard);

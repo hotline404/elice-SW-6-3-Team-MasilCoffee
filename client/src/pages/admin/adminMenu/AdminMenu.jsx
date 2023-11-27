@@ -15,20 +15,19 @@ import { getAllProducts, deleteProduct } from "../../../api/product";
 const AdminMenu = ({ trData }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
-  console.log("pageToken", token);
 
   const allProduct = useSelector((state) => state.product.products);
-  const tdData = allProduct.map((data) => [data._id, data.image, data.category, data.name, data.size, data.temp, data.price]);
+  const tdData = allProduct.map((data) => [data._id, data.image_url, data.category, data.name, data.size, data.temp, data.price]);
+  console.log("tdData", tdData);
   const [showMenuModal, setShowMenuModal] = useState(false);
   const [showOptionModal, setShowOptionModal] = useState(false);
   const [modifyProduct, setModifyProduct] = useState(undefined);
   const options = ["전체 메뉴", "에스프레소", "논커피", "스무디", "티", "에이드"];
-
   const [page, setPage] = useState(1);
 
   const pageConst = {
     totalCount: tdData.length,
-    pageSize: 7,
+    pageSize: 6,
     siblingCount: 1,
     currentPage: page,
   };
@@ -60,7 +59,7 @@ const AdminMenu = ({ trData }) => {
   const handleTdClick = (data, isEdit) => {
     const selectedProductId = data[0];
     const selectedProduct = allProduct.filter((product) => product._id === selectedProductId);
-
+    console.log("selectedProduct", selectedProduct);
     if (isEdit === "edit") {
       setShowMenuModal(!showMenuModal);
       setModifyProduct(selectedProduct);
@@ -69,8 +68,9 @@ const AdminMenu = ({ trData }) => {
       if (isDeleted) {
         const fn = async () => {
           try {
-            await deleteProduct(selectedProductId);
+            await deleteProduct(selectedProductId, token);
             dispatch(actionDeleteProduct(selectedProductId));
+            //dispatch(actionGetAllProducts());
           } catch (err) {
             console.log("err", err);
           }
@@ -83,25 +83,9 @@ const AdminMenu = ({ trData }) => {
   return (
     <>
       <Menus.Container>
-        {/* {modifyProduct && showMenuModal === false ? (
+        {modifyProduct !== undefined || showMenuModal ? (
           <MenuModal
-            title="메뉴 수정"
-            closeModal={() => {
-              setShowMenuModal(!showMenuModal);
-            }}
-            modifyProduct={modifyProduct}
-          />
-        ) : (
-          <MenuModal
-            title="메뉴 추가"
-            closeModal={() => {
-              setShowMenuModal(!showMenuModal);
-            }}
-          />
-        )} */}
-        {modifyProduct !== undefined || showMenuModal ? ( // 여기서 null 대신에 undefined로 체크
-          <MenuModal
-            title={modifyProduct ? "메뉴 수정" : "메뉴 추가"} // 값에 따라 제목 변경
+            title={modifyProduct ? "메뉴 수정" : "메뉴 추가"}
             closeModal={() => {
               setModifyProduct(undefined);
               setShowMenuModal(false);

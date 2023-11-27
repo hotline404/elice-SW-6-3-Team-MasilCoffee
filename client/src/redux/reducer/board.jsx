@@ -15,6 +15,7 @@ const filterFn = (filters, query, boards) => {
 
 const board = (state = initialState, action) => {
   switch (action.type) {
+    //모든 게시물 가져오기
     case BOARD_TYPE.GET_ALL_BOARDS:
       return {
         ...state,
@@ -22,6 +23,7 @@ const board = (state = initialState, action) => {
         searchBoards: action.payload,
       };
 
+    //게시물 검색
     case BOARD_TYPE.GET_SEARCH_BOARDS:
       const { boards, filters } = state;
       const query = action.payload;
@@ -50,7 +52,8 @@ const board = (state = initialState, action) => {
         ...state,
         searchBoards: filteredData,
       };
-    
+
+    //카테고리별 모든 게시물 (선택)
     case BOARD_TYPE.GET_FILTER_BOARDS: {
       return {
         ...state,
@@ -58,18 +61,19 @@ const board = (state = initialState, action) => {
       };
     }
 
+    //카테고리별 모든 게시물 (선택해제)
     case BOARD_TYPE.REMOVE_FILTER_BOARDS:
       return {
         ...state,
         filters: "",
       };
-    
+
     case BOARD_TYPE.REMOVE_BOARD:
       return {
         ...state,
         board: [],
       };
-    
+
     default:
       return state;
   }

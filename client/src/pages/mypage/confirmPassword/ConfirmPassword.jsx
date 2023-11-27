@@ -8,25 +8,20 @@ import { ButtonBox } from "../style/ButtonBox";
 import React, { Fragment, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../router/Routes";
+import { useSelector } from "react-redux"
 
 import ConfirmPasswordForm from "./ConfirmPasswordForm";
 
 
-const dummy_userData = {
-  accounts: [
-    {
-      email: "cosmoyj@naver.com",
-      password: "asdf",
-    },
-  ],
-};
-
 function ConfirmPassword() {
   const nav = useNavigate();
+  const token = useSelector(state => state.login.token);
+  const user = useSelector(state => state.user)
+  console.log("user", user)
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-  const data = dummy_userData.accounts;
+  const data = user;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -34,17 +29,15 @@ function ConfirmPassword() {
     const inputEmail = emailRef.current ? emailRef.current.value : "";
     const inputPassword = passwordRef.current ? passwordRef.current.value : "";
 
-    console.log(inputEmail);
 
-    const isMatch = data.some(
-      (account) =>
-        account.email === inputEmail && account.password === inputPassword
-    );
+    const isMatch = user.email === inputEmail && user.password === inputPassword
+
 
     if (!isMatch) {
       alert("이메일과 비밀번호를 확인해 주세요.");
     } else {
-      nav(ROUTES.USERINFOCHANGE.path);
+      nav(ROUTES.MAIN.path);
+      alert("정보가 변경 되었습니다.")
     }
   };
 

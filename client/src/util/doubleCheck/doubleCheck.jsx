@@ -1,7 +1,10 @@
 function doubleCheck(first, sec) {
-  const isValid = first === sec ? true : false;
+  if (first !== "" && sec !== "") {
+    const isValid = first === sec ? true : false;
+    return isValid;
+  }
 
-  return isValid;
+
 }
 
 export default doubleCheck;

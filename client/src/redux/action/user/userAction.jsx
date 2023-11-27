@@ -3,9 +3,19 @@ export const getUser = (userData) => ({
   payload: { userData },
 });
 
-export const postUser = (updateUser) => ({
-  type: "post.user",
-  payload: { updateUser },
+export const postUserName = (name) => ({
+  type: "post.user.name",
+  payload: { name },
+});
+
+export const postUserNickname = (nickname) => ({
+  type: "post.user.nickname",
+  payload: { nickname },
+});
+
+export const postUserPhone = (phone) => ({
+  type: "post.user.phone",
+  payload: { phone },
 });
 
 export const removeUser = () => ({

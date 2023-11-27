@@ -1,43 +1,55 @@
 import axios from "axios";
 
 export const getAllProducts = async () => {
-  const res = await axios.get("http://localhost:5000/api/v1/products");
-  const products = res.data.data;
-
-  return products;
+  try {
+    const res = await axios.get("http://localhost:5000/api/v1/products");
+    return res.data.data;
+  } catch (err) {
+    console.log("getAllProduct-err", err);
+  }
 };
 
 export const createProduct = async (data, token) => {
-  console.log("form", token);
-  const res = await axios
-    .post("http://localhost:5000/api/v1/products/", data, {
+  try {
+    const res = await axios.post("http://localhost:5000/api/v1/products/", data, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
-    })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      alert("등록을 실패하였습니다.");
-      console.log(err);
     });
-  const newProducts = res.data.data;
-  return newProducts;
+    const newProducts = res.data.data;
+    console.log("newProducts", newProducts);
+    return newProducts;
+  } catch (err) {
+    console.log("createProduct-err", err);
+  }
 };
 
-export const updateProduct = async (id, data) => {
-  const res = await axios.put(`http://localhost:5000/api/v1/products/${id}`, data, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-  const products = res.data.data;
+export const updateProduct = async (id, data, token) => {
+  try {
+    console.log("id", id);
+    const res = await axios.put(`http://localhost:5000/api/v1/products/${id}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const products = res.data.data;
 
-  return products;
+    return products;
+  } catch (err) {
+    console.log("updateProduct-err", err);
+  }
 };
 
-export const deleteProduct = async (id) => {
-  await axios.delete(`http://localhost:5000/api/v1/products/${id}`);
+export const deleteProduct = async (id, token) => {
+  try {
+    await axios.delete(`http://localhost:5000/api/v1/products/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (err) {
+    console.log("deleteProduct-err", err);
+  }
 };

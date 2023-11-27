@@ -61,3 +61,18 @@ export const ButtonBox = styled.div`
   margin-top: 50px;
   margin-bottom: 50px;
 `;
+
+export const AuthButton = styled.div`
+    width: 100px;
+    height: 100%;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    &: hover {
+      color: red;
+    }
+`

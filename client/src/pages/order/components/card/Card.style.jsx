@@ -6,9 +6,6 @@ export const StyledCard = styled.div`
   height: 400px;
   cursor: pointer;
   border: 1px solid #878585;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: ${({ $clickMenu }) =>
     $clickMenu ? "rgba(142,14,40,0.7)" : "initial"};
   color: #f5f5f5;
@@ -32,6 +29,7 @@ export const StyledButtonText = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 
   div > b {
     font-size: 16px;
@@ -44,3 +42,14 @@ export const StyledButtonText = styled.div`
     display: block;
   }
 `;
+
+// // 이미지에 적용할 스타일 정의
+// export const StyledImage = styled.img`
+//   object-fit: cover;
+//   overflow: hidden;
+//   width: 300px;
+//   height: 400px;
+//   position: absolute;
+//   top: 0;
+//   z
+// `;

@@ -19,15 +19,20 @@ const Card = ({ data }) => {
   return (
     <div className="card">
       <StyledCard onClick={handleClickMenu} $clickMenu={clickMenu}>
+        {/* 클릭 시 이미지와 텍스트 표시 */}
         {clickMenu && (
-          <StyledButtonText>
-            <div>
-              <b>추천 꿀 조합</b>
-              <p>{data.bestCombo}</p>
-            </div>
+          <>
+            <StyledButtonText>
+              <div>
+                <b>추천 꿀 조합</b>
+                <p>{data.bestCombo}</p>
+              </div>
 
-            <Button type="white" text={"주문하기"} onClick={openModal} />
-          </StyledButtonText>
+              <Button type="white" text={"주문하기"} onClick={openModal} />
+              {/* 이미지 가져오기 */}
+              <img src={data.image_url} alt={data.name} />
+            </StyledButtonText>
+          </>
         )}
       </StyledCard>
       <StyledText>

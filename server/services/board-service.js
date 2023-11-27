@@ -31,7 +31,7 @@ class BoardService {
   // 모든 게시글 조회
   static async getAllBoards() {
     try {
-      const boards = await Board.find().populate('user','nickname');
+      const boards = await Board.find().sort({createdAt: -1});
       return boards;
     } catch (error) {
       throw error;
@@ -41,7 +41,7 @@ class BoardService {
   // 본인 모든 게시글 조회
   static async getAllBoardsByUserId(userId) {
     try {
-      const boards = await Board.find({ user: userId });
+      const boards = await Board.find({ user: userId }).sort({createdAt: -1});
       return boards;
     } catch (error) {
       console.error("모든 게시글 가져오기 중 오류 발생:", error);
@@ -61,7 +61,7 @@ class BoardService {
 
   static async getBoardsByCategory(category) {
     try {
-      const boards = await Board.find({ category });
+      const boards = await Board.find({ category }).sort({createdAt: -1});
       return boards;
     } catch (error) {
       throw error;

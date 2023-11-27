@@ -11,6 +11,7 @@ import { ROUTES } from "../../../router/Routes";
 import { useSelector } from "react-redux"
 
 import ConfirmPasswordForm from "./ConfirmPasswordForm";
+import { axiosPatchUser } from "../../../api/user/user";
 
 
 function ConfirmPassword() {
@@ -18,27 +19,34 @@ function ConfirmPassword() {
   const token = useSelector(state => state.login.token);
   const user = useSelector(state => state.user)
   console.log("user", user)
+  console.log("token", token)
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-  const data = user;
+
+
+  const axiosFn = async (token, nickname, phone, checkpassword) => {
+    try {
+      const res = await axiosPatchUser(token, nickname, phone, checkpassword);
+      alert(`닉네임: ${res.nickname} 전화번호: ${phone} 성공적으로 변경했습니다!`)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    const inputEmail = emailRef.current ? emailRef.current.value : "";
+    const newNickname = user.nickname;
+    const newPhone = user.phone;
     const inputPassword = passwordRef.current ? passwordRef.current.value : "";
-
-
-    const isMatch = user.email === inputEmail && user.password === inputPassword
-
-
-    if (!isMatch) {
-      alert("이메일과 비밀번호를 확인해 주세요.");
-    } else {
-      nav(ROUTES.MAIN.path);
-      alert("정보가 변경 되었습니다.")
-    }
+    console.log("token",token)
+    console.log("nick",newNickname)
+    console.log("phone",newPhone)
+    console.log("password",inputPassword)
+    axiosFn(token, newNickname, newPhone, inputPassword);
   };
 
   return (

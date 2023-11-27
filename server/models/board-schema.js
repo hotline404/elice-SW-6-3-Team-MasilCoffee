@@ -9,6 +9,10 @@ const boardSchema = new Schema(
       ref: "User",
       required: true
     },
+    nickname: {
+      type: String,
+      required: true,
+    },
     category: {
       type: String,
       required: true,

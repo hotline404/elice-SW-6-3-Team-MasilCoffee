@@ -9,13 +9,14 @@ import product from "./product";
 import users from "./user/users";
 import user from "./user/user";
 import login from "./login/login";
+import register from "./register/register";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 
 const persistConfig = {
   key: "root", // localStorage key
   storage, // localStorage
-  whitelist: ["login"], // target (reducer name)
+  whitelist: ["login", "user"], // target (reducer name)
 };
 
 const rootReducer = combineReducers({
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   users,
   user,
   login,
+  register,
 });
 
 export default persistReducer(persistConfig, rootReducer);

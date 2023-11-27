@@ -4,7 +4,6 @@ const urlAdmin = "http://localhost:5000/api/v1/users/admin";
 const urluser = "http://localhost:5000/api/v1/users";
 
 //common user
-
 export const axiosGetUser = async (token) => {
   const res = await axios.get(urluser, {
     headers: {
@@ -17,13 +16,17 @@ export const axiosGetUser = async (token) => {
   return user;
 };
 
-export const axiosPatchUser = async (token, newNickname, newPhone) => {
-  const headers = { Authorization: `Bearer ${token}` };
-  const body = { nickname: newNickname, phone: newPhone };
+export const axiosPatchUser = async (token, newNickname, newPhone, checkPassword) => {
+  const headers = { headers: { Authorization: `Bearer ${token}` } };
+  const body = {
+    nickname: newNickname,
+    phone: newPhone,
+    checkPassword: checkPassword,
+  };
 
   const res = await axios.patch(urluser, body, headers);
 
-  const newUser = res.data.data;
+  const newUser = res;
 
   return newUser;
 };
@@ -39,7 +42,6 @@ export const axiosDelUser = async (token) => {
 };
 
 //admin user
-
 export const axiosGetAdmin = async (token, userId) => {
   const headers = { Authorization: `Bearer ${token}` };
 
@@ -52,6 +54,7 @@ export const axiosGetAdmin = async (token, userId) => {
 
 export const axiosPatchAdmin = async (token, userId, newName, newNickname, newPhone) => {
   const headers = { headers: { Authorization: `Bearer ${token}` } };
+
   const body = { name: newName, nickname: newNickname, phone: newPhone };
 
   const res = await axios.patch(`${urlAdmin}/${userId}`, body, headers);

@@ -1,4 +1,4 @@
-export const calculatePrice = (state) =>
+export const calculatePrice = (state) => 
   state.itemPrice * state.menu +
   (state.shot +
     state.syrups.vanilla +

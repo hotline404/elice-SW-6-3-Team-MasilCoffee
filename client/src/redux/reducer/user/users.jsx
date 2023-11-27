@@ -1,5 +1,6 @@
 import DateFormat from "../../../util/DateFormat/DateFormat";
 import { USERS_TYPE } from "../../action/_types";
+import FilterFn from "../../../util/FilterCheckBox/FilterFn";
 
 const initUsersState = {
   searchData: [],

@@ -1,23 +1,39 @@
 import React from "react";
+
 import Title from "../../components/ui/title/Title.jsx";
 import Container from "../../components/ui/container/Container.jsx";
 import Card from "../../components/ui/card/Card.jsx";
 import Button from "../../components/ui/button/SquareButton.jsx";
-import { ROUTES } from "../../router/Routes.jsx";
-
-import { useNavigate } from "react-router-dom";
 import Contents from "../../components/ui/contents/Contents.jsx";
+
+import { ROUTES } from "../../router/Routes.jsx";
+import { axiosPostLogout } from "../../api/login/login.jsx";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { actionLogout } from "../../redux/action/login/loginAction.jsx";
 import { removeUser } from "../../redux/action/user/userAction.jsx";
+import {  useSelector } from "react-redux/es/hooks/useSelector.js";
 
 function Logout() {
   const nav = useNavigate();
   const dispatch = useDispatch();
+  const token = useSelector(state => state.login.token)
+  const user = useSelector(state => state.user.email)
+
+  const axiosLogout = async (token, userEmail) => {
+    try {
+    const logout = await axiosPostLogout(token, userEmail);
+    
+    return logout
+    } catch (err) {
+      console.error("로그아웃 폼 axios 에러:", err)
+    }   
+  }
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    axiosLogout(token, user);
 
+    localStorage.removeItem("token");
     dispatch(actionLogout());
     dispatch(removeUser())
 

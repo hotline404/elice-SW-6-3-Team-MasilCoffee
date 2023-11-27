@@ -88,7 +88,7 @@ export const CategoryBtn = styled.button`
   border-radius: 30px;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.3s, color 0.3s ease, border 0.3s;
+  transition: background 0.2s, color 0.2s ease, border 0.2s;
 
   background-color: ${(props) => props.className === "active" ? "#8e0e28" : "#f5f5f5"};
   color: ${(props) => props.className === "active" ? "white" : "black"};

@@ -1,14 +1,14 @@
 const express = require("express");
 const BoardRouter = express.Router();
 const BoardService = require("../services/board-service");
-const imageUploader = require('../middlewares/s3-handler');
+const imageUploader = require("../middlewares/s3-handler");
 const asyncHandler = require("../middlewares/async-handler");
 const ResponseHandler = require("../middlewares/res-handler");
 const JwtMiddleware = require("../middlewares/jwt-handler");
 
 // 모든 게시글 가져오기 (모든 사용자, 모든 게시물)
 BoardRouter.get(
-  "/all",
+  "/",
   asyncHandler(async (req, res) => {
     const boards = await BoardService.getAllBoards();
     ResponseHandler.respondWithSuccess(res, boards);
@@ -28,7 +28,7 @@ BoardRouter.get(
 
 // 특정 카테고리의 게시글 가져오기
 BoardRouter.get(
-  "/category/:category",
+  "/:category",
   asyncHandler(async (req, res) => {
     const boards = await BoardService.getBoardsByCategory(req.params.category);
     ResponseHandler.respondWithSuccess(res, boards);
@@ -37,7 +37,7 @@ BoardRouter.get(
 
 // 특정 board ID의 게시글 가져오기
 BoardRouter.get(
-  "/id/:boardId",
+  "/:boardId",
   asyncHandler(async (req, res) => {
     console.log(req.params.boardId);
     const board = await BoardService.getBoardById(req.params.boardId);
@@ -56,14 +56,14 @@ BoardRouter.post(
   asyncHandler(async (req, res) => {
     const userId = req.tokenData._id;
     const { category, post, tags } = req.body;
-    const imagePaths = req.files.map(file => file.location);
+    const imagePaths = req.files.map((file) => file.location);
     const boardData = {
       userId,
       category,
       post,
       image: imagePaths,
       tags,
-    };      
+    };
     const newBoard = await BoardService.createBoard(boardData);
     ResponseHandler.respondWithSuccess(res, newBoard);
   })
@@ -71,12 +71,12 @@ BoardRouter.post(
 
 // 특정 ID의 게시글 수정 (본인만 가능)
 BoardRouter.put(
-  "/update/:boardId",
+  "/:boardId",
   JwtMiddleware.checkToken,
   imageUploader.array("file"),
   asyncHandler(async (req, res) => {
     const uploadedFiles = req.files || [];
-    const imagePaths = uploadedFiles.map(file => file.location);
+    const imagePaths = uploadedFiles.map((file) => file.location);
     const updatedBoard = await BoardService.updateBoard(
       req.tokenData._id,
       req.params.boardId,
@@ -89,7 +89,7 @@ BoardRouter.put(
 
 // 특정 ID의 게시글 삭제
 BoardRouter.delete(
-  "/delete/:boardId",
+  "/:boardId",
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
     const deletedBoard = await BoardService.deleteBoard(req.params.boardId);

@@ -3,7 +3,7 @@ import * as TableLayout from "./Style_Table";
 import { FiEdit } from "react-icons/fi";
 import { FiTrash } from "react-icons/fi";
 
-const Table = ({ trData, tdData, onTdClick = null, isMenuTable = false }) => {
+const Table = ({ trData, tdData, onTdClick = null, isMenuTable = false, isUserTable = false }) => {
   return (
     <TableLayout.Table>
       <thead>
@@ -19,7 +19,9 @@ const Table = ({ trData, tdData, onTdClick = null, isMenuTable = false }) => {
           ? // isMenuTable이 true인 경우
             tdData.map((rowData, rowI) => (
               <tr key={rowI}>
-                {rowData[1] !== "" && (
+                {isUserTable ? (
+                  <td>{rowData[1]}</td>
+                ) : (
                   <td>
                     <TableLayout.Image src={rowData[1]} alt="coffee" />
                   </td>

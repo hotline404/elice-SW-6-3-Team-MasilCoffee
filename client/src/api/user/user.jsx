@@ -4,7 +4,6 @@ const urlAdmin = "http://localhost:5000/api/v1/users/admin";
 const urluser = "http://localhost:5000/api/v1/users";
 
 //common user
-
 export const axiosGetUser = async (token) => {
   const res = await axios.get(urluser, {
     headers: {
@@ -38,8 +37,9 @@ export const axiosDelUser = async (token) => {
   return delUser;
 };
 
-//admin user
 
+
+//admin user
 export const axiosGetAdmin = async (token, userId) => {
   const headers = { Authorization: `Bearer ${token}` };
 

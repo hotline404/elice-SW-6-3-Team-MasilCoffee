@@ -1,4 +1,4 @@
-const User = require("../models/user-schema");
+const { User } = require("../models/user-schema");
 const { sendMail } = require("../utils/email-send");
 const bcrypt = require("bcrypt");
 
@@ -84,7 +84,7 @@ class UserService {
       new: true,
       runValidators: true,
     });
-    if(!user){
+    if (!user) {
       throw new Error("해당하는 유저를 찾을 수 없습니다.");
     }
     return user;

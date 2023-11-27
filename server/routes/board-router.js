@@ -3,12 +3,26 @@ const BoardRouter = express.Router();
 const BoardService = require("../services/board-service");
 const asyncHandler = require("../middlewares/async-handler");
 const ResponseHandler = require("../middlewares/res-handler");
+const JwtMiddleware = require("../middlewares/jwt-handler");
 
-// 모든 게시글 가져오기
+// // 모든 게시글 가져오기 (모든 사용자, 모든 게시물)
+// BoardRouter.get(
+//   "/",
+//   asyncHandler(async (req, res) => {
+//     const user = req.TokenData._id;
+//     const boards = await BoardService.getAllBoards(user);
+//     ResponseHandler.respondWithSuccess(res, boards);
+//   })
+// );
+
+// 본인이 작성한 모든 게시글 가져오기
 BoardRouter.get(
   "/",
+  JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
-    const boards = await BoardService.getAllBoards();
+    const user = req.tokenData._id;
+    console.log (user);
+    const boards = await BoardService.getAllBoardsByUserId(user);
     ResponseHandler.respondWithSuccess(res, boards);
   })
 );
@@ -37,8 +51,18 @@ BoardRouter.get(
 // 새로운 게시글 생성
 BoardRouter.post(
   "/",
+  JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
-    const savedBoard = await BoardService.createBoard(req.body);
+    const user = req.tokenData._id;
+    const {category, post, image, tags} = req.body;
+    const boardData = {
+      user,
+      category,
+      post,
+      image,
+      tags
+    }
+    const savedBoard = await BoardService.createBoard(boardData);
     ResponseHandler.respondWithSuccess(res, savedBoard);
   })
 );

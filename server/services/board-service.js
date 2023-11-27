@@ -1,13 +1,12 @@
-const Board = require('../models/board-schema');
+const Board = require("../models/board-schema");
 const { User } = require("../models/user-schema");
 
 class BoardService {
-
   // 게시글 생성
   static async createBoard(boardData) {
     try {
       const user = await User.findById(boardData.userId);
-      if(!user){
+      if (!user) {
         throw new Error("사용자를 찾을 수 없습니다.");
       }
 
@@ -20,7 +19,7 @@ class BoardService {
         image: imagePaths,
         tags: boardData.tags,
       });
-  
+
       const savedBoard = await newBoard.save();
       return savedBoard;
     } catch (error) {
@@ -31,7 +30,7 @@ class BoardService {
   // 모든 게시글 조회
   static async getAllBoards() {
     try {
-      const boards = await Board.find().sort({createdAt: -1});
+      const boards = await Board.find().sort({ createdAt: -1 });
       return boards;
     } catch (error) {
       throw error;
@@ -41,7 +40,7 @@ class BoardService {
   // 본인 모든 게시글 조회
   static async getAllBoardsByUserId(userId) {
     try {
-      const boards = await Board.find({ user: userId }).sort({createdAt: -1});
+      const boards = await Board.find({ user: userId }).sort({ createdAt: -1 });
       return boards;
     } catch (error) {
       console.error("모든 게시글 가져오기 중 오류 발생:", error);
@@ -61,13 +60,12 @@ class BoardService {
 
   static async getBoardsByCategory(category) {
     try {
-      const boards = await Board.find({ category }).sort({createdAt: -1});
+      const boards = await Board.find({ category }).sort({ createdAt: -1 });
       return boards;
     } catch (error) {
       throw error;
     }
   }
-
 
   static async updateBoard(userIdFromToken, boardId, updatedData, imagePaths) {
     try {
@@ -76,11 +74,11 @@ class BoardService {
         throw new Error("게시글을 찾을 수 없습니다.");
       }
       const userIdOfExistingBoard = existingBoard.user.toString();
-  
+
       if (userIdFromToken !== userIdOfExistingBoard) {
         throw new Error("권한이 없습니다.");
       }
-  
+
       const updatedBoard = await Board.findByIdAndUpdate(
         boardId,
         {
@@ -89,13 +87,12 @@ class BoardService {
         },
         { new: true }
       );
-  
+
       return updatedBoard;
     } catch (error) {
       throw error;
     }
   }
-  
 
   static async deleteBoard(boardId) {
     try {

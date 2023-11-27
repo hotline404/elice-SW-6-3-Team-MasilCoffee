@@ -21,7 +21,6 @@ BoardRouter.get(
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
     const user = req.tokenData._id;
-    console.log (user);
     const boards = await BoardService.getAllBoardsByUserId(user);
     ResponseHandler.respondWithSuccess(res, boards);
   })
@@ -52,29 +51,37 @@ BoardRouter.get(
 // 새로운 게시글 생성
 BoardRouter.post(
   "/",
+  imageUploader.array("file"),
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
-    const user = req.tokenData._id;
-    const {category, post, image, tags} = req.body;
+    const userId = req.tokenData._id;
+    const { category, post, tags } = req.body;
+    const imagePaths = req.files.map(file => file.location);
     const boardData = {
-      user,
+      userId,
       category,
       post,
-      image,
-      tags
-    }
-    const savedBoard = await BoardService.createBoard(boardData);
-    ResponseHandler.respondWithSuccess(res, savedBoard);
+      image: imagePaths,
+      tags,
+    };      
+    const newBoard = await BoardService.createBoard(boardData);
+    ResponseHandler.respondWithSuccess(res, newBoard);
   })
 );
 
-// 특정 ID의 게시글 수정
+// 특정 ID의 게시글 수정 (본인만 가능)
 BoardRouter.put(
   "/update/:boardId",
+  JwtMiddleware.checkToken,
+  imageUploader.array("file"),
   asyncHandler(async (req, res) => {
+    const uploadedFiles = req.files || [];
+    const imagePaths = uploadedFiles.map(file => file.location);
     const updatedBoard = await BoardService.updateBoard(
+      req.tokenData._id,
       req.params.boardId,
-      req.body
+      req.body,
+      imagePaths
     );
     ResponseHandler.respondWithSuccess(res, updatedBoard);
   })
@@ -83,6 +90,7 @@ BoardRouter.put(
 // 특정 ID의 게시글 삭제
 BoardRouter.delete(
   "/delete/:boardId",
+  JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
     const deletedBoard = await BoardService.deleteBoard(req.params.boardId);
     ResponseHandler.respondWithSuccess(res, deletedBoard);

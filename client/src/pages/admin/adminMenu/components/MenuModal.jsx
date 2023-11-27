@@ -16,16 +16,7 @@ const MenuModal = ({ title, closeModal, modifyProduct }) => {
 
   const formData = new FormData();
 
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
-  const [size, setSize] = useState("");
-  const [temp, setTemp] = useState("");
-  const [kcal, setKcal] = useState("");
-  const [info, setInfo] = useState("");
-  const [file, setFile] = useState("");
-  const [recipe, setRecipe] = useState("");
-  const [editedProduct, setEditedProduct] = useState({
+  const [product, setProduct] = useState({
     name: "",
     price: "",
     category: "",
@@ -37,22 +28,21 @@ const MenuModal = ({ title, closeModal, modifyProduct }) => {
     recipe: "",
   });
 
-  formData.append("name", name);
-  formData.append("price", price);
-  formData.append("category", category);
-  formData.append("size", size);
-  formData.append("temp", temp);
-  formData.append("kcal", kcal);
-  formData.append("info", info);
-  formData.append("file", file);
-  formData.append("recipe", recipe);
+  formData.append("name", product.name);
+  formData.append("price", product.price);
+  formData.append("category", product.category);
+  formData.append("size", product.size);
+  formData.append("temp", product.temp);
+  formData.append("kcal", product.kcal);
+  formData.append("info", product.info);
+  formData.append("file", product.file);
+  formData.append("recipe", product.recipe);
 
   useEffect(() => {
     if (modifyProduct) {
-      setEditedProduct({ ...modifyProduct[0] });
-      console.log(modifyProduct);
+      setProduct({ ...modifyProduct });
     } else {
-      setEditedProduct({
+      setProduct({
         name: "",
         price: "",
         category: "",
@@ -66,21 +56,24 @@ const MenuModal = ({ title, closeModal, modifyProduct }) => {
     }
   }, [modifyProduct]);
 
+  const handleChange = (key, e) => {
+    if (key === "file") {
+      const updatedProductFile = { ...product, [key]: e.target.files[0] };
+      setProduct(updatedProductFile);
+    } else {
+      const updatedProduct = { ...product, [key]: e.target.value };
+      setProduct(updatedProduct);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    for (const entry of formData.entries()) {
-      console.log(entry);
-    }
-
     const fn = async () => {
       if (modifyProduct) {
-        //console.log("modifyProduct", modifyProduct[0]._id);
         try {
-          const updatedProduct = await updateProduct(modifyProduct[0]._id, formData, token);
-          console.log("updatedProduct", updatedProduct);
+          const updatedProduct = await updateProduct(modifyProduct._id, formData, token);
           dispatch(actionUpdateProduct(updatedProduct));
-          //dispatch(actionGetAllProducts());
         } catch (error) {
           console.error("Failed to update product", error);
         }
@@ -88,7 +81,7 @@ const MenuModal = ({ title, closeModal, modifyProduct }) => {
         try {
           const newProduct = await createProduct(formData, token);
           dispatch(actionCreateProduct(newProduct));
-          //dispatch(actionGetAllProducts());
+          dispatch(actionGetAllProducts());
         } catch (error) {
           console.error("Failed to create product", error);
         }
@@ -109,28 +102,12 @@ const MenuModal = ({ title, closeModal, modifyProduct }) => {
         <Modal.Form onSubmit={handleSubmit}>
           <Modal.P>
             <Modal.Label>이름 :</Modal.Label>
-            <Modal.Input
-              type="text"
-              name="name"
-              defaultValue={editedProduct.name || ""}
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-              required
-            />
+            <Modal.Input type="text" name="name" defaultValue={product.name || ""} onChange={(e) => handleChange("name", e)} required />
           </Modal.P>
           <Modal.P>
             <Modal.Label>가격 :</Modal.Label>
             <Modal.InputContainer>
-              <Modal.Input
-                type="number"
-                name="price"
-                defaultValue={editedProduct.price || ""}
-                onChange={(e) => {
-                  setPrice(e.target.value);
-                }}
-                required
-              />
+              <Modal.Input type="number" name="price" defaultValue={product.price || ""} onChange={(e) => handleChange("price", e)} required />
               <Modal.CurrencyText>원</Modal.CurrencyText>
             </Modal.InputContainer>
           </Modal.P>
@@ -140,10 +117,8 @@ const MenuModal = ({ title, closeModal, modifyProduct }) => {
               options={categoryOptions}
               modal
               name="category"
-              defaultValue={editedProduct.category || ""}
-              onChange={(selected) => {
-                setCategory(selected);
-              }}
+              defaultOption={product.category}
+              onChange={(selected) => handleChange("category", selected)}
             />
           </Modal.P>
           <Modal.P>
@@ -152,10 +127,8 @@ const MenuModal = ({ title, closeModal, modifyProduct }) => {
               options={sizeOptions}
               modal
               name="size"
-              defaultValue={editedProduct.size || ""}
-              onChange={(selected) => {
-                setSize(selected);
-              }}
+              defaultOption={product.size}
+              onChange={(selected) => handleChange("size", selected)}
             />
           </Modal.P>
           <Modal.P>
@@ -164,67 +137,30 @@ const MenuModal = ({ title, closeModal, modifyProduct }) => {
               options={tempOptions}
               modal
               name="temp"
-              defaultValue={editedProduct.temp || ""}
-              onChange={(selected) => {
-                setTemp(selected);
-              }}
+              defaultOption={product.temp}
+              onChange={(selected) => handleChange("temp", selected)}
             />
           </Modal.P>
           <Modal.P>
             <Modal.Label>1회 제공량 :</Modal.Label>
             <Modal.InputContainer>
-              <Modal.Input
-                type="number"
-                name="kcal"
-                defaultValue={editedProduct.kcal || ""}
-                onChange={(e) => {
-                  setKcal(e.target.value);
-                }}
-                required
-              />
+              <Modal.Input type="number" name="kcal" defaultValue={product.kcal || ""} onChange={(e) => handleChange("kcal", e)} required />
               <Modal.CurrencyText>kcal</Modal.CurrencyText>
             </Modal.InputContainer>
           </Modal.P>
           <Modal.TextareaBox>
             <Modal.Label>상세 설명 :</Modal.Label>
-            <textarea
-              name="info"
-              cols="30"
-              rows="3"
-              defaultValue={editedProduct.info || ""}
-              onChange={(e) => {
-                setInfo(e.target.value);
-              }}
-              required
-            />
+            <textarea name="info" cols="30" rows="3" defaultValue={product.info || ""} onChange={(e) => handleChange("info", e)} required />
           </Modal.TextareaBox>
           <Modal.Label>사진 추가 :</Modal.Label>
           <Modal.ImgBox>
             <Modal.ImgLabel htmlFor="file">파일 선택</Modal.ImgLabel>
-            <input
-              type="file"
-              id="file"
-              name="file"
-              defaultValue={editedProduct.file || ""}
-              onChange={(e) => {
-                setFile(e.target.files[0]);
-              }}
-              required
-            />
-            <p>{file && file.name}</p>
+            <input type="file" id="file" name="file" defaultValue={product.file || ""} onChange={(e) => handleChange("file", e)} required />
+            <p>{product.file && product.file.name}</p>
           </Modal.ImgBox>
           <Modal.TextareaBox large>
             <Modal.Label>꿀조합 추천 정보 :</Modal.Label>
-            <textarea
-              name="recipe"
-              cols="30"
-              defaultValue={editedProduct.recipe || ""}
-              onChange={(e) => {
-                setRecipe(e.target.value);
-              }}
-              rows="3"
-              required
-            />
+            <textarea name="recipe" cols="30" defaultValue={product.recipe || ""} onChange={(e) => handleChange("recipe", e)} rows="3" required />
           </Modal.TextareaBox>
           <Modal.Submit type="submit" onClick={handleSubmit}>
             제출하기

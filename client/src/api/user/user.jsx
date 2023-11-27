@@ -16,12 +16,7 @@ export const axiosGetUser = async (token) => {
   return user;
 };
 
-export const axiosPatchUser = async (
-  token,
-  newNickname,
-  newPhone,
-  checkPassword
-) => {
+export const axiosPatchUser = async (token, newNickname, newPhone, checkPassword) => {
   const headers = { headers: { Authorization: `Bearer ${token}` } };
   const body = {
     nickname: newNickname,
@@ -57,13 +52,7 @@ export const axiosGetAdmin = async (token, userId) => {
   return admin;
 };
 
-export const axiosPatchAdmin = async (
-  token,
-  userId,
-  newName,
-  newNickname,
-  newPhone
-) => {
+export const axiosPatchAdmin = async (token, userId, newName, newNickname, newPhone) => {
   const headers = { headers: { Authorization: `Bearer ${token}` } };
 
   const body = { name: newName, nickname: newNickname, phone: newPhone };
@@ -78,7 +67,7 @@ export const axiosPatchAdmin = async (
 export const axiosDelAdmin = async (token, userId) => {
   const headers = { headers: { Authorization: `Bearer ${token}` } };
 
-  const res = await axios.del(`${urlAdmin}/${userId}`, headers);
+  const res = await axios.delete(`${urlAdmin}/${userId}`, headers);
 
   const delAdim = res.data.data;
 

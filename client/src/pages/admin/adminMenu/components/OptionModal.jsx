@@ -8,25 +8,27 @@ import axios from "axios";
 
 const OptionModal = ({ options, title, closeModal }) => {
   const [selectedOption, setSelectedOption] = useState("");
-  const [showInput, setShowInput] = useState(false);
-  const [inputValue, setInputValue] = useState("");
+  //const [showInput, setShowInput] = useState(false);
+  // const [inputValue, setInputValue] = useState("");
   const [inputComponents, setInputComponents] = useState([]);
+  const [inputOptionValues, setInputOptionValues] = useState({});
 
-  const optionName = ["선택없음", "얼음", "드리즐", "휘핑", "우유", "직접입력"];
+  const optionName = ["선택없음", "얼음", "드리즐", "휘핑", "우유"];
 
   const handleSelectChange = (selected) => {
-    if (selected === "직접입력") {
-      setSelectedOption("");
-      setShowInput(true);
-    } else {
-      setSelectedOption(selected);
-      setShowInput(false);
-    }
+    setSelectedOption(selected.target.value);
+    console.log("selected", selected.target.value);
+
+    const optionData = options.filter((option) => option.key === selectedOption);
+
+    setInputOptionValues(optionData.value);
+    console.log(inputOptionValues);
+    //setShowInput(false);
   };
 
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
+  // const handleInputChange = (e) => {
+  //   setInputValue(e.target.value);
+  // };
 
   const handleAddInput = () => {
     console.log(inputComponents);
@@ -78,7 +80,6 @@ const OptionModal = ({ options, title, closeModal }) => {
             <Modal.OptionP>
               <Modal.Label>옵션명 :</Modal.Label>
               <MenuSelect options={optionName} modal name="optionName" value={selectedOption} onChange={handleSelectChange} />
-              {showInput && <Modal.Input type="text" name={inputValue} value={inputValue} placeholder="예) 샷추가" onChange={handleInputChange} />}
             </Modal.OptionP>
             <Modal.DetailInputBox>
               <Modal.OptionP>
@@ -103,6 +104,56 @@ const OptionModal = ({ options, title, closeModal }) => {
       </Modal.ModalBox>
     </Modal.ModalBackground>
   );
+};
+
+OptionModal.defaultProps = {
+  options: [
+    {
+      샷: {
+        에스프레소: 600,
+      },
+    },
+    {
+      시럽: {
+        바닐라: 600,
+        헤이즐넛: 600,
+        카라멜: 600,
+      },
+    },
+    {
+      얼음: {
+        없음: 0,
+        보통: 0,
+        적게: 0,
+        많이: 0,
+      },
+    },
+    {
+      휘핑: {
+        없음: 0,
+        보통: 0,
+        적게: 0,
+        많이: 0,
+      },
+    },
+    {
+      드리즐: {
+        없음: 0,
+        초콜릿: 600,
+        카라멜: 600,
+      },
+    },
+    {
+      우유: {
+        없음: 0,
+        일반: 0,
+        저지방: 0,
+        무지방: 0,
+        오트: 0,
+        두유: 0,
+      },
+    },
+  ],
 };
 
 export default OptionModal;

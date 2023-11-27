@@ -59,24 +59,13 @@ import { ORDER_DETAIL_TYPE } from "../action/_types";
 // };
 
 const initialState = {
+  // 주문에 대한 정보
   orderDetail: {},
+  // 선택된 옵션의 정보
   selectedOptions: {},
 };
 
-/** 세부항목 api 명세
- * @example
- * 옵션명 {
- *  옵션타입 : "quantity" | "select",
- *  세부항목들 : [
- *    {
- *       세부항목이름 : 가격
- *    },
- *    {
- *       세부항목이름 : 가격
- *    },
- *  ]
- * }
- */
+
 
 const orderDetail = (state = initialState, action) => {
   // let newState = JSON.parse(JSON.stringify(state));
@@ -121,12 +110,16 @@ const orderDetail = (state = initialState, action) => {
   // newState.totalPrice = calculatePrice(newState);
 
   // return newState;
+
   switch (action.type) {
+    // 주문 상세 정보
     case ORDER_DETAIL_TYPE.SET_ORDER_DETAIL:
       return {
         ...state,
-        orderDetail: action.payload,
+        orderDetail: {...action.payload},
       };
+      // 모든 옵션을 초기 상태로 설정 
+      // 없음 1 그외 0
     case ORDER_DETAIL_TYPE.SET_INITIAL_OPTION: // 리셋 겸용
       const initialOptions = {}
       for(const optionName in state.orderDetail) {
@@ -139,6 +132,9 @@ const orderDetail = (state = initialState, action) => {
         ...state,
         selectedOptions: initialOptions,
       }
+
+      // 특정 옵션의 선택 항목을 변경
+      // 선택 항목 수량 1 그 외 0
     case ORDER_DETAIL_TYPE.MODIFY_OPTION:
       const modifiedItems = state.selectedOptions[action.payload.optionName].map(item => {
         if(action.payload.itemName === item.name) {
@@ -153,6 +149,8 @@ const orderDetail = (state = initialState, action) => {
           [action.payload.optionName]: [...modifiedItems],
         },
       };
+
+      // 특정 옵션 수량 증가
     case ORDER_DETAIL_TYPE.INCREASE_OPTION: {
       // const increasedPrice = state.orderDetail[action.payload.optionName].find(item => item.name === action.payload.itemName).price;
       return {
@@ -163,6 +161,7 @@ const orderDetail = (state = initialState, action) => {
         },
       };
     }
+       // 특정 옵션 수량 감소 0미만일 경우 감소X
     case ORDER_DETAIL_TYPE.DECREASE_OPTION: {
       // const decreasedPrice = state.orderDetail[action.payload.optionName].find(item => item.name === action.payload.itemName).price;
       return {

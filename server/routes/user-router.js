@@ -4,6 +4,7 @@ const userService = require("../services/user-service");
 const asyncHandler = require("../middlewares/async-handler");
 const ResponseHandler = require("../middlewares/res-handler.js");
 const JwtMiddleware = require("../middlewares/jwt-handler");
+const bcrypt = require('bcrypt');
 const JWT = require("../utils/jwt-token");
 
 // 회원가입 (인증코드발송) 및 비밀번호 변경
@@ -148,13 +149,21 @@ UserRouter.get(
   })
 );
 
+
+
 // 회원 정보 수정 (사용자)
 UserRouter.patch(
   "/",
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
-    const user = await userService.updateUser(req.tokenData._id, req.body);
-    ResponseHandler.respondWithSuccess(res, user);
+    const user = await userService.getUserById(req.tokenData._id);
+    const isPassowrdValid = await bcrypt.compare(req.body.password, user.password);
+    if (isPassowrdValid) {
+      const user = await userService.updateUser(req.tokenData._id, req.body);
+      ResponseHandler.respondWithSuccess(res, user);
+    } else {
+      ResponseHandler.respondWithError(res, 401, "비밀번호가 일치하지 않습니다.");
+    }
   })
 );
 

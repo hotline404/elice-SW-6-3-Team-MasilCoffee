@@ -37,12 +37,12 @@ class ProductService {
     try {
       const products = await Product.find();
       return products;
-    } catch (error){
+    } catch (error) {
       throw error;
     }
   }
 
-  // 카테고리별 제품 검색
+  // 카테고리별 제품 검색 (페이지네이션 o)
   static async getProductsByCategory(category, currentPage, pageSize) {
     try {
       const query = { category };
@@ -60,6 +60,15 @@ class ProductService {
     }
   }
 
+  // 카테고리별 제품 검색 (페이지네이션 x)
+  static async getProductsByCategoryNoPagination(category) {
+    try {
+      const products = await Product.find({ category });
+      return products;
+    } catch (error) {
+      throw error;
+    }
+  }
 
   static async getProductById(productId) {
     try {

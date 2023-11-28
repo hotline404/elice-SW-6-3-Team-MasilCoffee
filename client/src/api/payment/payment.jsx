@@ -22,15 +22,17 @@ export const getAllPayment = async (token) => {
 };
 
 // 사용자 주문 내역 가져오기
-export const getPayment = async (orderId) => {
-  const res = await axios.get(`http://localhost:5000/api/v1/order/${orderId}`);
+export const getPayment = async (token) => {
+  const headers = { headers: { Authorization: `Bearer ${token}` } };
+  const res = await axios.get("http://localhost:5000/api/v1/order", headers);
   const payment = res.data.data;
   return payment;
 };
 
 // 주문정보 수정
-export const updatePayment = async (orderId) => {
-  const res = await axios.put(`http://localhost:5000/api/v1/order/:orderId/${orderId}`);
+export const updatePayment = async (orderId, orderData, token) => {
+  const headers = { headers: { Authorization: `Bearer ${token}` } };
+  const res = await axios.put(`http://localhost:5000/api/v1/order/${orderId}`, orderData, headers);
   const payment = res.data.data;
   return payment;
 };

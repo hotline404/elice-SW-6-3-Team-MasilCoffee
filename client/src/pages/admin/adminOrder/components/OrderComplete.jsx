@@ -24,9 +24,7 @@ const OrderDone = ({ data }) => {
           {orderDetail.map((item, i) => {
             return (
               <Orders.ItemBox>
-                <Orders.Item>
-                  {item.name} {item.count}개
-                </Orders.Item>
+                <Orders.Item>{item.name} 1개</Orders.Item>
                 <Orders.ItemOption>{item.options}</Orders.ItemOption>
               </Orders.ItemBox>
             );

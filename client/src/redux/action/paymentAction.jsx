@@ -24,3 +24,10 @@ export const actionGetAllOrders = (orders) => {
     payload: orders,
   };
 };
+
+export const actionUpdateOrder = (order) => {
+  return {
+    type: PAYMENT_TYPE.UPDATE_ORDER,
+    payload: order,
+  };
+};

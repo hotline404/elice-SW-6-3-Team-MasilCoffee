@@ -18,11 +18,11 @@ export const getAllProductsMain = async () => {
   }
 };
 
-export const getCategoryProducts = async () => {
+export const getCategoryProducts = async (category) => {
   try {
-    const res = await axios.get("http://localhost:5000/api/v1/products");
-    console.log(res.data);
-    return res.data.data.data;
+    const res = await axios.get(`http://localhost:5000/api/v1/products/categories/${category}`);
+    console.log("categoryData", res.data.data);
+    return res.data.data;
   } catch (err) {
     console.log("getAllProduct-err", err);
   }

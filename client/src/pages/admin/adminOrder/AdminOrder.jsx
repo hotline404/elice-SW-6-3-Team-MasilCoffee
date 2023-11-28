@@ -20,9 +20,7 @@ const Admin = () => {
     const fn = async () => {
       try {
         const orders = await getAllPayment(token);
-        console.log("server orders", orders);
-        const returned = dispatch(actionGetAllOrders(orders));
-        console.log("returned", returned);
+        dispatch(actionGetAllOrders(orders));
       } catch (err) {
         console.log("err", err);
       }
@@ -40,9 +38,17 @@ const Admin = () => {
         <AdminSidebar />
         <Orders.Content>
           <OrderTab currTab={currTab} onClick={handleClickTab} />
-          {currTab === "접수 대기"
-            ? receiptedOrder.map((data) => <OrderReceipt data={data} />)
-            : completedOrder.map((data) => <OrderDone data={data} />)}
+          {currTab === "접수 대기" ? (
+            receiptedOrder.length > 0 ? (
+              receiptedOrder.map((data) => <OrderReceipt data={data} />)
+            ) : (
+              <Orders.NoneTitle>주문 내역이 없습니다.</Orders.NoneTitle>
+            )
+          ) : completedOrder.length > 0 ? (
+            completedOrder.map((data) => <OrderDone data={data} />)
+          ) : (
+            <Orders.NoneTitle>주문 내역이 없습니다.</Orders.NoneTitle>
+          )}
         </Orders.Content>
       </Orders.Container>
     </>

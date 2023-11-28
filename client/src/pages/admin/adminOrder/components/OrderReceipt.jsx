@@ -1,10 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as Orders from "./style/OrderDetail.style";
 import OrderCancel from "./OrderCancel";
 import DateFormat from "../../../../util/DateFormat/DateFormat";
+import { updatePayment } from "../../../../api/payment/payment";
+import { actionUpdateOrder } from "../../../../redux/action/paymentAction";
 
 const OrderReceipt = ({ data }) => {
-  const { date, nickname, request, totalPrice, packagingOption, orderDetail } = data;
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.login.token);
+  const { date, nickname, request, totalPrice, packagingOption, orderDetail, _id } = data;
 
   const ORDER_STATUS = {
     pending: "pending",
@@ -20,6 +25,17 @@ const OrderReceipt = ({ data }) => {
       setOrderStatus(ORDER_STATUS.accepted);
     } else if (orderStatus === ORDER_STATUS.accepted) {
       setOrderStatus(ORDER_STATUS.completed);
+      const fn = async () => {
+        try {
+          const updateStatus = { status: "제조완료" };
+          const updatedData = await updatePayment(_id, updateStatus, token);
+          console.log("updatedData", updatedData);
+          dispatch(actionUpdateOrder(updatedData));
+        } catch (err) {
+          console.log("err", err);
+        }
+      };
+      fn();
     }
   };
 
@@ -54,6 +70,7 @@ const OrderReceipt = ({ data }) => {
               closeModal={() => {
                 setShowCancelModal(!showCancelModal);
               }}
+              orderId={_id}
             />
           )}
           <Orders.CancelButton
@@ -71,27 +88,5 @@ const OrderReceipt = ({ data }) => {
     </Orders.Container>
   );
 };
-
-// OrderReceipt.defaultProps = {
-//   date: "2023.11.12",
-//   time: "13:22",
-//   orderer: "홍길동",
-//   request: "물티슈도 챙겨주세요",
-//   menuCount: 1,
-//   totalPrice: "10,800",
-//   takeout: "전체포장",
-//   items: [
-//     {
-//       name: "아이스 아메리카노",
-//       count: 1,
-//       option: "샷1, 얼음많이, 휘핑 많이",
-//     },
-//     {
-//       name: "아이스 돌체 라떼",
-//       count: 1,
-//       option: "샷 1, 얼음많이, 휘핑 많이, 돌체 시럽 1, 드리즐: 초코",
-//     },
-//   ],
-// };
 
 export default OrderReceipt;

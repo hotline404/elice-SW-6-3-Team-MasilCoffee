@@ -10,3 +10,10 @@ export const Content = styled.div`
   flex: 1;
   margin: 70px 70px;
 `;
+
+export const NoneTitle = styled.p`
+  font-size: 30px;
+  margin-top: 100px;
+  text-align: center;
+  color: #8a8a8a;
+`;

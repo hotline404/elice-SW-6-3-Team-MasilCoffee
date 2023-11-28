@@ -29,9 +29,18 @@ const payment = (state = initialState, action) => {
       const filteredReceipt = state.orders.filter((order) => order.status === "주문완료");
       const filteredComplete = state.orders.filter((order) => order.status !== "주문완료");
       return {
+        ...state,
         orders: action.payload,
         receipted: filteredReceipt,
         completed: filteredComplete,
+      };
+    case PAYMENT_TYPE.UPDATE_ORDER:
+      const updatedOrder = action.payload;
+      const updatedOrders = state.receipted.filter((order) => order._id !== updatedOrder._id);
+      return {
+        ...state,
+        receipted: updatedOrders,
+        completed: [...state.completed, updatedOrder],
       };
 
     default:

@@ -22,7 +22,7 @@ const OrderSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["주문취소-재료소진", "주문취소-고객요청", "주문취소-가게사정", "주문완료", "제조완료"],
+      enum: ["재료소진", "고객요청", "가게사정", "주문완료", "제조완료"],
       required: true,
     },
     totalPrice: {

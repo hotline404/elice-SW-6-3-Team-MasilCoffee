@@ -9,6 +9,7 @@ const initUserState = {
   role: "",
   updated: "",
   user_id: "",
+  recipe: [],
 };
 
 const nonData = "";
@@ -29,6 +30,7 @@ const user = (state = initUserState, action) => {
         phone: userData.phone,
         role: userData.role,
         user_id: userData._id,
+        recipe: userData.recipe,
       };
     }
 

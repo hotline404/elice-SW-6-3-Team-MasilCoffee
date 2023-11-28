@@ -30,7 +30,15 @@ export const actionRemoveFilter = (name) => {
   };
 };
 
-//게시물 수정하기
+//해당 게시물 가져오기
+export const actionGetBoard = (board) => {
+  return {
+    type: BOARD_TYPE.GET_BOARD,
+    payload: board,
+  };
+}
+
+//게시물 작성하기
 export const actionAddBoard = (board) => {
   return {
     type: BOARD_TYPE.ADD_BOARD,

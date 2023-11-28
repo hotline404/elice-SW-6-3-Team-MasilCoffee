@@ -1,39 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Background, ContainerWrap, Container, Wrap } from "../Recipe.style";
 import * as S from "./RecipeView.style";
 import PostList from "../components/PostList";
 import PostInput from "../components/PostInput";
 import CommentList from "../components/CommentList";
 import commentData from "../commentData.json";
-import { getBoard } from "../../../api/board";
 
-// 수정/삭제 추가 예정
 const RecipeView = () => {
-  const location = useLocation();
-  const boardId = location.state && location.state.post;
-  const [boardData, setBoardData] = useState(null);
+  const oneBoardData = useSelector((state) => state.board.board[0]);
   
   useEffect(() => {
-    const fn = async () => {
-      try {
-        const board = await getBoard(boardId);
-        setBoardData(board);
-      } catch (err) {
-        console.log("err", err);
-      }
-    };
-    fn();
     window.scrollTo(0, 0);
   }, []);
 
   return (
     <Background>
       <ContainerWrap>
-        {boardData ? (
+        {oneBoardData ? (
           <>
             <Wrap>
-              <PostList post={boardData} />
+              <PostList post={oneBoardData} type={"view"} />
             </Wrap>
             <S.TextWrap>
               <Container>

@@ -18,6 +18,7 @@ export const BOARD_TYPE = {
   GET_SEARCH_BOARDS: "get_search_boards",
   GET_FILTER_BOARDS: "get_filter_boards",
   REMOVE_FILTER_BOARDS: "remove_filter_boards",
+  GET_BOARD: "get_board",
   GET_MY_BOARDS: "get_my_boards",
   REMOVE_BOARD: "remove_board",
   ADD_BOARD: "add_board",

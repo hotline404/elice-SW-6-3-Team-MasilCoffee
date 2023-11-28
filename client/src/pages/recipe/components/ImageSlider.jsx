@@ -16,8 +16,8 @@ const ImageSlider = ({ images }) => {
   return (
     <ImageWrap onClick={(e) => e.preventDefault()}>
       <StyledSlider {...settings}>
-        {images.map((image) => (
-          <Image src={image} alt="" />
+        {images.map((image, index) => (
+          <Image key={index} src={image} alt="" />
         ))}
       </StyledSlider>
     </ImageWrap>

@@ -61,6 +61,15 @@ const user = (state = initUserState, action) => {
       };
     }
 
+    case "post.user.recipe": {
+      const { recipe } = action.payload;
+
+      return {
+        ...state,
+        recipe : [...state.recipe, recipe]
+      }
+    }
+
     case "remove.user": {
       return {
         ...state,

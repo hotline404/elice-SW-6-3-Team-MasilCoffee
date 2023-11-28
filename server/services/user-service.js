@@ -19,10 +19,16 @@ class UserService {
       }
 
       const verificationCode = this.generateRandomNum(11111, 99999);
-      this.emailVerificationcode[email] = verificationCode;
       const mailResult = await sendMail(email, verificationCode);
 
       if (mailResult.success) {
+        const { sentTime, expireTime } = mailResult;
+
+        this.emailVerificationcode[email] = {
+          code: verificationCode,
+          sentTime: sentTime,
+          expireTime: expireTime,
+        };
         return { success: true, message: "인증 코드가 성공적으로 전송되었습니다." };
       } else {
         console.error("이메일 발송 실패:", mailResult.message);
@@ -37,10 +43,18 @@ class UserService {
 
   async verifyCode(email, code) {
     const savedCode = this.emailVerificationcode[email];
-    if (savedCode === code) {
-      delete this.emailVerificationcode[email];
-    } else {
-      throw new Error("유효하지 않은 코드입니다.");
+    if (savedCode && savedCode.code === code) {
+      const currentTime = new Date();
+      const elapsedTime = currentTime - savedCode.sentTime;
+
+      if (elapsedTime <= savedCode.expireTime) { // 유효 시간 내 코드 확인 o
+        delete this.emailVerificationcode[email];
+        return { success: true, message: "이메일 인증이 성공적으로 완료되었습니다." };
+      } else { // 시간 만료
+        return { success: false, message: "인증 코드의 유효 시간이 만료되었습니다." };
+      }
+    } else { // 코드 다름
+      return { success: false, message: "인증 코드가 일치하지 않습니다." };
     }
   }
 

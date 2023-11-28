@@ -12,12 +12,21 @@ const JwtMiddleware = require("../middlewares/jwt-handler");
 // ? 뒤부터는 directory 는 aws 에 저장되는 폴더
 // product는 그 폴더명
 
-// 모든 제품 검색
+// 모든 제품 검색 (pagination)
 ProductRouter.get(
   "/",
   asyncHandler(async (req, res) => {
     const { currentPage, pageSize } = req.query;
     const products = await ProductService.getAllProducts(currentPage, pageSize);
+    ResponseHandler.respondWithSuccess(res, products);
+  })
+);
+
+// 모든 제품 검색 (pagination), 메인페이지용 (redux 사용)
+ProductRouter.get(
+  "/main",
+  asyncHandler(async (req, res) => {
+    const products = await ProductService.getAllProductsNoPagination();
     ResponseHandler.respondWithSuccess(res, products);
   })
 );

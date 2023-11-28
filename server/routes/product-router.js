@@ -16,7 +16,20 @@ const JwtMiddleware = require('../middlewares/jwt-handler');
 ProductRouter.get(
   "/",
   asyncHandler(async (req, res) => {
-    const products = await ProductService.getAllProducts();
+    const { currentPage, pageSize } = req.query;
+    const products = await ProductService.getAllProducts(currentPage, pageSize);
+    ResponseHandler.respondWithSuccess(res, products);
+  })
+);
+
+// 카테고리 별 제품 검색
+ProductRouter.get(
+  "/:category",
+  asyncHandler(async (req, res) => {
+    const { currentPage, pageSize } = req.query;
+    const { category } = req.params;
+
+    const products = await ProductService.getProductsByCategory(category, currentPage, pageSize);
     ResponseHandler.respondWithSuccess(res, products);
   })
 );

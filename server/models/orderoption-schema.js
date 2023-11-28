@@ -33,6 +33,7 @@ const OrderOptionSchema = new Schema(
     },
     {
         timestamps: true,
+        versionKey: false,
     }
 );
 

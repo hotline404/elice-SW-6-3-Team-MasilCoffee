@@ -1,4 +1,5 @@
 const Board = require("../models/board-schema");
+const paginate = require("../utils/pagination");
 const { User } = require("../models/user-schema");
 
 class BoardService {
@@ -28,22 +29,35 @@ class BoardService {
   }
 
   // 모든 게시글 조회
-  static async getAllBoards() {
+  static async getAllBoards(currentPage, pageSize) {
     try {
-      const boards = await Board.find().sort({ createdAt: -1 });
-      return boards;
+      const totalItems = await Board.countDocuments();
+      const boards = await Board.find()
+        .sort({ createdAt: -1 })
+        .skip((currentPage - 1) * pageSize)
+        .limit(pageSize);
+      const paginatedResult = paginate(boards, currentPage, pageSize, totalItems);
+      return paginatedResult;
     } catch (error) {
       throw error;
     }
   }
 
   // 본인 모든 게시글 조회
-  static async getAllBoardsByUserId(userId) {
+  static async getAllBoardsByUserId(userId, currentPage, pageSize) {
     try {
-      const boards = await Board.find({ user: userId }).sort({ createdAt: -1 });
-      return boards;
+      const query = { user: userId };
+      const totalItems = await Board.countDocuments(query);
+
+      const boards = await Board.find(query)
+        .sort({ createdAt: -1 })
+        .skip((currentPage - 1) * pageSize)
+        .limit(pageSize);
+
+      const paginatedResult = paginate(boards, currentPage, pageSize, totalItems);
+      return paginatedResult;
     } catch (error) {
-      console.error("모든 게시글 가져오기 중 오류 발생:", error);
+      console.error("본인이 작성한 게시글 가져오기 중 오류 발생:", error);
       throw error;
     }
   }
@@ -58,10 +72,18 @@ class BoardService {
     }
   }
 
-  static async getBoardsByCategory(category) {
+  static async getBoardsByCategory(category, currentPage, pageSize) {
     try {
-      const boards = await Board.find({ category }).sort({ createdAt: -1 });
-      return boards;
+      const query = { category };
+      const totalItems = await Board.countDocuments(query);
+  
+      const boards = await Board.find(query)
+        .sort({ createdAt: -1 })
+        .skip((currentPage - 1) * pageSize)
+        .limit(pageSize);
+  
+      const paginatedResult = paginate(boards, currentPage, pageSize, totalItems);
+      return paginatedResult;
     } catch (error) {
       throw error;
     }

@@ -10,7 +10,8 @@ const JwtMiddleware = require("../middlewares/jwt-handler");
 BoardRouter.get(
   "/",
   asyncHandler(async (req, res) => {
-    const boards = await BoardService.getAllBoards();
+    const { currentPage, pageSize } = req.query;
+    const boards = await BoardService.getAllBoards(currentPage, pageSize);
     ResponseHandler.respondWithSuccess(res, boards);
   })
 );
@@ -21,7 +22,8 @@ BoardRouter.get(
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
     const user = req.tokenData._id;
-    const boards = await BoardService.getAllBoardsByUserId(user);
+    const { currentPage, pageSize } = req.query;
+    const boards = await BoardService.getAllBoardsByUserId(user, currentPage, pageSize);
     ResponseHandler.respondWithSuccess(res, boards);
   })
 );
@@ -30,7 +32,9 @@ BoardRouter.get(
 BoardRouter.get(
   "/:category",
   asyncHandler(async (req, res) => {
-    const boards = await BoardService.getBoardsByCategory(req.params.category);
+    const category = req.params.category;
+    const { currentPage, pageSize } = req.query;
+    const boards = await BoardService.getBoardsByCategory(category, currentPage, pageSize);
     ResponseHandler.respondWithSuccess(res, boards);
   })
 );

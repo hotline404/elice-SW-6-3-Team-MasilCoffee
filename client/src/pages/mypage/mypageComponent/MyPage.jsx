@@ -16,22 +16,21 @@ import WriteListLink from "./Links/WriteListLink";
 
 function MyPage() {
   const userInfo = useSelector(state => state.user);
-  const userI = useSelector(state => state);
-  console.log("userI", userInfo);
+  
   return (
     <Fragment>
       <Container>
         <Title>MY PAGE</Title>
         <Card>
           <Contents>
-            <User userName={userInfo.nickname} userId={userInfo.user_id} email={userInfo.email}/>
+            <User userName={userInfo.nickname} email={userInfo.email}/>
           </Contents>
           <Contents>
-            <OrderLink userId={userInfo.user_id}/>
-            <CommentLink userId={userInfo.user_id}/>
+            <OrderLink userId={userInfo.email}/>
+            <CommentLink userId={userInfo.email}/>
           </Contents>
           <ContentsByWrite>
-            <WriteListLink userId={userInfo.user_id}/>
+            <WriteListLink userId={userInfo.email}/>
           </ContentsByWrite>
         </Card>
       </Container>

@@ -1,14 +1,13 @@
 import axios from "axios";
 const loginUrl = "http://localhost:5000/api/v1/users/login";
 const logoutUrl = "http://localhost:5000/api/v1/users/logout";
-const checkLogin = "http://localhost:5000/api/v1/users/check-login"
+const checkLogin = "http://localhost:5000/api/v1/users/check-login";
 
 export const axiosPostLogin = async (email, password) => {
-  const loginHeader = { "email": email, "password": password };
-  
+  const loginBody = { email: email, password: password };
 
   try {
-    const res = await axios.post(loginUrl, loginHeader);
+    const res = await axios.post(loginUrl, loginBody);
     const data = res.data;
 
     return data;
@@ -19,11 +18,10 @@ export const axiosPostLogin = async (email, password) => {
 };
 
 export const axiosPostLogout = async (token, userEmail) => {
-  const logOutHeader = { "Authorization": `Bearer ${token}` };
+  const logOutHeader = { headers: { Authorization: `Bearer ${token}` } };
   const body = {
-    "email": `${userEmail}`
-  }
-  
+    email: `${userEmail}`,
+  };
 
   try {
     const res = await axios.post(logoutUrl, body, logOutHeader);
@@ -37,11 +35,10 @@ export const axiosPostLogout = async (token, userEmail) => {
 };
 
 export const getCheckLogin = async (token) => {
-  const checkerHeader = { "Authorization": `Bearer ${token}` };
-  
+  const checkerHeaders = { headers: { Authorization: `Bearer ${token}` } };
 
   try {
-    const res = await axios.get(checkLogin, checkerHeader);
+    const res = await axios.get(checkLogin, checkerHeaders);
     const data = res.data;
 
     return data;
@@ -50,5 +47,3 @@ export const getCheckLogin = async (token) => {
     console.error("Error:", error);
   }
 };
-
-

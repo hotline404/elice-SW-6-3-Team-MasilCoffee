@@ -1,32 +1,3 @@
-import FilterFn from "../../../util/FilterCheckBox/FilterFn";
-
-// const checkboxes = [
-//   {
-//     id: "filter-all",
-//     name: "filter-all",
-//     pathFn: (user) => user,
-//     label: "Filter all",
-//   },
-//   {
-//     id: "filter-userName",
-//     name: "filter-userName",
-//     pathFn: (user) => user.name,
-//     label: "Filter user name",
-//   },
-//   {
-//     id: "filter-tel",
-//     name: "filter-tel",
-//     pathFn: (user) => user.phone,
-//     label: "Filter user tel",
-//   },
-//{
-//     id: "filter-id",
-//     name: "filter-id",
-//     pathFn: (user) => user.id,
-//     label: "Filter user id",
-//   },
-// ];
-
 const initUsersState = {
   loginState: false,
   token: "",
@@ -49,6 +20,7 @@ const login = (state = initUsersState, action) => {
     }
 
     case "logout": {
+      localStorage.removeItem("token");
       return {
         ...state,
         loginState: false,

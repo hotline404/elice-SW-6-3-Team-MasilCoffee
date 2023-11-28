@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const { Schema } = mongoose;
+
 const LikeSchema = new Schema({
     board: {
         type: Schema.Types.ObjectId,

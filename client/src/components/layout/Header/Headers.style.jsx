@@ -26,3 +26,9 @@ export const HeaderImg = styled.img`
   width: 300px;
   cursor: pointer;
 `;
+
+
+export const NavButton = styled.button`
+    background: #8e0e28;
+    border-radius: 15px;
+`

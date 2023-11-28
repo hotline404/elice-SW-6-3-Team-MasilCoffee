@@ -10,6 +10,8 @@ import Input from "../../components/ui/Input/Input";
 import Button from "../../components/ui/button/Button.jsx";
 import Title from "../../components/ui/title/Title.jsx";
 import { ButtonBox, InputBox, AuthButton } from "./Register.style.jsx";
+import { ROUTES } from "../../router/Routes.jsx";
+import { useNavigate } from "react-router-dom";
 
 const initRegisterInfo = {
   name: "",
@@ -22,6 +24,7 @@ const initRegisterInfo = {
 function RegisterForm(props) {
   const [auth, setAuth] = useState(false);
   const [regInfo, setRegInfo] = useState(initRegisterInfo);
+  const nav = useNavigate();
 
   const authEmail = useSelector((state) => state.register.email);
 
@@ -116,6 +119,7 @@ function RegisterForm(props) {
         phone
       );
       alert(registerRes);
+      nav(ROUTES.MAIN.path);
     } catch (err) {
       alert("다시 입력 해주세요");
     }

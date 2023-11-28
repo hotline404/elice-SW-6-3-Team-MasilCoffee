@@ -11,15 +11,11 @@ import { StyledOrder } from "./Order.style";
 import Slider from "react-slick";
 
 const Order = ({ children }) => {
+  const userRecipe = useSelector((state) => state.user.recipe);
+
   const dispatch = useDispatch();
 
-  // const tdDataFromState = useSelector((state) => state);
-  // console.log("tddata", tdDataFromState);
   const productsFromState = useSelector((state) => state.product.products);
-
-  console.log("프로덕트 액션 가져오기", productsFromState);
-
-  // console.log("productsFromState", productsFromState);
 
   // orderDetail api가 Order 페이지 렌더링 시 한 번만 호출하는 최적화 용도
   // api 나오면 수정 필요
@@ -44,9 +40,9 @@ const Order = ({ children }) => {
     const fn = async () => {
       try {
         const products = await getAllProductsMain(); //비동기
-        console.log("프로덕트 가져오기", products);
+        // console.log("프로덕트 가져오기", products);
         dispatch(actionGetAllProducts(products.data));
-        console.log("productsFrom", productsFromState);
+        // console.log("productsFrom", productsFromState);
       } catch (err) {
         console.log("err", err);
       }
@@ -87,17 +83,17 @@ const Order = ({ children }) => {
         filtered = productsFromState.filter((pd) => pd.category === "에이드");
         break;
       case "꿀조합":
-        filtered = [];
+        filtered = userRecipe;
         break;
-
       default:
         filtered = productsFromState;
     }
 
+    console.log("필터드", filtered);
     setFilteredProducts(filtered);
   };
 
-  // 카테고리 리스트 배열
+  // 카테고  리 리스트 배열
   const categories = [
     "전체",
     "에스프레소",

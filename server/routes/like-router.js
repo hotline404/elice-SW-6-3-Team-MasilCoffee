@@ -1,9 +1,9 @@
 const express = require('express');
 const LikeRouter = express.Router();
-const asyncHandler = require('express-async-handler');
-const JwtMiddleware = require('../middlewares/jwt-middleware');
+const asyncHandler = require("../middlewares/async-handler");
+const JwtMiddleware = require("../middlewares/jwt-handler");
+const ResponseHandler = require("../middlewares/res-handler");
 const LikeService = require('../services/like-service');
-const ResponseHandler = require('../utils/response-handler');
 
 LikeRouter.put(
     '/:boardId',

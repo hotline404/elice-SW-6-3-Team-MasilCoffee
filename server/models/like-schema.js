@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const { Schema } = mongoose;
+
 const LikeSchema = new Schema({
     board: {
         type: Schema.Types.ObjectId,
@@ -11,7 +13,12 @@ const LikeSchema = new Schema({
         ref: 'user',
         required: true,
     },
-}, { timestamps: true });
+},
+    {
+        timestamps: true,
+        versionKey: false,
+    }
+);
 
 const Like = mongoose.model("Like", LikeSchema);
 

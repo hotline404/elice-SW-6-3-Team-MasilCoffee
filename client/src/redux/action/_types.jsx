@@ -60,6 +60,7 @@ export const PAYMENT_TYPE = {
   PAYMENT: "payment",
   RESET: "reset",
   ADD_REQUEST_DELIVERY: "add_request_delivery",
+  GET_ALL_ORDERS: "get_all_orders",
 };
 
 export const USERS_TYPE = {

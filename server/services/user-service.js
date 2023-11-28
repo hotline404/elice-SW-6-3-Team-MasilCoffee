@@ -11,16 +11,29 @@ class UserService {
   };
 
   // 이메일 인증 코드 발송
-  async transportVerificationCode(email, res) {
-    const checkEmail = await User.findOne({ email });
-    if (checkEmail) {
-      throw new Error("이미 가입된 이메일 입니다.");
-    }
+  async transportVerificationCode(email) {
+    try {
+      const checkEmail = await User.findOne({ email });
+      if (checkEmail) {
+        return { success: false, message: "이미 가입된 이메일입니다." };
+      }
 
-    const verificationCode = this.generateRandomNum(11111, 99999);
-    this.emailVerificationcode[email] = verificationCode;
-    await sendMail(res, email, this.emailVerificationcode[email]);
+      const verificationCode = this.generateRandomNum(11111, 99999);
+      this.emailVerificationcode[email] = verificationCode;
+      const mailResult = await sendMail(email, verificationCode);
+
+      if (mailResult.success) {
+        return { success: true, message: "인증 코드가 성공적으로 전송되었습니다." };
+      } else {
+        console.error("이메일 발송 실패:", mailResult.message);
+        return { success: false, message: "인증 코드 전송에 실패했습니다." };
+      }
+    } catch (error) {
+      console.error("인증 코드 전송 중 오류 발생:", error);
+      return { success: false, message: "인증 코드 전송에 실패했습니다." };
+    }
   }
+
 
   async verifyCode(email, code) {
     const savedCode = this.emailVerificationcode[email];

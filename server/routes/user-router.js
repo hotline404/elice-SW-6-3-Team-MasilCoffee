@@ -11,8 +11,13 @@ const JWT = require("../utils/jwt-token");
 UserRouter.post("/signup/send-mail", async (req, res) => {
   try {
     const { email } = req.body;
-    await userService.transportVerificationCode(email, res);
-    res.status(200).json({ success: true, message: "인증 코드가 성공적으로 전송되었습니다." });
+    const result = await userService.transportVerificationCode(email);
+
+    if (result.success) {
+      res.status(200).json({ success: true, message: "인증 코드가 성공적으로 전송되었습니다." });
+    } else {
+      res.status(500).json({ success: false, message: "인증 코드 전송에 실패했습니다." });
+    }
   } catch (error) {
     console.error("인증 코드 전송 중 오류 발생:", error);
     res.status(500).json({ success: false, message: "인증 코드 전송에 실패했습니다." });

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetAllProducts } from "../../redux/action/productAction";
-import { getAllProducts } from "../../api/product";
+import { getAllProductsMain } from "../../api/product";
 import { setOrderDetail } from "../../redux/action/orderDetailAction";
 import { mockup } from "./components/data/menuMockup";
 
@@ -16,6 +16,9 @@ const Order = ({ children }) => {
   // const tdDataFromState = useSelector((state) => state);
   // console.log("tddata", tdDataFromState);
   const productsFromState = useSelector((state) => state.product.products);
+
+  console.log("프로덕트 액션 가져오기", productsFromState);
+
   // console.log("productsFromState", productsFromState);
 
   // orderDetail api가 Order 페이지 렌더링 시 한 번만 호출하는 최적화 용도
@@ -25,7 +28,7 @@ const Order = ({ children }) => {
       // const response = await fetch("client/src/pages/order/components/data/menuMockup.js");
       // const data = await response.json();
       const data = mockup;
-      console.log(data)
+      console.log(data);
 
       dispatch(setOrderDetail(data));
     } catch (error) {
@@ -40,14 +43,16 @@ const Order = ({ children }) => {
   useEffect(() => {
     const fn = async () => {
       try {
-        const products = await getAllProducts(); //비동기
-        dispatch(actionGetAllProducts(products));
+        const products = await getAllProductsMain(); //비동기
+        console.log("프로덕트 가져오기", products);
+        dispatch(actionGetAllProducts(products.data));
+        console.log("productsFrom", productsFromState);
       } catch (err) {
         console.log("err", err);
       }
     };
     fn();
-  }, [dispatch]);
+  }, []);
 
   // 카테고리 필터링 하기
   const [selectedCategory, setSelectedCategory] = useState("전체");

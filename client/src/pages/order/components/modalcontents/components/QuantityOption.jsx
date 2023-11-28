@@ -6,12 +6,19 @@ import {
 } from "../ModalContents.style";
 import { SlideAnimation, Round } from "./SlideAnimation";
 import { useDispatch, useSelector } from "react-redux";
-import { increaseOption, decreaseOption } from "../../../../../redux/action/orderDetailAction";
+import {
+  increaseOption,
+  decreaseOption,
+} from "../../../../../redux/action/orderDetailAction";
 
-function QuantityOption({optionName}) {
+function QuantityOption({ optionName }) {
   const dispatch = useDispatch();
-  const origin = useSelector(state => state.orderDetail.orderDetail[optionName]);
-  const details = useSelector((state) => state.orderDetail.selectedOptions[optionName]);
+  const origin = useSelector(
+    (state) => state.orderDetail.orderDetail[optionName]
+  );
+  const details = useSelector(
+    (state) => state.orderDetail.selectedOptions[optionName]
+  );
   const [isAnimated, setIsAnimated] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [showContent, setShowContent] = useState(false);
@@ -25,7 +32,7 @@ function QuantityOption({optionName}) {
     }
   };
 
-   const handleIncreaseOption = (itemName) => {
+  const handleIncreaseOption = (itemName) => {
     dispatch(increaseOption(optionName, itemName));
   };
 
@@ -35,10 +42,12 @@ function QuantityOption({optionName}) {
 
   useEffect(() => {
     let rusultPrice = 0;
-    console.log(details)
-    details.forEach(detail => {
-        rusultPrice += detail.quantity * origin.find(item => item.name === detail.name).price;
-    })
+    console.log(details);
+    details.forEach((detail) => {
+      rusultPrice +=
+        detail.quantity *
+        origin.find((item) => item.name === detail.name).price;
+    });
     setTotalPrice(rusultPrice);
   }, [details]);
 
@@ -59,16 +68,22 @@ function QuantityOption({optionName}) {
                 isAnimated ? "slide-open" : "slide-close"
               }`}
             >
-              {showContent && details.length > 0 && details.map(detail => 
-                (<div key={detail.name}>
-                  <span>{detail.name}</span>
-                  <Round>
-                    <div onClick={() => handleIncreaseOption(detail.name)}>+</div>
+              {showContent &&
+                details.length > 0 &&
+                details.map((detail) => (
+                  <div key={detail.name}>
                     <span>{detail.name}</span>
-                    <div onClick={() => handleDecreaseOption(detail.name)}>-</div>
-                  </Round>
-                </div>)
-              )}
+                    <Round>
+                      <div onClick={() => handleDecreaseOption(detail.name)}>
+                        -
+                      </div>
+                      <span>{detail.name}</span>
+                      <div onClick={() => handleIncreaseOption(detail.name)}>
+                        +
+                      </div>
+                    </Round>
+                  </div>
+                ))}
             </div>
           </SlideAnimation>
         </div>

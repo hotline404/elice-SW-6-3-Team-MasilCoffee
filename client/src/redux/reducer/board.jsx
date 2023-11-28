@@ -15,12 +15,20 @@ const filterFn = (filters, query, boards) => {
 
 const board = (state = initialState, action) => {
   switch (action.type) {
-    //모든 게시물 가져오기
+    //모든 게시물 가져오기(초기)
     case BOARD_TYPE.GET_ALL_BOARDS:
       return {
         ...state,
         boards: action.payload,
-        searchBoards: action.payload,
+        //searchBoards: action.payload,
+      };
+    
+    //모든 게시물 가져오기(페이지네이션)
+    case BOARD_TYPE.GET_ALL_MORE_BOARDS:
+      return {
+        ...state,
+        boards: [...state.boards, ...action.payload],
+        //searchBoards: action.payload,
       };
 
     //게시물 검색

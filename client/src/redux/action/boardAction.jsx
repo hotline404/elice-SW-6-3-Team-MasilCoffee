@@ -1,9 +1,17 @@
 import { BOARD_TYPE } from "./_types";
 
-//모든 게시물 가져오기
+//모든 게시물 가져오기(초기)
 export const actionGetAllBoards = (boards) => {
   return {
     type: BOARD_TYPE.GET_ALL_BOARDS,
+    payload: boards,
+  };
+};
+
+//모든 게시물 가져오기(페이지네이션)
+export const actionGetAllMoreBoards = (boards) => {
+  return {
+    type: BOARD_TYPE.GET_ALL_MORE_BOARDS,
     payload: boards,
   };
 };

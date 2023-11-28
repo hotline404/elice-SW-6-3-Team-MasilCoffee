@@ -15,6 +15,7 @@ export const OPTION_TYPE = {
 
 export const BOARD_TYPE = {
   GET_ALL_BOARDS: "get_all_boards",
+  GET_ALL_MORE_BOARDS: "get_all_moare_boards",
   GET_SEARCH_BOARDS: "get_search_boards",
   GET_FILTER_BOARDS: "get_filter_boards",
   REMOVE_FILTER_BOARDS: "remove_filter_boards",

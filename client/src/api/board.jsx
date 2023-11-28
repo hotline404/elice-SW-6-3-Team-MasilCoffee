@@ -1,11 +1,11 @@
 import axios from "axios";
 
 //모든 게시판 불러오기
-export const getAllBoards = async () => {
-  try {
-    const res = await axios.get("http://localhost:5000/api/v1/boards/all");
-    const boards = res.data.data;
-
+export const getAllBoards = async (currentPage, pageSize) => {
+  try { 
+    const res = await axios.get(`http://localhost:5000/api/v1/boards?currentPage=${currentPage}&pageSize=${pageSize}`);
+    const boards = res.data.data.data;
+    
     return boards;
   } catch (error) {
     console.error("error(getAllBoards)", error);

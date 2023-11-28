@@ -54,8 +54,10 @@ export const actionUpdateBoard = (board) => {
   }
 }
 
-export const actionRemoveBoard = () => {
+//게시물 삭제하기
+export const actionRemoveBoard = (boardId) => {
   return {
     type: BOARD_TYPE.REMOVE_BOARD,
+    payload: boardId,
   };
 };

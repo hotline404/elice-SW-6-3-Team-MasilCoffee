@@ -82,10 +82,25 @@ const board = (state = initialState, action) => {
         boards: [...state.boards, action.payload],
       };
 
-    case BOARD_TYPE.REMOVE_BOARD:
+    //게시글 수정하기
+    case BOARD_TYPE.UPDATE_BOARD:
+      const updateBoard = action.payload;
+      const updatedBoards = state.boards.map((board) => board._id === updateBoard._id ? updateBoard : board);
+
       return {
         ...state,
-        board: [],
+        board: [updateBoard],
+        boards: [updatedBoards],
+      };
+
+    //게시글 삭제하기
+    case BOARD_TYPE.REMOVE_BOARD:
+      const deletedBoardId = action.payload;
+      const filteredBoards = state.boards.filter((board) => board._id !== deletedBoardId);
+
+      return {
+        ...state,
+        boards: [filteredBoards],
       };
 
     default:

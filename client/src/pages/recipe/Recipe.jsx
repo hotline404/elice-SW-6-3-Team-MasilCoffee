@@ -33,7 +33,9 @@ const Recipe = () => {
     window.scrollTo(0, 0);
   }, [])
 
-  const hanleClick = (boardId) => {
+  const hanleClick = (event, boardId) => {
+    event.preventDefault();
+
     const fn = async () => {
       try {
         const board = await getBoard(boardId);
@@ -73,7 +75,7 @@ const Recipe = () => {
           allBoards.map((post) => (
             <S.PostWrap
               key={post._id}
-              onClick={() => hanleClick(post._id)}
+              onClick={(e) => hanleClick(e, post._id)}
             >
                 <PostList post={post} type={"list"} />
               </S.PostWrap>

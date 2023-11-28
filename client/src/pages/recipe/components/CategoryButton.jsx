@@ -42,7 +42,6 @@ const CategoryButton = ({ query, category, setCategory, defaultValue}) => {
         const defaultIndex = categorysArr.findIndex((category) => category.name === defaultValue);
         
         newActiveStates[defaultIndex] = true;
-        setCategory(defaultValue);
       } else { //게시글 작성
         newActiveStates[0] = true; //첫 번째 카테고리를 활성화
         setCategory(categorysArr[0].name);

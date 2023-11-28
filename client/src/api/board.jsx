@@ -51,24 +51,20 @@ export const getMyBoards = async (userId) => {
 
 //게시글 작성하기
 export const addBoard = async (token, formData) => {
-  const boardHeader = {
-    "Content-Type": "multipart/form-data",
-    "Authorization": `Bearer ${token}`,
-  };
-  const boardBody = {formData};
-
   try {
-    const res = await axios.post(
-      "http://localhost:5000/api/v1/boards",
-      boardBody,
-      boardHeader
-    );
+    const res = await axios.post("http://localhost:5000/api/v1/boards/", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const board = res.data.data;
+    console.log("addBoard", board);
 
     return board;
   } catch (error) {
     alert("게시글 작성을 실패하였습니다.");
-    console.error("error(addBoard)", error);
+    console.error("error(addBoard)", error.response || error);
   }
 }
 

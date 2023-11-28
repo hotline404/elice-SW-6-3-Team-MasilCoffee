@@ -7,34 +7,35 @@ import CategoryButton from "../components/CategoryButton";
 import FileUpload from "../components/FileUpload";
 import SquareButton from "../../../components/ui/button/SquareButton";
 import KeywordInput from "../components/KeywordInput";
-import postData from "../postData.json";
-import { addBoard, updateBoard } from "../../../api/board";
+import { addBoard, updateBoard, getBoard } from "../../../api/board";
 import { actionAddBoard, actionUpdateBoard } from "../../../redux/action/boardAction";
 
-const RecipeWrite = ({ boardData }) => {
+const RecipeWrite = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
+  const boardId = location.state && location.state.post;
   const token = useSelector((state) => state.login.token);
-  
+  console.log(boardId)
   const [category, setCategory] = useState("");
   const [post, setPost] = useState("");
   const [keywords, setKeywords] = useState([]);
   const [images, setImages] = useState([]);
-  const [editBoard, setEditBoard] = useState({
-    category: "",
-    post: "",
-    keyword: [],
-    image: [],
-  });
-  //const [editBoard, setEditBoard] = useState(postData[0]);
+  const [editBoard, setEditBoard] = useState("");
 
   useEffect(() => {
-    // if () { //게시글 수정하기
-    //   setPost(editBoard.post)  //꼭 들어가야함!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //   setEditBoard();
-    // } else { //게시글 작성하기
-    //   setEditBoard();
+    // if (boardId) {
+    //   const fn = async () => {
+    //     try {
+    //       const board = await getBoard(boardId);
+    //       setEditBoard(board);
+    //       console.log("board", board);
+    //       console.log(editBoard)
+    //     } catch (err) {
+    //       console.log("err", err);
+    //     }
+    //   };
+    //   fn();
     // }
   }, []);
   
@@ -46,42 +47,47 @@ const RecipeWrite = ({ boardData }) => {
 
     formData.append("category", category);
     formData.append("post", post);
-    formData.append("keyword", JSON.stringify(keywordText));
+    keywordText.forEach((keyword) => {
+      formData.append("tags", keyword);
+    })
     images.forEach((file, index) => {
-      formData.append(`image_${index}`, file);
+      formData.append("file", file);
     });
 
     for (const pair of formData.entries()) {
       console.log("formDataPair", pair);
     }
 
-    // const fn = async () => {
-    //   if (boardData) { //게시글 수정
-    //     try {
-    //       const updatedBoard = await updateBoard(boardData.boardId, formData);
-    //       console.log("update", updatedBoard);
-    //       dispatch(actionUpdateBoard(updatedBoard));
-    //     } catch (error) {
-    //       console.error("RecipeWrite.jsx - update", error);
-    //     }
-    //   } else { //게시글 작성
-    //     try {
-    //       const newBoard = await addBoard(formData, token);
-    //       console.log("add", newBoard);
-    //       dispatch(actionAddBoard(newBoard));
-    //     } catch (error) {
-    //       console.error("RecipeWrite.jsx - add", error);
-    //     }
-    //   }
-    // };
-    // fn();
+    const fn = async () => {
+      if (boardId) { //게시글 수정
+        try {
+          const updatedBoard = await updateBoard(boardId, formData);
+          console.log("update", updatedBoard);
+          dispatch(actionUpdateBoard(updatedBoard));
+        } catch (error) {
+          console.error("RecipeWrite.jsx - update", error);
+        }
+      } else { //게시글 작성
+        try {
+          const newBoard = await addBoard(token, formData);
+          console.log("add", newBoard);
+          dispatch(actionAddBoard(newBoard));
+
+          alert("게시글이 등록되었습니다.");
+          navigate("/Recipe");
+        } catch (error) {
+          console.error("RecipeWrite.jsx - add", error);
+        }
+      }
+    };
+    fn();
   };
 
   return (
     <Background>
       <ContainerWrap>
         <Container>
-          <Title>나만의 꿀조합 작성하기</Title>
+          <Title>나만의 꿀조합 {boardId ? "수정" : "작성"}하기</Title>
           <CategoryButton
             query={"edit"}
             category={category}
@@ -105,7 +111,7 @@ const RecipeWrite = ({ boardData }) => {
           />
           <S.ButtonWrap>
             <SquareButton
-              text={"작성하기"}
+              text={boardId ? "수정하기" : "작성하기"}
               type={"red"}
               onClick={handleSubmit}
             />

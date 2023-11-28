@@ -11,6 +11,23 @@ export const PostDate = styled.span`
   margin-left: 15px;
 `;
 
+//수정/삭제 감싸는 span
+export const EditDeleteWrap = styled.span`
+  float: right;
+  font-size: 0.9rem;
+`;
+
+//수정/삭제
+export const EditDelete = styled.span`
+  cursor: pointer;
+  padding: 5px 10px;
+
+  &:hover {
+    background-color: #d9d9d9;
+    border-radius: 15px;
+  }
+`;
+
 //게시글
 export const PostPre = styled.pre`
   font-size: 1rem;

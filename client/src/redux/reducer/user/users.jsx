@@ -1,86 +1,87 @@
+import DateFormat from "../../../util/DateFormat/DateFormat";
+import { USERS_TYPE } from "../../action/_types";
 import FilterFn from "../../../util/FilterCheckBox/FilterFn";
 
-// const checkboxes = [
-//   {
-//     id: "filter-all",
-//     name: "filter-all",
-//     pathFn: (user) => user,
-//     label: "Filter all",
-//   },
-//   {
-//     id: "filter-userName",
-//     name: "filter-userName",
-//     pathFn: (user) => user.name,
-//     label: "Filter user name",
-//   },
-//   {
-//     id: "filter-tel",
-//     name: "filter-tel",
-//     pathFn: (user) => user.phone,
-//     label: "Filter user tel",
-//   },
-//{
-//     id: "filter-id",
-//     name: "filter-id",
-//     pathFn: (user) => user.id,
-//     label: "Filter user id",
-//   },
-// ];
-
 const initUsersState = {
-  filter: {},
   searchData: [],
   users: [],
+  tableData: [],
 };
+
+const formatUserForTable = (user) => [user._id, user.name, user.email, user.phone, user.nickname, DateFormat("date", user.createdAt)];
 
 const users = (state = initUsersState, action) => {
   switch (action.type) {
-    case "init": {
-
+    case USERS_TYPE.GET_ALL_USERS: {
       return {
         ...state,
-        searchData: [action.payload.users],
-        users: [action.payload.users],
+        searchData: [action.payload.initData],
+        users: [action.payload.initData],
+        tableData: action.payload.initData.map(formatUserForTable),
       };
     }
 
-    case "get.search": {
-      const { searchData, filter } = state;
-      const { query } = action.payload;
+    case USERS_TYPE.SEARCH_USERS: {
+      const { users } = state;
+      console.log("userData", users[0]);
 
-      if (!query) {
-        return { ...state, users: searchData };
+      if (!action.payload) {
+        return { ...state, users: users };
       }
+      const { name, phone, nickname } = action.payload;
 
-      const filteredUser = searchData.filter(FilterFn(filter, query));
-      return { ...state, users: filteredUser };
-    }
+      const findUser = users[0].filter((user) => {
+        let filterName = true;
+        let filterPhone = true;
+        let filterNick = true;
 
-    case "add.filter": {
-      const { name, pathFn } = action.payload;
-      return { ...state, filter: { ...state.filter, [name]: pathFn } };
-    }
+        if (phone !== "") {
+          filterPhone = user.phone === phone;
+        }
+        if (name !== "") {
+          filterName = user.name === name;
+        }
+        if (nickname !== "") {
+          filterNick = user.nickname === nickname;
+        }
 
-    case "remove.filter": {
-      const { [action.payload.name]: _, ...rest } = state.filter;
-      return { ...state, filter: rest };
-    }
-
-    case "get.user": {
-      const { initData } = action.payload;
-      return { ...state, users: initData };
-    }
-
-    case "post.user": {
-      const { updateUser } = action.payload;
+        return filterName && filterPhone && filterNick;
+      });
 
       return {
         ...state,
-        users: updateUser,
+        searchData: findUser,
+        tableData: findUser.map(formatUserForTable),
       };
     }
 
-    
+    // case "get.user": {
+    //   const { initData } = action.payload;
+    //   return { ...state, users: initData };
+    // }
+
+    case USERS_TYPE.UPDATE_USERS: {
+      const updatedUser = action.payload;
+
+      console.log("userData", users[0]);
+      const updatedUsers = state.users[0].map((user) => (user._id === updatedUser._id ? updatedUser : user));
+      console.log("업데이트된 유저", updatedUsers);
+      return {
+        ...state,
+        users: updatedUsers,
+        tableData: updatedUsers.map(formatUserForTable),
+      };
+    }
+
+    case USERS_TYPE.DELETE_USERS: {
+      const deletedUserId = action.payload;
+      const filteredUsers = state.users[0].filter((user) => user._id !== deletedUserId);
+      return {
+        ...state,
+        users: filteredUsers,
+        tableData: filteredUsers.map(formatUserForTable),
+      };
+    }
 
     default:
       return state;

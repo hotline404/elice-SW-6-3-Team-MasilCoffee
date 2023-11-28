@@ -8,36 +8,67 @@ import { ButtonBox } from "../style/ButtonBox";
 import React, { Fragment, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../router/Routes";
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import ConfirmPasswordForm from "./ConfirmPasswordForm";
-
+import { axiosPatchUser, axiosDelUser } from "../../../api/user/user";
+import { useParams } from "react-router-dom";
+import { axiosPostLogout } from "../../../api/login/login";
+import { actionLogout } from "../../../redux/action/login/loginAction";
+import { removeUser } from "../../../redux/action/user/userAction";
 
 function ConfirmPassword() {
   const nav = useNavigate();
-  const token = useSelector(state => state.login.token);
-  const user = useSelector(state => state.user)
-  console.log("user", user)
-
+  const token = useSelector((state) => state.login.token);
+  const user = useSelector((state) => state.user);
+  const params = useParams().req;
+  const dispatch = useDispatch();
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-  const data = user;
+
+  const axiosPostFn = async (token, nickname, phone, checkpassword, email) => {
+    try {
+      const res = await axiosPatchUser(token, nickname, phone, checkpassword);
+      await axiosPostLogout(token, email);
+      alert(res.message);
+      dispatch(actionLogout());
+      dispatch(removeUser());
+      nav(ROUTES.MAIN.path);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const axiosDelFn = async (token, email) => {
+    try {
+      const res = await axiosDelUser(token);
+      console.log(res)
+      await axiosPostLogout(token, email);
+      alert("회원 삭제 완료!");
+      dispatch(actionLogout());
+      dispatch(removeUser());
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    const inputEmail = emailRef.current ? emailRef.current.value : "";
+    const newNickname = user.nickname;
+    const newPhone = user.phone;
     const inputPassword = passwordRef.current ? passwordRef.current.value : "";
+    const inputEmail = emailRef.current ? emailRef.current.value : "";
 
-
-    const isMatch = user.email === inputEmail && user.password === inputPassword
-
-
-    if (!isMatch) {
-      alert("이메일과 비밀번호를 확인해 주세요.");
-    } else {
-      nav(ROUTES.MAIN.path);
-      alert("정보가 변경 되었습니다.")
+    switch (params) {
+      case "post":
+        {
+          axiosPostFn(token, newNickname, newPhone, inputPassword, inputEmail);
+        }
+        break;
+      case "del": {
+        axiosDelFn(token, inputEmail);
+      }
     }
   };
 

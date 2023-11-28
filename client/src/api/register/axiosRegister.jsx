@@ -17,7 +17,7 @@ export const axiosRegister = async (name, email, nickname, password, phone) => {
     nickname: nickname,
     phone: phone,
     password: password,
-    role: "Admin"
+    role: "User"
   };
 
   try {

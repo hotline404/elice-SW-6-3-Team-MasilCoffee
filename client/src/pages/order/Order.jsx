@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetAllProducts } from "../../redux/action/productAction";
 import { getAllProducts } from "../../api/product";
+import { setOrderDetail } from "../../redux/action/orderDetailAction";
+import { mockup } from "./components/data/menuMockup";
 
 import Card from "./components/card/Card";
 import { StyledOrder } from "./Order.style";
@@ -11,16 +13,34 @@ import Slider from "react-slick";
 const Order = ({ children }) => {
   const dispatch = useDispatch();
 
-  const tdDataFromState = useSelector((state) => state);
-  console.log("tddata", tdDataFromState);
+  // const tdDataFromState = useSelector((state) => state);
+  // console.log("tddata", tdDataFromState);
   const productsFromState = useSelector((state) => state.product.products);
-  console.log("productsFromState", productsFromState);
+  // console.log("productsFromState", productsFromState);
+
+  // orderDetail api가 Order 페이지 렌더링 시 한 번만 호출하는 최적화 용도
+  // api 나오면 수정 필요
+  const fetchOrderDetail = async () => {
+    try {
+      // const response = await fetch("client/src/pages/order/components/data/menuMockup.js");
+      // const data = await response.json();
+      const data = mockup;
+      console.log(data)
+
+      dispatch(setOrderDetail(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrderDetail();
+  }, []);
 
   useEffect(() => {
     const fn = async () => {
       try {
         const products = await getAllProducts(); //비동기
-        console.log("디스패치 전 데이터", products);
         dispatch(actionGetAllProducts(products));
       } catch (err) {
         console.log("err", err);
@@ -140,9 +160,9 @@ const Order = ({ children }) => {
       </div>
       <div className="cards-container">
         {Array.isArray(filteredProducts) &&
-          filteredProducts.map((product) => 
+          filteredProducts.map((product) => (
             <Card key={product._id} data={product} />
-          )}
+          ))}
       </div>
     </StyledOrder>
   );

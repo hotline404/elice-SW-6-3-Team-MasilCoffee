@@ -15,6 +15,7 @@ const PingRouter = require("./routes/ping-router");
 const ProductRouter = require("./routes/product-router");
 const BoardRouter = require("./routes/board-router");
 const UserRouter = require("./routes/user-router");
+const CommentRouter = require("./routes/comment-router");
 
 // mongoose
 mongoose
@@ -29,6 +30,7 @@ app.use("/api/v1", PingRouter);
 app.use("/api/v1/products", ProductRouter);
 app.use("/api/v1/boards", BoardRouter);
 app.use("/api/v1/users", UserRouter);
+app.use("/api/v1/comment", CommentRouter);
 // single("여기이름이랑") Key 값이 일치해야함
 // posturl : http://localhost:5000/test/image?directory=product
 // /test/image 는 라우터 호출하는 주소,

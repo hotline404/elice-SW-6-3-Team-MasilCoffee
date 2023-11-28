@@ -16,32 +16,34 @@ export const axiosGetUser = async (token) => {
   return user;
 };
 
-export const axiosPatchUser = async (token, newNickname, newPhone) => {
-  const headers = { Authorization: `Bearer ${token}` };
-  const body = { nickname: newNickname, phone: newPhone };
+export const axiosPatchUser = async (token, newNickname, newPhone, checkPassword) => {
+  const headers = { headers: { Authorization: `Bearer ${token}` } };
+  const body = {
+    nickname: newNickname,
+    phone: newPhone,
+    checkPassword: checkPassword,
+  };
 
   const res = await axios.patch(urluser, body, headers);
 
-  const newUser = res.data.data;
+  const newUser = res;
 
   return newUser;
 };
 
 export const axiosDelUser = async (token) => {
-  const headers = { Authorization: `Bearer ${token}` };
+  const headers = { headers: { Authorization: `Bearer ${token}` } };
 
-  const res = await axios.del(urluser, headers);
+  const res = await axios.delete(urluser, headers);
 
-  const delUser = res.data.data;
+  const delUser = res
 
   return delUser;
 };
 
-
-
 //admin user
 export const axiosGetAdmin = async (token, userId) => {
-  const headers = { Authorization: `Bearer ${token}` };
+  const headers = { headers: { Authorization: `Bearer ${token}` } };
 
   const res = await axios.get(`${urlAdmin}/${userId}`, headers);
 
@@ -50,14 +52,9 @@ export const axiosGetAdmin = async (token, userId) => {
   return admin;
 };
 
-export const axiosPatchAdmin = async (
-  token,
-  userId,
-  newName,
-  newNickname,
-  newPhone
-) => {
-  const headers = { Authorization: `Bearer ${token}` };
+export const axiosPatchAdmin = async (token, userId, newName, newNickname, newPhone) => {
+  const headers = { headers: { Authorization: `Bearer ${token}` } };
+
   const body = { name: newName, nickname: newNickname, phone: newPhone };
 
   const res = await axios.patch(`${urlAdmin}/${userId}`, body, headers);
@@ -68,9 +65,9 @@ export const axiosPatchAdmin = async (
 };
 
 export const axiosDelAdmin = async (token, userId) => {
-  const headers = { Authorization: `Bearer ${token}` };
+  const headers = { headers: { Authorization: `Bearer ${token}` } };
 
-  const res = await axios.del(`${urlAdmin}/${userId}`, headers);
+  const res = await axios.delete(`${urlAdmin}/${userId}`, headers);
 
   const delAdim = res.data.data;
 

@@ -30,7 +30,7 @@ const user = (state = initUserState, action) => {
         phone: userData.phone,
         role: userData.role,
         user_id: userData._id,
-        recipe: userData.recipe,
+        recipe: [userData.recipe],
       };
     }
 
@@ -66,8 +66,8 @@ const user = (state = initUserState, action) => {
 
       return {
         ...state,
-        recipe : [...state.recipe, recipe]
-      }
+        recipe: [...(state.recipe || []), recipe],
+      };
     }
 
     case "remove.user": {

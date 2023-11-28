@@ -1,6 +1,8 @@
 const Product = require("../models/product-schema");
 
 class ProductService {
+
+  // 제품 생성
   static async createProduct(productData, imageURL) {
     try {
       productData.image_url = imageURL;
@@ -40,11 +42,7 @@ class ProductService {
         product.image_url = productData.image_url;
         await product.save();
       }
-      const updatedProduct = await Product.findByIdAndUpdate(
-        productId,
-        { $set: productData },
-        { new: true }
-      );
+      const updatedProduct = await Product.findByIdAndUpdate(productId, { $set: productData }, { new: true });
       return updatedProduct;
     } catch (error) {
       throw error;

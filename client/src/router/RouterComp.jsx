@@ -14,13 +14,13 @@ const RouterComp = () => {
       <Headers location={location} />
       <Routes>
         {ROUTES_ARR.map((el) => (
-          <Route key={el.path} path={el.path} element={el.element} />
+          <Route key={el.path} path={el.link} element={el.element} />
         ))}
       </Routes>
       <Banner location={location} />
       <Footer location={location} />
     </Fragment>
-  );
+  );  
 };
 
 export default RouterComp;

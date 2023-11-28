@@ -4,14 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const imageArr = [
-  "assets/images/image1.jpg",
-  "assets/images/image2.jpg",
-  "assets/images/image3.jpg",
-  "assets/images/image4.jpg"
-];
-
-const ImageSlider = () => {
+const ImageSlider = ({ images }) => {
   const settings = {
     dots: true,
     fade: true,
@@ -21,12 +14,11 @@ const ImageSlider = () => {
   };
 
   return (
-    <ImageWrap>
+    <ImageWrap onClick={(e) => e.preventDefault()}>
       <StyledSlider {...settings}>
-        {imageArr.map((image) => (
+        {images.map((image) => (
           <Image src={image} alt="" />
         ))}
-        {/* <SliderItem /> */}
       </StyledSlider>
     </ImageWrap>
   );
@@ -69,6 +61,7 @@ const StyledSlider = styled(Slider)`
 const ImageWrap = styled.div`
   width: 70%;
   margin: 0 auto;
+  cursor: auto;
 
   @media all and (max-width: 767px) {
     width: 90%;

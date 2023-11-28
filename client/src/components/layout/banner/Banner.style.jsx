@@ -9,4 +9,4 @@ export const StyledBanner = styled.div`
   right: 20px;
 
   cursor: pointer;
-`
+`;

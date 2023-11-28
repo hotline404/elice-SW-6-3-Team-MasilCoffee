@@ -49,7 +49,7 @@ function UserInfoView({ userEmail }) {
       <Contents>
         <Card>
           <InputCard>
-            <h3>회원 정보</h3>
+            <h3>회원 정보 변경</h3>
             <UserInfoForm InputInfo={InputInfo} email={userEmail} />
             <ButtonBox>
               <DeleteBtn onClick={navConfirmDel}>회원탈퇴</DeleteBtn>

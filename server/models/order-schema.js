@@ -42,6 +42,7 @@ const OrderSchema = new Schema(
     },
     {
         timestamps: true,
+        versionKey: false,
     }
 );
 v

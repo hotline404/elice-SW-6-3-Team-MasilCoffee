@@ -18,6 +18,5 @@ apiInstance.interceptors.request.use(
     // 2. 요청 에러가 있는 작업 처리
     return Promise.reject(error);
   }
-
-  );
-  export default apiInstance;
+);
+export default apiInstance;

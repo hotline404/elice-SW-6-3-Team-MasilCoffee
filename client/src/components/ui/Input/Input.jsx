@@ -5,7 +5,11 @@ const Input = React.forwardRef((props, ref) => {
   return (
     <TheBox>
       <Label>{props.input.name}</Label>
-      <InputArea ref={ref} {...props.input} />
+      {props.input.readonly === true ? (
+        <InputArea ref={ref} onChange={props.onChange} {...props.input} readonly="readonly"/>
+      ) : (
+        <InputArea ref={ref} onChange={props.onChange} {...props.input} />
+      )}
     </TheBox>
   );
 });
@@ -17,12 +21,11 @@ const TheBox = styled.div`
   justify-content: space-between;
   align-content: space-between;
   align-items: center;
-  text-align: left;
-  
-`; 
+`;
 
 const Label = styled.h3`
-  width: 80px
+  width: 80px;
+  text-align: left;
 `;
 
 const InputArea = styled.input`
@@ -33,5 +36,5 @@ const InputArea = styled.input`
 
   &:focus {
     outline: none;
-}
+  }
 `;

@@ -1,4 +1,4 @@
-import { ROUTES } from '../router/Routes';
+import { ROUTES } from "../router/Routes";
 
 const RedColorPage = [
   ROUTES.RECIPE.path,
@@ -8,13 +8,13 @@ const RedColorPage = [
   ROUTES.RECIPEVIEW.path,
   ROUTES.RECIPEWRITE.path,
   ROUTES.RECIPE.path,
+  ROUTES.CART.path,
 ];
 
 function IncludeRedPage(location) {
-  const includeBoolean = RedColorPage.includes(location)
-  
+  const includeBoolean = RedColorPage.includes(location);
 
   return includeBoolean;
 }
 
-export default IncludeRedPage
+export default IncludeRedPage;

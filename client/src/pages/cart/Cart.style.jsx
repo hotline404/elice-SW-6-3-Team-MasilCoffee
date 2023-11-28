@@ -5,11 +5,17 @@ export const StyledPaymentcontainer = styled.div`
   margin: 0 auto;
   width: 100vw;
   height: 100vh;
-  background-color: #8e0e28;
+  background-color: #d9d9d9;
   overflow: auto;
 `;
 
 export const StyledPaymentBox = styled.div`
+  > h1 {
+    color: black;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    text-align: center;
+  }
   margin-top: 100px;
   margin: 0 auto;
   width: 80%;
@@ -92,36 +98,7 @@ export const StyledOrderList = styled.div`
     border: 2px solid #8e0e28;
   }
 `;
-export const StyledOrderListMenu = styled.div`
-  > i {
-    display: block;
-    width: 100%;
-    border: 1px solid #8e0e28;
-  }
-`;
-export const StyledOrderListMenuBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 30px 0;
 
-  > div:nth-child(1) {
-    display: flex;
-    flex-direction: column;
-    > b {
-      padding-bottom: 10px;
-      font-size: 20px;
-    }
-  }
-  > div:nth-child(2) {
-    font-size: 20px;
-    font-weight: 600;
-  }
-  > div:nth-child(3) {
-    font-size: 20px;
-    font-weight: 600;
-  }
-`;
 export const StyledAmountPayment = styled.div`
   padding-top: 30px;
   padding-bottom: 30px;
@@ -129,11 +106,29 @@ export const StyledAmountPayment = styled.div`
   > div {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    > h2:nth-child(2) {
+      color: #8e0e28;
+    }
   }
   > i {
     display: block;
     width: 100%;
 
     border: 2px solid #8e0e28;
+  }
+`;
+export const StyledButton = styled.div`
+  display: flex;
+`;
+export const StyleTotalText = styled.div`
+  display: flex;
+  align-items: center;
+  > h2:nth-child(1) {
+    padding-right: 15px;
+    font-size: 15px;
+  }
+  > h2:nth-child(2) {
+    color: #8e0e28;
   }
 `;

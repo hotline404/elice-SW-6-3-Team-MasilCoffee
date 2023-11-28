@@ -8,21 +8,14 @@ const img_data = {
 
 function GoTop(props) {
   const src = IncludeRedPage(props.location) ? img_data.white : img_data.red;
-  
 
   const handleClick = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-
-
-
   return (
     <div>
-      <img
-        src={src}
-        onClick={handleClick}
-      />
+      <img src={src} onClick={handleClick} />
     </div>
   );
 }

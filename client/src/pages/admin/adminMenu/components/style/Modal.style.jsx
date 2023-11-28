@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
+import GetAllOption from "../GetAllOption";
 
 export const ModalBackground = styled.div`
   display: flex;
@@ -245,4 +246,8 @@ export const Submit = styled.button`
   &:hover {
     background-color: #d12b4d;
   }
+`;
+
+export const AllOption = styled(GetAllOption)`
+  margin: 20px;
 `;

@@ -10,9 +10,9 @@ export const StyledPaymentcontainer = styled.div`
 `;
 
 export const StyledPaymentBox = styled.div`
-  margin-top: 100px;
-  margin: 0 auto;
+  margin: 100px auto;
   width: 90%;
+
   // 뷰포트 너비가 1024px 이하일 때
   @media (max-width: 1024px) {
     width: 75%; // 너비를 줄임
@@ -30,10 +30,11 @@ export const StyledPaymentBox = styled.div`
 `;
 
 export const StyledPaymentActionBox = styled.div`
+  margin: 100px 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 100px;
+
   > span {
     width: 100px;
     height: 95px;

@@ -1,19 +1,80 @@
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/ui/button/Button";
+import OrderList from "./OrderList";
 import {
   StyledPayment,
   StyledPaymentcontainer,
   StyledPaymentBox,
   StyledInfoBox,
   StyledOrderList,
-  StyledOrderListMenu,
-  StyledOrderListMenuBox,
   StyledAmountPayment,
   StyledInfoContainer,
   StyledCheck,
+  StyledButton,
+  StyleTotalText,
 } from "./Cart.style";
 
+import { useDispatch, useSelector } from "react-redux";
+import * as orderOptionAction from "../../redux/action/orderOptionAction";
+import { addOrder, removeOrder } from "../../redux/action/orderAction";
+import { paymentAction } from "../../redux/action/paymentAction";
+
 const Cart = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const orders = useSelector((state) => state.order);
+  const [orderList, setOrderList] = useState([]);
+  // 각 주문에 대한 체크 상태를 관리하는 로컬 상태
+  const [checkedStates, setCheckedStates] = useState({});
+  // 로그인 상태에 따라 주문하기 클릭시 로그인 화면으로 라우트 or 결제 진행
+  const isLogin = useSelector(state => state.login.loginState);
+
+  const handleOnCheck = (e) => {
+    if (e.target.checked) {
+      const newCheckedStates = orders.reduce((acc, order) => {
+        acc[order.orderId] = true;
+        return acc;
+      }, {});
+      setCheckedStates(newCheckedStates);
+      setOrderList(orders);
+    } else {
+      setCheckedStates({});
+      setOrderList([]);
+    }
+  };
+
+  const handleOnSelect = (order) => {
+    const updatedCheckedStates = {
+      ...checkedStates,
+      [order.orderId]: !checkedStates[order.orderId],
+    };
+    setCheckedStates(updatedCheckedStates);
+
+    if (updatedCheckedStates[order.orderId]) {
+      setOrderList((orders) => [...orders, order]);
+    } else {
+      setOrderList((orders) =>
+        orders.filter((o) => o.orderId !== order.orderId)
+      );
+    }
+  };
+
+  const handleOnClickToRemove = () => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      orderList.forEach((order) => dispatch(removeOrder(order.orderId)));
+    }
+  };
+
+  useEffect(() => {
+    // 주문 목록이 변경될 때마다 checkedStates 초기화
+    const initialCheckedStates = orders.reduce((acc, order) => {
+      acc[order.orderId] = false;
+      return acc;
+    }, {});
+    setCheckedStates(initialCheckedStates);
+  }, [orders]);
+
   return (
     <StyledPaymentcontainer>
       <StyledPaymentBox>
@@ -24,47 +85,61 @@ const Cart = () => {
               <StyledOrderList>
                 <StyledCheck>
                   <div>
-                    {" "}
-                    <input type="checkbox" />
+                    <input onClick={handleOnCheck} type="checkbox" />
                     <h2>전체선택</h2>
                   </div>
-                  <Button text={"선택삭제"} type={"grey"} />
+                  <StyledButton>
+                    <Button
+                      onClick={() => handleOnClickToRemove()}
+                      text={"선택삭제"}
+                      type={"grey"}
+                    />
+                  </StyledButton>{" "}
                 </StyledCheck>
                 <i></i>
-                <StyledOrderListMenu>
-                  <StyledOrderListMenuBox>
-                    <div>
-                      <div>
-                        <input type="checkbox" />
-                        <b>에스프레소</b>
-                      </div>
-                      <span>
-                        샷1,시럽없음,얼음없음,휘핑없음,드리즐없음,우유없음
-                      </span>
-                      <div>
-                        <b>수량</b>
-                        <button>-</button>
-                        <span>0</span>
-                        <button>+</button>
-                        <b>총 주문금액</b>
-                        <b>4,500원</b>
-                      </div>
-                    </div>
-                    <div>이미지</div>
-                  </StyledOrderListMenuBox>
-                </StyledOrderListMenu>
-                <i></i>
+                <OrderList
+                  handleOnSelect={handleOnSelect}
+                  checkedStates={checkedStates}
+                />
               </StyledOrderList>
               <StyledAmountPayment>
                 <div>
-                  <h2>총 결제 금액</h2>
-                  <h2>9,000원</h2>
-                  <Link to="/Order">
-                    <Button text={"메뉴추가"} type={"grey"} />
-                  </Link>
-                  <Link to="/Payment">
-                    <Button text={"주문하기"} type={"red"} />
-                  </Link>
+                  <StyleTotalText>
+                    <h2>총 결제 금액</h2>
+                    <h2>
+                      {orders.length > 0
+                        ? orders
+                            .reduce((acc, order) => acc + order.totalPrice, 0)
+                            .toLocaleString()
+                        : 0}
+                      원
+                    </h2>
+                  </StyleTotalText>
+
+                  <StyledButton>
+                    <Button
+                      onClick={() => {
+                        navigate("/Order");
+                      }}
+                      text={"메뉴추가"}
+                      type={"grey"}
+                    />
+
+                    <Button
+                      onClick={() => {
+                        // if(isLogin === false) {
+                        //   if(window.confirm("로그인 상태가 아닙니다. 로그인하여 결제를 진행해주세요.")) {
+                        //     navigate("/Login");
+                        //   }
+                        //   return;
+                        // }
+                        dispatch(paymentAction(orderList));
+                        navigate("/Payment");
+                      }}
+                      text={"주문하기"}
+                      type={"red"}
+                    />
+                  </StyledButton>
                 </div>
               </StyledAmountPayment>
             </StyledInfoBox>

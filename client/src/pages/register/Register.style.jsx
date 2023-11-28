@@ -43,7 +43,7 @@ export const InputBox = styled.div`
 
   display: flex;
   align-content: space-between;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
 
@@ -61,3 +61,18 @@ export const ButtonBox = styled.div`
   margin-top: 50px;
   margin-bottom: 50px;
 `;
+
+export const AuthButton = styled.div`
+    width: 100px;
+    height: 100%;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    &: hover {
+      color: red;
+    }
+`

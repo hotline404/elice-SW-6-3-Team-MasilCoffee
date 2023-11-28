@@ -70,11 +70,7 @@ class ProductService {
         product.image_url = productData.image_url;
         await product.save();
       }
-      const updatedProduct = await Product.findByIdAndUpdate(
-        productId,
-        { $set: productData },
-        { new: true }
-      );
+      const updatedProduct = await Product.findByIdAndUpdate(productId, { $set: productData }, { new: true });
       return updatedProduct;
     } catch (error) {
       throw error;

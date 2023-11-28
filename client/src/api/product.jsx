@@ -3,7 +3,26 @@ import axios from "axios";
 export const getAllProducts = async () => {
   try {
     const res = await axios.get("http://localhost:5000/api/v1/products");
+    return res.data.data.data;
+  } catch (err) {
+    console.log("getAllProduct-err", err);
+  }
+};
+
+export const getAllProductsMain = async () => {
+  try {
+    const res = await axios.get("http://localhost:5000/api/v1/products/main");
     return res.data.data;
+  } catch (err) {
+    console.log("getAllProduct-err", err);
+  }
+};
+
+export const getCategoryProducts = async () => {
+  try {
+    const res = await axios.get("http://localhost:5000/api/v1/products");
+    console.log(res.data);
+    return res.data.data.data;
   } catch (err) {
     console.log("getAllProduct-err", err);
   }

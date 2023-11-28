@@ -12,8 +12,13 @@ import {
 } from "./PaymentDone.style";
 
 import OderList from "../oderList/OderList";
+import { useSelector } from "react-redux";
 
 const PaymentDone = () => {
+
+  const payment = useSelector((state) => state.payment.orders);
+  console.log("오더 네임", payment);
+
   const navigate = useNavigate();
   return (
     <StyledPaymentcontainer>

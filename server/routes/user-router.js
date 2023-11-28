@@ -30,10 +30,15 @@ UserRouter.post("/signup/verify-code", async (req, res) => {
   const { email, code } = req.body;
 
   try {
-    await userService.verifyCode(email, code);
-    res.status(200).json({ message: "이메일 인증이 완료되었습니다." });
+    const verificationResult = await userService.verifyCode(email, code);
+
+    if (verificationResult.success) {
+      res.status(200).json({ message: "이메일 인증이 완료되었습니다." });
+    } else {
+      res.status(400).json({ error: verificationResult.message });
+    }
   } catch (error) {
-    res.status(400).json({ error: "유효하지 않은 코드입니다." });
+    res.status(500).json({ error: "서버 오류" });
   }
 });
 

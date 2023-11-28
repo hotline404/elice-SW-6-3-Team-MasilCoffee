@@ -6,11 +6,35 @@ const asyncHandler = require("../middlewares/async-handler");
 const ResponseHandler = require("../middlewares/res-handler");
 const JwtMiddleware = require("../middlewares/jwt-handler");
 
+// 특정 카테고리의 게시글 가져오기
+BoardRouter.get(
+  "/categories/:category",
+  asyncHandler(async (req, res) => {
+    const category = req.params.category;
+    const { currentPage, pageSize } = req.query;
+    const boards = await BoardService.getBoardsByCategory(category, currentPage, pageSize);
+    ResponseHandler.respondWithSuccess(res, boards);
+  })
+);
+
+// 특정 board ID의 게시글 가져오기
+BoardRouter.get(
+  "/:boardId",
+  asyncHandler(async (req, res) => {
+    const board = await BoardService.getBoardById(req.params.boardId);
+    if (!board) {
+      return ResponseHandler.respondWithNotfound(res);
+    }
+    ResponseHandler.respondWithSuccess(res, board);
+  })
+);
+
 // 모든 게시글 가져오기 (모든 사용자, 모든 게시물)
 BoardRouter.get(
   "/",
   asyncHandler(async (req, res) => {
-    const boards = await BoardService.getAllBoards();
+    const { currentPage, pageSize } = req.query;
+    const boards = await BoardService.getAllBoards(currentPage, pageSize);
     ResponseHandler.respondWithSuccess(res, boards);
   })
 );
@@ -21,32 +45,12 @@ BoardRouter.get(
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
     const user = req.tokenData._id;
-    const boards = await BoardService.getAllBoardsByUserId(user);
+    const { currentPage, pageSize } = req.query;
+    const boards = await BoardService.getAllBoardsByUserId(user, currentPage, pageSize);
     ResponseHandler.respondWithSuccess(res, boards);
   })
 );
 
-// 특정 카테고리의 게시글 가져오기
-BoardRouter.get(
-  "/:category",
-  asyncHandler(async (req, res) => {
-    const boards = await BoardService.getBoardsByCategory(req.params.category);
-    ResponseHandler.respondWithSuccess(res, boards);
-  })
-);
-
-// 특정 board ID의 게시글 가져오기
-BoardRouter.get(
-  "/:boardId",
-  asyncHandler(async (req, res) => {
-    console.log(req.params.boardId);
-    const board = await BoardService.getBoardById(req.params.boardId);
-    if (!board) {
-      return ResponseHandler.respondWithNotfound(res);
-    }
-    ResponseHandler.respondWithSuccess(res, board);
-  })
-);
 
 // 새로운 게시글 생성
 BoardRouter.post(

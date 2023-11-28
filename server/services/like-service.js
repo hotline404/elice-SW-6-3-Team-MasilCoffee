@@ -1,4 +1,3 @@
-// services/like-service.js
 const Like = require('../models/like-schema');
 
 class LikeService {

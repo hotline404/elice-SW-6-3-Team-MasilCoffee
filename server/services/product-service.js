@@ -15,19 +15,29 @@ class ProductService {
     }
   }
 
-  // 모든 제품 검색
+  // 모든 제품 검색 (pagination)
   static async getAllProducts(currentPage, pageSize) {
     try {
       const totalItems = await Product.countDocuments();
-  
+
       const products = await Product.find()
         .sort({ createdAt: -1 })
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize);
-  
+
       const paginatedResult = paginate(products, currentPage, pageSize, totalItems);
       return paginatedResult;
     } catch (error) {
+      throw error;
+    }
+  }
+
+  // 모든 제품 검색 (페이지네이션 x)
+  static async getAllProductsNoPagination() {
+    try {
+      const products = await Product.find();
+      return products;
+    } catch (error){
       throw error;
     }
   }
@@ -37,12 +47,12 @@ class ProductService {
     try {
       const query = { category };
       const totalItems = await Product.countDocuments(query);
-  
+
       const products = await Product.find(query)
         .sort({ createdAt: -1 })
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize);
-  
+
       const paginatedResult = paginate(products, currentPage, pageSize, totalItems);
       return paginatedResult;
     } catch (error) {

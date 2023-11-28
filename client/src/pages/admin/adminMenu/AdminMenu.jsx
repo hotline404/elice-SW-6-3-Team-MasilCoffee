@@ -17,27 +17,33 @@ const AdminMenu = ({ trData }) => {
   const token = useSelector((state) => state.login.token);
 
   const allProduct = useSelector((state) => state.product.products);
-  const tdData = allProduct.map((data) => [data._id, data.image_url, data.category, data.name, data.size, data.temp, data.price]);
+  const tdData = useSelector((state) => state.product.tableData);
+  // const tdData = allProduct.map((data) => [data._id, data.image_url, data.category, data.name, data.size, data.temp, data.price]);
+  console.log("allProduct", allProduct);
   console.log("tdData", tdData);
   const [showMenuModal, setShowMenuModal] = useState(false);
   const [showOptionModal, setShowOptionModal] = useState(false);
   const [modifyProduct, setModifyProduct] = useState(undefined);
+  const [categoryOption, setCategoryOption] = useState(null);
+  const [selectedTdData, setSelectedTdData] = useState(null);
   const options = ["전체 메뉴", "에스프레소", "논커피", "스무디", "티", "에이드"];
+
   const [page, setPage] = useState(1);
+  console.log("sss", categoryOption);
 
   const pageConst = {
-    totalCount: tdData.length,
+    totalCount: Array.isArray(selectedTdData) ? selectedTdData.length : tdData.length,
     pageSize: 6,
     siblingCount: 1,
     currentPage: page,
   };
-
+  console.log("첫렌더링시 데이터", categoryOption, tdData, selectedTdData);
   const pageArr = usePagination(pageConst);
 
   const slicedData = sliceTen({
     currentPage: pageConst.currentPage,
     pageSize: pageConst.pageSize,
-    initDataSet: tdData,
+    initDataSet: selectedTdData ? selectedTdData : tdData,
   });
 
   const handleClick = (e) => {
@@ -56,13 +62,29 @@ const AdminMenu = ({ trData }) => {
     fn();
   }, []);
 
+  // const handleChange = (e) => {
+  //   setCategoryOption(e.target.value);
+  //   console.log("categoryOption", categoryOption);
+
+  //   categoryOption === "전체 메뉴" ? setSelectedTdData(tdData) : setSelectedTdData(tdData.filter((product) => product[2] === categoryOption));
+  // };
+  useEffect(() => {
+    if (tdData.length > 0) {
+      if (categoryOption === "전체 메뉴") {
+        setSelectedTdData(tdData);
+      } else {
+        setSelectedTdData(tdData.filter((product) => product[2] === categoryOption));
+      }
+    }
+  }, [categoryOption, tdData]);
+
   const handleTdClick = (data, isEdit) => {
     const selectedProductId = data[0];
     const selectedProduct = allProduct.filter((product) => product._id === selectedProductId);
     console.log("selectedProduct", selectedProduct);
     if (isEdit === "edit") {
       setShowMenuModal(!showMenuModal);
-      setModifyProduct(selectedProduct);
+      setModifyProduct(selectedProduct[0]);
     } else {
       const isDeleted = window.confirm("메뉴를 삭제하시겠습니까?");
       if (isDeleted) {
@@ -104,7 +126,7 @@ const AdminMenu = ({ trData }) => {
         <AdminSidebar />
         <Menus.Content>
           <Menus.TopBox>
-            <MenuSelect options={options} />
+            <MenuSelect options={options} onChange={(e) => setCategoryOption(e.target.value)} />
             <Menus.ButtonWrapper>
               <MenuButtons
                 name="optionAndNewMenu"

@@ -5,6 +5,16 @@ export const paymentAction = (orders) => {
     type: PAYMENT_TYPE.PAYMENT,
     payload: orders,
   };
-}
-
-
+};
+export const addRequestDeliveryAction = (
+  orderRequest,
+  deliveryMethod
+) => {
+  return {
+    type: PAYMENT_TYPE.ADD_REQUEST_DELIVERY,
+    payload: {
+      orderRequest,
+      deliveryMethod,
+    },
+  };
+};

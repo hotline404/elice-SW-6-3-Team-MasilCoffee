@@ -18,6 +18,7 @@ export const BOARD_TYPE = {
   GET_SEARCH_BOARDS: "get_search_boards",
   GET_FILTER_BOARDS: "get_filter_boards",
   REMOVE_FILTER_BOARDS: "remove_filter_boards",
+  GET_BOARD: "get_board",
   GET_MY_BOARDS: "get_my_boards",
   REMOVE_BOARD: "remove_board",
   ADD_BOARD: "add_board",
@@ -42,6 +43,11 @@ export const ORDER_DETAIL_TYPE = {
   ADD_DRIZZLE_ORDER_DETAIL: "add_drizzle_order_detail",
   ADD_MILK_ORDER_DETAIL: "add_milk_order_detail",
   RESET_ORDER_DETAIL: "reset_order_detail",
+  SET_ORDER_DETAIL: "set_order_detail",
+  SET_INITIAL_OPTION: "set_initial_option",
+  MODIFY_OPTION: "modify_option",
+  INCREASE_OPTION: "increase_option",
+  DECREASE_OPTION: "decrease_option",
 };
 
 export const ORDERS_TYPE = {
@@ -49,7 +55,16 @@ export const ORDERS_TYPE = {
   REMOVE_ORDER: "remove_order",
   UPDATE_ORDER: "update_order",
 };
+
 export const PAYMENT_TYPE = {
   PAYMENT: "payment",
   RESET: "reset",
+  ADD_REQUEST_DELIVERY: "add_request_delivery",
+};
+
+export const USERS_TYPE = {
+  GET_ALL_USERS: "get_all_users",
+  SEARCH_USERS: "search_users",
+  UPDATE_USERS: "update_users",
+  DELETE_USERS: "delete_users",
 };

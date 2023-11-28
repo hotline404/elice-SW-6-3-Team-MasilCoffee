@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import * as S from "./style/Post.style";
-import { Container } from "../Recipe.style";
+import { Container, StyledLink } from "../Recipe.style";
 import { BsChat } from "react-icons/bs";
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
@@ -8,7 +9,8 @@ import ImageSlider from "./ImageSlider";
 import DateFormat from "../../../util/DateFormat/DateFormat";
 import RandomColor from "../../../util/RandomColor/RandomColor";
 
-const PostList = ({ post }) => {
+const PostList = ({ post, type }) => {
+  const userId = useSelector((state) => state.user.user_id); //로그인 한 유저 아이디
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0); //나중에 값 바꿔야함!
   const createDate = DateFormat("dateTime", post.createdAt);
@@ -20,45 +22,64 @@ const PostList = ({ post }) => {
     setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
   }
 
+  const handleDelete = (event) => {
+    event.preventDefault();
+
+    if (window.confirm("게시글을 삭제하시겠습니까?")) {
+      alert("게시글이 삭제되었습니다.");
+    }
+  }
+
   return (
     <>
-      <Container>
-        <div>
-          <S.PostNickname>닉네임</S.PostNickname>{/*나중에 값 바꿔야함*/}
-          <S.PostDate>{createDate}</S.PostDate>
-        </div>
-        <S.PostPre>{post.post}</S.PostPre>
-        {post.image.length > 0 && <ImageSlider images={post.image} />}
-        <S.TagWrap>
-          <S.TagBox>{post.category}</S.TagBox>
-          {post.tags.map((tag, index) => (
-            <S.TagBox
-              key={index}
-              style={{ background: RandomColor(), color: "black" }}
-            >
-              {tag}
-            </S.TagBox>
-          ))}
-        </S.TagWrap>
-        <S.CommentWrap>
-          <S.LikedWrap onClick={handleLikedClick} liked={liked}>
-            {liked ? (
-              <GoHeartFill style={{ fontSize: "1.4rem" }} />
-            ) : (
-              <GoHeart style={{ fontSize: "1.4rem" }} />
+      {post && (
+        <Container>
+          <div>
+            <S.PostNickname>{post.nickname}</S.PostNickname>
+            <S.PostDate>{createDate}</S.PostDate>
+            {type === "view" && (post.user === userId) && (
+              <S.EditDeleteWrap>
+                <StyledLink to={"/RecipeWrite"} state={{ post: post._id }}>
+                  <S.EditDelete>수정</S.EditDelete>
+                </StyledLink>
+                <span>│</span>
+                <S.EditDelete onClick={handleDelete}>삭제</S.EditDelete>
+              </S.EditDeleteWrap>
             )}
-            <S.CommentNum>{likeCount}</S.CommentNum>
-          </S.LikedWrap>
-          <BsChat
-            style={{
-              fontSize: "1.2rem",
-              transform: "scaleX(-1)",
-              marginRight: "1px",
-            }}
-          />
-          <S.CommentNum>13</S.CommentNum>{/*나중에 값 바꿔야함*/}
-        </S.CommentWrap>
-      </Container>
+          </div>
+          <S.PostPre>{post.post}</S.PostPre>
+          {post.image.length > 0 && <ImageSlider images={post.image} />}
+          <S.TagWrap>
+            <S.TagBox>{post.category}</S.TagBox>
+            {post.tags.map((tag, index) => (
+              <S.TagBox
+                key={index}
+                style={{ background: RandomColor(), color: "black" }}
+              >
+                {tag}
+              </S.TagBox>
+            ))}
+          </S.TagWrap>
+          <S.CommentWrap>
+            <S.LikedWrap onClick={handleLikedClick} liked={liked}>
+              {liked ? (
+                <GoHeartFill style={{ fontSize: "1.4rem" }} />
+              ) : (
+                <GoHeart style={{ fontSize: "1.4rem" }} />
+              )}
+              <S.CommentNum>{likeCount}</S.CommentNum>
+            </S.LikedWrap>
+            <BsChat
+              style={{
+                fontSize: "1.2rem",
+                transform: "scaleX(-1)",
+                marginRight: "1px",
+              }}
+            />
+            <S.CommentNum>13</S.CommentNum> {/*나중에 값 바꿔야함*/}
+          </S.CommentWrap>
+        </Container>
+      )}
     </>
   );
 };

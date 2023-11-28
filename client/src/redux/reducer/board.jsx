@@ -68,6 +68,20 @@ const board = (state = initialState, action) => {
         filters: "",
       };
 
+    //해당 게시물 가져오기
+    case BOARD_TYPE.GET_BOARD:
+      return {
+        ...state,
+        board: [action.payload],
+      };
+
+    //게시글 작성하기
+    case BOARD_TYPE.ADD_BOARD:
+      return {
+        ...state,
+        boards: [...state.boards, action.payload],
+      };
+
     case BOARD_TYPE.REMOVE_BOARD:
       return {
         ...state,

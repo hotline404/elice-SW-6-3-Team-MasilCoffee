@@ -6,13 +6,13 @@ export const SlideAnimation = styled.div`
       height: 0;
     }
     to {
-      height: 90px; /* 원하는 최대 높이로 조절 */
+      height: 150px; /* 원하는 최대 높이로 조절 */
     }
   }
 
   @keyframes slideClose {
     from {
-      height: 90px;
+      height: 150px;
     }
     to {
       height: 0;

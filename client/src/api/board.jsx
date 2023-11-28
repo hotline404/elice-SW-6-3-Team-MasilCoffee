@@ -1,9 +1,16 @@
 import axios from "axios";
 
-//모든 게시판 불러오기
-export const getAllBoards = async (currentPage, pageSize) => {
-  try { 
-    const res = await axios.get(`http://localhost:5000/api/v1/boards?currentPage=${currentPage}&pageSize=${pageSize}`);
+//전체 or 카테고리별 게시글 불러오기
+export const getAllBoards = async (category, currentPage, pageSize) => {
+  try {
+    const res = category
+      ? await axios.get(
+          `http://localhost:5000/api/v1/boards/categories/${category}?currentPage=${currentPage}&pageSize=${pageSize}`
+        )
+      : await axios.get(
+          `http://localhost:5000/api/v1/boards?currentPage=${currentPage}&pageSize=${pageSize}`
+        );
+
     const boards = res.data.data.data;
     
     return boards;
@@ -23,18 +30,6 @@ export const getBoard = async (boardId) => {
     console.error("error(getBoard)", error);
   }
   
-}
-
-//카테고리별 게시판 불러오기
-export const getCategoryBoards = async (category) => {
-  try {
-    const res = await axios.get(`http://localhost:5000/api/v1/boards/category/${category}`);
-    const board = res.data.data;
-
-    return board;
-  } catch (error) {
-    console.error("error(getCategoryBoards)", error);
-  }
 }
 
 //(마이페이지) 내가 작성한 게시글

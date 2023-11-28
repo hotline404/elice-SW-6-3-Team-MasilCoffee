@@ -15,6 +15,7 @@ const Recipe = () => {
   const allBoards = useSelector((state) => state.board.boards);
   const token = useSelector((state) => state.login.token);
   const [inputQuery, setInputQuery] = useState(null);
+  const [category, setCategory] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const PAGE_SIZE = 10;
 
@@ -25,7 +26,7 @@ const Recipe = () => {
   useEffect(() => {
     const fn = async () => {
       try {
-        const board = await getAllBoards(currentPage, PAGE_SIZE);
+        const board = await getAllBoards(category, currentPage, PAGE_SIZE);
         currentPage === 1
           ? dispatch(actionGetAllBoards(board))
           : dispatch(actionGetAllMoreBoards(board));
@@ -35,7 +36,7 @@ const Recipe = () => {
     };
     fn();
     if(currentPage === 1) window.scrollTo(0, 0);
-  }, [currentPage]);
+  }, [currentPage, category]);
 
   const hanleClick = (event, boardId) => {
     event.preventDefault();
@@ -80,18 +81,19 @@ const Recipe = () => {
               type: "red",
             }}
           />
-          <CategoryButton query={inputQuery} />
+          <CategoryButton
+            query={inputQuery}
+            category={category}
+            setCategory={setCategory}
+            setCurrentPage={setCurrentPage}
+          />
         </S.Container>
         {Array.isArray(allBoards) &&
           allBoards.map((post) => (
-            <S.PostWrap
-              key={post._id}
-              onClick={(e) => hanleClick(e, post._id)}
-            >
-                <PostList post={post} type={"list"} />
-              </S.PostWrap>
-          ))
-        }
+            <S.PostWrap key={post._id} onClick={(e) => hanleClick(e, post._id)}>
+              <PostList post={post} type={"list"} />
+            </S.PostWrap>
+          ))}
         <button onClick={handleMoreClick}>더보기</button>
       </S.ContainerWrap>
     </S.Background>

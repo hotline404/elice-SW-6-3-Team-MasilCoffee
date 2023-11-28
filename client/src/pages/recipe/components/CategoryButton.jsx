@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { CategoryWrap, CategoryBtn } from "../Recipe.style";
 import {
   actionGetFilter,
@@ -30,8 +29,7 @@ const categorysArr = [
   },
 ];
 
-const CategoryButton = ({ query, category, setCategory, defaultValue}) => {
-  const dispatch = useDispatch();
+const CategoryButton = ({ query, category, setCategory, defaultValue, setCurrentPage}) => {
   const [activeStates, setActiveStates] = useState(Array(categorysArr.length).fill(false));
 
   useEffect(() => {
@@ -63,18 +61,14 @@ const CategoryButton = ({ query, category, setCategory, defaultValue}) => {
       //게시글 리스트
       if (newActiveStates[index]) { //카테고리 선택된걸 해제
         newActiveStates.fill(false);
+        setCategory(""); //전체 게시글
       } else { //카테고리 선택하기
         newActiveStates.fill(false);
         newActiveStates[index] = !newActiveStates[index];
+        setCategory(category);
       }
       setActiveStates(newActiveStates);
-
-      if (newActiveStates[index]) { //카테고리 선택
-        dispatch(actionGetFilter(category));
-      } else { //카테고리 선택 해제
-        dispatch(actionRemoveFilter(category));
-      }
-      dispatch(actionSearchBoards(query));
+      setCurrentPage((current) => 1); //현재 페이지 1로 초기화
     }
   };
 

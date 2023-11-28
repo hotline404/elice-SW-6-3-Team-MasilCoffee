@@ -1,6 +1,6 @@
 import { BOARD_TYPE } from "./_types";
 
-//모든 게시물 가져오기(초기)
+//전체 or 카테고리별 게시글 가져오기(초기)
 export const actionGetAllBoards = (boards) => {
   return {
     type: BOARD_TYPE.GET_ALL_BOARDS,
@@ -8,7 +8,7 @@ export const actionGetAllBoards = (boards) => {
   };
 };
 
-//모든 게시물 가져오기(페이지네이션)
+//전체 or 카테고리별 게시글 가져오기(페이지네이션)
 export const actionGetAllMoreBoards = (boards) => {
   return {
     type: BOARD_TYPE.GET_ALL_MORE_BOARDS,
@@ -16,25 +16,11 @@ export const actionGetAllMoreBoards = (boards) => {
   };
 };
 
-//게시물 검색
+//게시물 검색(전체)
 export const actionSearchBoards = (quary) => {
   return {
     type: BOARD_TYPE.GET_SEARCH_BOARDS,
     payload: quary,
-  };
-};
-
-//카테고리별 모든 게시물 (선택)
-export const actionGetFilter = (name) => ({
-  type: BOARD_TYPE.GET_FILTER_BOARDS,
-  payload: {name},
-});
-
-//카테고리별 모든 게시물 (선택해제)
-export const actionRemoveFilter = (name) => {
-  return {
-    type: BOARD_TYPE.REMOVE_FILTER_BOARDS,
-    payload: name,
   };
 };
 

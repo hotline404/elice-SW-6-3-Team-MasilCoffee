@@ -19,6 +19,7 @@ class UserService {
       }
 
       const verificationCode = this.generateRandomNum(11111, 99999);
+      this.emailVerificationcode[email] = verificationCode;
       const mailResult = await sendMail(email, verificationCode);
 
       if (mailResult.success) {

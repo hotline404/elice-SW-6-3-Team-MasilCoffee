@@ -118,11 +118,12 @@ const Payment = () => {
   const handleOnClickToPayment = async () => {
     // confirm 대화상자를 표시하고, 사용자의 응답을 확인
     const isConfirmed = window.confirm("정말 결제 하시겠습니까?");
+    const paymentInfo = createOrderBody(); //이거 하니까 됐음 결제완료!!!
 
     // 사용자가 '확인'을 누른 경우, PaymentDone 페이지로 이동
     if (isConfirmed) {
       try {
-        await postPayment(createOrderBody(), token);
+        await postPayment(paymentInfo, token);
         console.log("결제 성공");
         dispatch(
           addRequestDeliveryAction(orderRequest.current.value, delivery)

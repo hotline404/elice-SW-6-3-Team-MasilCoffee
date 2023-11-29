@@ -83,13 +83,17 @@ const ModalContents = ({ data }) => {
   // 임시 totalPrice 계산 함수
   useEffect(() => {
     let resultPrice = 0;
-
     for (const optionName in options.selectedOptions) {
-      for (const detail of options.selectedOptions[optionName]) {
-        const originPrice = options.orderDetail[optionName].find(
-          (item) => item.name === detail.name
-        ).price;
-        resultPrice += originPrice * detail.quantity;
+      //여기 수정하니까 됐음 배열안에 무언가 안됐는데 찾아보자
+      if (Array.isArray(options.orderDetail[optionName])) {
+        for (const detail of options.selectedOptions[optionName]) {
+          const originPrice = options.orderDetail[optionName].find(
+            (item) => item.name === detail.name
+          ).price;
+          resultPrice += originPrice * detail.quantity;
+        }
+      } else {
+        console.error(`에러`);
       }
     }
 
@@ -116,9 +120,14 @@ const ModalContents = ({ data }) => {
       </StyleText>
       {Object.keys(options.selectedOptions).length > 0 &&
         Object.keys(options.selectedOptions).map((optionName) => {
-          if (optionName === "shot" || optionName === "syrups") {
+          if (optionName === "shot" || optionName === "syrup") {
             return <QuantityOption key={optionName} optionName={optionName} />;
-          } else {
+          } else if (
+            optionName === "milk" ||
+            optionName === "iceAmount" ||
+            optionName === "whipping" ||
+            optionName === "drizzle"
+          ) {
             return <SelectOption key={optionName} optionName={optionName} />;
           }
         })}

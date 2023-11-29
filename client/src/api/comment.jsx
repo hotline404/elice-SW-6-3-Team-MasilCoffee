@@ -14,13 +14,18 @@ export const getComments = async (boardId) => {
 
 //댓글 작성
 export const addComments = async (token, boardId, commentData) => {
+  const data = {
+    comment: commentData,
+  };
+  
   try {
-    const res = await axios.post(`http://localhost:5000/api/v1/comment/board/${boardId}`, commentData, {
+    const res = await axios.post(`http://localhost:5000/api/v1/comment/board/${boardId}`, data, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log("res",res)
     const comments = res.data.data;
     console.log("댓글 작성", comments);
     return comments;

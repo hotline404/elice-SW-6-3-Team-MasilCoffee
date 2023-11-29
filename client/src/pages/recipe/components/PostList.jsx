@@ -27,7 +27,7 @@ const PostList = ({ post, type }) => {
 
     const fn = async () => {
       try {
-        const likedCheck = await likedBoard(token, userId, post._id);
+        const likedCheck = await likedBoard(token, post._id);
         console.log("likedCheck", likedCheck);
         if (likedCheck === "create") { //create / delete
           

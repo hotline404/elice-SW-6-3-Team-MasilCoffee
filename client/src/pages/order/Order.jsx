@@ -12,10 +12,14 @@ import Slider from "react-slick";
 
 const Order = ({ children }) => {
   const userRecipe = useSelector((state) => state.user.recipe);
+  console.log("유저레시피", userRecipe);
+  console.log("유저레시피 아이디", userRecipe._id);
+  console.log("유저레시피");
 
   const dispatch = useDispatch();
 
   const productsFromState = useSelector((state) => state.product.products);
+  console.log("프로덕트 폼 스테이트", productsFromState);
 
   // orderDetail api가 Order 페이지 렌더링 시 한 번만 호출하는 최적화 용도
   // api 나오면 수정 필요
@@ -40,8 +44,7 @@ const Order = ({ children }) => {
     const fn = async () => {
       try {
         const products = await getAllProductsMain(); //비동기
-        // console.log("프로덕트 가져오기", products);
-        dispatch(actionGetAllProducts(products.data));
+        dispatch(actionGetAllProducts(products)); // data뺴니까 됨
         // console.log("productsFrom", productsFromState);
       } catch (err) {
         console.log("err", err);
@@ -83,13 +86,18 @@ const Order = ({ children }) => {
         filtered = productsFromState.filter((pd) => pd.category === "에이드");
         break;
       case "꿀조합":
-        filtered = userRecipe;
+        filtered = userRecipe; // 왜 _id?
         break;
       default:
         filtered = productsFromState;
     }
 
-    console.log("필터드", filtered);
+    // 카테고리에 메뉴가 없는 경우 처리
+    if (filtered.length === 0) {
+      console.log(`${category} 카테고리에는 메뉴가 없습니다.`);
+    }
+
+    // console.log("필터드", filtered);
     setFilteredProducts(filtered);
   };
 

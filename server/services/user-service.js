@@ -29,7 +29,10 @@ class UserService {
           sentTime: sentTime,
           expireTime: expireTime,
         };
-        return { success: true, message: "인증 코드가 성공적으로 전송되었습니다." };
+        return {
+          success: true,
+          message: "인증 코드가 성공적으로 전송되었습니다.",
+        };
       } else {
         console.error("이메일 발송 실패:", mailResult.message);
         return { success: false, message: "인증 코드 전송에 실패했습니다." };
@@ -49,10 +52,16 @@ class UserService {
       if (elapsedTime <= savedCode.expireTime) {
         // 유효 시간 내 코드 확인 o
         delete this.emailVerificationcode[email];
-        return { success: true, message: "이메일 인증이 성공적으로 완료되었습니다." };
+        return {
+          success: true,
+          message: "이메일 인증이 성공적으로 완료되었습니다.",
+        };
       } else {
         // 시간 만료
-        return { success: false, message: "인증 코드의 유효 시간이 만료되었습니다." };
+        return {
+          success: false,
+          message: "인증 코드의 유효 시간이 만료되었습니다.",
+        };
       }
     } else {
       // 코드 다름

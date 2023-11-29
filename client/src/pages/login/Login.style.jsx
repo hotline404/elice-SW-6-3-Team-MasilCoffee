@@ -43,3 +43,11 @@ export const ButtonBox = styled.div`
 
  margin-top: 250px;
 `
+
+export const LoginMessage = styled.div`
+  text-align: center;
+  width: 100%;
+  height: 21px;
+
+  color: red;
+`

@@ -11,6 +11,8 @@ const linkDatas = {
     {
       to: ROUTES.REGISTER.path,
       name: "회원가입",
+      target: true,
+      rel: true
     },
   ],
   right_side: [
@@ -37,7 +39,6 @@ const linkDatas = {
 
 function Headers(props) {
   const role = useSelector((state) => state.login.role);
-  console.log("header role", role);
 
   return (
     <div>

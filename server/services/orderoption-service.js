@@ -29,15 +29,30 @@ class OrderOptionService {
     async updateOrderOption(orderOptionId, updatedData) {
         try {
             const orderOption = await OrderOption.findById(orderOptionId);
+
             if (!orderOption) {
-                throw new Error('Order option not found');
+                throw new Error('주문 옵션을 찾을 수 없습니다');
             }
-            if (updatedData.name) {
-                orderOption.name = updatedData.name;
+
+            for (const category in updatedData) {
+                if (updatedData.hasOwnProperty(category) && Array.isArray(orderOption[category])) {
+                    const updatedItems = updatedData[category];
+
+                    orderOption[category].forEach((item) => {
+                        const matchingItem = updatedItems.find((updatedItem) => updatedItem.name === item.name);
+
+                        if (matchingItem && (matchingItem.name || matchingItem.price)) {
+                            if (matchingItem.name) {
+                                item.name = matchingItem.name;
+                            }
+                            if (matchingItem.price) {
+                                item.price = matchingItem.price;
+                            }
+                        }
+                    });
+                }
             }
-            if (updatedData.price) {
-                orderOption.price = updatedData.price;
-            }
+
             return await orderOption.save();
         } catch (error) {
             throw error;

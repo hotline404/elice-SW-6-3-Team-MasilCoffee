@@ -1,4 +1,4 @@
-const { User } = require("../models/user-schema");
+const User = require("../models/user-schema");
 const { sendMail } = require("../utils/email-send");
 const bcrypt = require("bcrypt");
 
@@ -40,20 +40,22 @@ class UserService {
     }
   }
 
-
   async verifyCode(email, code) {
     const savedCode = this.emailVerificationcode[email];
     if (savedCode && savedCode.code === code) {
       const currentTime = new Date();
       const elapsedTime = currentTime - savedCode.sentTime;
 
-      if (elapsedTime <= savedCode.expireTime) { // 유효 시간 내 코드 확인 o
+      if (elapsedTime <= savedCode.expireTime) {
+        // 유효 시간 내 코드 확인 o
         delete this.emailVerificationcode[email];
         return { success: true, message: "이메일 인증이 성공적으로 완료되었습니다." };
-      } else { // 시간 만료
+      } else {
+        // 시간 만료
         return { success: false, message: "인증 코드의 유효 시간이 만료되었습니다." };
       }
-    } else { // 코드 다름
+    } else {
+      // 코드 다름
       return { success: false, message: "인증 코드가 일치하지 않습니다." };
     }
   }

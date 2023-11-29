@@ -6,7 +6,6 @@ class BoardService {
   // 게시글 생성
   static async createBoard(boardData) {
     try {
-      console.log(boardData.userId);
       const user = await User.findById(boardData.userId);
       if (!user) {
         throw new Error("사용자를 찾을 수 없습니다.");

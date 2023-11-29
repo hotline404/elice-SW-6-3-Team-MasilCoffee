@@ -30,7 +30,7 @@ const user = (state = initUserState, action) => {
         phone: userData.phone,
         role: userData.role,
         user_id: userData._id,
-        recipe: userData.recipe,
+        recipe: [userData.recipe],
       };
     }
 
@@ -58,6 +58,15 @@ const user = (state = initUserState, action) => {
       return {
         ...state,
         phone: phone,
+      };
+    }
+
+    case "post.user.recipe": {
+      const { recipe } = action.payload;
+
+      return {
+        ...state,
+        recipe: [...(state.recipe || []), recipe],
       };
     }
 

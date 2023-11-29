@@ -1,5 +1,9 @@
+import { useState } from "react";
+import { postRecipe } from "../../../redux/action/user/userAction";
 import SquareButton from "../../../components/ui/button/SquareButton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeOrder } from "../../../redux/action/orderAction";
+
 import {
   StyledOrderList,
   StyledOrderListMenu,
@@ -10,16 +14,32 @@ import {
 } from "./OderList.style";
 
 function OderList() {
-  const payment = useSelector((state) => state.payment); // []
+  const payment = useSelector((state) => state.payment);
+  console.log("오더 네임", payment);
+
+  const userRecipe = useSelector((state) => state.user);
+  console.log("유저레시피", userRecipe);
+
+  const dispatch = useDispatch();
+
+  const handleClick = (index) => {
+    if (window.confirm("나만의 꿀조합 넣기!")) {
+      // 문제점 1. 꿀조합이 내가 지금까지 시켰던 모든 주문들이 보여지는 용도면 딱히 이쪽은 필요 없음
+      // 문제점 2. 모든 주문들이 다 보여지면 꿀조합의 의미가 퇴색 됨 (내가 원하는 조합만 저장할 수 있어야 됨)
+      dispatch(postRecipe(payment.orders[index]));
+      console.log("유저 레시피", userRecipe);
+    }
+  };
 
   return (
     <>
       <StyledOrderList>
         <h2>주문내역</h2>
         <i></i>
+
         <StyledOrderListMenu>
           {payment.orders.length > 0 &&
-            payment.orders.map((order) => (
+            payment.orders.map((order, index) => (
               <>
                 <StyledOrderListMenuBox>
                   <div>
@@ -40,32 +60,32 @@ function OderList() {
                           >{`시럽 : ${item.name} ${item.quantity}`}</span>
                         ))}
                       {order.whipping
-                        .filter((item) => item.quantity > 0)
+                        .filter(
+                          (item) => item.quantity > 0 && item.name !== "없음"
+                        )
                         .map((item) => (
-                          <span
-                            key={item.name}
-                          >{`휘핑 : ${item.name}`}</span>
+                          <span key={item.name}>{`휘핑 : ${item.name}`}</span>
                         ))}
                       {order.ice
-                        .filter((item) => item.quantity > 0)
+                        .filter(
+                          (item) => item.quantity > 0 && item.name !== "없음"
+                        )
                         .map((item) => (
-                          <span
-                            key={item.name}
-                          >{`얼음 : ${item.name}`}</span>
+                          <span key={item.name}>{`얼음 : ${item.name}`}</span>
                         ))}
                       {order.drizzle
-                        .filter((item) => item.quantity > 0)
+                        .filter(
+                          (item) => item.quantity > 0 && item.name !== "없음"
+                        )
                         .map((item) => (
-                          <span
-                            key={item.name}
-                          >{`드리즐 : ${item.name}`}</span>
+                          <span key={item.name}>{`드리즐 : ${item.name}`}</span>
                         ))}
                       {order.milk
-                        .filter((item) => item.quantity > 0)
+                        .filter(
+                          (item) => item.quantity > 0 && item.name !== "없음"
+                        )
                         .map((item) => (
-                          <span
-                            key={item.name}
-                          >{`우유 : ${item.name}`}</span>
+                          <span key={item.name}>{`우유 : ${item.name}`}</span>
                         ))}
                     </StyledOrderListMenuText>
                     {/* <StyledOrderListMenuText>
@@ -81,22 +101,24 @@ function OderList() {
                   </div>
                   <div>{order.quantity}개</div>
                   <div>{order.totalPrice}원</div>
-                  <SquareButton text={"선택삭제"} type={"grey"} />
+                  <SquareButton
+                    onClick={() => handleClick(index)}
+                    text={"나만의 꿀조합"}
+                    type={"red"}
+                  />
                 </StyledOrderListMenuBox>
-                <i></i>
+
                 <StyledOrderListMenuBox>
                   <StyledOrderListMednuRequest>
                     주문 요청사항 : {payment.orderRequest}
                   </StyledOrderListMednuRequest>
                 </StyledOrderListMenuBox>
 
-                <i></i>
                 <StyledOrderListMenuBox>
                   <StyledOrderListMednuRequest>
                     수령방법 : {payment.deliveryMethod}
                   </StyledOrderListMednuRequest>
                 </StyledOrderListMenuBox>
-
                 <i></i>
               </>
             ))}

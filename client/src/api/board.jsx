@@ -106,3 +106,20 @@ export const deleteBoard = async (token, boardId) => {
     console.error("error(deleteBoard)", error);
   }
 }
+
+//게시글 좋아요
+export const likedBoard = async (token, userId, boardId) => {
+  console.log("좋아요 axios", boardId, token)  //수정될수도 있음!!!
+  try {
+    const res = await axios.put(`http://localhost:5000/api/v1/like/${boardId}`, userId, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log("좋아요",res);
+    const liked = res.data.data.action;
+    return liked;
+  } catch (error) {
+    console.error("error(likedBoard)", error);
+  }
+}

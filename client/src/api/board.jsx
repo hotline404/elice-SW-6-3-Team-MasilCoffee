@@ -22,9 +22,9 @@ export const getAllBoards = async (category, currentPage, pageSize) => {
 //해당 게시글 불러오기
 export const getBoard = async (boardId) => {
   try {
-    const res = await axios.get(`http://localhost:5000/api/v1/boards/${boardId}`);
+    const res = await axios.get(`http://localhost:5000/api/v1/boards/board/${boardId}`);
     const board = res.data.data;
-    
+
     return board;
   } catch (error) {
     console.error("error(getBoard)", error);
@@ -104,5 +104,22 @@ export const deleteBoard = async (token, boardId) => {
   } catch (error) {
     alert("게시글 삭제에 실패하였습니다.");
     console.error("error(deleteBoard)", error);
+  }
+}
+
+//게시글 좋아요
+export const likedBoard = async (token, boardId) => {
+  console.log("좋아요 axios", token, boardId);
+  try {
+    const res = await axios.put(`http://localhost:5000/api/v1/like/${boardId}`, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log("좋아요",res);
+    const liked = res.data.data.action;
+    return liked;
+  } catch (error) {
+    console.error("error(likedBoard)", error);
   }
 }

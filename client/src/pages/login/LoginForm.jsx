@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { axiosPostLogin } from "../../api/login/login.jsx";
 import { postLogin } from "../../redux/action/login/loginAction.jsx";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../router/Routes.jsx";
 
@@ -9,7 +9,7 @@ import Contents from "../../components/ui/contents/Contents";
 import Input from "../../components/ui/Input/Input";
 import Button from "../../components/ui/button/Button.jsx";
 
-import { ButtonBox, InputBox } from "./Login.style.jsx";
+import { ButtonBox, InputBox, LoginMessage } from "./Login.style.jsx";
 import LinkTo from "../../components/ui/Link/LinkTo.jsx";
 import { axiosGetUser } from "../../api/user/user.jsx";
 import { getUser } from "../../redux/action/user/userAction.jsx";
@@ -19,8 +19,15 @@ function LoginForm() {
   const passwordRef = useRef(null);
   const dispatch = useDispatch();
   const nav = useNavigate();
-  const asdf = useSelector(state => state.user);
-  console.log("loginForm user data", asdf)
+  const [visible, setVisible] = useState(false)
+
+  const visibleFn = () => {
+    setVisible(!visible);
+
+      setTimeout(() => {
+        setVisible(visible);
+      }, 3000)
+  }
 
   const fn = async (email, password) => {
     try {
@@ -28,11 +35,17 @@ function LoginForm() {
       const token = LoginRes.data.token;
       const UserRes = await axiosGetUser(token)
 
-    
+
+
+      console.log("LoginRES", LoginRes);
+
       dispatch(postLogin(LoginRes));
       dispatch(getUser(UserRes));
+      nav(ROUTES.MAIN.path, { replace: true })
+
     } catch (err) {
-      alert("아이디 비밀번호를 확인해 주세요")
+      console.error("로그인 에러", err);
+      visibleFn();
     }
   };
 
@@ -41,15 +54,13 @@ function LoginForm() {
 
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-
     fn(email, password);
-
-    nav(ROUTES.MAIN.path);
   };
 
   return (
     <Contents>
       <form onSubmit={handleSubmit}>
+        {visible ? <LoginMessage>이메일과 비밀번호를 확인 해주세요.</LoginMessage> : <LoginMessage></LoginMessage>}
         <InputBox>
           <Input
             ref={emailRef}

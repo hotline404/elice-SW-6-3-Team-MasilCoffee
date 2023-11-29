@@ -32,10 +32,11 @@ export const getBoard = async (boardId) => {
   
 }
 
-//(마이페이지) 내가 작성한 게시글
-export const getMyBoards = async (userId) => {
+//(마이페이지) 내가 작성한 게시글 ---------
+export const getMyBoards = async (currentPage, pageSize, token) => {
+  const headers = { headers: { Authorization: `Bearer ${token}` } };
   try {
-    const res = await axios.get(``);
+    const res = await axios.get(`http://localhost:5000/api/v1/boards/mypost?currentPage=${currentPage}&pageSize=${pageSize}`, headers);
     const board = res.data.data;
 
     return board;

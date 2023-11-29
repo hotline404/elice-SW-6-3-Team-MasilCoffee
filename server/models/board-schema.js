@@ -5,14 +5,24 @@ const { Schema } = mongoose;
 const boardSchema = new Schema(
   {
     user: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true
+      id: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
+      nickname: {
+        type: String,
+        required: true,
+      },
     },
-    nickname: {
-      type: String,
-      required: true,
-    },
+    // likeCount: {
+    //   type: Number,
+    //   default: 0,
+    // },
+    // commentCount: {
+    //   type: Number,
+    //   default: 0,
+    // },
     category: {
       type: String,
       required: true,
@@ -32,8 +42,8 @@ const boardSchema = new Schema(
       {
         type: String,
         required: false,
-      }
-    ]
+      },
+    ],
   },
   {
     timestamps: true,
@@ -41,9 +51,9 @@ const boardSchema = new Schema(
   }
 );
 
-boardSchema.path('image').validate(function (value) {
+boardSchema.path("image").validate(function (value) {
   return value.length <= 4;
-}, '이미지 갯수는 최대 4개까지만 허용됩니다.');
+}, "이미지 갯수는 최대 4개까지만 허용됩니다.");
 
 const Board = mongoose.model("Board", boardSchema);
 

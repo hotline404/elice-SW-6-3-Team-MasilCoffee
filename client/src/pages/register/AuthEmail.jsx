@@ -9,6 +9,7 @@ import { getAuthEmail } from "../../redux/action/register/register";
 import { AuthItems, AuthTitle, AuthInput, AuthForm } from "./AuthEmail.style";
 
 function AuthEmail(props) {
+  const [visible, setVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [num, setNum] = useState(null);
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function AuthEmail(props) {
   const numfn = async (email, code) => {
     try {
       const res = await authComplete(email, code);
+      console.log("asdfasdfadsf" ,res)
       const confirm = window.confirm(res.message);
 
       if (confirm) {
@@ -58,11 +60,10 @@ function AuthEmail(props) {
         const confirm = window.confirm(res.message);
 
         if (confirm) {
-          dispatch(getAuthEmail(email));
+          setVisible(!visible)
         }
       } catch (err) {
         console.error(err);
-        alert("에러가 발생했습니다. 다시 시도해주세요.");
       }
     };
   }
@@ -74,7 +75,7 @@ function AuthEmail(props) {
     <Modal onClose={props.onClose}>
       <AuthItems>
         <AuthTitle>이메일 인증</AuthTitle>
-        <AuthForm onSubmit={submitEmail}>
+        {!visible ?<AuthForm onSubmit={submitEmail}>
           <AuthInput
             type="text"
             name="email"
@@ -83,8 +84,7 @@ function AuthEmail(props) {
             placeholder="abcd@efg.com"
           />
           <Button type="red" text="전송" />
-        </AuthForm>
-        <AuthForm onSubmit={submitNum}>
+        </AuthForm> : <AuthForm onSubmit={submitNum}>
           <AuthInput
             type="number"
             name="auth"
@@ -93,7 +93,7 @@ function AuthEmail(props) {
             placeholder="00000"
           />
           <Button type="red" text="인증" />
-        </AuthForm>
+        </AuthForm>}
         <Button onClick={props.onClose} text="나가기" />
       </AuthItems>
     </Modal>

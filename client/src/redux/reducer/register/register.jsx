@@ -1,5 +1,6 @@
 const initRegisterState = {
-  email: ""
+  email: "",
+  isNum : false,
 };
 
 
@@ -13,6 +14,14 @@ const user = (state = initRegisterState, action) => {
         ...state,
         email: email,
       };
+    }
+
+    case "get.auth.num": {
+      
+      return {
+        ...state,
+        isNum: !state.isNum,
+      }
     }
 
     default:

@@ -19,6 +19,7 @@ function Logout() {
   const dispatch = useDispatch();
   const token = useSelector(state => state.login.token)
   const user = useSelector(state => state.user.email)
+  
 
   const axiosLogout = async (token, userEmail) => {
     try {
@@ -37,7 +38,11 @@ function Logout() {
     dispatch(actionLogout());
     dispatch(removeUser())
 
-    nav(ROUTES.MAIN.path);
+    window.addEventListener('popstate', () => {
+      window.history.pushState(null, null, ROUTES.MAIN.path);
+    });
+  
+    window.location.replace(ROUTES.MAIN.path);
   };
 
   return (

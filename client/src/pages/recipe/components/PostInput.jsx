@@ -20,6 +20,11 @@ const PostInput = ( props ) => {
       dispatch(actionSearchBoards(query));
       props.onInsert(query);
     } else { //댓글
+      if (query.trim() === "") {
+        alert("댓글을 작성해주세요.");
+        return;
+      }
+      
       const fn = async () => {
         try {
           const comment = await addComments(token, boardData._id, query);

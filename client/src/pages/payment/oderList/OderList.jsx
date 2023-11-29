@@ -28,6 +28,8 @@ function OderList() {
       // 문제점 2. 모든 주문들이 다 보여지면 꿀조합의 의미가 퇴색 됨 (내가 원하는 조합만 저장할 수 있어야 됨)
       dispatch(postRecipe(payment.orders[index]));
       console.log("유저 레시피", userRecipe);
+      console.log("인덱스 배열", index);
+      console.log("페이먼트 오더스 [인덱스]", payment.orders[index]);
     }
   };
 

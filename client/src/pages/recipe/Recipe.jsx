@@ -7,7 +7,7 @@ import PostList from "./components/PostList";
 import PostInput from "./components/PostInput";
 import SquareButton from "../../components/ui/button/SquareButton";
 import { getAllBoards, getBoard } from "../../api/board";
-import { actionGetAllBoards,actionGetBoard } from "../../redux/action/boardAction";
+import { actionGetAllBoards, actionGetAllMoreBoards, actionGetBoard } from "../../redux/action/boardAction";
 
 const Recipe = () => {
   const dispatch = useDispatch();
@@ -15,6 +15,9 @@ const Recipe = () => {
   const allBoards = useSelector((state) => state.board.searchBoards);
   const token = useSelector((state) => state.login.token);
   const [inputQuery, setInputQuery] = useState(null);
+  const [category, setCategory] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const PAGE_SIZE = 10;
 
   const handleInsert = (value) => {
     setInputQuery(value);
@@ -23,17 +26,21 @@ const Recipe = () => {
   useEffect(() => {
     const fn = async () => {
       try {
-        const boards = await getAllBoards();
-        dispatch(actionGetAllBoards(boards));
+        const board = await getAllBoards(category, currentPage, PAGE_SIZE);
+        currentPage === 1
+          ? dispatch(actionGetAllBoards(board))
+          : dispatch(actionGetAllMoreBoards(board));
       } catch (err) {
         console.log("err", err);
       }
     };
     fn();
-    window.scrollTo(0, 0);
-  }, [])
+    if(currentPage === 1) window.scrollTo(0, 0);
+  }, [currentPage, category]);
 
-  const hanleClick = (boardId) => {
+  const hanleClick = (event, boardId) => {
+    event.preventDefault();
+
     const fn = async () => {
       try {
         const board = await getBoard(boardId);
@@ -44,6 +51,13 @@ const Recipe = () => {
       }
     };
     fn();
+  }
+
+  //더보기 버튼 클릭
+  const handleMoreClick = (event) => {
+    event.preventDefault();
+
+    setCurrentPage(current => current + 1);
   }
 
   return (
@@ -67,17 +81,20 @@ const Recipe = () => {
               type: "red",
             }}
           />
-          <CategoryButton query={inputQuery} />
+          <CategoryButton
+            query={inputQuery}
+            category={category}
+            setCategory={setCategory}
+            setCurrentPage={setCurrentPage}
+          />
         </S.Container>
         {Array.isArray(allBoards) &&
           allBoards.map((post) => (
-            <S.PostWrap
-              key={post._id}
-              onClick={() => hanleClick(post._id)}
-            >
-                <PostList post={post} type={"list"} />
-              </S.PostWrap>
+            <S.PostWrap key={post._id} onClick={(e) => hanleClick(e, post._id)}>
+              <PostList post={post} type={"list"} />
+            </S.PostWrap>
           ))}
+        <button onClick={handleMoreClick}>더보기</button>
       </S.ContainerWrap>
     </S.Background>
   );

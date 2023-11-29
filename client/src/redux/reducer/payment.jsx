@@ -4,6 +4,9 @@ const initialState = {
   orders: [], //주문이 쌓이는 곳
   orderRequest: "",
   deliveryMethod: "방문포장",
+  // 유진님꺼
+  receipted: [],
+  completed: [],
 };
 
 const payment = (state = initialState, action) => {
@@ -21,6 +24,25 @@ const payment = (state = initialState, action) => {
       };
     case PAYMENT_TYPE.RESET:
       return initialState;
+
+    //유진님꺼
+    case PAYMENT_TYPE.GET_ALL_ORDERS:
+      const filteredReceipt = state.orders.filter((order) => order.status === "주문완료");
+      const filteredComplete = state.orders.filter((order) => order.status !== "주문완료");
+      return {
+        ...state,
+        orders: action.payload,
+        receipted: filteredReceipt,
+        completed: filteredComplete,
+      };
+    case PAYMENT_TYPE.UPDATE_ORDER:
+      const updatedOrder = action.payload;
+      const updatedOrders = state.receipted.filter((order) => order._id !== updatedOrder._id);
+      return {
+        ...state,
+        receipted: updatedOrders,
+        completed: [...state.completed, updatedOrder],
+      };
     default:
       return state;
   }

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import * as S from "../recipeWrite/RecipeWrite.style";
 import SquareButton from "../../../components/ui/button/SquareButton";
 import { AiTwotoneCloseCircle } from "react-icons/ai";
@@ -10,6 +10,21 @@ const PostFile = ({ images, setImages, defaultValue }) => {
   const [fileImages, setFileImages] = useState([]); //업로드 이미지 미리보기
   const [totalSize, setTotalSize] = useState(0); //총 파일 크기를 관리
   const fileInput = useRef(null); //파일 입력 요소에 대한 ref 생성
+
+  useEffect(() => {
+    if (defaultValue) { //게시글 수정
+      let imageArr = [];
+      defaultValue.forEach((image, index) => {
+        imageArr.push({
+          dataURL: image,
+          fileName: `image${index}`,
+          //size: file.size,
+        });
+      });
+      setFileImages(imageArr);
+      setImages(defaultValue);
+    }
+  }, []);
 
   //파일 업로드 버튼 클릭 시 파일 입력 요소 클릭 이벤트 발생
   const handleButtonClick = (e) => {

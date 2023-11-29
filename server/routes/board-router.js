@@ -12,14 +12,18 @@ BoardRouter.get(
   asyncHandler(async (req, res) => {
     const category = req.params.category;
     const { currentPage, pageSize } = req.query;
-    const boards = await BoardService.getBoardsByCategory(category, currentPage, pageSize);
+    const boards = await BoardService.getBoardsByCategory(
+      category,
+      currentPage,
+      pageSize
+    );
     ResponseHandler.respondWithSuccess(res, boards);
   })
 );
 
 // 특정 board ID의 게시글 가져오기
 BoardRouter.get(
-  "/:boardId",
+  "/board/:boardId",
   asyncHandler(async (req, res) => {
     const board = await BoardService.getBoardById(req.params.boardId);
     if (!board) {
@@ -44,13 +48,16 @@ BoardRouter.get(
   "/mypost",
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
-    const user = req.tokenData._id;
+    const userId = req.tokenData._id;
     const { currentPage, pageSize } = req.query;
-    const boards = await BoardService.getAllBoardsByUserId(user, currentPage, pageSize);
+    const boards = await BoardService.getAllBoardsByUserId(
+      userId,
+      currentPage,
+      pageSize
+    );
     ResponseHandler.respondWithSuccess(res, boards);
   })
 );
-
 
 // 새로운 게시글 생성
 BoardRouter.post(

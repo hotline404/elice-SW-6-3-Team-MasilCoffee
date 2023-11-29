@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as Options from "./style/GetAllOption.style";
 import { getAllOptions } from "../../../../api/orderOption";
@@ -10,12 +10,12 @@ const GetAllOption = () => {
   const allOptions = useSelector((state) => state.orderOption.options);
 
   const options = [
-    { 샷: allOptions.shot },
-    { 시럽: allOptions.syrup },
-    { 얼음: allOptions.iceAmount },
-    { 휘핑: allOptions.whipping },
-    { 드리즐: allOptions.drizzle },
-    { 우유: allOptions.milk },
+    { shot: allOptions.shot },
+    { syrup: allOptions.syrup },
+    { iceAmount: allOptions.iceAmount },
+    { whipping: allOptions.whipping },
+    { drizzle: allOptions.drizzle },
+    { milk: allOptions.milk },
   ];
 
   useEffect(() => {
@@ -53,41 +53,6 @@ const GetAllOption = () => {
       })}
     </Options.Container>
   );
-};
-
-GetAllOption.defaultProps = {
-  options: [
-    {
-      얼음: {
-        많이: 0,
-        보통: 0,
-        조금: 0,
-      },
-    },
-    {
-      휘핑: {
-        많이: 0,
-        보통: 0,
-        조금: 0,
-      },
-    },
-    {
-      시럽: {
-        바닐라: 600,
-        헤이즐넛: 600,
-        카라멜: 600,
-      },
-    },
-    {
-      우유: {
-        무지방: 0,
-        저지방: 0,
-        일반: 0,
-        오트: 0,
-        두유: 0,
-      },
-    },
-  ],
 };
 
 export default GetAllOption;

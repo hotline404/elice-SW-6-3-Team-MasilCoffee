@@ -14,9 +14,12 @@ export const createOption = async (data) => {
 };
 
 export const updateOption = async (id, data, token) => {
+  console.log("api", id, data, token);
   const headers = { headers: { Authorization: `Bearer ${token}` } };
   const res = await axios.put(`http://localhost:5000/api/v1/orderOption/${id}`, data, headers);
+  console.log(res);
   const option = res.data.data;
+  console.log("res.data.data", res.data.data);
   return option;
 };
 

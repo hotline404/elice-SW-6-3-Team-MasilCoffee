@@ -38,4 +38,17 @@ LikeRouter.put(
   })
 );
 
+LikeRouter.get(
+  "/count/:boardId",
+  asyncHandler(async (req, res) => {
+    const { boardId } = req.params;
+    try {
+      const likeCount = await LikeService.getLikeCount(boardId);
+      ResponseHandler.respondWithSuccess(res, { likeCount });
+    } catch (error) {
+      ResponseHandler.respondWithError(res, 500, "내부 서버 오류");
+    }
+  })
+);
+
 module.exports = LikeRouter;

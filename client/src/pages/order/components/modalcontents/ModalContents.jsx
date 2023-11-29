@@ -50,12 +50,16 @@ const ModalContents = ({ data }) => {
   };
 
   const handleSetResultOrder = (route, action) => {
-    // if(isLogin === false && route === "/Payment") {
-    //   if(window.confirm("로그인 상태가 아닙니다. 로그인하여 결제를 진행해주세요.")) {
-    //     navigate("/Login");
-    //   }
-    //   return;
-    // }
+    if (isLogin === false && route === "/Payment") {
+      if (
+        window.confirm(
+          "로그인 상태가 아닙니다. 로그인하여 결제를 진행해주세요."
+        )
+      ) {
+        navigate("/Login");
+      }
+      return;
+    }
     dispatch(
       action({
         ...options.selectedOptions,
@@ -63,7 +67,7 @@ const ModalContents = ({ data }) => {
         name: data.name,
         id: data.id,
         totalPrice,
-        quantity
+        quantity,
       })
     );
     navigate(route);
@@ -100,9 +104,9 @@ const ModalContents = ({ data }) => {
           <span>{data.name}</span>
           <StylePaddingSpan>{quantity * data.price}</StylePaddingSpan>
           <StyleQuantity>
-            <button onClick={handleIncreaseOnClick}>+</button>
-            <span>{quantity}</span>
             <button onClick={handleDecreaseOnClick}>-</button>
+            <span>{quantity}</span>
+            <button onClick={handleIncreaseOnClick}>+</button>
           </StyleQuantity>
           <StyleDisplay>
             <span>{data.temp}</span>

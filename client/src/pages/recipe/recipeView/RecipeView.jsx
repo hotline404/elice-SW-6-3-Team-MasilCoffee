@@ -5,12 +5,23 @@ import * as S from "./RecipeView.style";
 import PostList from "../components/PostList";
 import PostInput from "../components/PostInput";
 import CommentList from "../components/CommentList";
-import commentData from "../commentData.json";
+import { getComments } from "../../../api/comment";
+// import commentData from "../commentData.json";
 
 const RecipeView = () => {
   const oneBoardData = useSelector((state) => state.board.board[0]);
+  let commentData;
   
   useEffect(() => {
+    const fn = async () => {
+      try {
+        commentData = await getComments(oneBoardData._id);
+        console.log("RecipeView 댓글", commentData)
+      } catch (err) {
+        console.log("err", err);
+      }
+    };
+    fn();
     window.scrollTo(0, 0);
   }, []);
 
@@ -36,9 +47,9 @@ const RecipeView = () => {
                 />
               </Container>
             </S.TextWrap>
-            {commentData.map((comment) => (
+            {/* {commentData.map((comment) => (
               <CommentList comment={comment} />
-            ))}
+            ))} */}
           </>
         ) : (
           <div>Loading...</div>

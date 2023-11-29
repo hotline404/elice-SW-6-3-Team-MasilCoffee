@@ -1,5 +1,6 @@
 export const PRODUCT_TYPE = {
   GET_ALL_PRODUCTS: "get_all_products",
+  GET_CATEGORY_PRODUCTS: "get_category_products",
   ADD_PRODUCT: "add_product",
   UPDATE_PRODUCTS: "update_products",
   DELETE_PRODUCT: "delete_product",
@@ -15,6 +16,7 @@ export const OPTION_TYPE = {
 
 export const BOARD_TYPE = {
   GET_ALL_BOARDS: "get_all_boards",
+  GET_ALL_MORE_BOARDS: "get_all_more_boards",
   GET_SEARCH_BOARDS: "get_search_boards",
   GET_FILTER_BOARDS: "get_filter_boards",
   REMOVE_FILTER_BOARDS: "remove_filter_boards",
@@ -60,6 +62,8 @@ export const PAYMENT_TYPE = {
   PAYMENT: "payment",
   RESET: "reset",
   ADD_REQUEST_DELIVERY: "add_request_delivery",
+  GET_ALL_ORDERS: "get_all_orders",
+  UPDATE_ORDER: "update_order",
 };
 
 export const USERS_TYPE = {

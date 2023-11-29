@@ -1,6 +1,5 @@
 import DateFormat from "../../../util/DateFormat/DateFormat";
 import { USERS_TYPE } from "../../action/_types";
-import FilterFn from "../../../util/FilterCheckBox/FilterFn";
 
 const initUsersState = {
   searchData: [],
@@ -15,22 +14,21 @@ const users = (state = initUsersState, action) => {
     case USERS_TYPE.GET_ALL_USERS: {
       return {
         ...state,
-        searchData: [action.payload.initData],
-        users: [action.payload.initData],
-        tableData: action.payload.initData.map(formatUserForTable),
+        searchData: action.payload,
+        users: action.payload,
+        tableData: action.payload.map(formatUserForTable),
       };
     }
 
     case USERS_TYPE.SEARCH_USERS: {
       const { users } = state;
-      console.log("userData", users[0]);
 
       if (!action.payload) {
         return { ...state, users: users };
       }
       const { name, phone, nickname } = action.payload;
 
-      const findUser = users[0].filter((user) => {
+      const findUser = users.filter((user) => {
         let filterName = true;
         let filterPhone = true;
         let filterNick = true;
@@ -55,17 +53,10 @@ const users = (state = initUsersState, action) => {
       };
     }
 
-    // case "get.user": {
-    //   const { initData } = action.payload;
-    //   return { ...state, users: initData };
-    // }
-
     case USERS_TYPE.UPDATE_USERS: {
       const updatedUser = action.payload;
+      const updatedUsers = state.users.map((user) => (user._id === updatedUser._id ? updatedUser : user));
 
-      console.log("userData", users[0]);
-      const updatedUsers = state.users[0].map((user) => (user._id === updatedUser._id ? updatedUser : user));
-      console.log("업데이트된 유저", updatedUsers);
       return {
         ...state,
         users: updatedUsers,
@@ -75,7 +66,8 @@ const users = (state = initUsersState, action) => {
 
     case USERS_TYPE.DELETE_USERS: {
       const deletedUserId = action.payload;
-      const filteredUsers = state.users[0].filter((user) => user._id !== deletedUserId);
+      const filteredUsers = state.users.filter((user) => user._id !== deletedUserId);
+
       return {
         ...state,
         users: filteredUsers,

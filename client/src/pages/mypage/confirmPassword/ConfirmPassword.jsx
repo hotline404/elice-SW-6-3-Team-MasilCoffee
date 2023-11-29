@@ -34,7 +34,7 @@ function ConfirmPassword() {
       alert(res.message);
       dispatch(actionLogout());
       dispatch(removeUser());
-      nav(ROUTES.MAIN.path);
+      nav(ROUTES.MAIN.path, { replace: true});
     } catch (err) {
       console.error(err);
     }
@@ -48,6 +48,7 @@ function ConfirmPassword() {
       alert("회원 삭제 완료!");
       dispatch(actionLogout());
       dispatch(removeUser());
+      nav(ROUTES.MAIN.path, { replace: true});
     } catch (err) {
       console.error(err);
     }

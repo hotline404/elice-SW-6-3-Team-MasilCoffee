@@ -1,11 +1,14 @@
-import React, { useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Wrap, SearchInput } from "../Recipe.style";
 import SquareButton from "../../../components/ui/button/SquareButton";
 import { actionSearchBoards } from "../../../redux/action/boardAction";
+import { addComments } from "../../../api/comment";
 
 const PostInput = ( props ) => {
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.login.token);
+  const boardData = useSelector((state) => state.board.board[0]);
   const [query, setQuery] = useState("");
 
   const handleChange = (e) => {
@@ -17,12 +20,19 @@ const PostInput = ( props ) => {
       dispatch(actionSearchBoards(query));
       props.onInsert(query);
     } else { //댓글
-      console.log("댓글: ", query);
+      const fn = async () => {
+        try {
+          const comment = await addComments(token, boardData._id, query);
+        } catch (error) {
+          console.error("PostInput 댓글 작성 error", error);
+        }
+      }
+      fn();
     }
   }
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
+    if (props.onInsert && e.key === "Enter") {
       handleClick();
     }
   }

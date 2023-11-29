@@ -25,7 +25,6 @@ export const addComments = async (token, boardId, commentData) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("res",res)
     const comments = res.data.data;
     console.log("댓글 작성", comments);
     return comments;
@@ -36,9 +35,13 @@ export const addComments = async (token, boardId, commentData) => {
 
 //댓글 수정
 export const updateComments = async (token, commentId, commentData) => {
+  const data = {
+    comment: commentData,
+  };
+  
   try {
     const res = await axios.put(`http://localhost:5000/api/v1/comment/${commentId}`,
-    commentData, {
+    data, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -60,8 +63,11 @@ export const deleteComments = async (token, commentId) => {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    if (res.status >= 200 && res.status < 300) {
+      alert("댓글이 삭제되었습니다.");
+    }
     const comments = res.data.data;
-    console.log("댓글 삭제", comments);
     return comments;
   } catch (error) {
     console.error("error(deleteComments)", error);

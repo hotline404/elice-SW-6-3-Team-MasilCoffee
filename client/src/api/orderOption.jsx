@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const getAllOptions = async () => {
-  // api 경로 생기면 수정하기
-  const res = await axios.get("http://localhost:5000/api/v1/option");
-  const options = res.data.data;
+export const getAllOptions = async (token) => {
+  const headers = { headers: { Authorization: `Bearer ${token}` } };
+  const res = await axios.get("http://localhost:5000/api/v1/orderOption", headers);
+  const options = res.data.data[0];
   return options;
 };
 

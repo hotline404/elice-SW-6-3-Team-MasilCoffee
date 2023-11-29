@@ -57,15 +57,6 @@ const OptionModal = ({ options, title, closeModal }) => {
         formData.append(field.name, field.value);
       }
     }
-
-    axios
-      .post("http://localhost:5000/api/v1/products", formData)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
   };
 
   return (

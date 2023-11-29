@@ -20,11 +20,14 @@ const smtpTransporter = nodemailer.createTransport({
 });
 
 const sendMail = async (to, num) => {
-  if (!to || typeof to !== 'string' || !to.includes('@')) {
-    return { success: false, message: "수신자 이메일 주소가 유효하지 않습니다." };
+  if (!to || typeof to !== "string" || !to.includes("@")) {
+    return {
+      success: false,
+      message: "수신자 이메일 주소가 유효하지 않습니다.",
+    };
   }
 
-  const expireTime = 1; // 5분, ms
+  const expireTime = 300000; // 5분, ms
   const sentTime = new Date();
 
   const mailOptions = {
@@ -36,8 +39,8 @@ const sendMail = async (to, num) => {
 
   try {
     const result = await smtpTransporter.sendMail(mailOptions);
-    return { 
-      success: true, 
+    return {
+      success: true,
       message: "이메일이 발송 되었습니다.",
       sentTime,
       expireTime,
@@ -47,6 +50,5 @@ const sendMail = async (to, num) => {
     return { success: false, message: "이메일 발송 실패" };
   }
 };
-
 
 module.exports = { sendMail };

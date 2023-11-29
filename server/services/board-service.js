@@ -15,7 +15,7 @@ class BoardService {
       const imagePaths = boardData.image ? boardData.image : [];
       const newBoard = new Board({
         user: boardData.userId,
-        nickname: user.nickname,
+        nickname: boardData.userNickname,
         category: boardData.category,
         post: boardData.post,
         image: imagePaths,
@@ -30,13 +30,26 @@ class BoardService {
   }
 
   // 모든 게시글 조회
-  static async getAllBoards(currentPage, pageSize) {
+  static async getAllBoards(currentPage, pageSize, searchTerm) {
     try {
-      const totalItems = await Board.countDocuments();
-      const boards = await Board.find()
+      let query = {};
+
+      // 검색어가 제공되면, 닉네임 또는 내용에서 검색
+      if (searchTerm) {
+        query = {
+          $or: [
+            { "user.nickname": { $regex: searchTerm, $options: "i" } }, // 닉네임 검색
+            { post: { $regex: searchTerm, $options: "i" } }, // 내용 검색
+          ],
+        };
+      }
+
+      const totalItems = await Board.countDocuments(query);
+      const boards = await Board.find(query)
         .sort({ createdAt: -1 })
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize);
+
       const paginatedResult = paginate(
         boards,
         currentPage,

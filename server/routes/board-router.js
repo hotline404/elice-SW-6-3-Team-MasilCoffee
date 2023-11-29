@@ -12,7 +12,11 @@ BoardRouter.get(
   asyncHandler(async (req, res) => {
     const category = req.params.category;
     const { currentPage, pageSize } = req.query;
-    const boards = await BoardService.getBoardsByCategory(category, currentPage, pageSize);
+    const boards = await BoardService.getBoardsByCategory(
+      category,
+      currentPage,
+      pageSize
+    );
     ResponseHandler.respondWithSuccess(res, boards);
   })
 );
@@ -33,8 +37,12 @@ BoardRouter.get(
 BoardRouter.get(
   "/",
   asyncHandler(async (req, res) => {
-    const { currentPage, pageSize } = req.query;
-    const boards = await BoardService.getAllBoards(currentPage, pageSize);
+    const { currentPage, pageSize, searchTerm } = req.query;
+    const boards = await BoardService.getAllBoards(
+      currentPage,
+      pageSize,
+      searchTerm
+    );
     ResponseHandler.respondWithSuccess(res, boards);
   })
 );
@@ -46,11 +54,14 @@ BoardRouter.get(
   asyncHandler(async (req, res) => {
     const user = req.tokenData._id;
     const { currentPage, pageSize } = req.query;
-    const boards = await BoardService.getAllBoardsByUserId(user, currentPage, pageSize);
+    const boards = await BoardService.getAllBoardsByUserId(
+      user,
+      currentPage,
+      pageSize
+    );
     ResponseHandler.respondWithSuccess(res, boards);
   })
 );
-
 
 // 새로운 게시글 생성
 BoardRouter.post(
@@ -59,10 +70,12 @@ BoardRouter.post(
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
     const userId = req.tokenData._id;
+    const userNickname = req.tokenData._id;
     const { category, post, tags } = req.body;
     const imagePaths = req.files.map((file) => file.location);
     const boardData = {
       userId,
+      userNickname,
       category,
       post,
       image: imagePaths,

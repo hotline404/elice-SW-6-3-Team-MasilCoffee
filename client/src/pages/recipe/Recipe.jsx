@@ -12,7 +12,7 @@ import { actionGetAllBoards, actionGetAllMoreBoards, actionGetBoard } from "../.
 const Recipe = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const allBoards = useSelector((state) => state.board.boards);
+  const allBoards = useSelector((state) => state.board.searchBoards);
   const token = useSelector((state) => state.login.token);
   const [inputQuery, setInputQuery] = useState(null);
   const [category, setCategory] = useState("");

@@ -16,7 +16,7 @@ export const actionGetAllMoreBoards = (boards) => {
   };
 };
 
-//게시물 검색(전체)
+//게시글 검색
 export const actionSearchBoards = (quary) => {
   return {
     type: BOARD_TYPE.GET_SEARCH_BOARDS,
@@ -24,7 +24,7 @@ export const actionSearchBoards = (quary) => {
   };
 };
 
-//해당 게시물 가져오기
+//해당 게시글 가져오기
 export const actionGetBoard = (board) => {
   return {
     type: BOARD_TYPE.GET_BOARD,
@@ -32,7 +32,7 @@ export const actionGetBoard = (board) => {
   };
 }
 
-//게시물 작성하기
+//게시글 작성하기
 export const actionAddBoard = (board) => {
   return {
     type: BOARD_TYPE.ADD_BOARD,
@@ -40,7 +40,7 @@ export const actionAddBoard = (board) => {
   }
 }
 
-//게시물 수정하기
+//게시글 수정하기
 export const actionUpdateBoard = (board) => {
   return {
     type: BOARD_TYPE.UPDATE_BOARD,
@@ -48,7 +48,7 @@ export const actionUpdateBoard = (board) => {
   }
 }
 
-//게시물 삭제하기
+//게시글 삭제하기
 export const actionRemoveBoard = (boardId) => {
   return {
     type: BOARD_TYPE.REMOVE_BOARD,

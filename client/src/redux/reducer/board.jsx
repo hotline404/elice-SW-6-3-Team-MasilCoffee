@@ -8,73 +8,76 @@ const initialState = {
   board: [],
 };
 
-const filterFn = (filters, query, boards) => {
-  const filtered = boards.filter((el) => el.category === filters);
-  return filtered.filter((e) => e.post.search(query) !== -1);
-};
-
 const board = (state = initialState, action) => {
   switch (action.type) {
-    //모든 게시물 가져오기(초기)
+    //모든 게시글 가져오기(초기)
     case BOARD_TYPE.GET_ALL_BOARDS:
       return {
         ...state,
         boards: action.payload,
-        //searchBoards: action.payload,
+        searchBoards: action.payload,
       };
-    
-    //모든 게시물 가져오기(페이지네이션)
+
+    //모든 게시글 가져오기(페이지네이션)
     case BOARD_TYPE.GET_ALL_MORE_BOARDS:
       return {
         ...state,
         boards: [...state.boards, ...action.payload],
-        //searchBoards: action.payload,
+        searchBoards: [...state.boards, ...action.payload],
       };
 
-    //게시물 검색
+    //게시글 검색
     case BOARD_TYPE.GET_SEARCH_BOARDS:
-      const { boards, filters } = state;
+      const { boards } = state;
       const query = action.payload;
 
-      if (!query && filters !== "") { //검색쿼리X, 카테고리O
-        const filteredCate = boards.filter((e) => e.category === filters);
-        return {
-          ...state,
-          searchBoards: filteredCate,
-        };
-      } else if (!query && filters === "") { //검색쿼리X, 카테고리X
-        return {
-          ...state,
-          searchBoards: boards,
-        };
-      } else if (query && filters === "") { //검색쿼리O, 카테고리X
+      if (query) {
+        //검색 값 O
         const searchBoard = boards.filter((e) => e.post.search(query) !== -1);
         return {
           ...state,
           searchBoards: searchBoard,
         };
+      } else {
+        //검색 값 X
+        return {
+          ...state,
+          searchBoards: state.boards,
+        };
       }
-      const filteredData = filterFn(filters, query, boards); //검색쿼리O, 카테고리O
 
-      return {
-        ...state,
-        searchBoards: filteredData,
-      };
+    // //게시물 검색
+    // case BOARD_TYPE.GET_SEARCH_BOARDS:
+    //   const { boards, filters } = state;
+    //   const query = action.payload;
 
-    //카테고리별 모든 게시물 (선택)
-    case BOARD_TYPE.GET_FILTER_BOARDS: {
-      return {
-        ...state,
-        filters: action.payload.name,
-      };
-    }
+    //   if (!query && filters !== "") {
+    //     //검색쿼리X, 카테고리O
+    //     const filteredCate = boards.filter((e) => e.category === filters);
+    //     return {
+    //       ...state,
+    //       searchBoards: filteredCate,
+    //     };
+    //   } else if (!query && filters === "") {
+    //     //검색쿼리X, 카테고리X
+    //     return {
+    //       ...state,
+    //       searchBoards: boards,
+    //     };
+    //   } else if (query && filters === "") {
+    //     //검색쿼리O, 카테고리X
+    //     const searchBoard = boards.filter((e) => e.post.search(query) !== -1);
+    //     return {
+    //       ...state,
+    //       searchBoards: searchBoard,
+    //     };
+    //   }
+    //   const filteredData = filterFn(filters, query, boards); //검색쿼리O, 카테고리O
 
-    //카테고리별 모든 게시물 (선택해제)
-    case BOARD_TYPE.REMOVE_FILTER_BOARDS:
-      return {
-        ...state,
-        filters: "",
-      };
+    //   return {
+    //     ...state,
+    //     searchBoards: filteredData,
+    //   };
 
     //해당 게시물 가져오기
     case BOARD_TYPE.GET_BOARD:

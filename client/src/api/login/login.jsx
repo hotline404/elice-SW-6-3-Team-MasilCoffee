@@ -9,7 +9,7 @@ export const axiosPostLogin = async (email, password) => {
   try {
     const res = await axios.post(loginUrl, loginBody);
     const data = res.data;
-
+    console.log("axios login", res)
     return data;
   } catch (error) {
     // 에러가 발생한 경우 에러 메시지를 콘솔에 출력

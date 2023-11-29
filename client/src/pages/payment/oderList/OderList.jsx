@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { postRecipe } from "../../../redux/action/user/userAction";
 import SquareButton from "../../../components/ui/button/SquareButton";
 import { useDispatch, useSelector } from "react-redux";
-import { removeOrder } from "../../../redux/action/orderAction";
 
 import {
   StyledOrderList,
@@ -18,7 +16,7 @@ function OderList() {
   console.log("오더 네임", payment);
 
   const userRecipe = useSelector((state) => state.user);
-  console.log("유저레시피", userRecipe);
+  // console.log("유저레시피", userRecipe);
 
   const dispatch = useDispatch();
 
@@ -27,7 +25,12 @@ function OderList() {
       // 문제점 1. 꿀조합이 내가 지금까지 시켰던 모든 주문들이 보여지는 용도면 딱히 이쪽은 필요 없음
       // 문제점 2. 모든 주문들이 다 보여지면 꿀조합의 의미가 퇴색 됨 (내가 원하는 조합만 저장할 수 있어야 됨)
       dispatch(postRecipe(payment.orders[index]));
-      console.log("유저 레시피", userRecipe);
+      // console.log("유저 레시피", userRecipe);
+      // console.log("인덱스 배열", index);
+      console.log(
+        "페이먼트.오더스[0].오더디테일",
+        payment.orders[0].orderDtail
+      );
     }
   };
 
@@ -52,7 +55,8 @@ function OderList() {
                             key={item.name}
                           >{`샷 : ${item.name} ${item.quantity}`}</span>
                         ))}
-                      {order.syrups
+                      {/* 여기 syrups => syrup 변경 */}
+                      {order.syrup
                         .filter((item) => item.quantity > 0)
                         .map((item) => (
                           <span
@@ -66,7 +70,8 @@ function OderList() {
                         .map((item) => (
                           <span key={item.name}>{`휘핑 : ${item.name}`}</span>
                         ))}
-                      {order.ice
+                      {/* 여기 ice => iceAmount 변경 */}
+                      {order.iceAmount
                         .filter(
                           (item) => item.quantity > 0 && item.name !== "없음"
                         )

@@ -24,6 +24,7 @@ function LeftSideItem(props) {
 
   const handleClickLogo = () => {
     nav(ROUTES.MAIN.path, { replace: false });
+    ( window.location || document.location).reload();
   };
 
   return (

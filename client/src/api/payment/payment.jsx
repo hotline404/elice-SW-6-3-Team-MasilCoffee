@@ -5,9 +5,13 @@ export const postPayment = async (paymentData, token) => {
   const headers = { headers: { Authorization: `Bearer ${token}` } };
   console.log(paymentData);
   try {
-    const res = await axios.post("http://localhost:5000/api/v1/order", paymentData, headers);
-
-    return res.data;
+    const res = await axios.post(
+      "http://localhost:5000/api/v1/order",
+      paymentData,
+      headers
+    );
+    // console.log("페이먼트 api의 레스.데이터.데이터", res.data);
+    return res.data.data;
   } catch (error) {
     console.error("error(postPayment)", error);
   }
@@ -16,7 +20,10 @@ export const postPayment = async (paymentData, token) => {
 // 전체주문 가져오기
 export const getAllPayment = async (token) => {
   const headers = { headers: { Authorization: `Bearer ${token}` } };
-  const res = await axios.get("http://localhost:5000/api/v1/order/admin", headers);
+  const res = await axios.get(
+    "http://localhost:5000/api/v1/order/admin",
+    headers
+  );
   const payments = res.data.data;
   return payments;
 };
@@ -32,7 +39,11 @@ export const getPayment = async (token) => {
 // 주문정보 수정
 export const updatePayment = async (orderId, orderData, token) => {
   const headers = { headers: { Authorization: `Bearer ${token}` } };
-  const res = await axios.put(`http://localhost:5000/api/v1/order/${orderId}`, orderData, headers);
+  const res = await axios.put(
+    `http://localhost:5000/api/v1/order/${orderId}`,
+    orderData,
+    headers
+  );
   const payment = res.data.data;
   return payment;
 };
@@ -40,7 +51,9 @@ export const updatePayment = async (orderId, orderData, token) => {
 // 주문 삭제
 export const deletePayment = async (orderId) => {
   try {
-    const res = await axios.delete(`http://localhost:5000/api/v1/order/:orderId/${orderId}`);
+    const res = await axios.delete(
+      `http://localhost:5000/api/v1/order/:orderId/${orderId}`
+    );
     const payment = res.data.data;
 
     return payment;

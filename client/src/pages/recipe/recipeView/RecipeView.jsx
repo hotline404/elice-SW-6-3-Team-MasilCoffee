@@ -5,12 +5,22 @@ import * as S from "./RecipeView.style";
 import PostList from "../components/PostList";
 import PostInput from "../components/PostInput";
 import CommentList from "../components/CommentList";
-import commentData from "../commentData.json";
+import { getComments } from "../../../api/comment";
 
 const RecipeView = () => {
   const oneBoardData = useSelector((state) => state.board.board[0]);
+  const [commentData, getCommentData] = useState("");
   
   useEffect(() => {
+    const fn = async () => {
+      try {
+        const comment = await getComments(oneBoardData._id);
+        getCommentData(comment);
+      } catch (err) {
+        console.log("err", err);
+      }
+    };
+    fn();
     window.scrollTo(0, 0);
   }, []);
 
@@ -36,9 +46,15 @@ const RecipeView = () => {
                 />
               </Container>
             </S.TextWrap>
-            {commentData.map((comment) => (
-              <CommentList comment={comment} />
-            ))}
+            {commentData.length > 0 ?
+              (commentData.map((comment) => (
+                <CommentList comment={comment} />
+              ))
+              ) : (
+                <div style={{ textAlign: "center" }}>
+                  작성된 댓글이 없습니다.
+                </div>
+            )}
           </>
         ) : (
           <div>Loading...</div>

@@ -11,6 +11,7 @@ import DateFormat from "../../../util/DateFormat/DateFormat";
 import RandomColor from "../../../util/RandomColor/RandomColor";
 import { deleteBoard } from "../../../api/board";
 import { actionRemoveBoard } from "../../../redux/action/boardAction";
+import { likedBoard } from "../../../api/board";
 
 const PostList = ({ post, type }) => {
   const navigate = useNavigate();
@@ -23,9 +24,23 @@ const PostList = ({ post, type }) => {
 
   const handleLikedClick = (event) => {
     event.preventDefault();
+
+    const fn = async () => {
+      try {
+        const likedCheck = await likedBoard(token, post._id);
+        console.log("likedCheck", likedCheck);
+        if (likedCheck === "create") { //create / delete
+          
+        }
+        setLiked((prevLiked) => !prevLiked);
+        setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
+        //dispatch(actionUpdateBoard(updatedBoard));
+      } catch (error) {
+        console.error("RecipeWrite.jsx - update", error);
+      }
+    };
+    fn();
     
-    setLiked((prevLiked) => !prevLiked);
-    setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
   }
 
   const handleDelete = (event, boardId) => {

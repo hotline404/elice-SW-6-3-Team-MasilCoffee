@@ -3,19 +3,25 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetAllProducts } from "../../redux/action/productAction";
 import { getAllProductsMain } from "../../api/product";
+import { getAllOptions } from "../../api/orderOption";
 import { setOrderDetail } from "../../redux/action/orderDetailAction";
-import { mockup } from "./components/data/menuMockup";
 
 import Card from "./components/card/Card";
 import { StyledOrder } from "./Order.style";
 import Slider from "react-slick";
 
-const Order = ({ children }) => {
+const Order = () => {
   const userRecipe = useSelector((state) => state.user.recipe);
+  // console.log("유저레시피", userRecipe);
+  // console.log("유저레시피 아이디", userRecipe._id);
+  // console.log("유저레시피");
+  const orderDetailOptions = useSelector((state) => state.orderDetail);
+  console.log("오더디테일옵션스", orderDetailOptions.options);
 
   const dispatch = useDispatch();
 
   const productsFromState = useSelector((state) => state.product.products);
+  // console.log("프로덕트 폼 스테이트", productsFromState);
 
   // orderDetail api가 Order 페이지 렌더링 시 한 번만 호출하는 최적화 용도
   // api 나오면 수정 필요
@@ -23,7 +29,7 @@ const Order = ({ children }) => {
     try {
       // const response = await fetch("client/src/pages/order/components/data/menuMockup.js");
       // const data = await response.json();
-      const data = mockup;
+      const data = await getAllOptions();
       console.log(data);
 
       dispatch(setOrderDetail(data));
@@ -40,8 +46,7 @@ const Order = ({ children }) => {
     const fn = async () => {
       try {
         const products = await getAllProductsMain(); //비동기
-        // console.log("프로덕트 가져오기", products);
-        dispatch(actionGetAllProducts(products.data));
+        dispatch(actionGetAllProducts(products)); // data뺴니까 됨
         // console.log("productsFrom", productsFromState);
       } catch (err) {
         console.log("err", err);
@@ -83,13 +88,19 @@ const Order = ({ children }) => {
         filtered = productsFromState.filter((pd) => pd.category === "에이드");
         break;
       case "꿀조합":
-        filtered = userRecipe;
+        filtered = userRecipe; // 왜 _id?
         break;
       default:
         filtered = productsFromState;
     }
 
+    // // 카테고리에 메뉴가 없는 경우 처리
+    if (filtered.length === 0) {
+      console.log(`${category} 카테고리에는 메뉴가 없습니다.`);
+    }
+
     console.log("필터드", filtered);
+    console.log("유저레시피", userRecipe);
     setFilteredProducts(filtered);
   };
 

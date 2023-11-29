@@ -13,6 +13,7 @@ import {
 
 function QuantityOption({ optionName }) {
   const dispatch = useDispatch();
+
   const origin = useSelector(
     (state) => state.orderDetail.orderDetail[optionName]
   );
@@ -42,7 +43,8 @@ function QuantityOption({ optionName }) {
 
   useEffect(() => {
     let rusultPrice = 0;
-    console.log(details);
+    // console.log(details);
+    // console.log("오리진", origin);
     details.forEach((detail) => {
       rusultPrice +=
         detail.quantity *
@@ -77,7 +79,7 @@ function QuantityOption({ optionName }) {
                       <div onClick={() => handleDecreaseOption(detail.name)}>
                         -
                       </div>
-                      <span>{detail.name}</span>
+                      <span>{detail.quantity}</span>
                       <div onClick={() => handleIncreaseOption(detail.name)}>
                         +
                       </div>

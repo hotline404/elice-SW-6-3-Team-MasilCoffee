@@ -6,16 +6,18 @@ class BoardService {
   // 게시글 생성
   static async createBoard(boardData) {
     try {
-      console.log(boardData.userId);
       const user = await User.findById(boardData.userId);
       if (!user) {
         throw new Error("사용자를 찾을 수 없습니다.");
       }
 
       const imagePaths = boardData.image ? boardData.image : [];
+
       const newBoard = new Board({
-        user: boardData.userId,
-        nickname: user.nickname,
+        user: {
+          id: user._id,
+          nickname: user.nickname,
+        },
         category: boardData.category,
         post: boardData.post,
         image: imagePaths,
@@ -35,6 +37,7 @@ class BoardService {
       const totalItems = await Board.countDocuments();
       const boards = await Board.find()
         .sort({ createdAt: -1 })
+        .populate("user.id", "nickname")
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize);
       const paginatedResult = paginate(
@@ -52,11 +55,13 @@ class BoardService {
   // 본인 모든 게시글 조회
   static async getAllBoardsByUserId(userId, currentPage, pageSize) {
     try {
-      const query = { user: userId };
+      const query = { "user.id": userId };
+
       const totalItems = await Board.countDocuments(query);
 
       const boards = await Board.find(query)
         .sort({ createdAt: -1 })
+        .populate("user.id", "nickname")
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize);
 
@@ -76,7 +81,10 @@ class BoardService {
   // 특정 게시글 갖고오기
   static async getBoardById(boardId) {
     try {
-      const board = await Board.findById(boardId);
+      const board = await Board.findById(boardId).populate(
+        "user.id",
+        "nickname"
+      );
       return board;
     } catch (error) {
       throw error;
@@ -90,6 +98,7 @@ class BoardService {
 
       const boards = await Board.find(query)
         .sort({ createdAt: -1 })
+        .populate("user.id", "nickname")
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize);
 
@@ -105,15 +114,14 @@ class BoardService {
     }
   }
 
-  static async updateBoard(userIdFromToken, boardId, updatedData, imagePaths) {
+  static async updateBoard(userId, boardId, updatedData, imagePaths) {
     try {
       const existingBoard = await Board.findById(boardId);
       if (!existingBoard) {
         throw new Error("게시글을 찾을 수 없습니다.");
       }
-      const userIdOfExistingBoard = existingBoard.user.toString();
-
-      if (userIdFromToken !== userIdOfExistingBoard) {
+      const userIdOfBoard = existingBoard.user.id.toString();
+      if (userId !== userIdOfBoard) {
         throw new Error("권한이 없습니다.");
       }
 

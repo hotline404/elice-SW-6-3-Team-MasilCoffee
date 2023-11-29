@@ -26,7 +26,6 @@ function AuthEmail(props) {
   const numfn = async (email, code) => {
     try {
       const res = await authComplete(email, code);
-      console.log("asdfasdfadsf" ,res)
       const confirm = window.confirm(res.message);
 
       if (confirm) {
@@ -40,17 +39,18 @@ function AuthEmail(props) {
   const handleChangeInput = (event) => {
     const value = event.target.value;
     switch (event.target.name) {
-      case "email" : {
-        setEmail(value)
-      }
-      break;
-      case "auth" : {
-        setNum(value)
-      }
-      break;
+      case "email":
+        {
+          setEmail(value);
+        }
+        break;
+      case "auth":
+        {
+          setNum(value);
+        }
+        break;
     }
   };
-
 
   function submitAuth(actionFn) {
     return async (e) => {
@@ -60,7 +60,7 @@ function AuthEmail(props) {
         const confirm = window.confirm(res.message);
 
         if (confirm) {
-          setVisible(!visible)
+          setVisible(!visible);
         }
       } catch (err) {
         console.error(err);
@@ -75,25 +75,29 @@ function AuthEmail(props) {
     <Modal onClose={props.onClose}>
       <AuthItems>
         <AuthTitle>이메일 인증</AuthTitle>
-        {!visible ?<AuthForm onSubmit={submitEmail}>
-          <AuthInput
-            type="text"
-            name="email"
-            value={email}
-            onChange={handleChangeInput}
-            placeholder="abcd@efg.com"
-          />
-          <Button type="red" text="전송" />
-        </AuthForm> : <AuthForm onSubmit={submitNum}>
-          <AuthInput
-            type="number"
-            name="auth"
-            value={num}
-            onChange={handleChangeInput}
-            placeholder="00000"
-          />
-          <Button type="red" text="인증" />
-        </AuthForm>}
+        {!visible ? (
+          <AuthForm onSubmit={submitEmail}>
+            <AuthInput
+              type="text"
+              name="email"
+              value={email}
+              onChange={handleChangeInput}
+              placeholder="abcd@efg.com"
+            />
+            <Button type="red" text="전송" />
+          </AuthForm>
+        ) : (
+          <AuthForm onSubmit={submitNum}>
+            <AuthInput
+              type="number"
+              name="auth"
+              value={num}
+              onChange={handleChangeInput}
+              placeholder="00000"
+            />
+            <Button type="red" text="인증" />
+          </AuthForm>
+        )}
         <Button onClick={props.onClose} text="나가기" />
       </AuthItems>
     </Modal>

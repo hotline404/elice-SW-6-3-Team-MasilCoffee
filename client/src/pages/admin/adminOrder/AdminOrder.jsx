@@ -15,6 +15,7 @@ const Admin = () => {
   const completedOrder = useSelector((state) => state.payment.completed);
   const [currTab, setCurrTab] = useState("접수 대기");
   console.log(completedOrder, "000");
+  
 
   useEffect(() => {
     const fn = async () => {

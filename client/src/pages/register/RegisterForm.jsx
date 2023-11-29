@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { axiosRegister } from "../../api/register/axiosRegister.jsx";
-import doubleCheck from "../../util/doubleCheck/doubleCheck.jsx";
 import AuthEmail from "./AuthEmail.jsx";
 
 import Contents from "../../components/ui/contents/Contents";
@@ -10,8 +9,7 @@ import Input from "../../components/ui/Input/Input";
 import Button from "../../components/ui/button/Button.jsx";
 import Title from "../../components/ui/title/Title.jsx";
 import { ButtonBox, InputBox, AuthButton } from "./Register.style.jsx";
-import { ROUTES } from "../../router/Routes.jsx";
-import { useNavigate } from "react-router-dom";
+import PasswordChecker from "./PasswordChecker.jsx";
 
 const initRegisterInfo = {
   name: "",
@@ -24,12 +22,8 @@ const initRegisterInfo = {
 function RegisterForm(props) {
   const [auth, setAuth] = useState(false);
   const [regInfo, setRegInfo] = useState(initRegisterInfo);
-  const nav = useNavigate();
 
   const authEmail = useSelector((state) => state.register.email);
-
-  const firstPasswordRef = useRef();
-  const secPasswordRef = useRef();
 
   useEffect(() => {
     setRegInfo((current) => {
@@ -77,27 +71,13 @@ function RegisterForm(props) {
     }
   };
 
-  const doubleCheckhandler = () => {
-    const isMatch = doubleCheck(
-      firstPasswordRef.current.value,
-      secPasswordRef.current.value
-    );
-    if (isMatch) {
-      setRegInfo((current) => {
-        return {
-          ...current,
-          password: secPasswordRef.current.value,
-        };
-      });
-    } else {
-      alert("비밀번호를 확인해주새엘몬");
-      setRegInfo((current) => {
-        return {
-          ...current,
-          password: "",
-        };
-      });
-    }
+  const passwordInsert = (value) => {
+    setRegInfo((current) => {
+      return {
+        ...current,
+        password: value,
+      };
+    });
   };
 
   const openAuthModal = () => {
@@ -119,7 +99,7 @@ function RegisterForm(props) {
         phone
       );
       alert(registerRes);
-      nav(ROUTES.MAIN.path);
+      window.close();
     } catch (err) {
       alert("다시 입력 해주세요");
     }
@@ -153,31 +133,7 @@ function RegisterForm(props) {
             <Input onChange={handleInputChange} input={info} />
           </InputBox>
         ))}
-        <InputBox>
-          <Input
-            ref={firstPasswordRef}
-            input={{
-              name: "비밀번호",
-              type: "password",
-              id: "password",
-              placeholder: "비밀번호를 입력해주세요",
-            }}
-          />
-        </InputBox>
-        <InputBox>
-          <Input
-            ref={secPasswordRef}
-            input={{
-              name: "비밀번호 확인",
-              type: "password",
-              id: "passwordConfirm",
-              placeholder:
-                "비밀번호 확인을 위해 한번 더 비밀번호를 입력해주세요",
-              doublecheck: true,
-            }}
-          />
-          <AuthButton onClick={doubleCheckhandler}>비밀번호 확인</AuthButton>
-        </InputBox>
+        <PasswordChecker onInsert={passwordInsert} />
         <ButtonBox>
           <Button type="red" text="회원가입" />
         </ButtonBox>

@@ -1,11 +1,12 @@
 const Board = require("../models/board-schema");
 const paginate = require("../utils/pagination");
-const { User } = require("../models/user-schema");
+const User = require("../models/user-schema");
 
 class BoardService {
   // 게시글 생성
   static async createBoard(boardData) {
     try {
+      console.log(boardData.userId);
       const user = await User.findById(boardData.userId);
       if (!user) {
         throw new Error("사용자를 찾을 수 없습니다.");
@@ -36,7 +37,12 @@ class BoardService {
         .sort({ createdAt: -1 })
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize);
-      const paginatedResult = paginate(boards, currentPage, pageSize, totalItems);
+      const paginatedResult = paginate(
+        boards,
+        currentPage,
+        pageSize,
+        totalItems
+      );
       return paginatedResult;
     } catch (error) {
       throw error;
@@ -54,7 +60,12 @@ class BoardService {
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize);
 
-      const paginatedResult = paginate(boards, currentPage, pageSize, totalItems);
+      const paginatedResult = paginate(
+        boards,
+        currentPage,
+        pageSize,
+        totalItems
+      );
       return paginatedResult;
     } catch (error) {
       console.error("본인이 작성한 게시글 가져오기 중 오류 발생:", error);
@@ -76,13 +87,18 @@ class BoardService {
     try {
       const query = { category };
       const totalItems = await Board.countDocuments(query);
-  
+
       const boards = await Board.find(query)
         .sort({ createdAt: -1 })
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize);
-  
-      const paginatedResult = paginate(boards, currentPage, pageSize, totalItems);
+
+      const paginatedResult = paginate(
+        boards,
+        currentPage,
+        pageSize,
+        totalItems
+      );
       return paginatedResult;
     } catch (error) {
       throw error;

@@ -27,12 +27,8 @@ const payment = (state = initialState, action) => {
 
     //유진님꺼
     case PAYMENT_TYPE.GET_ALL_ORDERS:
-      const filteredReceipt = state.orders.filter(
-        (order) => order.status === "주문완료"
-      );
-      const filteredComplete = state.orders.filter(
-        (order) => order.status !== "주문완료"
-      );
+      const filteredReceipt = state.orders.filter((order) => order.status === "주문완료");
+      const filteredComplete = state.orders.filter((order) => order.status !== "주문완료");
       return {
         ...state,
         orders: action.payload,
@@ -41,9 +37,7 @@ const payment = (state = initialState, action) => {
       };
     case PAYMENT_TYPE.UPDATE_ORDER:
       const updatedOrder = action.payload;
-      const updatedOrders = state.receipted.filter(
-        (order) => order._id !== updatedOrder._id
-      );
+      const updatedOrders = state.receipted.filter((order) => order._id !== updatedOrder._id);
       return {
         ...state,
         receipted: updatedOrders,

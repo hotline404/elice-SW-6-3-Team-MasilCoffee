@@ -88,11 +88,18 @@ BoardRouter.put(
   asyncHandler(async (req, res) => {
     const uploadedFiles = req.files || [];
     const imagePaths = uploadedFiles.map((file) => file.location);
+
+    const existingBoard = await BoardService.getBoardById(req.params.boardId);
+    const previousImagePaths = existingBoard.image || [];
+
+    const finalImagePaths =
+      imagePaths.length > 0 ? imagePaths : previousImagePaths;
+
     const updatedBoard = await BoardService.updateBoard(
       req.tokenData._id,
       req.params.boardId,
       req.body,
-      imagePaths
+      finalImagePaths
     );
     ResponseHandler.respondWithSuccess(res, updatedBoard);
   })

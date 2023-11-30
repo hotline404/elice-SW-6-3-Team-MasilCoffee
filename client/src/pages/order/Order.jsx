@@ -19,29 +19,23 @@ const Order = () => {
   const orderDetailOptions = useSelector((state) => state.orderDetail);
   // console.log("오더디테일옵션스", orderDetailOptions.options);
   const productsFromState = useSelector((state) => state.product.products);
-  const [userCustomRecipe, setUserCustomRecipe] = useState([])
+  const [userCustomRecipe, setUserCustomRecipe] = useState([]);
 
   useEffect(() => {
-    // Dispatch the fetchData action when the component mounts
-    if(user.recipe[0] !== null){
-    //   // const getUser = dispatch(bringUser());
-    //   // console.log('겟유저 인 리듀서', getUser)
-    // }else{
+    if (user.recipe[0] !== undefined && user.recipe[0] !== null) {
       console.log("유즈이펙트안에 오더 페이지의 유저", user);
       const getProducts = user.recipe.map((data) => {
-        console.log(data, '데이터 유저 레시피의')
-        const getProductName = productsFromState.filter((product) => product.name === data.name)
-        getProductName[0].recipe = data.options
-        console.log('겟 프로덕트네임', getProductName)
-        return getProductName
-      })
-      console.log('유저의 겟프로덕트스', getProducts)
-      setUserCustomRecipe(getProducts)
-     //console.log("주문에 레시피가 들어간 유저인포", userInfo);
+        console.log(data, "데이터 유저 레시피의");
+        const getProductName = productsFromState.filter((product) => product.name === data.name);
+        getProductName[0].recipe = data.options;
+        console.log("겟 프로덕트네임", getProductName);
+        return getProductName[0];
+      });
+      console.log("유저의 겟프로덕트스", getProducts);
+      setUserCustomRecipe(getProducts);
     }
   }, [dispatch, user]);
-
-
+  console.log("유저커스펌레시피", userCustomRecipe);
   // orderDetail api가 Order 페이지 렌더링 시 한 번만 호출하는 최적화 용도
   // api 나오면 수정 필요
   const fetchOrderDetail = async () => {
@@ -87,9 +81,7 @@ const Order = () => {
         filtered = productsFromState;
         break;
       case "에스프레소":
-        filtered = productsFromState.filter(
-          (pd) => pd.category === "에스프레소"
-        );
+        filtered = productsFromState.filter((pd) => pd.category === "에스프레소");
         break;
       case "논커피":
         filtered = productsFromState.filter((pd) => pd.category === "논커피");
@@ -125,15 +117,7 @@ const Order = () => {
   console.log("유저레시피", userRecipe);
 
   // 카테고  리 리스트 배열
-  const categories = [
-    "전체",
-    "에스프레소",
-    "논커피",
-    "스무디",
-    "티",
-    "에이드",
-    "꿀조합",
-  ];
+  const categories = ["전체", "에스프레소", "논커피", "스무디", "티", "에이드", "꿀조합"];
 
   // 슬라이드 설정
   const settings = {
@@ -180,9 +164,9 @@ const Order = () => {
           {categories.map((category, index) => (
             <button
               key={category}
-              className={`${index === 0 ? "first-button " : ""}${
-                index === categories.length - 1 ? "last-button " : ""
-              }${category === selectedCategory ? "selected-button" : ""}`}
+              className={`${index === 0 ? "first-button " : ""}${index === categories.length - 1 ? "last-button " : ""}${
+                category === selectedCategory ? "selected-button" : ""
+              }`}
               onClick={() => handleCategoryClick(category)}
             >
               {category}
@@ -191,10 +175,7 @@ const Order = () => {
         </Slider>
       </div>
       <div className="cards-container">
-        {Array.isArray(filteredProducts) &&
-          filteredProducts.map((product) => (
-            <Card key={product._id} data={product} />
-          ))}
+        {Array.isArray(filteredProducts) && filteredProducts.map((product) => <Card key={product._id} data={product} />)}
       </div>
     </StyledOrder>
   );

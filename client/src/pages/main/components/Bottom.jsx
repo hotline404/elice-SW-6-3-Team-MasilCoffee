@@ -18,7 +18,7 @@ const Bottom = () => {
 
   useEffect(() => {
     // dispatch(actionGetAllBoards(boards)); // 데이터 로드
-    // console.log("올보더스", allBoards);
+    console.log("올보더스", allBoards);
     const fn = async () => {
       try {
         const board = await getAllBoards("", 1, 10);
@@ -34,7 +34,6 @@ const Bottom = () => {
     navigate(`/RecipeView/${boardId}`); // 게시글 상세 페이지로 이동
   };
 
-  // 슬라이더 설정
   const settings = {
     infinite: true,
     speed: 15000, // 슬라이드 전환 속도

@@ -37,11 +37,19 @@ BoardRouter.get(
 BoardRouter.get(
   "/",
   asyncHandler(async (req, res) => {
+<<<<<<< HEAD
     const { currentPage, pageSize, search } = req.query;
     const boards = await BoardService.getAllBoards(
       currentPage,
       pageSize,
       search
+=======
+    const { currentPage, pageSize, searchTerm } = req.query;
+    const boards = await BoardService.getAllBoards(
+      currentPage,
+      pageSize,
+      searchTerm
+>>>>>>> 5a6a91c2c9a457ae5d8c1341e51c54a4f7ce94c6
     );
     ResponseHandler.respondWithSuccess(res, boards);
   })
@@ -55,7 +63,7 @@ BoardRouter.get(
     const userId = req.tokenData._id;
     const { currentPage, pageSize } = req.query;
     const boards = await BoardService.getAllBoardsByUserId(
-      userId,
+      user,
       currentPage,
       pageSize
     );
@@ -70,10 +78,12 @@ BoardRouter.post(
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
     const userId = req.tokenData._id;
+    const userNickname = req.tokenData._id;
     const { category, post, tags } = req.body;
     const imagePaths = req.files.map((file) => file.location);
     const boardData = {
       userId,
+      userNickname,
       category,
       post,
       image: imagePaths,

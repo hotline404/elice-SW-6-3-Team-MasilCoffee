@@ -1,8 +1,10 @@
 const express = require("express");
+const express = require("express");
 const LikeRouter = express.Router();
 const asyncHandler = require("../middlewares/async-handler");
 const JwtMiddleware = require("../middlewares/jwt-handler");
 const ResponseHandler = require("../middlewares/res-handler");
+const LikeService = require("../services/like-service");
 const LikeService = require("../services/like-service");
 
 LikeRouter.put(
@@ -11,6 +13,8 @@ LikeRouter.put(
   asyncHandler(async (req, res) => {
     const { boardId } = req.params;
     const userId = req.tokenData._id;
+    console.log(req.tokenData.nickname);
+    console.log(userId);
     try {
       const likeData = {
         board: boardId,

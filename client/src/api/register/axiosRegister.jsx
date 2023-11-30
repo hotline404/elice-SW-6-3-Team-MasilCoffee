@@ -1,10 +1,19 @@
-import axios from "axios";
+import { apiInstance, apiInstanceNonAuth } from "../interceptor/apiInstance";
 const BASE_URL = {
-  USER: {
-    url : "http://localhost:5000/api/v1/users"
+  users: {
+    url : "/api/v1/users"
   },
-  ADMIN: {
-    url : "http://localhost:5000/api/v1/users/admin"
+  signup: {
+    url : "/api/v1/users/signup"
+  },
+  send_email: {
+    url : "/api/v1/users/signup/send-mail"
+  },
+  verify: {
+    url : "/api/v1/users/signup/verify-code"
+  },
+  admin: {
+    url : "/api/v1/users/admin"
   }
 }
 
@@ -21,7 +30,7 @@ export const axiosRegister = async (name, email, nickname, password, phone) => {
   };
 
   try {
-    const res = await axios.post(`${BASE_URL.USER.url}/signup`, registerBody);
+    const res = await apiInstanceNonAuth.post(`${BASE_URL.users.url}`, registerBody);
     const data = res.data;
 
     return data;
@@ -37,7 +46,7 @@ export const authEmail = async (email) => {
   };
 
   try {
-    const res = await axios.post(`${BASE_URL.USER.url}/signup/send-mail`, authBody);
+    const res = await apiInstanceNonAuth.post(`${BASE_URL.send_email.url}`, authBody);
     const data = res.data;
 
     return data;
@@ -54,11 +63,8 @@ export const authComplete = async (email, code) => {
     "code": parseInt(code)
   };
 
-  console.log("code", code);
-  console.log("code type", typeof(parseInt(code)))
-
   try {
-    const res = await axios.post(`${BASE_URL.USER.url}/signup/verify-code`, authBody);
+    const res = await apiInstanceNonAuth.post(`${BASE_URL.verify.url}`, authBody);
     const data = res.data;
 
     return data;
@@ -70,13 +76,10 @@ export const authComplete = async (email, code) => {
 
 //delete user
 
-export const deleteUser = async (token) => {
-  const headers = {
-    "Authorization": `Bearer ${token}`
-  }
+export const deleteUser = async () => {
 
   try {
-    const res = await axios.delete(`${BASE_URL.USER.url}`, headers);
+    const res = await apiInstance.delete(`${BASE_URL.users.url}`);
     const data = res.data;
 
     return data
@@ -87,13 +90,9 @@ export const deleteUser = async (token) => {
 
 //delete admin
 
-export const deleteAdmin = async (token, userId) => {
-  const headers = {
-    "Authorization": `Bearer ${token}`
-  } 
-
+export const deleteAdmin = async (userId) => {
   try {
-    const res = await axios.delete(`${BASE_URL.ADMIN.url}/${userId}`, headers);
+    const res = await apiInstance.delete(`${BASE_URL.admin.url}/${userId}`);
     const data = res.data;
 
     return data

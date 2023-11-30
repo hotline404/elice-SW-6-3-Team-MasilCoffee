@@ -3,7 +3,8 @@ import LinkTo from "../../../ui/Link/LinkTo";
 import IncludeRedPage from "../../../../util/IncludeRedPage";
 import { ROUTES } from "../../../../router/Routes";
 import { useSelector } from "react-redux";
-import { RightSide, NavButton } from "../Headers.style";
+import { RightSide, NavButton, LinkBox } from "../Headers.style";
+import { TfiMenu } from "react-icons/tfi";
 
 function NonUserRightSideItem(props) {
   const isLogin = useSelector((state) => state.login.loginState);
@@ -30,10 +31,20 @@ function NonUserRightSideItem(props) {
 
       {props.item.map((link) => {
         return (
-          <LinkTo there={{ to: link.to, name: link.name, target: link.target, rel: link.target}} style={style} />
+          <LinkTo
+            there={{
+              to: link.to,
+              name: link.name,
+              target: link.target,
+              rel: link.target,
+            }}
+            style={style}
+          />
         );
       })}
-      {/* <NavButton>▼</NavButton> */}
+      <NavButton location={props.location}>
+        <TfiMenu />
+      </NavButton>
     </RightSide>
   );
 }

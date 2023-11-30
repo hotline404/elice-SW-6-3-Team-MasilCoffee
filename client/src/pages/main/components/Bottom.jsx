@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -9,6 +9,7 @@ import { BsChat } from "react-icons/bs";
 import { getAllBoards } from "../../../api/board";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetAllBoards } from "../../../redux/action/boardAction";
+import RandomColor from "../../../util/RandomColor/RandomColor";
 
 const Bottom = () => {
   const dispatch = useDispatch();
@@ -18,10 +19,12 @@ const Bottom = () => {
 
   useEffect(() => {
     // dispatch(actionGetAllBoards(boards)); // 데이터 로드
-    console.log("올보더스", allBoards);
+    // console.log("올보더스", allBoards);
     const fn = async () => {
       try {
         const board = await getAllBoards("", 1, 10);
+
+        // console.log("보드", board);
         dispatch(actionGetAllBoards(board));
       } catch (err) {
         console.log("err", err);
@@ -30,8 +33,21 @@ const Bottom = () => {
     fn();
   }, [dispatch]);
 
+  // const handleBoardClick = (boardId) => {
+  //   navigate(`/RecipeView/${boardId}`); // 게시글 상세 페이지로 이동
+  // };
+
   const handleBoardClick = (boardId) => {
-    navigate(`/RecipeView/${boardId}`); // 게시글 상세 페이지로 이동
+    // event.preventDefault();
+
+    const fn = async () => {
+      try {
+        navigate(`/RecipeView/${boardId}`);
+      } catch (err) {
+        console.log("err", err);
+      }
+    };
+    fn();
   };
 
   const settings = {
@@ -139,37 +155,33 @@ const Bottom = () => {
                     <b>{board.nickname}</b>
                     <p>{board.post}</p>
                   </div>
-                  <S.SquareButtonBox>
-                    <S.SquareButton>
-                      <SquareButton
-                        text={board.category}
-                        bgColor={backgroundColor}
-                      />
-                    </S.SquareButton>
-                    <S.SquareButtonBox>
-                      {board.tags.length > 0 ? (
-                        (() => {
-                          let iterations = Math.min(board.tags.length, 2); // 최대 2개의 태그만 처리
+                  <S.TagWrap>
+                    <S.TagBox>{board.category}</S.TagBox>
+                    {board.tags.length > 0 ? (
+                      (() => {
+                        let iterations = Math.min(board.tags.length, 2); // 최대 2개의 태그만 처리
 
-                          let buttons = [];
-                          for (let i = 0; i < iterations; i++) {
-                            buttons.push(
-                              <S.SquareButton key={i}>
-                                <SquareButton
-                                  text={board.tags[i]}
-                                  bgColor={backgroundColor}
-                                />
-                              </S.SquareButton>
-                            );
-                          }
+                        let buttons = [];
+                        for (let i = 0; i < iterations; i++) {
+                          buttons.push(
+                            <S.TagBox
+                              key={i}
+                              style={{
+                                background: RandomColor(),
+                                color: "black",
+                              }}
+                            >
+                              {board.tags[i]}
+                            </S.TagBox>
+                          );
+                        }
 
-                          return buttons;
-                        })()
-                      ) : (
-                        <></> // 태그가 없는 경우 아무것도 표시하지 않음
-                      )}
-                    </S.SquareButtonBox>
-                  </S.SquareButtonBox>
+                        return buttons;
+                      })()
+                    ) : (
+                      <></> // 태그가 없는 경우 아무것도 표시하지 않음
+                    )}
+                  </S.TagWrap>
                   <S.BsChat>
                     <BsChat />
                     <span>11</span>

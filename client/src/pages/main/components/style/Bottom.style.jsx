@@ -58,6 +58,7 @@ export const SquareButton = styled.div`
     font-size: 14px;
   }
 `;
+export const Button = styled.span``;
 export const BsChat = styled.div`
   padding-top: 10px;
   display: flex;
@@ -66,4 +67,18 @@ export const BsChat = styled.div`
   > span {
     padding-left: 10px;
   }
+`;
+export const TagBox = styled.span`
+  padding: 10px;
+  margin: 0 5px 5px 0;
+  border-radius: 30px;
+  background-color: white;
+  color: black;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  font-weight: 900;
+`;
+export const TagWrap = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `;

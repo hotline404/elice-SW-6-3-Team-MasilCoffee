@@ -26,6 +26,18 @@ export const axiosPatchUser = async (userInfo) => {
   return newUser;
 };
 
+export const axiosPatchUserRecipe = async (recipe) => {
+  const body = {
+    customRecipe: recipe
+  };
+
+  const res = await apiInstance.patch(`${urluser}/userRecipe`, body);
+
+  const newUser = res.data.data;
+  console.log('엑시오스 뉴유저레시피', newUser)
+  return newUser;
+};
+
 export const axiosDelUser = async () => {
   const res = await apiInstance.delete(urluser);
 

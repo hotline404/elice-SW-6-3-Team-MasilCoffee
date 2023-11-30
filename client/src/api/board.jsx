@@ -6,7 +6,7 @@ export const getAllBoards = async (category, currentPage, pageSize, search) => {
   try {
     const res = category
       ? await apiInstance.get(
-          `/api/v1/boards/categories/${category}?currentPage=${currentPage}&pageSize=${pageSize}`
+          `/api/v1/boards/categories/${category}?currentPage=${currentPage}&pageSize=${pageSize}&search=${search}`
         )
       : await apiInstance.get(
           `/api/v1/boards/search?currentPage=${currentPage}&pageSize=${pageSize}&search=${search}`

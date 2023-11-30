@@ -13,7 +13,7 @@ import {
 
 function OderList() {
   const payment = useSelector((state) => state.payment);
-  console.log("오더 네임", payment);
+  // console.log("오더 네임", payment);
 
   const dispatch = useDispatch();
 
@@ -21,7 +21,8 @@ function OderList() {
     if (window.confirm("나만의 꿀조합 넣기!")) {
       // 문제점 1. 꿀조합이 내가 지금까지 시켰던 모든 주문들이 보여지는 용도면 딱히 이쪽은 필요 없음
       // 문제점 2. 모든 주문들이 다 보여지면 꿀조합의 의미가 퇴색 됨 (내가 원하는 조합만 저장할 수 있어야 됨)
-      dispatch(postRecipe(payment.orders[index]));
+      const selectedOptions = orderDetails[index];
+
       console.log("페이먼트.오더스[0].오더디테일", payment.orders[0]);
     }
   };

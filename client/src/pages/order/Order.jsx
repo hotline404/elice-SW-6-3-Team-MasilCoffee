@@ -13,10 +13,10 @@ import Slider from "react-slick";
 const Order = () => {
   const userRecipe = useSelector((state) => state.user.recipe);
   const user = useSelector((state) => state.user);
-  console.log("오더 페이지의 유저", user);
+  // console.log("오더 페이지의 유저", user);
 
   const orderDetailOptions = useSelector((state) => state.orderDetail);
-  console.log("오더디테일옵션스", orderDetailOptions.options);
+  // console.log("오더디테일옵션스", orderDetailOptions.options);
 
   const dispatch = useDispatch();
 
@@ -26,8 +26,6 @@ const Order = () => {
   // api 나오면 수정 필요
   const fetchOrderDetail = async () => {
     try {
-      // const response = await fetch("client/src/pages/order/components/data/menuMockup.js");
-      // const data = await response.json();
       const data = await getAllOptions();
       console.log(data);
 

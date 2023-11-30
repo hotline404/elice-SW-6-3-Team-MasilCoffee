@@ -91,11 +91,16 @@ BoardRouter.put(
   imageUploader.array("file"),
   asyncHandler(async (req, res) => {
     const uploadedFiles = req.files || [];
-    const imagePaths = uploadedFiles.map((file) => file.location);
+    const imagePaths = req.body.file
+      ? Array.isArray(req.body.file)
+        ? req.body.file
+        : [req.body.file]
+      : [];
+    imagePaths.push(...uploadedFiles.map((file) => file.location));
 
+    // 기존에 존재한 이미지 유지하기
     const existingBoard = await BoardService.getBoardById(req.params.boardId);
     const previousImagePaths = existingBoard.image || [];
-
     const finalImagePaths =
       imagePaths.length > 0 ? imagePaths : previousImagePaths;
 

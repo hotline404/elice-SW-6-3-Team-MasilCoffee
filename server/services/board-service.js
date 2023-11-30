@@ -135,11 +135,7 @@ class BoardService {
       }
 
       // 이미지가 있는 경우 기존 이미지와 함께 새로운 이미지 추가
-      const updatedImage =
-        imagePaths && imagePaths.length > 0
-          ? [...existingBoard.image, ...imagePaths]
-          : existingBoard.image;
-
+      const updatedImage = imagePaths;
       if (updatedImage.length > 4) {
         throw new Error("이미지는 최대 4개까지만 허용됩니다.");
       }

@@ -30,3 +30,11 @@ export const actionUpdateOrder = (order) => {
     payload: order,
   };
 };
+
+// 페이먼트 꿀조합
+export const actionAddPayment = (payment) => {
+  return {
+    type: PAYMENT_TYPE.ADD_PAYMENT,
+    payload: payment,
+  };
+};

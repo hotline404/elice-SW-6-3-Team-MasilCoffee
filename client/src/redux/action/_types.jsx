@@ -64,6 +64,7 @@ export const PAYMENT_TYPE = {
   ADD_REQUEST_DELIVERY: "add_request_delivery",
   GET_ALL_ORDERS: "get_all_orders",
   UPDATE_ORDER: "update_order",
+  ADD_PAYMENT: "add_payment",
 };
 
 export const USERS_TYPE = {

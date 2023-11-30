@@ -13,18 +13,11 @@ const Table = ({
   isUserTable = false,
 }) => {
   const navigate = useNavigate();
-  const handlePClick = (e) => {
-    const fn = async () => {
-      try {
-        
-        navigate(e.target.name);
-      } catch (err) {
-        console.log("err", err);
-      }
-    };
-    fn();
-  }
 
+  const handlePClick = (e) => {
+    
+    navigate(`${ROUTES.RECIPEVIEW.path}/${e.target.dataset.name}`);
+  };
 
   return (
     <TableLayout.Table>
@@ -72,7 +65,10 @@ const Table = ({
               <tr key={rowI}>
                 {rowData.slice(1).map((data, colI) => (
                   <TableLayout.Anchor key={data + colI}>
-                    <p name={`${ROUTES.RECIPEVIEW.path}/${rowData[0]}`} onClick={handlePClick}>
+                    <p
+                      data-name={`${rowData[0]}`}
+                      onClick={handlePClick}
+                    >
                       {data}
                     </p>
                   </TableLayout.Anchor>

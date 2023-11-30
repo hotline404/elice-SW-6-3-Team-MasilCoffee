@@ -30,7 +30,7 @@ class BoardService {
   }
 
   // 모든 게시글 조회
-  static async getAllBoards(currentPage, pageSize) {
+  static async getAllBoards(currentPage, pageSize, search) {
     try {
       if (search && search.length < 2) {
         throw new Error("검색어는 두 글자 이상 입력해야 합니다.");
@@ -135,11 +135,7 @@ class BoardService {
       }
 
       // 이미지가 있는 경우 기존 이미지와 함께 새로운 이미지 추가
-      const updatedImage =
-        imagePaths && imagePaths.length > 0
-          ? [...existingBoard.image, ...imagePaths]
-          : existingBoard.image;
-
+      const updatedImage = imagePaths;
       if (updatedImage.length > 4) {
         throw new Error("이미지는 최대 4개까지만 허용됩니다.");
       }

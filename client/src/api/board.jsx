@@ -1,18 +1,19 @@
 import axios from "axios";
 
 //전체 or 카테고리별 게시글 불러오기
-export const getAllBoards = async (category, currentPage, pageSize) => {
+export const getAllBoards = async (category, currentPage, pageSize, search) => {
+  if (!search) search = "";
   try {
     const res = category
       ? await axios.get(
           `http://localhost:5000/api/v1/boards/categories/${category}?currentPage=${currentPage}&pageSize=${pageSize}`
         )
       : await axios.get(
-          `http://localhost:5000/api/v1/boards?currentPage=${currentPage}&pageSize=${pageSize}`
+          `http://localhost:5000/api/v1/boards/search?currentPage=${currentPage}&pageSize=${pageSize}&search=${search}`
         );
 
     const boards = res.data.data.data;
-    
+
     return boards;
   } catch (error) {
     console.error("error(getAllBoards)", error);

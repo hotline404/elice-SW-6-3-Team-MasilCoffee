@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Wrap, SearchInput } from "../Recipe.style";
 import SquareButton from "../../../components/ui/button/SquareButton";
-import { actionSearchBoards } from "../../../redux/action/boardAction";
 import { addComments } from "../../../api/comment";
 
 const PostInput = ( props ) => {
-  const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
   const boardData = useSelector((state) => state.board.board[0]);
   const [query, setQuery] = useState("");
@@ -17,7 +15,6 @@ const PostInput = ( props ) => {
 
   const handleClick = () => {
     if (props.onInsert) { //Recipe.jsx 검색
-      dispatch(actionSearchBoards(query));
       props.onInsert(query);
     } else { //댓글
       if (query.trim() === "") {

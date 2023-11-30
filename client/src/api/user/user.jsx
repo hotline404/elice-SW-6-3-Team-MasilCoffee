@@ -11,11 +11,12 @@ export const axiosGetUser = async () => {
   return user;
 };
 
-export const axiosPatchUser = async (newNickname, newPhone, checkPassword) => {
+export const axiosPatchUser = async (userInfo) => {
+  const { nickname, phone, checkpassword } = userInfo;
   const body = {
-    nickname: newNickname,
-    phone: newPhone,
-    checkPassword: checkPassword,
+    nickname: nickname,
+    phone: phone,
+    checkPassword: checkpassword,
   };
 
   const res = await apiInstance.patch(urluser, body);

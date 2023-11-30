@@ -41,7 +41,7 @@ CommentRouter.get(
   })
 );
 
-// 댓글 삭제하기 (작성자 본인만)
+// 댓글 삭제하기 (작성자 본인만) 혹은 관리자
 CommentRouter.delete(
   "/:commentId",
   JwtMiddleware.checkToken,
@@ -81,6 +81,21 @@ CommentRouter.put(
         userId
       );
       ResponseHandler.respondWithSuccess(res, result);
+    } catch (error) {
+      ResponseHandler.respondWithError(res, 400, error.message);
+    }
+  })
+);
+
+// 내가 작성한 댓글 가져오기
+CommentRouter.get(
+  "/mycomments",
+  JwtMiddleware.checkToken,
+  asyncHandler(async (req, res) => {
+    try {
+      const userId = req.tokenData._id;
+      const myComments = await CommentService.getMyComments(userId);
+      ResponseHandler.respondWithSuccess(res, myComments);
     } catch (error) {
       ResponseHandler.respondWithError(res, 400, error.message);
     }

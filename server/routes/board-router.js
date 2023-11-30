@@ -110,8 +110,21 @@ BoardRouter.delete(
   "/:boardId",
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
-    const deletedBoard = await BoardService.deleteBoard(req.params.boardId);
-    ResponseHandler.respondWithSuccess(res, deletedBoard);
+    const boardId = req.params.boardId;
+    try {
+      const boardAuthorId = await BoardService.getBoardAuthorId(boardId);
+      if (
+        req.tokenData._id == boardAuthorId.toString() ||
+        req.tokenData.role == "Admin"
+      ) {
+        const deletedBoard = await BoardService.deleteBoard(boardId);
+        ResponseHandler.respondWithSuccess(res, deletedBoard);
+      } else {
+        throw new Error("권한이 없습니다.");
+      }
+    } catch (error) {
+      ResponseHandler.respondWithError(res, 400, error.message);
+    }
   })
 );
 

@@ -4,7 +4,7 @@ const userService = require("../services/user-service");
 const asyncHandler = require("../middlewares/async-handler");
 const ResponseHandler = require("../middlewares/res-handler.js");
 const JwtMiddleware = require("../middlewares/jwt-handler");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const JWT = require("../utils/jwt-token");
 
 // 회원가입 (인증코드발송) 및 비밀번호 변경
@@ -14,24 +14,30 @@ UserRouter.post("/signup/send-mail", async (req, res) => {
     const result = await userService.transportVerificationCode(email);
 
     if (result.success) {
-      res.status(200).json({ success: true, message: "인증 코드가 성공적으로 전송되었습니다." });
+      res
+        .status(200)
+        .json({
+          success: true,
+          message: "인증 코드가 성공적으로 전송되었습니다.",
+        });
     } else {
-      res.status(500).json({ success: false, message: "인증 코드 전송에 실패했습니다." });
+      res
+        .status(500)
+        .json({ success: false, message: "인증 코드 전송에 실패했습니다." });
     }
   } catch (error) {
     console.error("인증 코드 전송 중 오류 발생:", error);
-    res.status(500).json({ success: false, message: "인증 코드 전송에 실패했습니다." });
+    res
+      .status(500)
+      .json({ success: false, message: "인증 코드 전송에 실패했습니다." });
   }
 });
-
 
 // 회원가입 (인증코드 확인) 및 비밀번호 변경
 UserRouter.post("/signup/verify-code", async (req, res) => {
   const { email, code } = req.body;
-
   try {
     const verificationResult = await userService.verifyCode(email, code);
-
     if (verificationResult.success) {
       res.status(200).json({ message: "이메일 인증이 완료되었습니다." });
     } else {
@@ -121,9 +127,10 @@ UserRouter.post(
 
 // 사용자 로그아웃 , 클라에서 토큰 삭제해야함!
 UserRouter.post("/logout", JwtMiddleware.checkToken, (req, res) => {
-  ResponseHandler.respondWithSuccess(res, { message: "로그아웃이 완료되었습니다." });
+  ResponseHandler.respondWithSuccess(res, {
+    message: "로그아웃이 완료되었습니다.",
+  });
 });
-
 
 // 사용자 로그인 상태 확인
 UserRouter.get("/check-login", JwtMiddleware.checkToken, (req, res) => {
@@ -159,28 +166,35 @@ UserRouter.get(
   })
 );
 
-
-
 // 회원 정보 수정 (사용자)
 UserRouter.patch(
   "/",
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
     const user = await userService.getUserById(req.tokenData._id);
-    const checkPasswordMatch = await bcrypt.compare(req.body.checkPassword, user.password);
+    const checkPasswordMatch = await bcrypt.compare(
+      req.body.checkPassword,
+      user.password
+    );
     const updatedUserData = {
       ...req.body,
       role: user.role,
     };
     if (checkPasswordMatch) {
-      const updatedUser = await userService.updateUser(req.tokenData._id, updatedUserData);
+      const updatedUser = await userService.updateUser(
+        req.tokenData._id,
+        updatedUserData
+      );
       ResponseHandler.respondWithSuccess(res, updatedUser);
     } else {
-      ResponseHandler.respondWithError(res, 401, "비밀번호가 일치하지 않습니다.");
+      ResponseHandler.respondWithError(
+        res,
+        401,
+        "비밀번호가 일치하지 않습니다."
+      );
     }
   })
 );
-
 
 // 회원탈퇴 (사용자)
 UserRouter.delete(
@@ -205,7 +219,11 @@ UserRouter.get(
       ResponseHandler.respondWithSuccess(res, { users, token: req.user });
     } catch (error) {
       console.error("모든 사용자 가져오기 중 오류 발생:", error);
-      ResponseHandler.respondWithError(res, 500, "사용자 정보를 가져오는 중 오류가 발생했습니다.");
+      ResponseHandler.respondWithError(
+        res,
+        500,
+        "사용자 정보를 가져오는 중 오류가 발생했습니다."
+      );
     }
   })
 );
@@ -224,7 +242,11 @@ UserRouter.get(
       ResponseHandler.respondWithSuccess(res, user);
     } catch (error) {
       console.error("특정 사용자 가져오기 중 오류 발생:", error);
-      ResponseHandler.respondWithError(res, 500, "사용자 정보를 가져오는 중 오류가 발생했습니다.");
+      ResponseHandler.respondWithError(
+        res,
+        500,
+        "사용자 정보를 가져오는 중 오류가 발생했습니다."
+      );
     }
   })
 );
@@ -240,7 +262,11 @@ UserRouter.patch(
       ResponseHandler.respondWithSuccess(res, user);
     } catch (error) {
       console.error("회원 정보 수정 중 오류 발생:", error);
-      ResponseHandler.respondWithError(res, 500, "회원 정보를 수정하는 중 오류가 발생했습니다.");
+      ResponseHandler.respondWithError(
+        res,
+        500,
+        "회원 정보를 수정하는 중 오류가 발생했습니다."
+      );
     }
   })
 );
@@ -256,10 +282,13 @@ UserRouter.delete(
       ResponseHandler.respondWithSuccess(res, user);
     } catch (error) {
       console.error("회원 탈퇴 중 오류 발생:", error);
-      ResponseHandler.respondWithError(res, 500, "회원을 탈퇴하는 중 오류가 발생했습니다.");
+      ResponseHandler.respondWithError(
+        res,
+        500,
+        "회원을 탈퇴하는 중 오류가 발생했습니다."
+      );
     }
   })
 );
-
 
 module.exports = UserRouter;

@@ -6,20 +6,24 @@ const asyncHandler = require("../middlewares/async-handler");
 const ResponseHandler = require("../middlewares/res-handler");
 const JwtMiddleware = require("../middlewares/jwt-handler");
 
-// 특정 카테고리의 게시글 가져오기
+// 특정 카테고리의 게시글 가져오기 (검색포함)
 BoardRouter.get(
   "/categories/:category",
   asyncHandler(async (req, res) => {
     const category = req.params.category;
     const { currentPage, pageSize } = req.query;
-    const boards = await BoardService.getBoardsByCategory(category, currentPage, pageSize);
+    const boards = await BoardService.getBoardsByCategory(
+      category,
+      currentPage,
+      pageSize
+    );
     ResponseHandler.respondWithSuccess(res, boards);
   })
 );
 
 // 특정 board ID의 게시글 가져오기
 BoardRouter.get(
-  "/:boardId",
+  "/board/:boardId",
   asyncHandler(async (req, res) => {
     const board = await BoardService.getBoardById(req.params.boardId);
     if (!board) {
@@ -29,12 +33,16 @@ BoardRouter.get(
   })
 );
 
-// 모든 게시글 가져오기 (모든 사용자, 모든 게시물)
+// 모든 게시글 가져오기 (모든 사용자, 모든 게시물) (검색포함)
 BoardRouter.get(
-  "/",
+  "/search",
   asyncHandler(async (req, res) => {
-    const { currentPage, pageSize } = req.query;
-    const boards = await BoardService.getAllBoards(currentPage, pageSize);
+    const { currentPage, pageSize, search } = req.query;
+    const boards = await BoardService.getAllBoards(
+      currentPage,
+      pageSize,
+      search
+    );
     ResponseHandler.respondWithSuccess(res, boards);
   })
 );
@@ -44,13 +52,16 @@ BoardRouter.get(
   "/mypost",
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
-    const user = req.tokenData._id;
+    const userId = req.tokenData._id;
     const { currentPage, pageSize } = req.query;
-    const boards = await BoardService.getAllBoardsByUserId(user, currentPage, pageSize);
+    const boards = await BoardService.getAllBoardsByUserId(
+      userId,
+      currentPage,
+      pageSize
+    );
     ResponseHandler.respondWithSuccess(res, boards);
   })
 );
-
 
 // 새로운 게시글 생성
 BoardRouter.post(
@@ -81,11 +92,18 @@ BoardRouter.put(
   asyncHandler(async (req, res) => {
     const uploadedFiles = req.files || [];
     const imagePaths = uploadedFiles.map((file) => file.location);
+
+    const existingBoard = await BoardService.getBoardById(req.params.boardId);
+    const previousImagePaths = existingBoard.image || [];
+
+    const finalImagePaths =
+      imagePaths.length > 0 ? imagePaths : previousImagePaths;
+
     const updatedBoard = await BoardService.updateBoard(
       req.tokenData._id,
       req.params.boardId,
       req.body,
-      imagePaths
+      finalImagePaths
     );
     ResponseHandler.respondWithSuccess(res, updatedBoard);
   })
@@ -96,8 +114,21 @@ BoardRouter.delete(
   "/:boardId",
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
-    const deletedBoard = await BoardService.deleteBoard(req.params.boardId);
-    ResponseHandler.respondWithSuccess(res, deletedBoard);
+    const boardId = req.params.boardId;
+    try {
+      const boardAuthorId = await BoardService.getBoardAuthorId(boardId);
+      if (
+        req.tokenData._id == boardAuthorId.toString() ||
+        req.tokenData.role == "Admin"
+      ) {
+        const deletedBoard = await BoardService.deleteBoard(boardId);
+        ResponseHandler.respondWithSuccess(res, deletedBoard);
+      } else {
+        throw new Error("권한이 없습니다.");
+      }
+    } catch (error) {
+      ResponseHandler.respondWithError(res, 400, error.message);
+    }
   })
 );
 

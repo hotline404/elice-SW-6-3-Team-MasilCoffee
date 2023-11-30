@@ -22,9 +22,9 @@ export const getAllBoards = async (category, currentPage, pageSize) => {
 //해당 게시글 불러오기
 export const getBoard = async (boardId) => {
   try {
-    const res = await axios.get(`http://localhost:5000/api/v1/boards/${boardId}`);
+    const res = await axios.get(`http://localhost:5000/api/v1/boards/board/${boardId}`);
     const board = res.data.data;
-    
+
     return board;
   } catch (error) {
     console.error("error(getBoard)", error);
@@ -32,10 +32,11 @@ export const getBoard = async (boardId) => {
   
 }
 
-//(마이페이지) 내가 작성한 게시글
-export const getMyBoards = async (userId) => {
+//(마이페이지) 내가 작성한 게시글 ---------
+export const getMyBoards = async (currentPage, pageSize, token) => {
+  const headers = { headers: { Authorization: `Bearer ${token}` } };
   try {
-    const res = await axios.get(``);
+    const res = await axios.get(`http://localhost:5000/api/v1/boards/mypost?currentPage=${currentPage}&pageSize=${pageSize}`, headers);
     const board = res.data.data;
 
     return board;
@@ -108,10 +109,10 @@ export const deleteBoard = async (token, boardId) => {
 }
 
 //게시글 좋아요
-export const likedBoard = async (token, userId, boardId) => {
-  console.log("좋아요 axios", boardId, token)  //수정될수도 있음!!!
+export const likedBoard = async (token, boardId) => {
+  console.log("좋아요 axios", token, boardId);
   try {
-    const res = await axios.put(`http://localhost:5000/api/v1/like/${boardId}`, userId, {
+    const res = await axios.put(`http://localhost:5000/api/v1/like/${boardId}`, {}, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

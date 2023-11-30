@@ -30,7 +30,7 @@ function NonUserRightSideItem(props) {
 
       {props.item.map((link) => {
         return (
-          <LinkTo there={{ to: link.to, name: link.name }} style={style} />
+          <LinkTo there={{ to: link.to, name: link.name, target: link.target, rel: link.target}} style={style} />
         );
       })}
       {/* <NavButton>▼</NavButton> */}

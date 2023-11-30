@@ -60,7 +60,6 @@ export const StyledOrder = styled.div`
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     min-height: 400px;
     overflow-y: auto;
 
@@ -69,13 +68,13 @@ export const StyledOrder = styled.div`
       margin-bottom: 20px;
     }
     /* 모바일 환경을 위한 미디어 쿼리 */
-    @media (max-width: 768px) {
+    @media (max-width: 998px) {
       .card {
         width: calc(50% - 10px);
       }
     }
     /* 탭을 위한 미디어 쿼리 */
-    @media (max-width: 480px) {
+    @media (max-width: 640px) {
       .card {
         width: 100%;
       }

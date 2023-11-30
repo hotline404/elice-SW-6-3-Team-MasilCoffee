@@ -2,8 +2,8 @@ import { PAYMENT_TYPE } from "../action/_types";
 
 const initialState = {
   orders: [], //주문이 쌓이는 곳
-  orderRequest: "",
-  deliveryMethod: "방문포장",
+  // orderRequest: "",
+  // deliveryMethod: "방문포장",
   // 유진님꺼
   receipted: [],
   completed: [],
@@ -12,9 +12,10 @@ const initialState = {
 const payment = (state = initialState, action) => {
   switch (action.type) {
     case PAYMENT_TYPE.PAYMENT:
-      if (Array.isArray(action.payload)) {
-        return { ...state, orders: [...action.payload] };
-      }
+      console.log("페이먼드 리듀서의 액션.페이로드", action.payload);
+      // if (Array.isArray(action.payload)) {
+      //   return { ...state, orders: action.payload };
+      // }
       return { ...state, orders: [action.payload] };
     case PAYMENT_TYPE.ADD_REQUEST_DELIVERY:
       return {
@@ -27,8 +28,12 @@ const payment = (state = initialState, action) => {
 
     //유진님꺼
     case PAYMENT_TYPE.GET_ALL_ORDERS:
-      const filteredReceipt = state.orders.filter((order) => order.status === "주문완료");
-      const filteredComplete = state.orders.filter((order) => order.status !== "주문완료");
+      const filteredReceipt = state.orders.filter(
+        (order) => order.status === "주문완료"
+      );
+      const filteredComplete = state.orders.filter(
+        (order) => order.status !== "주문완료"
+      );
       return {
         ...state,
         orders: action.payload,
@@ -37,7 +42,9 @@ const payment = (state = initialState, action) => {
       };
     case PAYMENT_TYPE.UPDATE_ORDER:
       const updatedOrder = action.payload;
-      const updatedOrders = state.receipted.filter((order) => order._id !== updatedOrder._id);
+      const updatedOrders = state.receipted.filter(
+        (order) => order._id !== updatedOrder._id
+      );
       return {
         ...state,
         receipted: updatedOrders,

@@ -34,4 +34,13 @@ export const PaginationItem = styled.a`
   float: left;
   padding: 8px 16px;
   text-decoration: none;
+
+  &:hover {
+    background-color: #ffcfd9;
+  }
+
+  &.clicked {
+    background-color: #ffcfd9;
+    color: black;
+  }
 `;

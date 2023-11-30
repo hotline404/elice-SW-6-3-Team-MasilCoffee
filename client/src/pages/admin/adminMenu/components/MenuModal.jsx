@@ -88,7 +88,6 @@ const MenuModal = ({ title, closeModal, modifyProduct }) => {
       }
     };
     fn();
-
     closeModal();
   };
 

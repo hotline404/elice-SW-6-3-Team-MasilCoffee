@@ -17,8 +17,9 @@ export const Category = styled.div`
 
 export const OrderCount = styled.p`
   margin: 0;
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
   border-radius: 12px;
   font-size: 16px;
   font-weight: bold;

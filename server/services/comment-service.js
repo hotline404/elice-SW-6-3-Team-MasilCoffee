@@ -92,6 +92,15 @@ class CommentService {
       throw error;
     }
   }
+
+  static async commentCount(boardId) {
+    try {
+      const commentCount = await Comment.countDocuments({ board: boardId });
+      return commentCount;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = CommentService;

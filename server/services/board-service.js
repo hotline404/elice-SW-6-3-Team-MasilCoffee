@@ -1,6 +1,8 @@
 const Board = require("../models/board-schema");
 const paginate = require("../utils/pagination");
 const User = require("../models/user-schema");
+const CommentService = require("./comment-service");
+const LikeService = require("./like-service");
 
 class BoardService {
   // 게시글 생성
@@ -12,10 +14,10 @@ class BoardService {
       }
 
       const imagePaths = boardData.image ? boardData.image : [];
-
+      console.log();
       const newBoard = new Board({
         user: user.id,
-        nickname: boardData.userNickname,
+        nickname: boardData.nickname,
         category: boardData.category,
         post: boardData.post,
         image: imagePaths,
@@ -35,6 +37,7 @@ class BoardService {
       if (search && search.length < 2) {
         throw new Error("검색어는 두 글자 이상 입력해야 합니다.");
       }
+
       let query = {};
       if (search) {
         const tagSearch = { tags: { $in: [search] } };
@@ -53,19 +56,33 @@ class BoardService {
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize);
 
+      // 각 게시글의 댓글 수와 좋아요 수를 가져와서 추가
+      const boardsWithCounts = await Promise.all(
+        boards.map(async (board) => {
+          const commentCount = await CommentService.commentCount(board._id);
+          const likeCount = await LikeService.likeCount(board._id);
+          return {
+            ...board.toObject(),
+            commentCount,
+            likeCount,
+          };
+        })
+      );
+
       const paginatedResult = paginate(
-        boards,
+        boardsWithCounts,
         currentPage,
         pageSize,
         totalItems
       );
+
       return paginatedResult;
     } catch (error) {
       throw error;
     }
   }
 
-  // 본인 모든 게시글 조회
+  // 본인이 작성한 모든 게시글 조회
   static async getAllBoardsByUserId(userId, currentPage, pageSize) {
     try {
       const query = { user: userId };
@@ -76,23 +93,68 @@ class BoardService {
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize);
 
+      const boardsWithCounts = await Promise.all(
+        boards.map(async (board) => {
+          const commentCount = await CommentService.commentCount(board._id);
+          const likeCount = await LikeService.likeCount(board._id);
+
+          return {
+            ...board.toObject(),
+            commentCount,
+            likeCount,
+          };
+        })
+      );
+
       const paginatedResult = paginate(
-        boards,
+        boardsWithCounts,
         currentPage,
         pageSize,
         totalItems
       );
       return paginatedResult;
     } catch (error) {
-      console.error("본인이 작성한 게시글 가져오기 중 오류 발생:", error);
       throw error;
     }
   }
 
-  // 카테고리 별 게시글 조회
-  static async getBoardsByCategory(category, currentPage, pageSize) {
+  // // 카테고리 별 게시글 조회
+  // static async getBoardsByCategory(category, currentPage, pageSize) {
+  //   try {
+  //     const query = { category };
+  //     const totalItems = await Board.countDocuments(query);
+
+  //     const boards = await Board.find(query)
+  //       .sort({ createdAt: -1 })
+  //       .skip((currentPage - 1) * pageSize)
+  //       .limit(pageSize);
+
+  //     const paginatedResult = paginate(
+  //       boards,
+  //       currentPage,
+  //       pageSize,
+  //       totalItems
+  //     );
+  //     return paginatedResult;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
+
+  // 특정 카테고리의 게시글 조회
+  static async getBoardsByCategory(category, currentPage, pageSize, search) {
     try {
       const query = { category };
+
+      if (search && search.length >= 2) {
+        const tagSearch = { tags: { $in: [search] } };
+        query.$or = [
+          { nickname: { $regex: `.*${search}.*`, $options: "i" } },
+          { post: { $regex: `.*${search}.*`, $options: "i" } },
+          tagSearch,
+        ];
+      }
+
       const totalItems = await Board.countDocuments(query);
 
       const boards = await Board.find(query)
@@ -100,12 +162,26 @@ class BoardService {
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize);
 
+      const boardsWithCounts = await Promise.all(
+        boards.map(async (board) => {
+          const commentCount = await CommentService.commentCount(board._id);
+          const likeCount = await LikeService.likeCount(board._id);
+
+          return {
+            ...board.toObject(),
+            commentCount,
+            likeCount,
+          };
+        })
+      );
+
       const paginatedResult = paginate(
-        boards,
+        boardsWithCounts,
         currentPage,
         pageSize,
         totalItems
       );
+
       return paginatedResult;
     } catch (error) {
       throw error;
@@ -116,7 +192,18 @@ class BoardService {
   static async getBoardById(boardId) {
     try {
       const board = await Board.findById(boardId);
-      return board;
+      if (!board) {
+        return null;
+      }
+      const commentCount = await CommentService.commentCount(boardId);
+      const likeCount = await LikeService.likeCount(boardId);
+
+      const boardWithCounts = {
+        ...board.toObject(),
+        commentCount,
+        likeCount,
+      };
+      return boardWithCounts;
     } catch (error) {
       throw error;
     }
@@ -135,11 +222,7 @@ class BoardService {
       }
 
       // 이미지가 있는 경우 기존 이미지와 함께 새로운 이미지 추가
-      const updatedImage =
-        imagePaths && imagePaths.length > 0
-          ? [...existingBoard.image, ...imagePaths]
-          : existingBoard.image;
-
+      const updatedImage = imagePaths;
       if (updatedImage.length > 4) {
         throw new Error("이미지는 최대 4개까지만 허용됩니다.");
       }

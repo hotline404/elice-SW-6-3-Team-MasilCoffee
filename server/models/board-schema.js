@@ -5,15 +5,13 @@ const { Schema } = mongoose;
 const boardSchema = new Schema(
   {
     user: {
-      id: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-      },
-      nickname: {
-        type: String,
-        required: true,
-      },
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    nickname: {
+      type: String,
+      required: true,
     },
     // likeCount: {
     //   type: Number,

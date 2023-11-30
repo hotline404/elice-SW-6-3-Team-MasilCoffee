@@ -4,7 +4,7 @@ const initialState = {
   options: [],
 };
 
-const product = (state = initialState, action) => {
+const option = (state = initialState, action) => {
   switch (action.type) {
     case OPTION_TYPE.GET_ALL_OPTIONS:
       return {
@@ -17,29 +17,27 @@ const product = (state = initialState, action) => {
     case OPTION_TYPE.ADD_OPTION:
       return {
         ...state,
-        products: [...state.products, action.payload],
+        options: [...state.options, action.payload],
       };
     case OPTION_TYPE.UPDATE_OPTION:
-      const updatedProduct = action.payload;
-      const updatedProducts = state.products.map((product) => {
-        return product.id === updatedProduct.id ? updatedProduct : product;
-      });
+      const updatedOption = action.payload;
+      const updatedOptions = state.options._id === updatedOption._id ? updatedOption : state.options;
 
       return {
         ...state,
-        products: updatedProducts,
+        options: updatedOptions,
       };
     case OPTION_TYPE.DELETE_OPTION:
-      const deletedProductId = action.payload;
-      const filteredProducts = state.products.filter((product) => product.id !== deletedProductId);
+      const deletedOptionId = action.payload;
+      const filteredOptions = state.options.filter((option) => option._id !== deletedOptionId);
 
       return {
         ...state,
-        products: filteredProducts,
+        options: filteredOptions,
       };
     default:
       return state;
   }
 };
 
-export default product;
+export default option;

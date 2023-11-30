@@ -15,7 +15,6 @@ const RecipeWrite = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const boardId = location.state && location.state.post;
-  const token = useSelector((state) => state.login.token);
   const [category, setCategory] = useState("");
   const [post, setPost] = useState("");
   const [keywords, setKeywords] = useState([]);
@@ -62,7 +61,7 @@ const RecipeWrite = () => {
     const fn = async () => {
       if (boardId) { //게시글 수정
         try {
-          const updatedBoard = await updateBoard(token, boardId, formData);
+          const updatedBoard = await updateBoard(boardId, formData);
           console.log("update", updatedBoard);
           dispatch(actionUpdateBoard(updatedBoard));
           navigate(`/RecipeView/${boardId}`);
@@ -71,7 +70,7 @@ const RecipeWrite = () => {
         }
       } else { //게시글 작성
         try {
-          const newBoard = await addBoard(token, formData);
+          const newBoard = await addBoard(formData);
           console.log("add", newBoard);
           dispatch(actionAddBoard(newBoard));
           navigate("/Recipe");

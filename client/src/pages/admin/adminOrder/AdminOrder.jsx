@@ -19,7 +19,7 @@ const Admin = () => {
   const [page, setPage] = useState(1);
 
   const pageConst = {
-    totalCount: receiptedOrder.length,
+    totalCount: currTab === "접수 대기" ? receiptedOrder.length : completedOrder.length,
     pageSize: 5,
     siblingCount: 1,
     currentPage: page,
@@ -30,7 +30,7 @@ const Admin = () => {
   const slicedData = sliceTen({
     currentPage: pageConst.currentPage,
     pageSize: pageConst.pageSize,
-    initDataSet: receiptedOrder,
+    initDataSet: currTab === "접수 대기" ? receiptedOrder : completedOrder,
   });
 
   const handleClick = (e) => {

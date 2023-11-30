@@ -6,10 +6,14 @@ import PostList from "../components/PostList";
 import PostInput from "../components/PostInput";
 import CommentList from "../components/CommentList";
 import { getComments } from "../../../api/comment";
+import { useParams } from "react-router-dom";
 
 const RecipeView = () => {
   const oneBoardData = useSelector((state) => state.board.board[0]);
   const [commentData, getCommentData] = useState("");
+  const params = useParams();
+  const boardId = params.boardId;
+  
   
   useEffect(() => {
     const fn = async () => {
@@ -20,7 +24,7 @@ const RecipeView = () => {
         console.log("err", err);
       }
     };
-    fn();
+    fn(); 
     window.scrollTo(0, 0);
   }, []);
 

@@ -72,14 +72,15 @@ const MenuModal = ({ title, closeModal, modifyProduct }) => {
     const fn = async () => {
       if (modifyProduct) {
         try {
-          const updatedProduct = await updateProduct(modifyProduct._id, formData, token);
+          const updatedProduct = await updateProduct(modifyProduct._id, formData);
+          console.log("modifyProduct", modifyProduct, updatedProduct);
           dispatch(actionUpdateProduct(updatedProduct));
         } catch (error) {
           console.error("Failed to update product", error);
         }
       } else {
         try {
-          const newProduct = await createProduct(formData, token);
+          const newProduct = await createProduct(formData);
           dispatch(actionCreateProduct(newProduct));
           dispatch(actionGetAllProducts());
         } catch (error) {

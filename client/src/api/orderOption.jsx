@@ -1,31 +1,45 @@
-import axios from "axios";
+import { apiInstance } from "./interceptor/apiInstance";
 
-export const getAllOptions = async (token) => {
-  const headers = { headers: { Authorization: `Bearer ${token}` } };
-  const res = await axios.get("http://localhost:5000/api/v1/orderOption", headers);
-  const options = res.data.data[0];
-  return options;
+export const getAllOptions = async () => {
+  try {
+    const res = await apiInstance.get("/api/v1/orderOption");
+    if (res?.data?.data[0]) {
+      return res.data.data[0];
+    }
+  } catch (err) {
+    console.log("getAllOptions-err", err);
+  }
 };
 
 export const createOption = async (data) => {
-  const res = await axios.post("http://localhost:5000/api/v1/orderOption", data);
-  const newOption = res.data.data;
-  return newOption;
+  try {
+    const res = await apiInstance.post("/api/v1/orderOption", data);
+    if (res?.data?.data) {
+      return res.data.data;
+    }
+  } catch (err) {
+    console.log("createOption-err", err);
+  }
 };
 
-export const updateOption = async (id, data, token) => {
-  console.log("api", id, data, token);
-  const headers = { headers: { Authorization: `Bearer ${token}` } };
-  const res = await axios.put(`http://localhost:5000/api/v1/orderOption/${id}`, data, headers);
-  console.log(res);
-  const option = res.data.data;
-  console.log("res.data.data", res.data.data);
-  return option;
+export const updateOption = async (id, data) => {
+  try {
+    const res = await apiInstance.put(`/api/v1/orderOption/${id}`, data);
+    if (res?.data?.data) {
+      return res.data.data;
+    }
+  } catch (err) {
+    console.log("updateOption-err", err);
+  }
 };
 
 export const deleteOption = async (id) => {
-  const res = await axios.delete(`http://localhost:5000/api/v1/orderOption/${id}`);
-  const options = res.data.data;
-  console.log("deleted", res, options);
-  return options;
+  try {
+    const res = await apiInstance.delete(`/api/v1/orderOption/${id}`);
+    if (res?.data?.data) {
+      return res.data.data;
+    }
+  } catch (err) {
+    console.log("deleteOption-err", err);
+  }
 };

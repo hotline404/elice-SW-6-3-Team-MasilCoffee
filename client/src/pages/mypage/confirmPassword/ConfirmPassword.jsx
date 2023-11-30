@@ -33,6 +33,7 @@ function ConfirmPassword() {
       phone: phone,
       checkpassword: checkpassword
     }
+    
     try {
       const res = await axiosPatchUser(userInfo);
       await axiosPostLogout(email);

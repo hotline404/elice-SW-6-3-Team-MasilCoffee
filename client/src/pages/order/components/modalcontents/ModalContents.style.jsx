@@ -5,14 +5,16 @@ export const StyleText = styled.div`
   display: flex;
   width: 510px;
 `;
-export const StyleImg = styled.div`
+export const StyleImg = styled.img`
   width: 255px;
   height: 255px;
   background-color: #f5f5f5;
+  border: 1px solid #d9d9d9;
   border-radius: 40px;
   cursor: pointer;
   padding: 0;
 `;
+
 export const StyleInfo = styled.div`
   width: 255px;
   display: flex;

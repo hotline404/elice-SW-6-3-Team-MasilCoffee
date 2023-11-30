@@ -103,7 +103,7 @@ const ModalContents = ({ data }) => {
   return (
     <>
       <StyleText>
-        <StyleImg></StyleImg>
+        <StyleImg src={data.image_url} alt={data.name}></StyleImg>
         <StyleInfo>
           <span>{data.name}</span>
           <StylePaddingSpan>{quantity * data.price}</StylePaddingSpan>

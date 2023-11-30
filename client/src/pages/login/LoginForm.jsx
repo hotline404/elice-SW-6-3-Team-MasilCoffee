@@ -32,9 +32,10 @@ function LoginForm() {
   const fn = async (email, password) => {
     try {
       const LoginRes = await axiosPostLogin(email, password);
-      const UserRes = await axiosGetUser();
-      
       dispatch(postLogin(LoginRes));
+
+      const UserRes = await axiosGetUser();
+
       dispatch(getUser(UserRes));
       nav(ROUTES.MAIN.path, { replace: true })
 

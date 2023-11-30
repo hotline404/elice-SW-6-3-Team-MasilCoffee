@@ -25,9 +25,8 @@ export const addComments = async (boardId, commentData) => {
       `/api/v1/comment/board/${boardId}`,
       data
     );
-    const comments = res.data.data;
-    console.log("댓글 작성", comments);
-    return comments;
+    const status = res.status;
+    return status;
   } catch (error) {
     console.error("error(addComments)", error);
   }
@@ -44,9 +43,8 @@ export const updateComments = async (commentId, commentData) => {
       `/api/v1/comment/${commentId}`,
       data,
     );
-    const comments = res.data.data;
-
-    return comments;
+    const status = res.status;
+    return status;
   } catch (error) {
     console.error("error(updateComments)", error);
   }
@@ -59,11 +57,11 @@ export const deleteComments = async (commentId) => {
       `/api/v1/comment/${commentId}`
     );
 
-    if (res.status >= 200 && res.status < 300) {
+    const status = res.status;
+    if (status >= 200 && status < 300) {
       alert("댓글이 삭제되었습니다.");
     }
-    const comments = res.data.data;
-    return comments;
+    return status;
   } catch (error) {
     console.error("error(deleteComments)", error);
   }

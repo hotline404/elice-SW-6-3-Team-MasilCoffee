@@ -21,7 +21,7 @@ function WriteList() {
   }, [page, pageSize, token]);
 
   const axiosFn = async (currentPage, pageSize, token) => {
-    const writeListRes = await getMyBoards(currentPage, pageSize, token);
+    const writeListRes = await getMyBoards(currentPage, pageSize);
     const totalPageSize = writeListRes.totalPages;
     const data = writeListRes.data;
 

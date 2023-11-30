@@ -5,7 +5,6 @@ import SquareButton from "../../../components/ui/button/SquareButton";
 import { addComments } from "../../../api/comment";
 
 const PostInput = ( props ) => {
-  const token = useSelector((state) => state.login.token);
   const boardData = useSelector((state) => state.board.board[0]);
   const [query, setQuery] = useState("");
 
@@ -24,7 +23,7 @@ const PostInput = ( props ) => {
       
       const fn = async () => {
         try {
-          const comment = await addComments(token, boardData._id, query);
+          const comment = await addComments(boardData._id, query);
         } catch (error) {
           console.error("PostInput 댓글 작성 error", error);
         }

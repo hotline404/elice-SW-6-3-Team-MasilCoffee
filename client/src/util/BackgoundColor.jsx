@@ -1,13 +1,14 @@
 import IncludeRedPage from "./IncludeRedPage";
 import includeCianPage from "./includeCianPage";
+import { back_ground_color } from "../type/color_type";
 
 const backgroundColor = (location) => {
   if(IncludeRedPage(location) && !includeCianPage(location)) {
-    return "#F5F5F5";
+    return back_ground_color.sub_color;
   } else if (!IncludeRedPage(location) && !includeCianPage(location)) {
-    return "#8e0e28";
+    return back_ground_color.main_color;
   } else if (!IncludeRedPage(location) && includeCianPage(location)) {
-    return "#34393E";
+    return back_ground_color.admin_color;
   }
 }
 

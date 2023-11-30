@@ -1,9 +1,11 @@
-import axios from "axios";
+import { apiInstance, apiInstanceForm } from "./interceptor/apiInstance";
 
 export const getAllProducts = async () => {
   try {
-    const res = await axios.get("http://localhost:5000/api/v1/products");
-    return res.data.data.data;
+    const res = await apiInstance.get("/api/v1/products");
+    if (res?.data?.data?.data) {
+      return res.data.data.data;
+    }
   } catch (err) {
     console.log("getAllProduct-err", err);
   }
@@ -11,63 +13,52 @@ export const getAllProducts = async () => {
 
 export const getAllProductsMain = async () => {
   try {
-    const res = await axios.get("http://localhost:5000/api/v1/products/main");
-    return res.data.data;
+    const res = await apiInstance.get("/api/v1/products/main");
+    if (res?.data?.data) {
+      return res.data.data;
+    }
   } catch (err) {
-    console.log("getAllProduct-err", err);
+    console.log("getAllProductsMain-err", err);
   }
 };
 
 export const getCategoryProducts = async (category) => {
   try {
-    const res = await axios.get(`http://localhost:5000/api/v1/products/categories/${category}`);
-    console.log("categoryData", res.data.data);
-    return res.data.data;
+    const res = await apiInstance.get(`/api/v1/products/categories/${category}`);
+    if (res?.data?.data) {
+      return res.data.data;
+    }
   } catch (err) {
-    console.log("getAllProduct-err", err);
+    console.log("getCategoryProducts-err", err);
   }
 };
 
-export const createProduct = async (data, token) => {
+export const createProduct = async (data) => {
   try {
-    const res = await axios.post("http://localhost:5000/api/v1/products/", data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const newProducts = res.data.data;
-    console.log("newProducts", newProducts);
-    return newProducts;
+    const res = await apiInstanceForm.post("/api/v1/products/", data);
+    if (res?.data?.data) {
+      return res.data.data;
+    }
   } catch (err) {
     console.log("createProduct-err", err);
   }
 };
 
-export const updateProduct = async (id, data, token) => {
+export const updateProduct = async (id, data) => {
   try {
     console.log("id", id);
-    const res = await axios.put(`http://localhost:5000/api/v1/products/${id}`, data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const products = res.data.data;
-
-    return products;
+    const res = await apiInstanceForm.put(`/api/v1/products/${id}`, data);
+    if (res?.data?.data) {
+      return res.data.data;
+    }
   } catch (err) {
     console.log("updateProduct-err", err);
   }
 };
 
-export const deleteProduct = async (id, token) => {
+export const deleteProduct = async (id) => {
   try {
-    await axios.delete(`http://localhost:5000/api/v1/products/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    await apiInstance.delete(`/api/v1/products/${id}`);
   } catch (err) {
     console.log("deleteProduct-err", err);
   }

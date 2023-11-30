@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   min-height: 100vh;
-  width: 16.7%;
+  width: 12%;
   background-color: #8e0e28;
 `;
 
@@ -29,6 +29,11 @@ export const OrderCount = styled.p`
 
 export const LinkBox = styled(Link)`
   color: #f5f5f5;
-  font-size: 18px;
+  font-size: 16px;
   text-decoration: none;
+
+  :active {
+    background-color: #650818;
+    border-left: solid 8px white;
+  }
 `;

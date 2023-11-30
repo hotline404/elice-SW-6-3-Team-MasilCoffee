@@ -31,4 +31,9 @@ export const LinkBox = styled(Link)`
   color: #f5f5f5;
   font-size: 18px;
   text-decoration: none;
+
+  :active {
+    background-color: #650818;
+    border-left: solid 8px white;
+  }
 `;

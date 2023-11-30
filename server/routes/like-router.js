@@ -1,8 +1,10 @@
 const express = require("express");
+const express = require("express");
 const LikeRouter = express.Router();
 const asyncHandler = require("../middlewares/async-handler");
 const JwtMiddleware = require("../middlewares/jwt-handler");
 const ResponseHandler = require("../middlewares/res-handler");
+const LikeService = require("../services/like-service");
 const LikeService = require("../services/like-service");
 
 LikeRouter.put(
@@ -34,6 +36,19 @@ LikeRouter.put(
           result: newLike,
         });
       }
+    } catch (error) {
+      ResponseHandler.respondWithError(res, 500, "내부 서버 오류");
+    }
+  })
+);
+
+LikeRouter.get(
+  "/count/:boardId",
+  asyncHandler(async (req, res) => {
+    const { boardId } = req.params;
+    try {
+      const likeCount = await LikeService.getLikeCount(boardId);
+      ResponseHandler.respondWithSuccess(res, { likeCount });
     } catch (error) {
       ResponseHandler.respondWithError(res, 500, "내부 서버 오류");
     }

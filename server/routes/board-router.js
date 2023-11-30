@@ -11,11 +11,12 @@ BoardRouter.get(
   "/categories/:category",
   asyncHandler(async (req, res) => {
     const category = req.params.category;
-    const { currentPage, pageSize } = req.query;
+    const { currentPage, pageSize, search } = req.query;
     const boards = await BoardService.getBoardsByCategory(
       category,
       currentPage,
-      pageSize
+      pageSize,
+      search
     );
     ResponseHandler.respondWithSuccess(res, boards);
   })
@@ -70,10 +71,12 @@ BoardRouter.post(
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
     const userId = req.tokenData._id;
+    const nickname = req.tokenData.nickname;
     const { category, post, tags } = req.body;
     const imagePaths = req.files.map((file) => file.location);
     const boardData = {
       userId,
+      nickname,
       category,
       post,
       image: imagePaths,

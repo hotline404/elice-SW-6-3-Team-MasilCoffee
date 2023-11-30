@@ -1,8 +1,30 @@
-const Comment = require('../models/comment-schema');
-const { User } = require("../models/user-schema");
+const Comment = require("../models/comment-schema");
+const User = require("../models/user-schema");
 
 class CommentService {
+  static async getMyComments(userId) {
+    try {
+      const myComments = await Comment.find({ author: userId });
+      return myComments;
+    } catch (error) {
+      throw error;
+    }
+  }
 
+  static async getCommentAuthorId(commentId) {
+    try {
+      const comment = await Comment.findById(commentId);
+      if (!comment) {
+        throw new Error("댓글을 찾을 수 없습니다.");
+      }
+
+      // Comment 모델의 author 필드에서 userid 값을 가져옴
+      const commentAuthorId = comment.author._id;
+      return commentAuthorId;
+    } catch (error) {
+      throw error;
+    }
+  }
   // 댓글 생성
   static async createComment(commentData) {
     try {
@@ -26,7 +48,9 @@ class CommentService {
   // 특정 게시글의 모든 댓글 가져오기
   static async getCommentsByBoardId(boardId) {
     try {
-      const comments = await Comment.find({ board: boardId }).populate('author');
+      const comments = await Comment.find({ board: boardId }).populate(
+        "author"
+      );
       return comments;
     } catch (error) {
       throw error;
@@ -38,7 +62,7 @@ class CommentService {
     try {
       const comment = await Comment.findById(commentId);
       if (!comment) {
-        throw new Error('댓글을 찾을 수 없습니다.');
+        throw new Error("댓글을 찾을 수 없습니다.");
       }
 
       const result = await Comment.findByIdAndDelete(commentId);
@@ -53,10 +77,10 @@ class CommentService {
     try {
       const comment = await Comment.findById(commentId);
       if (!comment) {
-        throw new Error('댓글을 찾을 수 없습니다.');
+        throw new Error("댓글을 찾을 수 없습니다.");
       }
       if (comment.author.toString() !== userId.toString()) {
-        throw new Error('댓글 작성자만 수정할 수 있습니다.');
+        throw new Error("댓글 작성자만 수정할 수 있습니다.");
       }
       const updatedComment = await Comment.findByIdAndUpdate(
         commentId,

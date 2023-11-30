@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { TfiMenu } from "react-icons/tfi";
 import MidiumNav from "./midium-nav/MidiumNav";
 import MiniNav from "./mini-nav/MiniNav";
+import { useParams } from "react-router-dom";
 
 
 const linkDatas = {
@@ -44,6 +45,7 @@ const linkDatas = {
 function Headers(props) {
   const role = useSelector((state) => state.login.role);
   const [visible, setVisible] = useState(false)
+  
 
   const handleClick = () => {
     setVisible(!visible);

@@ -4,6 +4,7 @@ import IncludeRedPage from "../../../../util/IncludeRedPage";
 import { ROUTES } from "../../../../router/Routes";
 import { useSelector } from "react-redux";
 import { RightSide, NavButton, LinkBox } from "../Headers.style";
+import { TfiMenu } from "react-icons/tfi";
 
 function NonUserRightSideItem(props) {
   const isLogin = useSelector((state) => state.login.loginState);
@@ -41,7 +42,9 @@ function NonUserRightSideItem(props) {
           />
         );
       })}
-      <NavButton>▼</NavButton>
+      <NavButton location={props.location}>
+        <TfiMenu />
+      </NavButton>
     </RightSide>
   );
 }

@@ -1,10 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import LeftSideItem from "./heander_item/LeftSideItem";
 import TransComponent from "./heander_item/TransComponent";
 
 import { Header, MiniLogo, HeaderBtn } from "./Headers.style";
 import { ROUTES } from "../../../router/Routes";
 import { useSelector } from "react-redux";
+import { TfiMenu } from "react-icons/tfi";
+import MidiumNav from "./midium-nav/MidiumNav";
+import MiniNav from "./mini-nav/MiniNav";
+
 
 const linkDatas = {
   non_user_right: [
@@ -39,8 +43,11 @@ const linkDatas = {
 
 function Headers(props) {
   const role = useSelector((state) => state.login.role);
-  const isToken = useSelector((state) => state?.login?.token) ? true : false;
-  console.log(isToken);
+  const [visible, setVisible] = useState(false)
+
+  const handleClick = () => {
+    setVisible(!visible);
+  }
 
   return (
     <div>
@@ -52,8 +59,11 @@ function Headers(props) {
           linkDatas={linkDatas}
           location={props.location}
         />
-        <HeaderBtn>▼</HeaderBtn>
+        <HeaderBtn location={props.location} onClick={handleClick}>
+          <TfiMenu />
+        </HeaderBtn>
       </Header>
+        {!visible ? <></> : <MiniNav item={linkDatas} userRole={role} linkDatas={linkDatas} location={props.location}/>}
     </div>
   );
 }

@@ -27,10 +27,15 @@ function ConfirmPassword() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
-  const axiosPostFn = async (token, nickname, phone, checkpassword, email) => {
+  const axiosPostFn = async (nickname, phone, checkpassword, email) => {
+    const userInfo = {
+      nickname: nickname,
+      phone: phone,
+      checkpassword: checkpassword
+    }
     try {
-      const res = await axiosPatchUser(nickname, phone, checkpassword);
-      await axiosPostLogout(token, email);
+      const res = await axiosPatchUser(userInfo);
+      await axiosPostLogout(email);
       alert(res.message);
       dispatch(actionLogout());
       dispatch(removeUser());

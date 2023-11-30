@@ -14,10 +14,8 @@ class BoardService {
       const imagePaths = boardData.image ? boardData.image : [];
 
       const newBoard = new Board({
-        user: {
-          id: user._id,
-          nickname: user.nickname,
-        },
+        user: user.id,
+        nickname: boardData.userNickname,
         category: boardData.category,
         post: boardData.post,
         image: imagePaths,
@@ -34,12 +32,27 @@ class BoardService {
   // 모든 게시글 조회
   static async getAllBoards(currentPage, pageSize) {
     try {
-      const totalItems = await Board.countDocuments();
-      const boards = await Board.find()
+      if (search && search.length < 2) {
+        throw new Error("검색어는 두 글자 이상 입력해야 합니다.");
+      }
+      let query = {};
+      if (search) {
+        const tagSearch = { tags: { $in: [search] } };
+        query = {
+          $or: [
+            { nickname: { $regex: `.*${search}.*`, $options: "i" } },
+            { post: { $regex: `.*${search}.*`, $options: "i" } },
+            tagSearch,
+          ],
+        };
+      }
+
+      const totalItems = await Board.countDocuments(query);
+      const boards = await Board.find(query)
         .sort({ createdAt: -1 })
-        .populate("user.id", "nickname")
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize);
+
       const paginatedResult = paginate(
         boards,
         currentPage,
@@ -55,13 +68,11 @@ class BoardService {
   // 본인 모든 게시글 조회
   static async getAllBoardsByUserId(userId, currentPage, pageSize) {
     try {
-      const query = { "user.id": userId };
-
+      const query = { user: userId };
       const totalItems = await Board.countDocuments(query);
 
       const boards = await Board.find(query)
         .sort({ createdAt: -1 })
-        .populate("user.id", "nickname")
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize);
 
@@ -78,19 +89,7 @@ class BoardService {
     }
   }
 
-  // 특정 게시글 갖고오기
-  static async getBoardById(boardId) {
-    try {
-      const board = await Board.findById(boardId).populate(
-        "user.id",
-        "nickname"
-      );
-      return board;
-    } catch (error) {
-      throw error;
-    }
-  }
-
+  // 카테고리 별 게시글 조회
   static async getBoardsByCategory(category, currentPage, pageSize) {
     try {
       const query = { category };
@@ -98,7 +97,6 @@ class BoardService {
 
       const boards = await Board.find(query)
         .sort({ createdAt: -1 })
-        .populate("user.id", "nickname")
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize);
 
@@ -114,22 +112,43 @@ class BoardService {
     }
   }
 
+  // 특정 게시글 갖고오기
+  static async getBoardById(boardId) {
+    try {
+      const board = await Board.findById(boardId);
+      return board;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // 게시글 수정
   static async updateBoard(userId, boardId, updatedData, imagePaths) {
     try {
       const existingBoard = await Board.findById(boardId);
       if (!existingBoard) {
         throw new Error("게시글을 찾을 수 없습니다.");
       }
-      const userIdOfBoard = existingBoard.user.id.toString();
+      const userIdOfBoard = existingBoard.user.toString();
       if (userId !== userIdOfBoard) {
         throw new Error("권한이 없습니다.");
+      }
+
+      // 이미지가 있는 경우 기존 이미지와 함께 새로운 이미지 추가
+      const updatedImage =
+        imagePaths && imagePaths.length > 0
+          ? [...existingBoard.image, ...imagePaths]
+          : existingBoard.image;
+
+      if (updatedImage.length > 4) {
+        throw new Error("이미지는 최대 4개까지만 허용됩니다.");
       }
 
       const updatedBoard = await Board.findByIdAndUpdate(
         boardId,
         {
           ...updatedData,
-          image: imagePaths.length > 0 ? imagePaths : existingBoard.image,
+          image: updatedImage,
         },
         { new: true }
       );
@@ -142,8 +161,25 @@ class BoardService {
 
   static async deleteBoard(boardId) {
     try {
-      const deletedBoard = await Board.findByIdAndDelete(boardId);
-      return deletedBoard;
+      const board = await Board.findById(boardId);
+      if (!board) {
+        return new Error("게시물을 찾을 수 없습니다.");
+      }
+      const result = await Board.findByIdAndDelete(boardId);
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async getBoardAuthorId(boardId) {
+    try {
+      const board = await Board.findById(boardId);
+      if (!board) {
+        throw new Error("게시글을 찾을 수 없습니다.");
+      }
+
+      return board.user.toString();
     } catch (error) {
       throw error;
     }

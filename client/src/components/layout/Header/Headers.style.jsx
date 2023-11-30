@@ -55,8 +55,8 @@ export const NavButton = styled.h4`
   cursor: pointer;
   color: ${(props) =>
     IncludeRedPage(props.location)
-      ? back_ground_color.main_color
-      : back_ground_color.sub_color};
+      ? txt_color.main_color
+      : txt_color.sub_color};
 
   ${media.medium`
     display: flex;
@@ -86,8 +86,8 @@ export const HeaderBtn = styled.button`
 
   color: ${(props) =>
     IncludeRedPage(props.location)
-      ? back_ground_color.main_color
-      : back_ground_color.sub_color};
+      ? txt_color.main_color
+      : txt_color.sub_color};
 
   ${media.mini`
 display: block;

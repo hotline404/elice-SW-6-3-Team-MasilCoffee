@@ -36,6 +36,12 @@ const UserSchema = new Schema(
       unique: true,
       trim: true,
     },
+    customRecipe: [
+      {
+        name: String,
+        options: String,
+      },
+    ],
   },
   {
     timestamps: true,
@@ -45,4 +51,4 @@ const UserSchema = new Schema(
 
 const User = mongoose.model("User", UserSchema);
 
-module.exports =  User ;
+module.exports = User;

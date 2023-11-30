@@ -11,11 +11,12 @@ BoardRouter.get(
   "/categories/:category",
   asyncHandler(async (req, res) => {
     const category = req.params.category;
-    const { currentPage, pageSize } = req.query;
+    const { currentPage, pageSize, search } = req.query;
     const boards = await BoardService.getBoardsByCategory(
       category,
       currentPage,
-      pageSize
+      pageSize,
+      search
     );
     ResponseHandler.respondWithSuccess(res, boards);
   })
@@ -70,10 +71,12 @@ BoardRouter.post(
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
     const userId = req.tokenData._id;
+    const nickname = req.tokenData.nickname;
     const { category, post, tags } = req.body;
     const imagePaths = req.files.map((file) => file.location);
     const boardData = {
       userId,
+      nickname,
       category,
       post,
       image: imagePaths,
@@ -91,11 +94,16 @@ BoardRouter.put(
   imageUploader.array("file"),
   asyncHandler(async (req, res) => {
     const uploadedFiles = req.files || [];
-    const imagePaths = uploadedFiles.map((file) => file.location);
+    const imagePaths = req.body.file
+      ? Array.isArray(req.body.file)
+        ? req.body.file
+        : [req.body.file]
+      : [];
+    imagePaths.push(...uploadedFiles.map((file) => file.location));
 
+    // 기존에 존재한 이미지 유지하기
     const existingBoard = await BoardService.getBoardById(req.params.boardId);
     const previousImagePaths = existingBoard.image || [];
-
     const finalImagePaths =
       imagePaths.length > 0 ? imagePaths : previousImagePaths;
 

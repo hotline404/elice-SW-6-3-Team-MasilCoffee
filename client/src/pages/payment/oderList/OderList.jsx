@@ -1,7 +1,8 @@
 // import { postRecipe } from "../../../redux/action/user/userAction";
 import SquareButton from "../../../components/ui/button/SquareButton";
 import { useSelector, useDispatch } from "react-redux";
-import { axiosPatchUser } from "../../../api/user/user";
+import { axiosPatchUserRecipe } from "../../../api/user/user";
+import { postRecipe } from "../../../redux/action/user/userAction";
 
 import {
   StyledOrderList,
@@ -22,12 +23,13 @@ function OderList() {
 
   const dispatch = useDispatch();
 
+  // 유저의 정보를 불러와서 기존에 있던 꿀조합레시피를 ...data이런식으로 먼저넣어주면 여러개의 레시피 만들어질듯
   const handleClick = (index) => {
     if (window.confirm("나만의 꿀조합 넣기!")) {
       const selectedRecipeIndex = payment.orders[index];
       const orderDetailList = paymentList[paymentList.length - 1].orderDetail;
       console.log("오더 디테일 리스트", orderDetailList);
-      const selectedRecipe = paymentList[0].orderDetail.filter(
+      const selectedRecipe = paymentList[paymentList.length - 1].orderDetail.filter(
         (data, i) => i === index
       );
       const postUserRecipeData = selectedRecipe.map((data) => {
@@ -36,9 +38,11 @@ function OderList() {
           options: data.options,
         };
       });
+      console.log("엑시오스에 들어갈 유저레시피 정보", postUserRecipeData);
       const fn = async () => {
         try {
-          const addUserRecipe = await axiosPatchUser(token, postUserRecipeData);
+          const addUserRecipe = await axiosPatchUserRecipe(postUserRecipeData);
+          dispatch(postRecipe(addUserRecipe.customRecipe));
         } catch (err) {
           console.log("axiosPatchUser-err", err);
         }

@@ -35,7 +35,7 @@ function UserRightSideItem(props) {
           <LinkTo there={{ to: link.to, name: link.name }} style={style} />
         );
       })}
-      <NavButton location={props.location}>
+      <NavButton location={props.location} onClick={props.onVisible}>
         <TfiMenu />
       </NavButton>
     </RightSide>

@@ -32,8 +32,23 @@ class BoardService {
   // 모든 게시글 조회
   static async getAllBoards(currentPage, pageSize, search) {
     try {
-      const totalItems = await Board.countDocuments();
-      const boards = await Board.find()
+      if (search && search.length < 2) {
+        throw new Error("검색어는 두 글자 이상 입력해야 합니다.");
+      }
+      let query = {};
+      if (search) {
+        const tagSearch = { tags: { $in: [search] } };
+        query = {
+          $or: [
+            { nickname: { $regex: `.*${search}.*`, $options: "i" } },
+            { post: { $regex: `.*${search}.*`, $options: "i" } },
+            tagSearch,
+          ],
+        };
+      }
+
+      const totalItems = await Board.countDocuments(query);
+      const boards = await Board.find(query)
         .sort({ createdAt: -1 })
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize);
@@ -41,8 +56,7 @@ class BoardService {
         boards,
         currentPage,
         pageSize,
-        totalItems,
-        search
+        totalItems
       );
       return paginatedResult;
     } catch (error) {

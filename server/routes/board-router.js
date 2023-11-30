@@ -6,7 +6,7 @@ const asyncHandler = require("../middlewares/async-handler");
 const ResponseHandler = require("../middlewares/res-handler");
 const JwtMiddleware = require("../middlewares/jwt-handler");
 
-// 특정 카테고리의 게시글 가져오기
+// 특정 카테고리의 게시글 가져오기 (검색포함)
 BoardRouter.get(
   "/categories/:category",
   asyncHandler(async (req, res) => {
@@ -33,12 +33,16 @@ BoardRouter.get(
   })
 );
 
-// 모든 게시글 가져오기 (모든 사용자, 모든 게시물)
+// 모든 게시글 가져오기 (모든 사용자, 모든 게시물) (검색포함)
 BoardRouter.get(
   "/",
   asyncHandler(async (req, res) => {
-    const { currentPage, pageSize } = req.query;
-    const boards = await BoardService.getAllBoards(currentPage, pageSize);
+    const { currentPage, pageSize, search } = req.query;
+    const boards = await BoardService.getAllBoards(
+      currentPage,
+      pageSize,
+      search
+    );
     ResponseHandler.respondWithSuccess(res, boards);
   })
 );

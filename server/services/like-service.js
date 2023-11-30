@@ -35,8 +35,7 @@ class LikeService {
     }
   }
 
-  // 좋아요 갯수
-  static async getLikeCount(boardId) {
+  static async likeCount(boardId) {
     try {
       const likeCount = await Like.countDocuments({ board: boardId });
       return likeCount;

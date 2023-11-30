@@ -39,6 +39,8 @@ const linkDatas = {
 
 function Headers(props) {
   const role = useSelector((state) => state.login.role);
+  const isToken = useSelector(state => state?.login?.token) ? true : false
+  console.log(isToken)
 
   return (
     <div>

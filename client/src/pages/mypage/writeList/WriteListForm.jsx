@@ -19,11 +19,6 @@ function WriteListForm({onInsert, data}) {
     return [...[data._id, index + 1, data.post, date]]
   })
 
-  console.log("dataSet", data)
-
-
-
-
 
   const handleClick = (e) => {
     setPage(parseInt(e.target.name, 10));

@@ -1,6 +1,6 @@
-import { postRecipe } from "../../../redux/action/user/userAction";
+// import { postRecipe } from "../../../redux/action/user/userAction";
 import SquareButton from "../../../components/ui/button/SquareButton";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import {
   StyledOrderList,
@@ -13,24 +13,16 @@ import {
 
 function OderList() {
   const payment = useSelector((state) => state.payment);
-  console.log("오더 네임", payment);
+  // console.log("오더 네임", payment);
 
-  const userRecipe = useSelector((state) => state.user);
-  // console.log("유저레시피", userRecipe);
-
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleClick = (index) => {
     if (window.confirm("나만의 꿀조합 넣기!")) {
       // 문제점 1. 꿀조합이 내가 지금까지 시켰던 모든 주문들이 보여지는 용도면 딱히 이쪽은 필요 없음
       // 문제점 2. 모든 주문들이 다 보여지면 꿀조합의 의미가 퇴색 됨 (내가 원하는 조합만 저장할 수 있어야 됨)
-      dispatch(postRecipe(payment.orders[index]));
-      // console.log("유저 레시피", userRecipe);
-      // console.log("인덱스 배열", index);
-      console.log(
-        "페이먼트.오더스[0].오더디테일",
-        payment.orders[0].orderDtail
-      );
+
+      console.log("페이먼트.오더스[0].오더디테일", payment.orders[0]);
     }
   };
 
@@ -38,6 +30,7 @@ function OderList() {
     <>
       <StyledOrderList>
         <h2>주문내역</h2>
+
         <i></i>
 
         <StyledOrderListMenu>
@@ -93,16 +86,6 @@ function OderList() {
                           <span key={item.name}>{`우유 : ${item.name}`}</span>
                         ))}
                     </StyledOrderListMenuText>
-                    {/* <StyledOrderListMenuText>
-                      <span>{`샷 : ${order.shot}`}</span>
-                      <span>{`시럽 : 바닐라 ${order.syrups.vanilla} 헤이즐넛 ${order.syrups.hazelnut} 카라멜  ${order.syrups.caramel} `}</span>
-                    </StyledOrderListMenuText> */}
-                    {/* <StyledOrderListMenuText>
-                      <span>{`얼음 : ${order.ice}`}</span>
-                      <span>{`휘핑 : ${order.whipping}`}</span>
-                      <span>{`드리즐 : ${order.drizzle}`}</span>
-                      <span>{`우유 : ${order.milk}`}</span>
-                    </StyledOrderListMenuText> */}
                   </div>
                   <div>{order.quantity}개</div>
                   <div>{order.totalPrice}원</div>

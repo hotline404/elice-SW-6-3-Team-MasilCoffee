@@ -1,4 +1,4 @@
-import { apiInstance } from "../interceptor/apiInstance";
+import { apiInstance, apiInstanceNonAuth } from "../interceptor/apiInstance";
 const BASE_URL = {
   users: {
     url : "/api/v1/users"
@@ -30,7 +30,7 @@ export const axiosRegister = async (name, email, nickname, password, phone) => {
   };
 
   try {
-    const res = await apiInstance.post(`${BASE_URL.users.url}`, registerBody);
+    const res = await apiInstanceNonAuth.post(`${BASE_URL.users.url}`, registerBody);
     const data = res.data;
 
     return data;
@@ -46,7 +46,7 @@ export const authEmail = async (email) => {
   };
 
   try {
-    const res = await apiInstance.post(`${BASE_URL.send_email.url}`, authBody);
+    const res = await apiInstanceNonAuth.post(`${BASE_URL.send_email.url}`, authBody);
     const data = res.data;
 
     return data;
@@ -64,7 +64,7 @@ export const authComplete = async (email, code) => {
   };
 
   try {
-    const res = await apiInstance.post(`${BASE_URL.verify.url}`, authBody);
+    const res = await apiInstanceNonAuth.post(`${BASE_URL.verify.url}`, authBody);
     const data = res.data;
 
     return data;

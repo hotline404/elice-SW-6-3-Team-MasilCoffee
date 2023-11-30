@@ -15,11 +15,23 @@ import {
   StyledActionBg,
 } from "./Payment.style";
 import { useDispatch, useSelector } from "react-redux";
-
 import { postPayment } from "../../api/payment/payment";
-import { addRequestDeliveryAction } from "../../redux/action/paymentAction";
+import {
+  addRequestDeliveryAction,
+  actionAddPayment,
+} from "../../redux/action/paymentAction";
 
 const Payment = () => {
+  // 주문 요청사항 확인 버튼
+  const handleOnClickCheck = () => {
+    if (!orderRequest.current.value) {
+      alert("주문 요청 사항을 입력 해 주세요.");
+      orderRequest.current.focus();
+    } else {
+      window.confirm("주문 요청 사항대로 준비 해 드리겠습니다!");
+    }
+  };
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
@@ -142,7 +154,9 @@ const Payment = () => {
     // 사용자가 '확인'을 누른 경우, PaymentDone 페이지로 이동
     if (isConfirmed) {
       try {
-        await postPayment(paymentBody, token);
+        const newPayment = await postPayment(paymentBody, token);
+        dispatch(actionAddPayment(newPayment));
+        console.log("뉴페이먼트", newPayment);
         dispatch(
           addRequestDeliveryAction(orderRequest.current.value, delivery)
         );
@@ -212,7 +226,11 @@ const Payment = () => {
                     placeholder="주문 시 요청사항을 입력하세요"
                     ref={orderRequest}
                   />
-                  <SquareButton text={"확인"} type={"red"} />
+                  <SquareButton
+                    text={"확인"}
+                    type={"red"}
+                    onClick={handleOnClickCheck}
+                  />
                 </StyledInputBox>
               </StyledInfo>
               <StyledInfo>

@@ -6,9 +6,11 @@ const checkLogin = `/api/v1/users/check-login`;
 
 export const axiosPostLogin = async (email, password) => {
   const body = { "email": email, "password": password };
+  console.log("body", body)
 
   try {
     const res = await apiInstanceNonAuth.post(loginUrl, body);
+    console.log("asdfasdfa", res)
     const data = res.data;
     return data;
   } catch (error) {

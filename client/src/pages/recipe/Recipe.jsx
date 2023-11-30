@@ -43,8 +43,6 @@ const Recipe = () => {
 
     const fn = async () => {
       try {
-        const board = await getBoard(boardId);
-        dispatch(actionGetBoard(board));
         navigate(`/RecipeView/${boardId}`);
       } catch (err) {
         console.log("err", err);

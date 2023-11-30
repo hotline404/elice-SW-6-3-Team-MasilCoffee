@@ -12,6 +12,7 @@ import RandomColor from "../../../util/RandomColor/RandomColor";
 import { deleteBoard } from "../../../api/board";
 import { actionRemoveBoard } from "../../../redux/action/boardAction";
 import { likedBoard } from "../../../api/board";
+import { HiHashtag } from "react-icons/hi2";
 
 const PostList = ({ post, type }) => {
   const navigate = useNavigate();
@@ -88,6 +89,7 @@ const PostList = ({ post, type }) => {
                 key={index}
                 style={{ background: RandomColor(), color: "black" }}
               >
+                <HiHashtag />
                 {tag}
               </S.TagBox>
             ))}

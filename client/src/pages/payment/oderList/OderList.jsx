@@ -1,6 +1,8 @@
-import { postRecipe } from "../../../redux/action/user/userAction";
+// import { postRecipe } from "../../../redux/action/user/userAction";
 import SquareButton from "../../../components/ui/button/SquareButton";
 import { useSelector, useDispatch } from "react-redux";
+import { axiosPatchUserRecipe } from "../../../api/user/user";
+import { postRecipe } from "../../../redux/action/user/userAction";
 
 import {
   StyledOrderList,
@@ -12,20 +14,51 @@ import {
 } from "./OderList.style";
 
 function OderList() {
+  const token = useSelector((state) => state.login.token);
   const payment = useSelector((state) => state.payment);
+  const paymentList = useSelector((state) => state.payment.payments);
+  console.log("페이먼트리스트", paymentList);
+
   // console.log("오더 네임", payment);
 
   const dispatch = useDispatch();
 
+  // 유저의 정보를 불러와서 기존에 있던 꿀조합레시피를 ...data이런식으로 먼저넣어주면 여러개의 레시피 만들어질듯
   const handleClick = (index) => {
     if (window.confirm("나만의 꿀조합 넣기!")) {
+      const selectedRecipeIndex = payment.orders[index];
+      const orderDetailList = paymentList[paymentList.length - 1].orderDetail;
+      console.log("오더 디테일 리스트", orderDetailList);
+      const selectedRecipe = paymentList[paymentList.length - 1].orderDetail.filter(
+        (data, i) => i === index
+      );
+      const postUserRecipeData = selectedRecipe.map((data) => {
+        return {
+          name: data.name,
+          options: data.options,
+        };
+      });
+      console.log("엑시오스에 들어갈 유저레시피 정보", postUserRecipeData);
+      const fn = async () => {
+        try {
+          const addUserRecipe = await axiosPatchUserRecipe(postUserRecipeData);
+          dispatch(postRecipe(addUserRecipe.customRecipe));
+        } catch (err) {
+          console.log("axiosPatchUser-err", err);
+        }
+      };
+      fn();
+      console.log("셀렉티드 레시피", selectedRecipe);
+
+      // console.log("인덱스", index);
+      // console.log('페이먼트 오더스', payment.orders)
+      // console.log('페이먼트 오더스 인덱스', payment.orders[index])
       // 문제점 1. 꿀조합이 내가 지금까지 시켰던 모든 주문들이 보여지는 용도면 딱히 이쪽은 필요 없음
       // 문제점 2. 모든 주문들이 다 보여지면 꿀조합의 의미가 퇴색 됨 (내가 원하는 조합만 저장할 수 있어야 됨)
-
       // console.log("페이먼트.오더스[0].오더디테일", payment.orders[0]);
     }
   };
-
+  // console.log("나만의 꿀조합 넣기", handleClick());
   return (
     <>
       <StyledOrderList>

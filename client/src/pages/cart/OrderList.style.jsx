@@ -39,44 +39,49 @@ export const StyledOrderOptionBox = styled.div`
 `;
 export const StyledOrdeName = styled.div`
   > b {
-    font-size: 24px;
+    font-size: 20px;
   }
 `;
 export const StyledOrderText = styled.div`
   display: flex;
   align-items: center;
-  font-size: 18px;
+  font-size: 14px;
   > span {
-    padding-left: 18px;
+    padding-left: 20px;
     font-weight: bold;
     color: #8e0e28;
-    font-size: 20px;
+    font-size: 17px;
   }
   > div {
     display: flex;
     align-items: center;
     padding-right: 20px;
+    > span {
+      padding-left: 18px;
+    }
 
     > button {
-      width: 30px;
+      width: 20px;
       height: 20px;
+      background-color: white;
+      border: 1px solid #8e0e28;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 0;
     }
     > b {
-      font-size: 18px;
+      font-size: 14px;
     }
   }
 
   > b {
-    font-size: 18px;
+    font-size: 14px;
   }
 `;
 export const StyledOrderOption = styled.div`
   display: flex;
-  font-size: 18px;
+  font-size: 14px;
   > span {
     padding-right: 10px;
     color: #878585;
@@ -84,8 +89,8 @@ export const StyledOrderOption = styled.div`
   }
 `;
 export const StyledImg = styled.img`
-  width: 255px;
-  height: 255px;
+  width: 155px;
+  height: 155px;
   background-color: #f5f5f5;
   border: 1px solid #d9d9d9;
   border-radius: 40px;

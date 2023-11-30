@@ -1,5 +1,4 @@
 import axios from "axios";
-
 const apiInstance = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
 });
@@ -7,6 +6,7 @@ const apiInstance = axios.create({
 apiInstance.interceptors.request.use(
   (config) => {
     config.headers["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
+    console.log(config)
     return config;
   },
   (error) => {
@@ -34,12 +34,5 @@ apiInstanceForm.interceptors.request.use(
 const apiInstanceNonAuth = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
 });
-
-apiInstanceNonAuth.interceptors.request.use(
-  (error) => {
-    console.log(error);
-    return Promise.reject(error);
-  }
-);
 
 export { apiInstance, apiInstanceForm, apiInstanceNonAuth };

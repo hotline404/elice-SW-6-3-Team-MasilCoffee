@@ -11,17 +11,30 @@ export const axiosGetUser = async () => {
   return user;
 };
 
-export const axiosPatchUser = async (newNickname, newPhone, checkPassword) => {
+export const axiosPatchUser = async (userInfo) => {
+  const { nickname, phone, checkpassword } = userInfo;
   const body = {
-    nickname: newNickname,
-    phone: newPhone,
-    checkPassword: checkPassword,
+    nickname: nickname,
+    phone: phone,
+    checkPassword: checkpassword,
   };
 
   const res = await apiInstance.patch(urluser, body);
 
   const newUser = res;
 
+  return newUser;
+};
+
+export const axiosPatchUserRecipe = async (recipe) => {
+  const body = {
+    customRecipe: recipe
+  };
+
+  const res = await apiInstance.patch(`${urluser}/userRecipe`, body);
+
+  const newUser = res.data.data;
+  console.log('엑시오스 뉴유저레시피', newUser)
   return newUser;
 };
 

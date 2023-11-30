@@ -16,7 +16,6 @@ import { likedBoard } from "../../../api/board";
 const PostList = ({ post, type }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.login.token);
   const userId = useSelector((state) => state.user.user_id); //로그인 한 유저 아이디
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0); //나중에 값 바꿔야함!
@@ -27,7 +26,7 @@ const PostList = ({ post, type }) => {
 
     const fn = async () => {
       try {
-        const likedCheck = await likedBoard(token, post._id);
+        const likedCheck = await likedBoard(post._id);
         console.log("likedCheck", likedCheck);
         if (likedCheck === "create") { //create / delete
           
@@ -49,7 +48,7 @@ const PostList = ({ post, type }) => {
     if (window.confirm("게시글을 삭제하시겠습니까?")) {
       const fn = async () => {
         try {
-          await deleteBoard(token, boardId);
+          await deleteBoard(boardId);
           dispatch(actionRemoveBoard(boardId));
         } catch (error) {
           console.error("PostList.jsx-", error);

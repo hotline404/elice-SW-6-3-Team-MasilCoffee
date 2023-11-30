@@ -9,7 +9,6 @@ import { deleteComments, updateComments } from "../../../api/comment";
 const CommentList = ({ comment }) => {
   const createDate = DateFormat("dateTime", comment.createdAt);
   const userId = useSelector((state) => state.user.user_id); //로그인 한 유저 아이디
-  const token = useSelector((state) => state.login.token);
   const [changeComment, setChangeComment] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   
@@ -34,7 +33,7 @@ const CommentList = ({ comment }) => {
       if (window.confirm("댓글을 수정하시겠습니까?")) {
         const fn = async () => {
           try {
-            const comment = await updateComments(token, commentId, changeComment);
+            const comment = await updateComments(commentId, changeComment);
             console.log("수정 comment", comment);
           } catch (error) {
             console.error("CommentList 댓글 수정 error", error);
@@ -52,7 +51,7 @@ const CommentList = ({ comment }) => {
     if (window.confirm("댓글을 삭제하시겠습니까?")) {
       const fn = async () => {
         try {
-          const comment = await deleteComments(token, commentId);
+          const comment = await deleteComments(commentId);
           console.log("댓글삭제view", comment)
         } catch (error) {
           console.error("CommentList 댓글 삭제 error", error);

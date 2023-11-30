@@ -1,11 +1,13 @@
-import axios from "axios";
+import { apiInstance } from "./interceptor/apiInstance";
 
 //해당 게시글의 댓글 불러오기
 export const getComments = async (boardId) => {
   try {
-    const res = await axios.get(`http://localhost:5000/api/v1/comment/board/${boardId}`);
+    const res = await apiInstance.get(
+      `/api/v1/comment/board/${boardId}`
+    );
     const comments = res.data.data;
-    console.log("게시글의 댓글 불러오기", comments);
+
     return comments;
   } catch (error) {
     console.error("error(getComments)", error);
@@ -13,19 +15,16 @@ export const getComments = async (boardId) => {
 };
 
 //댓글 작성
-export const addComments = async (token, boardId, commentData) => {
+export const addComments = async (boardId, commentData) => {
   const data = {
     comment: commentData,
   };
 
   try {
-    const res = await axios.post(`http://localhost:5000/api/v1/comment/board/${boardId}`, data,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    const res = await apiInstance.post(
+      `/api/v1/comment/board/${boardId}`,
+      data
+    );
     const comments = res.data.data;
     console.log("댓글 작성", comments);
     return comments;
@@ -35,21 +34,18 @@ export const addComments = async (token, boardId, commentData) => {
 };
 
 //댓글 수정
-export const updateComments = async (token, commentId, commentData) => {
+export const updateComments = async (commentId, commentData) => {
   const data = {
     comment: commentData,
   };
 
   try {
-    const res = await axios.put(`http://localhost:5000/api/v1/comment/${commentId}`, data,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    const res = await apiInstance.put(
+      `/api/v1/comment/${commentId}`,
+      data,
+    );
     const comments = res.data.data;
-    console.log("댓글 수정", comments);
+
     return comments;
   } catch (error) {
     console.error("error(updateComments)", error);
@@ -57,13 +53,11 @@ export const updateComments = async (token, commentId, commentData) => {
 };
 
 //댓글 삭제
-export const deleteComments = async (token, commentId) => {
+export const deleteComments = async (commentId) => {
   try {
-    const res = await axios.delete(`http://localhost:5000/api/v1/comment/${commentId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    const res = await apiInstance.delete(
+      `/api/v1/comment/${commentId}`
+    );
 
     if (res.status >= 200 && res.status < 300) {
       alert("댓글이 삭제되었습니다.");
@@ -75,17 +69,12 @@ export const deleteComments = async (token, commentId) => {
   }
 };
 
-export const getMyComment = async (token) => {
-  const headers = {
-    headers : {
-      Authorization: `Bearer ${token}`,
-    }
-  }
-  const url = "http://localhost:5000/api/v1/comment/mycomments"
+export const getMyComment = async () => {
+  const url = "/api/v1/comment/mycomments";
   try {
-    const res = await axios.get(url, headers);
-    return res
+    const res = await apiInstance.get(url);
+    return res;
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
-}
+};

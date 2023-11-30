@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import IncludeRedPage from "../../../util/IncludeRedPage";
+import backgroundColor from "../../../util/BackgoundColor";
 
 export const Footers = styled.footer`
-  background: ${(props) =>
-    IncludeRedPage(props.location) ? "#f5f5f5" : "#8e0e28"};
+  background: ${(props) => backgroundColor(props.location)};
 `;
 
 export const FooterText = styled.p`

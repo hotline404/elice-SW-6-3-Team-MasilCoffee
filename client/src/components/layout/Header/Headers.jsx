@@ -2,7 +2,7 @@ import React from "react";
 import LeftSideItem from "./heander_item/LeftSideItem";
 import TransComponent from "./heander_item/TransComponent";
 
-import { Header } from "./Headers.style";
+import { Header, MiniLogo, HeaderBtn } from "./Headers.style";
 import { ROUTES } from "../../../router/Routes";
 import { useSelector } from "react-redux";
 
@@ -12,7 +12,7 @@ const linkDatas = {
       to: ROUTES.REGISTER.path,
       name: "회원가입",
       target: true,
-      rel: true
+      rel: true,
     },
   ],
   right_side: [
@@ -39,18 +39,20 @@ const linkDatas = {
 
 function Headers(props) {
   const role = useSelector((state) => state.login.role);
-  const isToken = useSelector(state => state?.login?.token) ? true : false
-  console.log(isToken)
+  const isToken = useSelector((state) => state?.login?.token) ? true : false;
+  console.log(isToken);
 
   return (
     <div>
       <Header location={props.location}>
+        <MiniLogo src="\assets\images\Logo.png"/>
         <LeftSideItem item={linkDatas.left_side} location={props.location} />
         <TransComponent
           userRole={role}
           linkDatas={linkDatas}
           location={props.location}
         />
+        <HeaderBtn>▼</HeaderBtn>
       </Header>
     </div>
   );

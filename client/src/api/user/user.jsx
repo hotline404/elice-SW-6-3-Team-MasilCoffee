@@ -1,73 +1,64 @@
-import axios from "axios";
-
-const urlAdmin = "http://localhost:5000/api/v1/users/admin";
-const urluser = "http://localhost:5000/api/v1/users";
+import { apiInstance } from "../interceptor/apiInstance";
+const urlAdmin = "/api/v1/users/admin";
+const urluser = "/api/v1/users";
 
 //common user
-export const axiosGetUser = async (token) => {
-  const res = await axios.get(urluser, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export const axiosGetUser = async () => {
+  const res = await apiInstance.get(urluser);
 
   const user = res.data.data;
 
   return user;
 };
 
-export const axiosPatchUser = async (token, newNickname, newPhone, checkPassword) => {
-  const headers = { headers: { Authorization: `Bearer ${token}` } };
+export const axiosPatchUser = async (newNickname, newPhone, checkPassword) => {
   const body = {
     nickname: newNickname,
     phone: newPhone,
     checkPassword: checkPassword,
   };
 
-  const res = await axios.patch(urluser, body, headers);
+  const res = await apiInstance.patch(urluser, body);
 
   const newUser = res;
 
   return newUser;
 };
 
-export const axiosDelUser = async (token) => {
-  const headers = { headers: { Authorization: `Bearer ${token}` } };
+export const axiosDelUser = async () => {
+  const res = await apiInstance.delete(urluser);
 
-  const res = await axios.delete(urluser, headers);
-
-  const delUser = res
+  const delUser = res;
 
   return delUser;
 };
 
 //admin user
-export const axiosGetAdmin = async (token, userId) => {
-  const headers = { headers: { Authorization: `Bearer ${token}` } };
-
-  const res = await axios.get(`${urlAdmin}/${userId}`, headers);
+export const axiosGetAdmin = async (userId) => {
+  const res = await apiInstance.get(`${urlAdmin}/${userId}`);
 
   const admin = res.data.data;
 
   return admin;
 };
 
-export const axiosPatchAdmin = async (token, userId, newName, newNickname, newPhone) => {
-  const headers = { headers: { Authorization: `Bearer ${token}` } };
-
+export const axiosPatchAdmin = async (
+  userId,
+  newName,
+  newNickname,
+  newPhone
+) => {
   const body = { name: newName, nickname: newNickname, phone: newPhone };
 
-  const res = await axios.patch(`${urlAdmin}/${userId}`, body, headers);
+  const res = await apiInstance.patch(`${urlAdmin}/${userId}`, body);
 
   const newAdim = res.data.data;
 
   return newAdim;
 };
 
-export const axiosDelAdmin = async (token, userId) => {
-  const headers = { headers: { Authorization: `Bearer ${token}` } };
-
-  const res = await axios.delete(`${urlAdmin}/${userId}`, headers);
+export const axiosDelAdmin = async (userId) => {
+  const res = await apiInstance.delete(`${urlAdmin}/${userId}`);
 
   const delAdim = res.data.data;
 

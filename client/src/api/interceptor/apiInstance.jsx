@@ -31,4 +31,15 @@ apiInstanceForm.interceptors.request.use(
   }
 );
 
-export { apiInstance, apiInstanceForm };
+const apiInstanceNonAuth = axios.create({
+  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+});
+
+apiInstanceNonAuth.interceptors.request.use(
+  (error) => {
+    console.log(error);
+    return Promise.reject(error);
+  }
+);
+
+export { apiInstance, apiInstanceForm, apiInstanceNonAuth };

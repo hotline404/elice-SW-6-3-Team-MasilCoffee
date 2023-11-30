@@ -26,6 +26,7 @@ const OrderCancel = ({ closeModal, orderId }) => {
       }
     };
     fn();
+    closeModal();
   };
 
   return (

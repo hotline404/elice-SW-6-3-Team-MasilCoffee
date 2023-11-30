@@ -7,6 +7,8 @@ import OrderReceipt from "./components/OrderReceipt";
 import OrderDone from "./components/OrderComplete";
 import { getAllPayment } from "../../../api/payment/payment";
 import { actionGetAllOrders } from "../../../redux/action/paymentAction";
+import { usePagination } from "../../../hooks/usePagination";
+import sliceTen from "../../../util/forPagenation/sliceTen";
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -14,8 +16,26 @@ const Admin = () => {
   const receiptedOrder = useSelector((state) => state.payment.receipted);
   const completedOrder = useSelector((state) => state.payment.completed);
   const [currTab, setCurrTab] = useState("접수 대기");
-  console.log(completedOrder, "000");
-  
+  const [page, setPage] = useState(1);
+
+  const pageConst = {
+    totalCount: receiptedOrder.length,
+    pageSize: 5,
+    siblingCount: 1,
+    currentPage: page,
+  };
+
+  const pageArr = usePagination(pageConst);
+
+  const slicedData = sliceTen({
+    currentPage: pageConst.currentPage,
+    pageSize: pageConst.pageSize,
+    initDataSet: receiptedOrder,
+  });
+
+  const handleClick = (e) => {
+    setPage(parseInt(e.target.name, 10));
+  };
 
   useEffect(() => {
     const fn = async () => {
@@ -41,7 +61,7 @@ const Admin = () => {
           <OrderTab currTab={currTab} onClick={handleClickTab} />
           {currTab === "접수 대기" ? (
             receiptedOrder.length > 0 ? (
-              receiptedOrder.map((data) => <OrderReceipt data={data} />)
+              slicedData.map((data) => <OrderReceipt data={data} />)
             ) : (
               <Orders.NoneTitle>주문 내역이 없습니다.</Orders.NoneTitle>
             )
@@ -50,6 +70,19 @@ const Admin = () => {
           ) : (
             <Orders.NoneTitle>주문 내역이 없습니다.</Orders.NoneTitle>
           )}
+          <Orders.Pagination>
+            <Orders.PaginationItem href="#">&laquo;</Orders.PaginationItem>
+            <div>
+              {pageArr.map((arr) => {
+                return (
+                  <Orders.PaginationItem name={arr} href="#" onClick={handleClick}>
+                    {arr}
+                  </Orders.PaginationItem>
+                );
+              })}
+            </div>
+            <Orders.PaginationItem href="#">&raquo;</Orders.PaginationItem>
+          </Orders.Pagination>
         </Orders.Content>
       </Orders.Container>
     </>

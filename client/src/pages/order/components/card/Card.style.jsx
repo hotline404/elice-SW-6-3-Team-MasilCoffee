@@ -25,7 +25,7 @@ export const StyledImage = styled.img`
   top: 50%;
   left: 0;
   transform: translateY(-50%);
-  transition: opacity 0.3s ease, z-index 0.3s ease;
+  transition: opacity 1s ease, z-index 0.01s ease;
   opacity: ${({ $clickMenu }) =>
     $clickMenu ? 0.3 : 1}; // $clickMenu 상태에 따라 투명도 변경
   z-index: ${({ $clickMenu }) =>

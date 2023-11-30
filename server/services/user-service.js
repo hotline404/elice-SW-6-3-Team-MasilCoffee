@@ -140,6 +140,16 @@ class UserService {
     }
     return user;
   }
+
+  // 비밀번호 x , 꿀조합 수정
+  async updateUserRecipe(userId, userData) {
+    try {
+      const updatedUser = await User.findByIdAndUpdate(userId, { $set: userData }, { new: true });
+      return updatedUser;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = new UserService();

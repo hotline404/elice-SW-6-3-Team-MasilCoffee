@@ -69,7 +69,6 @@ export const addBoard = async (token, formData) => {
 
 //게시글 수정하기
 export const updateBoard = async (token, boardId, formData) => {
-  console.log(boardId)
   try {
     const res = await axios.put(`http://localhost:5000/api/v1/boards/${boardId}`, formData, {
       headers: {

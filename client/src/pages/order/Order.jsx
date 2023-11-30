@@ -5,22 +5,42 @@ import { actionGetAllProducts } from "../../redux/action/productAction";
 import { getAllProductsMain } from "../../api/product";
 import { getAllOptions } from "../../api/orderOption";
 import { setOrderDetail } from "../../redux/action/orderDetailAction";
+import { bringUser } from "../../redux/action/user/userAction";
 
 import Card from "./components/card/Card";
 import { StyledOrder } from "./Order.style";
 import Slider from "react-slick";
 
 const Order = () => {
+  const dispatch = useDispatch();
   const userRecipe = useSelector((state) => state.user.recipe);
   const user = useSelector((state) => state.user);
-  // console.log("오더 페이지의 유저", user);
-
+  console.log("오더 페이지의 유저", user);
   const orderDetailOptions = useSelector((state) => state.orderDetail);
   // console.log("오더디테일옵션스", orderDetailOptions.options);
-
-  const dispatch = useDispatch();
-
   const productsFromState = useSelector((state) => state.product.products);
+  const [userCustomRecipe, setUserCustomRecipe] = useState([])
+
+  useEffect(() => {
+    // Dispatch the fetchData action when the component mounts
+    if(user.recipe[0] !== null){
+    //   // const getUser = dispatch(bringUser());
+    //   // console.log('겟유저 인 리듀서', getUser)
+    // }else{
+      console.log("유즈이펙트안에 오더 페이지의 유저", user);
+      const getProducts = user.recipe.map((data) => {
+        console.log(data, '데이터 유저 레시피의')
+        const getProductName = productsFromState.filter((product) => product.name === data.name)
+        getProductName[0].recipe = data.options
+        console.log('겟 프로덕트네임', getProductName)
+        return getProductName
+      })
+      console.log('유저의 겟프로덕트스', getProducts)
+      setUserCustomRecipe(getProducts)
+     //console.log("주문에 레시피가 들어간 유저인포", userInfo);
+    }
+  }, [dispatch, user]);
+
 
   // orderDetail api가 Order 페이지 렌더링 시 한 번만 호출하는 최적화 용도
   // api 나오면 수정 필요
@@ -84,7 +104,7 @@ const Order = () => {
         filtered = productsFromState.filter((pd) => pd.category === "에이드");
         break;
       case "꿀조합":
-        filtered = userRecipe._id; // 왜 _id?
+        filtered = userCustomRecipe; // 왜 _id?
         break;
       default:
         filtered = productsFromState;
@@ -96,10 +116,13 @@ const Order = () => {
       console.log(`${category} 카테고리에는 메뉴가 없습니다.`);
     }
 
-    console.log("필터드", filtered); // 필터드와 유저레시피의 데이터의 형태 다름 다음에는 api는 완성하고 하자!
-    console.log("유저레시피", userRecipe);
+    // console.log("필터드", filtered); // 필터드와 유저레시피의 데이터의 형태 다름 다음에는 api는 완성하고 하자!
+    // console.log("유저레시피", userRecipe);
     setFilteredProducts(filtered);
   };
+
+  // 카테고  리 리스트 배열
+  console.log("유저레시피", userRecipe);
 
   // 카테고  리 리스트 배열
   const categories = [

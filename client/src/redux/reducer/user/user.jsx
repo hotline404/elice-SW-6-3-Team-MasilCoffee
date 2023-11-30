@@ -63,10 +63,10 @@ const user = (state = initUserState, action) => {
 
     case "post.user.recipe": {
       const { recipe } = action.payload;
-
+console.log('리듀서의 유저 레시피', recipe)
       return {
         ...state,
-        recipe: [...(state.recipe || []), recipe],
+        recipe: recipe,
       };
     }
 
@@ -84,6 +84,11 @@ const user = (state = initUserState, action) => {
         user_id: nonData,
       };
     }
+
+    case "bring.user":
+      return {
+        ...state,
+      };
 
     default:
       return state;

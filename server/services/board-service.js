@@ -30,7 +30,7 @@ class BoardService {
   }
 
   // 모든 게시글 조회
-  static async getAllBoards(currentPage, pageSize) {
+  static async getAllBoards(currentPage, pageSize, search) {
     try {
       if (search && search.length < 2) {
         throw new Error("검색어는 두 글자 이상 입력해야 합니다.");

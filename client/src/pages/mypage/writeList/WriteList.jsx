@@ -6,33 +6,33 @@ import { getMyBoards } from "../../../api/board";
 import { useSelector } from "react-redux";
 
 function WriteList() {
-  const token = useSelector((state) => state.login.token); 
+  const token = useSelector((state) => state.login.token);
   const pageSize = 10;
 
-  const [data, setData] = useState({ data: [], totalpage: 0, trData:["번호", "제목", "작성날짜"]});
+  const [data, setData] = useState({
+    data: [],
+    totalpage: 0,
+    trData: ["번호", "제목", "작성날짜"],
+  });
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    axiosFn(page, pageSize, token)
-  }, [page, pageSize, token])
-  
+    axiosFn(page, pageSize, token);
+  }, [page, pageSize, token]);
 
   const axiosFn = async (currentPage, pageSize, token) => {
     const writeListRes = await getMyBoards(currentPage, pageSize, token);
     const totalPageSize = writeListRes.totalPages;
     const data = writeListRes.data;
-    
-    setData(current => {
+
+    setData((current) => {
       return {
         ...current,
         data: data,
         totalpage: totalPageSize,
-      }
-    })
+      };
+    });
   };
-
-     
-
 
   const getNumber = async (pageNumber) => {
     setPage(pageNumber);

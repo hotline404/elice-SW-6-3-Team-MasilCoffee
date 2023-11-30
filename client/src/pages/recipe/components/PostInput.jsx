@@ -27,8 +27,7 @@ const PostInput = ( props ) => {
       
       const fn = async () => {
         try {
-          const newComment = await addComments(boardData._id, query);
-          props.onComment(newComment);
+          const comment = await addComments(boardData._id, query);
           setQuery("");
         } catch (error) {
           console.error("PostInput 댓글 작성 error", error);

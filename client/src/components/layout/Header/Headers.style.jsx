@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import IncludeRedPage from "../../../util/IncludeRedPage";
+import backgroundColor from "../../../util/BackgoundColor";
+
 
 export const LeftSide = styled.span`
   margin-left: 62px;
@@ -15,7 +16,7 @@ export const Header = styled.header`
   height: 88px;
 
   background: ${(props) =>
-    IncludeRedPage(props.location) ? "#F5F5F5" : "#8e0e28"};
+    backgroundColor(props.location)};
   display: flex;
   justify-content: space-between;
   align-content: center;

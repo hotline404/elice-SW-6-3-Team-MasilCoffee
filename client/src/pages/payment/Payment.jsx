@@ -14,15 +14,15 @@ import {
   StyledInfoContainer,
   StyledActionBg,
 } from "./Payment.style";
-import {  useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
 
 import { postPayment } from "../../api/payment/payment";
+import { addRequestDeliveryAction } from "../../redux/action/paymentAction";
 
 const Payment = () => {
-  const token = useSelector((state) => state.login.token);
-
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.login.token);
 
   // 수령 방법을 관리하는 상태
   const [delivery, setDelivery] = useState("");
@@ -36,18 +36,19 @@ const Payment = () => {
   const nickname = useSelector((state) => state.user.nickname);
   const phone = useSelector((state) => state.user.phone);
   const paymentInfo = useSelector((state) => state.payment);
-  console.log("페이먼트 인포의 오더스", paymentInfo.orders);
+  // console.log("페이먼트 인포의 오더스", paymentInfo.orders);
 
   const createOrderBody = () => {
     let totalOrder = {
+      // ---- 변경될 값들 -----
       orderDetail: [],
+      totalPrice: 0, //모든주문에 대한 총 가격
+      // ---- 고정된 값들 -----
       status: "주문완료",
       nickname,
-      totalPrice: 0, //모든주문에 대한 총 가격
       request: orderRequest.current.value,
       packagingOption: delivery,
     };
-
 
     paymentInfo.orders.forEach((order) => {
       // 개별 주문 확인 {name, totalPrice(개별가격), id, orderId, shot, syrups ...}
@@ -63,8 +64,8 @@ const Payment = () => {
               details = order[optionName]
                 .filter((detail) => detail.quantity > 0)
                 .map((detail) => `${detail.name} ${detail.quantity}`)
-                .join(" ");
-              selectedOption.push(`샷: ${details}`); // "샷: 에스프레소 1"
+                .join(", ");
+              details && selectedOption.push(`샷: ${details}`); // "샷: 에스프레소 1"
             }
             break;
           case "syrup":
@@ -72,8 +73,8 @@ const Payment = () => {
               details = order[optionName]
                 .filter((detail) => detail.quantity > 0)
                 .map((detail) => `${detail.name} ${detail.quantity}`)
-                .join(" ");
-              selectedOption.push(`시럽: ${details}`); // "시럽: 바닐라 1 카라멜 2"
+                .join(", ");
+              details && selectedOption.push(`시럽: ${details}`); // "시럽: 바닐라 1 카라멜 2"
             }
 
             break;
@@ -82,8 +83,8 @@ const Payment = () => {
               details = order[optionName]
                 .filter((detail) => detail.quantity > 0)
                 .map((detail) => `${detail.name}`)
-                .join(" ");
-              selectedOption.push(`휘핑: ${details}`); // "휘핑: 적게 1"
+                .join(", ");
+              details && selectedOption.push(`휘핑: ${details}`); // "휘핑: 적게 1"
             }
 
             break;
@@ -92,8 +93,8 @@ const Payment = () => {
               details = order[optionName]
                 .filter((detail) => detail.quantity > 0)
                 .map((detail) => `${detail.name}`)
-                .join(" ");
-              selectedOption.push(`얼음: ${details}`);
+                .join(", ");
+              details && selectedOption.push(`얼음: ${details}`);
             }
 
             break;
@@ -102,8 +103,8 @@ const Payment = () => {
               details = order[optionName]
                 .filter((detail) => detail.quantity > 0)
                 .map((detail) => `${detail.name}`)
-                .join(" ");
-              selectedOption.push(`드리즐: ${details}`);
+                .join(", ");
+              details && selectedOption.push(`드리즐: ${details}`);
             }
 
             break;
@@ -112,19 +113,18 @@ const Payment = () => {
               details = order[optionName]
                 .filter((detail) => detail.quantity > 0)
                 .map((detail) => `${detail.name}`)
-                .join(" ");
-              selectedOption.push(`우유: ${details}`);
+                .join(", ");
+              details && selectedOption.push(`우유: ${details}`);
             }
 
             break;
           default:
             break;
         }
-
       }
       const currentOption = {
         name: order.name,
-        options: selectedOption.join("  "),
+        options: selectedOption.join(" / "),
         price: order.totalPrice,
       };
       totalOrder.orderDetail = [...totalOrder.orderDetail, currentOption];
@@ -143,8 +143,11 @@ const Payment = () => {
     if (isConfirmed) {
       try {
         await postPayment(paymentBody, token);
-        // const reducerOrder = dispatch(paymentAction(paymentInfo));
-        navigate("/PaymentDone");
+        dispatch(
+          addRequestDeliveryAction(orderRequest.current.value, delivery)
+        );
+
+        navigate("/PaymentDone", { state: paymentBody.orderDetail });
       } catch (error) {
         alert("결제에 실패하였습니다. 다시 시도 해 주세요.");
         console.log(error.message);

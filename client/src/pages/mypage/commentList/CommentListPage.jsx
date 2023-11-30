@@ -18,11 +18,11 @@ function CommentListPage() {
   })
 
   useEffect(() => {
-    axiosFn(token);
-  }, [token]);
+    axiosFn();
+  }, []);
 
   const axiosFn = async () => {
-    const commentRes = await getMyComment(token);
+    const commentRes = await getMyComment();
 
     if(commentRes.status === 200) {
       setData(current => {

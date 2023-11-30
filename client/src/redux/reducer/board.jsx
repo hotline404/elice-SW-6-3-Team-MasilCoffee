@@ -114,6 +114,9 @@ const board = (state = initialState, action) => {
         boards: [filteredBoards],
       };
 
+      case BOARD_TYPE.GET_MY_BOARDS:
+        
+
     default:
       return state;
   }

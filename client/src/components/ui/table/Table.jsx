@@ -2,8 +2,15 @@ import React from "react";
 import * as TableLayout from "./Style_Table";
 import { FiEdit } from "react-icons/fi";
 import { FiTrash } from "react-icons/fi";
+import { ROUTES } from "../../../router/Routes";
 
-const Table = ({ trData, tdData, onTdClick = null, isMenuTable = false, isUserTable = false }) => {
+const Table = ({
+  trData,
+  tdData,
+  onTdClick = null,
+  isMenuTable = false,
+  isUserTable = false,
+}) => {
   return (
     <TableLayout.Table>
       <thead>
@@ -30,10 +37,16 @@ const Table = ({ trData, tdData, onTdClick = null, isMenuTable = false, isUserTa
                   <td key={data + colI}>{data}</td>
                 ))}
                 <TableLayout.ButtonsBox>
-                  <TableLayout.Button className="edit" onClick={() => onTdClick(rowData, "edit")}>
+                  <TableLayout.Button
+                    className="edit"
+                    onClick={() => onTdClick(rowData, "edit")}
+                  >
                     <FiEdit />
                   </TableLayout.Button>
-                  <TableLayout.Button className="deletion" onClick={() => onTdClick(rowData, "deletion")}>
+                  <TableLayout.Button
+                    className="deletion"
+                    onClick={() => onTdClick(rowData, "deletion")}
+                  >
                     <FiTrash />
                   </TableLayout.Button>
                 </TableLayout.ButtonsBox>
@@ -42,8 +55,12 @@ const Table = ({ trData, tdData, onTdClick = null, isMenuTable = false, isUserTa
           : // isMenuTable이 false인 경우
             tdData.map((rowData, rowI) => (
               <tr key={rowI}>
-                {rowData.map((data, colI) => (
-                  <td key={data + colI}>{data}</td>
+                {rowData.slice(1).map((data, colI) => (
+                  <TableLayout.Anchor key={data + colI}>
+                    <a href={`${ROUTES.RECIPEVIEW.path}/${rowData[0]}`}>
+                      {data}
+                    </a>
+                  </TableLayout.Anchor>
                 ))}
               </tr>
             ))}

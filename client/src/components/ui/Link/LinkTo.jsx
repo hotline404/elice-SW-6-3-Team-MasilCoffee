@@ -1,12 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { ROUTES } from '../../../router/Routes';
+
+
 
 
 
 function LinkTo({there, style}) {
+  const OPEN_NEWTAB = [
+    ROUTES.REGISTER.path,
+  
+  ]
 
-  const isTargetBlank = there.target === true ? "_blank" : null;
-  const isRelNooper = there.rel === true ? "noopener noreferrer" : null;
+  const isNewTab = OPEN_NEWTAB.includes(there.to);
+  const isTargetBlank = isNewTab ? "_blank" : null;
+  const isRelNooper = isNewTab ? "noopener noreferrer" : null;
   
 
   return (

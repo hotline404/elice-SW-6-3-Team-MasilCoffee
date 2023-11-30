@@ -88,7 +88,7 @@ function LoginForm() {
           <Button type="red" text="로그인">
             로그인
           </Button>
-          <LinkTo there={{ name: "회원가입", to: "/Register" }} />
+          <LinkTo there={{ name: "회원가입", to: ROUTES.REGISTER.path, target: true, rel: true }} />
         </ButtonBox>
       </form>
     </Contents>

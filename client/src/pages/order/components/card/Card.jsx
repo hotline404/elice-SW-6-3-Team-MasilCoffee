@@ -2,7 +2,12 @@ import React, { useState } from "react";
 
 import Button from "../../../../components/ui/button/Button";
 import Modal from "../../components/modal/Modal";
-import { StyledCard, StyledText, StyledButtonText } from "./Card.style";
+import {
+  StyledCard,
+  StyledText,
+  StyledImage,
+  StyledButtonText,
+} from "./Card.style";
 import ModalContents from "../modalcontents/ModalContents";
 
 const Card = ({ data }) => {
@@ -29,11 +34,16 @@ const Card = ({ data }) => {
               </div>
 
               <Button type="white" text={"주문하기"} onClick={openModal} />
-              {/* 이미지 가져오기 */}
-              <img src={data.image_url} alt={data.name} />
             </StyledButtonText>
           </>
         )}
+        {/* 이미지 가져오기 */}
+
+        <StyledImage
+          src={data.image_url}
+          alt={data.name}
+          $clickMenu={clickMenu}
+        ></StyledImage>
       </StyledCard>
       <StyledText>
         {isModalOpen && (

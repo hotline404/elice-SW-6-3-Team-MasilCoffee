@@ -14,16 +14,16 @@ import {
   StyledInfoContainer,
   StyledActionBg,
 } from "./Payment.style";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 
-import { paymentAction } from "../../redux/action/paymentAction";
+
 import { postPayment } from "../../api/payment/payment";
 
 const Payment = () => {
   const token = useSelector((state) => state.login.token);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
   // 수령 방법을 관리하는 상태
   const [delivery, setDelivery] = useState("");
   const orderRequest = useRef(null);
@@ -48,7 +48,6 @@ const Payment = () => {
       packagingOption: delivery,
     };
 
-    // orderDetail = [{name, options, price}]
 
     paymentInfo.orders.forEach((order) => {
       // 개별 주문 확인 {name, totalPrice(개별가격), id, orderId, shot, syrups ...}
@@ -59,52 +58,69 @@ const Payment = () => {
         // Array.isArray(order[optionName]) &&
         // ["바닐라 1", "카라멜 2"].join(" ") => 바닐라 1 카라멜 2
         switch (optionName) {
-          case optionName === "shot":
-            details = order[optionName]
-              .filter((detail) => detail.quantity > 0)
-              .map((detail) => `${detail.name} ${detail.quantity}`)
-              .join(" ");
-            selectedOption.push(`샷: ${details}`); // "샷: 에스프레소 1"
+          case "shot":
+            if (order[optionName] && Array.isArray(order[optionName])) {
+              details = order[optionName]
+                .filter((detail) => detail.quantity > 0)
+                .map((detail) => `${detail.name} ${detail.quantity}`)
+                .join(" ");
+              selectedOption.push(`샷: ${details}`); // "샷: 에스프레소 1"
+            }
             break;
-          case optionName === "syrups":
-            details = order[optionName]
-              .filter((detail) => detail.quantity > 0)
-              .map((detail) => `${detail.name} ${detail.quantity}`)
-              .join(" ");
-            selectedOption.push(`시럽: ${details}`); // "시럽: 바닐라 1 카라멜 2"
+          case "syrup":
+            if (order[optionName] && Array.isArray(order[optionName])) {
+              details = order[optionName]
+                .filter((detail) => detail.quantity > 0)
+                .map((detail) => `${detail.name} ${detail.quantity}`)
+                .join(" ");
+              selectedOption.push(`시럽: ${details}`); // "시럽: 바닐라 1 카라멜 2"
+            }
+
             break;
-          case optionName === "whipping":
-            details = order[optionName]
-              .filter((detail) => detail.quantity > 0)
-              .map((detail) => `${detail.name}`)
-              .join(" ");
-            selectedOption.push(`휘핑: ${details}`); // "휘핑: 적게 1"
+          case "whipping":
+            if (order[optionName] && Array.isArray(order[optionName])) {
+              details = order[optionName]
+                .filter((detail) => detail.quantity > 0)
+                .map((detail) => `${detail.name}`)
+                .join(" ");
+              selectedOption.push(`휘핑: ${details}`); // "휘핑: 적게 1"
+            }
+
             break;
-          case optionName === "ice":
-            details = order[optionName]
-              .filter((detail) => detail.quantity > 0)
-              .map((detail) => `${detail.name}`)
-              .join(" ");
-            selectedOption.push(`얼음: ${details}`);
+          case "iceAmount":
+            if (order[optionName] && Array.isArray(order[optionName])) {
+              details = order[optionName]
+                .filter((detail) => detail.quantity > 0)
+                .map((detail) => `${detail.name}`)
+                .join(" ");
+              selectedOption.push(`얼음: ${details}`);
+            }
+
             break;
-          case optionName === "drizzle":
-            details = order[optionName]
-              .filter((detail) => detail.quantity > 0)
-              .map((detail) => `${detail.name}`)
-              .join(" ");
-            selectedOption.push(`드리즐: ${details}`);
+          case "drizzle":
+            if (order[optionName] && Array.isArray(order[optionName])) {
+              details = order[optionName]
+                .filter((detail) => detail.quantity > 0)
+                .map((detail) => `${detail.name}`)
+                .join(" ");
+              selectedOption.push(`드리즐: ${details}`);
+            }
+
             break;
-          case optionName === "milk":
-            details = order[optionName]
-              .filter((detail) => detail.quantity > 0)
-              .map((detail) => `${detail.name}`)
-              .join(" ");
-            selectedOption.push(`우유: ${details}`);
+          case "milk":
+            if (order[optionName] && Array.isArray(order[optionName])) {
+              details = order[optionName]
+                .filter((detail) => detail.quantity > 0)
+                .map((detail) => `${detail.name}`)
+                .join(" ");
+              selectedOption.push(`우유: ${details}`);
+            }
+
             break;
           default:
             break;
         }
-        console.log("디테일스", details);
+
       }
       const currentOption = {
         name: order.name,
@@ -113,7 +129,6 @@ const Payment = () => {
       };
       totalOrder.orderDetail = [...totalOrder.orderDetail, currentOption];
       totalOrder.totalPrice += order.totalPrice;
-      console.log("커렌트옵션", currentOption);
     });
 
     return totalOrder;
@@ -122,16 +137,13 @@ const Payment = () => {
   const handleOnClickToPayment = async () => {
     // confirm 대화상자를 표시하고, 사용자의 응답을 확인
     const isConfirmed = window.confirm("정말 결제 하시겠습니까?");
-    const paymentInfo = createOrderBody(); //이거 하니까 됐음 결제완료!!!
-    console.log("페이먼트 페이지의 페이먼트 인포", paymentInfo);
+    const paymentBody = createOrderBody(); //이거 하니까 됐음 결제완료!!!
 
     // 사용자가 '확인'을 누른 경우, PaymentDone 페이지로 이동
     if (isConfirmed) {
       try {
-        const newOrder = await postPayment(paymentInfo, token);
-        console.log("결제 성공");
-        const reducerOrder = dispatch(paymentAction(newOrder));
-        console.log("페이먼트의 페이먼트던으로 이동하는 곳", reducerOrder);
+        await postPayment(paymentBody, token);
+        // const reducerOrder = dispatch(paymentAction(paymentInfo));
         navigate("/PaymentDone");
       } catch (error) {
         alert("결제에 실패하였습니다. 다시 시도 해 주세요.");

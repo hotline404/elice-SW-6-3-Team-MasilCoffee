@@ -18,8 +18,8 @@ function CommentListPage() {
   })
 
   useEffect(() => {
-    axiosFn(token);
-  }, [token]);
+    axiosFn();
+  }, []);
 
   const axiosFn = async () => {
     const commentRes = await getMyComment();

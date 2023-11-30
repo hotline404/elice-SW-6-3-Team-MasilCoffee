@@ -64,7 +64,10 @@ export const addBoard = async (formData) => {
 };
 
 //게시글 수정하기
-export const updateBoard = async (boardId, formData) => {
+
+export const updateBoard = async (token, boardId, formData) => {
+  console.log(boardId)
+
   try {
     const res = await apiInstanceForm.put(
       `/api/v1/boards/${boardId}`,

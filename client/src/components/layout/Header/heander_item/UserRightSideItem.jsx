@@ -2,7 +2,7 @@ import React from "react";
 import LinkTo from "../../../ui/Link/LinkTo";
 import IncludeRedPage from "../../../../util/IncludeRedPage";
 import { ROUTES } from "../../../../router/Routes";
-import { RightSide, NavButton } from "../Headers.style";
+import { RightSide, NavButton, LinkBox } from "../Headers.style";
 
 const items = [
   {
@@ -30,7 +30,7 @@ function UserRightSideItem(props) {
     <RightSide>
       {items.map((link) => {
         return (
-          <LinkTo there={{ to: link.to, name: link.name }} style={style} />
+            <LinkTo there={{ to: link.to, name: link.name }} style={style} />
         );
       })}
       {/* <NavButton>▼</NavButton> */}

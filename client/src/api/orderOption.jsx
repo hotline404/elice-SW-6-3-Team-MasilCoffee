@@ -2,7 +2,7 @@ import { apiInstance } from "./interceptor/apiInstance";
 
 export const getAllOptions = async () => {
   try {
-    const res = await apiInstance.get("/orderOption");
+    const res = await apiInstance.get("/api/v1/orderOption");
     if (res?.data?.data[0]) {
       return res.data.data[0];
     }
@@ -13,7 +13,7 @@ export const getAllOptions = async () => {
 
 export const createOption = async (data) => {
   try {
-    const res = await apiInstance.post("/orderOption", data);
+    const res = await apiInstance.post("/api/v1/orderOption", data);
     if (res?.data?.data) {
       return res.data.data;
     }
@@ -24,7 +24,7 @@ export const createOption = async (data) => {
 
 export const updateOption = async (id, data) => {
   try {
-    const res = await apiInstance.put(`/orderOption/${id}`, data);
+    const res = await apiInstance.put(`/api/v1/orderOption/${id}`, data);
     if (res?.data?.data) {
       return res.data.data;
     }
@@ -35,7 +35,7 @@ export const updateOption = async (id, data) => {
 
 export const deleteOption = async (id) => {
   try {
-    const res = await apiInstance.delete(`/orderOption/${id}`);
+    const res = await apiInstance.delete(`/api/v1/orderOption/${id}`);
     if (res?.data?.data) {
       return res.data.data;
     }

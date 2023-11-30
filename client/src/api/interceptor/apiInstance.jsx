@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiInstance = axios.create({
-  baseURL: process.env.REACT_APP_SERVER_URL_LOCAL,
+  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
 });
 
 apiInstance.interceptors.request.use(
@@ -16,7 +16,7 @@ apiInstance.interceptors.request.use(
 );
 
 const apiInstanceForm = axios.create({
-  baseURL: process.env.REACT_APP_SERVER_URL_LOCAL,
+  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
   headers: { "Content-Type": "multipart/form-data" },
 });
 

@@ -10,7 +10,7 @@ export const postPayment = async (paymentData, token) => {
       paymentData,
       headers
     );
-    // console.log("페이먼트 api의 레스.데이터.데이터", res.data);
+    console.log("페이먼트 api의 레스.데이터.데이터", res.data);
     return res.data.data;
   } catch (error) {
     console.error("error(postPayment)", error);

@@ -2,6 +2,7 @@ import { PAYMENT_TYPE } from "../action/_types";
 
 const initialState = {
   orders: [], //주문이 쌓이는 곳
+  payments: [],
   orderRequest: "",
   deliveryMethod: "방문포장",
   // 유진님꺼
@@ -49,6 +50,13 @@ const payment = (state = initialState, action) => {
         ...state,
         receipted: updatedOrders,
         completed: [...state.completed, updatedOrder],
+      };
+
+    case PAYMENT_TYPE.ADD_PAYMENT:
+      const newPayment = [...state.payments, action.payload];
+      return {
+        ...state,
+        payments: newPayment,
       };
     default:
       return state;

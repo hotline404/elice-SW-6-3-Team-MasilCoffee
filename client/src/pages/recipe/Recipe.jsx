@@ -26,7 +26,7 @@ const Recipe = () => {
   useEffect(() => {
     const fn = async () => {
       try {
-        const board = await getAllBoards(category, currentPage, PAGE_SIZE);
+        const board = await getAllBoards(category, currentPage, PAGE_SIZE, inputQuery);
         currentPage === 1
           ? dispatch(actionGetAllBoards(board))
           : dispatch(actionGetAllMoreBoards(board));
@@ -36,7 +36,7 @@ const Recipe = () => {
     };
     fn();
     if(currentPage === 1) window.scrollTo(0, 0);
-  }, [currentPage, category]);
+  }, [currentPage, category, inputQuery]);
 
   const hanleClick = (event, boardId) => {
     event.preventDefault();
@@ -72,9 +72,11 @@ const Recipe = () => {
           </S.Wrap>
           <PostInput
             onInsert={handleInsert}
+            category={category}
+            PAGE_SIZE={PAGE_SIZE}
             input={{
               type: "text",
-              placeholder: "검색어를 입력하세요.",
+              placeholder: "검색어(닉네임/게시글/키워드)를 두 글자 이상 입력하세요.",
             }}
             button={{
               text: "검색",

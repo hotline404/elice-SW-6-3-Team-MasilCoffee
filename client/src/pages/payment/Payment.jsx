@@ -15,9 +15,11 @@ import {
   StyledActionBg,
 } from "./Payment.style";
 import { useDispatch, useSelector } from "react-redux";
-
 import { postPayment } from "../../api/payment/payment";
-import { addRequestDeliveryAction } from "../../redux/action/paymentAction";
+import {
+  addRequestDeliveryAction,
+  actionAddPayment,
+} from "../../redux/action/paymentAction";
 
 const Payment = () => {
   const navigate = useNavigate();
@@ -142,7 +144,9 @@ const Payment = () => {
     // 사용자가 '확인'을 누른 경우, PaymentDone 페이지로 이동
     if (isConfirmed) {
       try {
-        await postPayment(paymentBody, token);
+        const newPayment = await postPayment(paymentBody, token);
+        dispatch(actionAddPayment(newPayment));
+        console.log("뉴페이먼트", newPayment);
         dispatch(
           addRequestDeliveryAction(orderRequest.current.value, delivery)
         );

@@ -27,28 +27,33 @@ function ConfirmPassword() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
-  const axiosPostFn = async (token, nickname, phone, checkpassword, email) => {
+  const axiosPostFn = async (nickname, phone, checkpassword, email) => {
+    const userInfo = {
+      nickname: nickname,
+      phone: phone,
+      checkpassword: checkpassword
+    }
     try {
-      const res = await axiosPatchUser(token, nickname, phone, checkpassword);
-      await axiosPostLogout(token, email);
+      const res = await axiosPatchUser(userInfo);
+      await axiosPostLogout(email);
       alert(res.message);
       dispatch(actionLogout());
       dispatch(removeUser());
-      nav(ROUTES.MAIN.path, { replace: true});
+      nav(ROUTES.MAIN.path, { replace: true });
     } catch (err) {
       console.error(err);
     }
   };
 
-  const axiosDelFn = async (token, email) => {
+  const axiosDelFn = async (email) => {
     try {
-      const res = await axiosDelUser(token);
-      console.log(res)
-      await axiosPostLogout(token, email);
+      const res = await axiosDelUser();
+      console.log(res);
+      await axiosPostLogout(email);
       alert("회원 삭제 완료!");
       dispatch(actionLogout());
       dispatch(removeUser());
-      nav(ROUTES.MAIN.path, { replace: true});
+      nav(ROUTES.MAIN.path, { replace: true });
     } catch (err) {
       console.error(err);
     }

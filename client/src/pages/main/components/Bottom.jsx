@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -22,6 +22,8 @@ const Bottom = () => {
     const fn = async () => {
       try {
         const board = await getAllBoards("", 1, 10);
+
+        console.log("보드", board);
         dispatch(actionGetAllBoards(board));
       } catch (err) {
         console.log("err", err);

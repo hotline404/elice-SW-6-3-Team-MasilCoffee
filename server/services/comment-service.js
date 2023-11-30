@@ -2,6 +2,29 @@ const Comment = require("../models/comment-schema");
 const User = require("../models/user-schema");
 
 class CommentService {
+  static async getMyComments(userId) {
+    try {
+      const myComments = await Comment.find({ author: userId });
+      return myComments;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async getCommentAuthorId(commentId) {
+    try {
+      const comment = await Comment.findById(commentId);
+      if (!comment) {
+        throw new Error("댓글을 찾을 수 없습니다.");
+      }
+
+      // Comment 모델의 author 필드에서 userid 값을 가져옴
+      const commentAuthorId = comment.author._id;
+      return commentAuthorId;
+    } catch (error) {
+      throw error;
+    }
+  }
   // 댓글 생성
   static async createComment(commentData) {
     try {

@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export const StyledPaymentcontainer = styled.div`
- font-family: 'Noto Sans', sans-serif; // Noto Sans 폰트 적용
+  font-family: "Noto Sans", sans-serif; // Noto Sans 폰트 적용
   box-sizing: border-box;
   margin: 0 auto;
   width: 100vw;
   height: 100vh;
-  background-color: #8e0e28;
+  background-color: #d9d9d9;
   overflow: auto;
 `;
 
@@ -75,7 +75,7 @@ export const StyledActionBg = styled.div`
   justify-content: center;
   align-items: center;
   color: white;
-  background-color: #650818;
+  background-color: #472e27;
 `;
 
 export const StyledPayment = styled.div`
@@ -201,14 +201,14 @@ export const StyledOrderList = styled.div`
     display: block;
     width: 100%;
 
-    border: 2px solid #8e0e28;
+    border: 2px solid #472e27;
   }
 `;
 export const StyledOrderListMenu = styled.div`
   > i {
     display: block;
     width: 100%;
-    border: 1px solid #8e0e28;
+    border: 1px solid #472e27;
   }
 `;
 export const StyledOrderListMenuBox = styled.div`
@@ -245,6 +245,6 @@ export const StyledAmountPayment = styled.div`
     display: block;
     width: 100%;
 
-    border: 2px solid #8e0e28;
+    border: 2px solid #472e27;
   }
 `;

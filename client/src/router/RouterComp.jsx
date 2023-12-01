@@ -1,17 +1,43 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { ROUTES_ARR } from "./Routes";
 import { Routes, Route } from "react-router-dom";
 import { useLocation, useParams } from "react-router-dom";
 import Headers from "../components/layout/Header/Headers";
 import Footer from "../components/layout/Footer/Footer";
 import Banner from "../components/layout/banner/Banner";
+import { axiosTokenConfirm } from "../api/user/user";
+import AlertModal from "../components/ui/alert/AlertModal";
 
 const RouterComp = () => {
   const location = useLocation().pathname;
+  const currentToken = localStorage.getItem('token')
+
+  const [token, setToken] = useState(currentToken);
+  const [alert, setAlert] = useState(false)
+
+  useEffect(() => {
+    // 토큰이 있고 만료 시간이 정의되어 있다면 확인합니다.
+      if(token) {
+        confirmTokenFn(token)
+      } else {
+        setAlert(true);
+        setTimeout(() => {
+          setAlert(false)
+        }, 2000)
+      }
+      
+    
+  }, [token]);
+
+  const confirmTokenFn = async (currentToken) => {
+    const isValidToken = await axiosTokenConfirm(currentToken);
+    return isValidToken
+  };
 
 
   return (
     <Fragment>
+      {alert && <AlertModal>토큰 만료입니다. 다시 로그인해주세요!</AlertModal>}
       <Headers location={location} />
       <Routes>
         {ROUTES_ARR.map((el) => (

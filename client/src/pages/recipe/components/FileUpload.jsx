@@ -69,7 +69,7 @@ const PostFile = ({ images, setImages, defaultValue }) => {
     const deletedFileImage = updatedFileImages.splice(index, 1)[0];
     setFileImages(updatedFileImages);
 
-    setImages((prevImages) => prevImages.filter((image) => image.name !== deletedFileImage.fileName));
+    setImages((prevImages) => prevImages.filter((image) => image !== deletedFileImage.dataURL));
   };
 
   return (

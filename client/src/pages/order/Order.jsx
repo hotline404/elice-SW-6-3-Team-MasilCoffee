@@ -5,30 +5,41 @@ import { actionGetAllProducts } from "../../redux/action/productAction";
 import { getAllProductsMain } from "../../api/product";
 import { getAllOptions } from "../../api/orderOption";
 import { setOrderDetail } from "../../redux/action/orderDetailAction";
+import { bringUser } from "../../redux/action/user/userAction";
 
 import Card from "./components/card/Card";
 import { StyledOrder } from "./Order.style";
 import Slider from "react-slick";
 
 const Order = () => {
-  const userRecipe = useSelector((state) => state.user.recipe);
-  // console.log("유저레시피", userRecipe);
-  // console.log("유저레시피 아이디", userRecipe._id);
-  // console.log("유저레시피");
-  const orderDetailOptions = useSelector((state) => state.orderDetail);
-  console.log("오더디테일옵션스", orderDetailOptions.options);
-
   const dispatch = useDispatch();
-
+  const userRecipe = useSelector((state) => state.user.recipe);
+  const user = useSelector((state) => state.user);
+  console.log("오더 페이지의 유저", user);
+  const orderDetailOptions = useSelector((state) => state.orderDetail);
+  // console.log("오더디테일옵션스", orderDetailOptions.options);
   const productsFromState = useSelector((state) => state.product.products);
-  // console.log("프로덕트 폼 스테이트", productsFromState);
+  const [userCustomRecipe, setUserCustomRecipe] = useState([]);
 
+  useEffect(() => {
+    if (user.recipe[0] !== undefined && user.recipe[0] !== null) {
+      console.log("유즈이펙트안에 오더 페이지의 유저", user);
+      const getProducts = user.recipe.map((data) => {
+        console.log(data, "데이터 유저 레시피의");
+        const getProductName = productsFromState.filter((product) => product.name === data.name);
+        getProductName[0].recipe = data.options;
+        console.log("겟 프로덕트네임", getProductName);
+        return getProductName[0];
+      });
+      console.log("유저의 겟프로덕트스", getProducts);
+      setUserCustomRecipe(getProducts);
+    }
+  }, [dispatch, user]);
+  console.log("유저커스펌레시피", userCustomRecipe);
   // orderDetail api가 Order 페이지 렌더링 시 한 번만 호출하는 최적화 용도
   // api 나오면 수정 필요
   const fetchOrderDetail = async () => {
     try {
-      // const response = await fetch("client/src/pages/order/components/data/menuMockup.js");
-      // const data = await response.json();
       const data = await getAllOptions();
       console.log(data);
 
@@ -47,7 +58,6 @@ const Order = () => {
       try {
         const products = await getAllProductsMain(); //비동기
         dispatch(actionGetAllProducts(products)); // data뺴니까 됨
-        // console.log("productsFrom", productsFromState);
       } catch (err) {
         console.log("err", err);
       }
@@ -71,9 +81,7 @@ const Order = () => {
         filtered = productsFromState;
         break;
       case "에스프레소":
-        filtered = productsFromState.filter(
-          (pd) => pd.category === "에스프레소"
-        );
+        filtered = productsFromState.filter((pd) => pd.category === "에스프레소");
         break;
       case "논커피":
         filtered = productsFromState.filter((pd) => pd.category === "논커피");
@@ -88,32 +96,28 @@ const Order = () => {
         filtered = productsFromState.filter((pd) => pd.category === "에이드");
         break;
       case "꿀조합":
-        filtered = userRecipe; // 왜 _id?
+        filtered = userCustomRecipe; // 왜 _id?
         break;
       default:
         filtered = productsFromState;
     }
+    console.log("오더 페이지의 유저레시피", userRecipe);
 
     // // 카테고리에 메뉴가 없는 경우 처리
     if (filtered.length === 0) {
       console.log(`${category} 카테고리에는 메뉴가 없습니다.`);
     }
 
-    console.log("필터드", filtered);
-    console.log("유저레시피", userRecipe);
+    // console.log("필터드", filtered); // 필터드와 유저레시피의 데이터의 형태 다름 다음에는 api는 완성하고 하자!
+    // console.log("유저레시피", userRecipe);
     setFilteredProducts(filtered);
   };
 
   // 카테고  리 리스트 배열
-  const categories = [
-    "전체",
-    "에스프레소",
-    "논커피",
-    "스무디",
-    "티",
-    "에이드",
-    "꿀조합",
-  ];
+  console.log("유저레시피", userRecipe);
+
+  // 카테고  리 리스트 배열
+  const categories = ["전체", "에스프레소", "논커피", "스무디", "티", "에이드", "꿀조합"];
 
   // 슬라이드 설정
   const settings = {
@@ -160,9 +164,9 @@ const Order = () => {
           {categories.map((category, index) => (
             <button
               key={category}
-              className={`${index === 0 ? "first-button " : ""}${
-                index === categories.length - 1 ? "last-button " : ""
-              }${category === selectedCategory ? "selected-button" : ""}`}
+              className={`${index === 0 ? "first-button " : ""}${index === categories.length - 1 ? "last-button " : ""}${
+                category === selectedCategory ? "selected-button" : ""
+              }`}
               onClick={() => handleCategoryClick(category)}
             >
               {category}
@@ -171,10 +175,7 @@ const Order = () => {
         </Slider>
       </div>
       <div className="cards-container">
-        {Array.isArray(filteredProducts) &&
-          filteredProducts.map((product) => (
-            <Card key={product._id} data={product} />
-          ))}
+        {Array.isArray(filteredProducts) && filteredProducts.map((product) => <Card key={product._id} data={product} />)}
       </div>
     </StyledOrder>
   );

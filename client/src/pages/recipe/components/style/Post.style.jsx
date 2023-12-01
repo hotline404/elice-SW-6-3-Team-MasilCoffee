@@ -72,6 +72,8 @@ export const TagBox = styled.span`
   margin: 0 5px 5px 0;
   background-color: #8e0e28;
   color: white;
+  display: flex;
+  align-items: center;
   border-radius: 30px;
   font-size: 0.8rem;
   white-space: nowrap;

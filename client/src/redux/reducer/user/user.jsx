@@ -18,7 +18,7 @@ const user = (state = initUserState, action) => {
   switch (action.type) {
     case "get.user": {
       const { userData } = action.payload;
-
+      console.log("유저 리듀서의 갯 유저", userData);
       return {
         ...state,
         birth: userData.birth,
@@ -30,7 +30,7 @@ const user = (state = initUserState, action) => {
         phone: userData.phone,
         role: userData.role,
         user_id: userData._id,
-        recipe: [userData.recipe],
+        recipe: userData.customRecipe,
       };
     }
 
@@ -63,10 +63,10 @@ const user = (state = initUserState, action) => {
 
     case "post.user.recipe": {
       const { recipe } = action.payload;
-
+      console.log("리듀서의 유저 레시피", recipe);
       return {
         ...state,
-        recipe: [...(state.recipe || []), recipe],
+        recipe: recipe,
       };
     }
 

@@ -35,11 +35,19 @@ class LikeService {
     }
   }
 
-  // 좋아요 갯수
-  static async getLikeCount(boardId) {
+  static async likeCount(boardId) {
     try {
       const likeCount = await Like.countDocuments({ board: boardId });
       return likeCount;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async isLiked(boardId, userId) {
+    try {
+      const existingLike = await Like.findOne({ user: userId, board: boardId });
+      return !!existingLike;
     } catch (error) {
       throw error;
     }

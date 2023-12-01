@@ -21,16 +21,16 @@ export const StyledPaymentBox = styled.div`
   width: 80%;
   // 뷰포트 너비가 1024px 이하일 때
   @media (max-width: 1024px) {
-    width: 75%; // 너비를 줄임
+    width: 100%; // 너비를 줄임
   }
 
   // 뷰포트 너비가 768px 이하일 때
-  @media (max-width: 768px) {
+  @media (max-width: 930px) {
     width: 90%; // 더 작은 화면에서는 더 넓게 설정
   }
 
   // 뷰포트 너비가 480px 이하일 때
-  @media (max-width: 480px) {
+  @media (max-width: 600px) {
     width: 100%; // 모바일 화면에서는 최대 너비로 설정
   }
 `;

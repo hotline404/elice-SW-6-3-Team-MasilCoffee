@@ -4,15 +4,14 @@ import { ROUTES } from "../../../../router/Routes";
 import { useNavigate } from "react-router-dom";
 
 
-function User({ userName, userId, email }) {
+function User({ userName, email }) {
   const nav = useNavigate();
 
   const handleClick = () => {
-    nav(`${ROUTES.USERINFOCHANGE.path}/${userId}/${email}`)
+    nav(`${ROUTES.USERINFOCHANGE.path}/${email}`)
   }
 
   return (
-    <div>
       <S.UserLinkBox>
         <>
           안녕하세요! <br /> "{userName}"님
@@ -21,7 +20,6 @@ function User({ userName, userId, email }) {
           </div>
         </>
       </S.UserLinkBox>
-    </div>
   );
 }
 

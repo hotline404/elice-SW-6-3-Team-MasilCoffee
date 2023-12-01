@@ -4,52 +4,48 @@ import { useNavigate } from "react-router-dom";
 import * as S from "./style/Post.style";
 import { Container, StyledLink } from "../Recipe.style";
 import { BsChat } from "react-icons/bs";
-import { GoHeart } from "react-icons/go";
-import { GoHeartFill } from "react-icons/go";
+import { GoHeart, GoHeartFill } from "react-icons/go";
 import ImageSlider from "./ImageSlider";
 import DateFormat from "../../../util/DateFormat/DateFormat";
 import RandomColor from "../../../util/RandomColor/RandomColor";
 import { deleteBoard } from "../../../api/board";
 import { actionRemoveBoard } from "../../../redux/action/boardAction";
 import { likedBoard } from "../../../api/board";
+import { HiHashtag } from "react-icons/hi2";
 
 const PostList = ({ post, type }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.login.token);
   const userId = useSelector((state) => state.user.user_id); //로그인 한 유저 아이디
+  const token = useSelector((state) => state.login.token);
   const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(0); //나중에 값 바꿔야함!
+  const [likeCount, setLikeCount] = useState(post.likeCount);
   const createDate = DateFormat("dateTime", post.createdAt);
 
-  const handleLikedClick = (event) => {
-    event.preventDefault();
+  const handleLikedClick = async (event) => {
+    event.stopPropagation();
 
-    const fn = async () => {
+    if (token) { //좋아요는 회원만 누를 수 있도록
       try {
-        const likedCheck = await likedBoard(token, post._id);
-        console.log("likedCheck", likedCheck);
-        if (likedCheck === "create") { //create / delete
-          
+        const likedCheck = await likedBoard(post._id);
+        if (likedCheck === "create" || likedCheck === "delete") {
+          setLiked((prevLiked) => !prevLiked);
+          setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
         }
-        setLiked((prevLiked) => !prevLiked);
-        setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
-        //dispatch(actionUpdateBoard(updatedBoard));
       } catch (error) {
         console.error("RecipeWrite.jsx - update", error);
       }
     };
-    fn();
-    
-  }
+  };
 
+  //게시글 삭제
   const handleDelete = (event, boardId) => {
     event.preventDefault();
     
     if (window.confirm("게시글을 삭제하시겠습니까?")) {
       const fn = async () => {
         try {
-          await deleteBoard(token, boardId);
+          await deleteBoard(boardId);
           dispatch(actionRemoveBoard(boardId));
         } catch (error) {
           console.error("PostList.jsx-", error);
@@ -89,6 +85,7 @@ const PostList = ({ post, type }) => {
                 key={index}
                 style={{ background: RandomColor(), color: "black" }}
               >
+                <HiHashtag />
                 {tag}
               </S.TagBox>
             ))}
@@ -109,7 +106,7 @@ const PostList = ({ post, type }) => {
                 marginRight: "1px",
               }}
             />
-            <S.CommentNum>13</S.CommentNum> {/*나중에 값 바꿔야함*/}
+            <S.CommentNum>{post.commentCount}</S.CommentNum>
           </S.CommentWrap>
         </Container>
       )}

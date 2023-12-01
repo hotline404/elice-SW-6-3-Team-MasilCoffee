@@ -2,8 +2,9 @@ import { PAYMENT_TYPE } from "../action/_types";
 
 const initialState = {
   orders: [], //주문이 쌓이는 곳
-  // orderRequest: "",
-  // deliveryMethod: "방문포장",
+  payments: [],
+  orderRequest: "",
+  deliveryMethod: "방문포장",
   // 유진님꺼
   receipted: [],
   completed: [],
@@ -12,10 +13,10 @@ const initialState = {
 const payment = (state = initialState, action) => {
   switch (action.type) {
     case PAYMENT_TYPE.PAYMENT:
-      console.log("페이먼드 리듀서의 액션.페이로드", action.payload);
-      // if (Array.isArray(action.payload)) {
-      //   return { ...state, orders: action.payload };
-      // }
+      // console.log("페이먼드 리듀서의 액션.페이로드", action.payload);
+      if (Array.isArray(action.payload)) {
+        return { ...state, orders: action.payload };
+      }
       return { ...state, orders: [action.payload] };
     case PAYMENT_TYPE.ADD_REQUEST_DELIVERY:
       return {
@@ -49,6 +50,13 @@ const payment = (state = initialState, action) => {
         ...state,
         receipted: updatedOrders,
         completed: [...state.completed, updatedOrder],
+      };
+
+    case PAYMENT_TYPE.ADD_PAYMENT:
+      const newPayment = [...state.payments, action.payload];
+      return {
+        ...state,
+        payments: newPayment,
       };
     default:
       return state;

@@ -11,8 +11,6 @@ LikeRouter.put(
   asyncHandler(async (req, res) => {
     const { boardId } = req.params;
     const userId = req.tokenData._id;
-    console.log(req.tokenData.nickname);
-    console.log(userId);
     try {
       const likeData = {
         board: boardId,

@@ -3,6 +3,7 @@ import * as TableLayout from "./Style_Table";
 import { FiEdit } from "react-icons/fi";
 import { FiTrash } from "react-icons/fi";
 import { ROUTES } from "../../../router/Routes";
+import { useNavigate } from "react-router-dom";
 
 const Table = ({
   trData,
@@ -11,6 +12,13 @@ const Table = ({
   isMenuTable = false,
   isUserTable = false,
 }) => {
+  const navigate = useNavigate();
+
+  const handlePClick = (e) => {
+    
+    navigate(`${ROUTES.RECIPEVIEW.path}/${e.target.dataset.name}`);
+  };
+
   return (
     <TableLayout.Table>
       <thead>
@@ -57,9 +65,12 @@ const Table = ({
               <tr key={rowI}>
                 {rowData.slice(1).map((data, colI) => (
                   <TableLayout.Anchor key={data + colI}>
-                    <a href={`${ROUTES.RECIPEVIEW.path}/${rowData[0]}`}>
+                    <p
+                      data-name={`${rowData[0]}`}
+                      onClick={handlePClick}
+                    >
                       {data}
-                    </a>
+                    </p>
                   </TableLayout.Anchor>
                 ))}
               </tr>

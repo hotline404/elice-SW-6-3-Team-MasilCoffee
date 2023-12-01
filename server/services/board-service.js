@@ -31,7 +31,7 @@ class BoardService {
   }
 
   // 모든 게시글 조회
-  static async getAllBoards(currentPage, pageSize, search) {
+  static async getAllBoards(currentPage, pageSize, search, userId) {
     try {
       if (search && search.length < 2) {
         throw new Error("검색어는 두 글자 이상 입력해야 합니다.");
@@ -55,15 +55,19 @@ class BoardService {
         .skip((currentPage - 1) * pageSize)
         .limit(pageSize);
 
-      // 각 게시글의 댓글 수와 좋아요 수를 가져와서 추가
       const boardsWithCounts = await Promise.all(
         boards.map(async (board) => {
           const commentCount = await CommentService.commentCount(board._id);
           const likeCount = await LikeService.likeCount(board._id);
+          const isLiked = userId
+            ? await LikeService.isLiked(board._id, userId)
+            : false;
+
           return {
             ...board.toObject(),
             commentCount,
             likeCount,
+            isLiked,
           };
         })
       );
@@ -96,11 +100,12 @@ class BoardService {
         boards.map(async (board) => {
           const commentCount = await CommentService.commentCount(board._id);
           const likeCount = await LikeService.likeCount(board._id);
-
+          const isLiked = await LikeService.isLiked(board._id, userId);
           return {
             ...board.toObject(),
             commentCount,
             likeCount,
+            isLiked,
           };
         })
       );
@@ -141,7 +146,13 @@ class BoardService {
   // }
 
   // 특정 카테고리의 게시글 조회
-  static async getBoardsByCategory(category, currentPage, pageSize, search) {
+  static async getBoardsByCategory(
+    category,
+    currentPage,
+    pageSize,
+    search,
+    userId
+  ) {
     try {
       const query = { category };
 
@@ -165,11 +176,15 @@ class BoardService {
         boards.map(async (board) => {
           const commentCount = await CommentService.commentCount(board._id);
           const likeCount = await LikeService.likeCount(board._id);
+          const isLiked = userId
+            ? await LikeService.isLiked(board._id, userId)
+            : false;
 
           return {
             ...board.toObject(),
             commentCount,
             likeCount,
+            isLiked,
           };
         })
       );
@@ -188,7 +203,7 @@ class BoardService {
   }
 
   // 특정 게시글 갖고오기
-  static async getBoardById(boardId) {
+  static async getBoardById(boardId, userId) {
     try {
       const board = await Board.findById(boardId);
       if (!board) {
@@ -196,11 +211,15 @@ class BoardService {
       }
       const commentCount = await CommentService.commentCount(boardId);
       const likeCount = await LikeService.likeCount(boardId);
+      const isLiked = userId
+        ? await LikeService.isLiked(boardId, userId)
+        : false;
 
       const boardWithCounts = {
         ...board.toObject(),
         commentCount,
         likeCount,
+        isLiked,
       };
       return boardWithCounts;
     } catch (error) {
@@ -241,6 +260,7 @@ class BoardService {
     }
   }
 
+  // 게시글 삭제
   static async deleteBoard(boardId) {
     try {
       const board = await Board.findById(boardId);

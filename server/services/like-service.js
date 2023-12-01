@@ -43,6 +43,15 @@ class LikeService {
       throw error;
     }
   }
+
+  static async isLiked(boardId, userId) {
+    try {
+      const existingLike = await Like.findOne({ user: userId, board: boardId });
+      return !!existingLike;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = LikeService;

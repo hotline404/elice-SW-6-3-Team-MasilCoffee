@@ -63,6 +63,7 @@ const PostList = ({ post, type }) => {
         <Container>
           <div>
             <S.PostNickname>{post.nickname}</S.PostNickname>
+            {post.user === userId && <S.MyWritten>내 글</S.MyWritten>}
             <S.PostDate>{createDate}</S.PostDate>
             {type === "view" && post.user === userId && (
               <S.EditDeleteWrap>

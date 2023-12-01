@@ -15,6 +15,7 @@ const Bottom = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // Redux 스토어에서 게시글 데이터 가져오기
+  const token = useSelector((state) => state.login.token);
   const allBoards = useSelector((state) => state.board);
 
   useEffect(() => {
@@ -22,10 +23,10 @@ const Bottom = () => {
     // console.log("올보더스", allBoards);
     const fn = async () => {
       try {
-        const board = await getAllBoards("", 1, 10);
+        const board = await getAllBoards("", 1, 10, "", token);
 
-        // console.log("보드", board);
-        dispatch(actionGetAllBoards(board));
+        //console.log("보드", board);
+        dispatch(actionGetAllBoards(board.data));
       } catch (err) {
         console.log("err", err);
       }
@@ -153,7 +154,7 @@ const Bottom = () => {
                 <S.BottomBox $bgColor={boxBgColor} isEven={isOdd}>
                   <div>
                     <b>{board.nickname}</b>
-                    <p>{board.post}</p>
+                    <S.Post>{board.post}</S.Post>
                   </div>
                   <S.TagWrap>
                     <S.TagBox>{board.category}</S.TagBox>

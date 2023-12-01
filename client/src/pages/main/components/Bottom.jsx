@@ -72,7 +72,7 @@ const Bottom = () => {
     <S.BottomSlide>
       <Slider {...settings}>
         {Array.isArray(allBoards.boards) &&
-          allBoards.boards.map((board, index) => {
+          allBoards.boards?.map((board, index) => {
             // console.log("Board ID:", board._id);
             const isOdd = index % 2 === 0;
             const boxBgColor = isOdd ? "#9f9f9f" : fixedBackgroundColor; // 홀수이면 그레이, 아니면 기존 색상

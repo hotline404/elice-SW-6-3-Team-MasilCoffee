@@ -7,10 +7,13 @@ import Footer from "../components/layout/Footer/Footer";
 import Banner from "../components/layout/banner/Banner";
 import { axiosTokenConfirm } from "../api/user/user";
 import AlertModal from "../components/ui/alert/AlertModal";
+import { useDispatch } from "react-redux";
+import { actionLogout } from "../redux/action/login/loginAction";
 
 const RouterComp = () => {
   const location = useLocation().pathname;
-  const currentToken = localStorage.getItem('token')
+  const currentToken = localStorage.getItem('token');
+  const dispatch = useDispatch();
 
   const [token, setToken] = useState(currentToken);
   const [alert, setAlert] = useState(false)
@@ -18,7 +21,11 @@ const RouterComp = () => {
   useEffect(() => {
     // 토큰이 있고 만료 시간이 정의되어 있다면 확인합니다.
       if(token) {
-        confirmTokenFn(token)
+        const res = confirmTokenFn(token);
+        if (res !== true) {
+          localStorage.removeItem("token");
+          dispatch(actionLogout());
+        }
       } else {
         setAlert(true);
         setTimeout(() => {
@@ -33,6 +40,7 @@ const RouterComp = () => {
     const isValidToken = await axiosTokenConfirm(currentToken);
     return isValidToken
   };
+
 
 
   return (

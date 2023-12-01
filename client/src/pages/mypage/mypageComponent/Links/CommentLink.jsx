@@ -10,9 +10,9 @@ function CommentLink({ userId }) {
     nav(`${ROUTES.COMMENTLISTPAGE.path}/${userId}`);
   };
   return (
-    <div onClick={handleClick}>
-      <S.CommentLinkBox>내가 쓴 댓글</S.CommentLinkBox>
-    </div>
+
+      <S.CommentLinkBox onClick={handleClick}>내가 쓴 댓글</S.CommentLinkBox>
+   
   );
 }
 

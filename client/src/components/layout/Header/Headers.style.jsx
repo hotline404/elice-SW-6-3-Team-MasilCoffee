@@ -8,7 +8,6 @@ export const LeftSide = styled.span`
   margin-left: 62px;
   display: flex;
 
-  /* 미디어 쿼리 활용 */
   ${media.medium`
     display: ${(props) => (props.display ? "none" : "flex")};
     backgound: ${back_ground_color.sub_color};
@@ -103,3 +102,36 @@ export const LinkBox = styled.div`
 display: none;
 `}
 `;
+
+export const MenuItemBox = styled.div`
+  display: none;
+  text-align: center;
+  justify-content: center;
+  background: ${back_ground_color.sub_color};
+
+  ${media.medium`
+    display: none;
+
+  `}
+
+  ${media.mini`
+  display: flex;
+  `}
+`;
+
+export const MenuItemDefault = styled.div`
+  display: none;
+  text-align: center;
+  justify-content: center;
+  background: ${back_ground_color.sub_color};
+  ${media.medium`
+  display: flex;
+    
+`}
+
+  ${media.mini`
+  display: flex;
+
+`}
+`;
+

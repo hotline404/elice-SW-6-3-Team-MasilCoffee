@@ -24,9 +24,12 @@ function AdminRightSideItem(props) {
     textDecoration: "none",
     textAlign: "center",
     color: `${
-      IncludeRedPage(props.location)
+      IncludeRedPage(props.location) ||
+      props.location === ROUTES.ADMINMENU.path ||
+      props.location === ROUTES.ADMINORDER.path ||
+      props.location === ROUTES.ADMINMUSER.path
         ? txt_color.main_color
-        : txt_color.admin_color
+        : txt_color.sub_color
     }`,
     fontSize: "15px",
     fontWeight: "400",

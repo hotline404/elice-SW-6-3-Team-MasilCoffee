@@ -9,7 +9,13 @@ export const Footers = styled.footer`
 `;
 
 export const FooterText = styled.p`
-  color: ${(props) => IncludeRedPage(props.location) || props.location === ROUTES.ADMINMENU.path || props.location === ROUTES.ADMINORDER.path || props.location === ROUTES.ADMINMUSER.path ? txt_color.main_color : txt_color.sub_color};
+  color: ${(props) =>
+    IncludeRedPage(props.location) ||
+    props.location === ROUTES.ADMINMENU.path ||
+    props.location === ROUTES.ADMINORDER.path ||
+    props.location === ROUTES.ADMINMUSER.path
+      ? txt_color.main_color
+      : txt_color.sub_color};
 
   font-size: 14px;
   font-weight: 400;

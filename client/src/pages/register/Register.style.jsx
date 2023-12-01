@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const InputCard = styled.div`
   width: 1000px;
-  height: auto;
+  height: 90%;
 
   background-color: #ffffff;
 
@@ -15,26 +15,15 @@ export const InputCard = styled.div`
 
   border-radius: 30px 0px 30px 0px;
 
-  padding-top: 300px;
-  padding-bottom: 50px;
+  padding-top: 100px;
+  padding-bottom: 130px;
 
   margin-bottom: 50px;
 
-  overflow: scroll;
-  overflow-x:hidden;
-
-  &::-webkit-scrollbar {
-    width: 10px;
-    background-color: none;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #2f3542;
-    border-radius: 30px;
 `;
 
 export const InputBox = styled.div`
-  width: 900px;
+  width: 705px;
   height: 100px;
 
   border: 1px solid #878585;
@@ -69,6 +58,7 @@ export const AuthButton = styled.div`
 
     justify-content: center;
     align-items: center;
+    font-weight: bold;
 
     cursor: pointer;
 

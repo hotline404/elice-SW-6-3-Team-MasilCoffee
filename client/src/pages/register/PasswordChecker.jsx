@@ -50,7 +50,7 @@ function PasswordChecker({onInsert}) {
                 doublecheck: true,
               }}
             />
-            <AuthButton onClick={doubleCheckhandler}>비밀번호 확인</AuthButton>
+            <AuthButton onClick={doubleCheckhandler}>확인</AuthButton>
           </InputBox>
         ) : (
           <></>

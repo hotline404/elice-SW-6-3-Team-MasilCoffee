@@ -30,7 +30,7 @@ export const axiosRegister = async (name, email, nickname, password, phone) => {
   };
 
   try {
-    const res = await apiInstanceNonAuth.post(`${BASE_URL.users.url}`, registerBody);
+    const res = await apiInstanceNonAuth.post(`${BASE_URL.signup.url}`, registerBody);
     const data = res.data;
 
     return data;

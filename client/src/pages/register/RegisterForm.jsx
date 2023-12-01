@@ -10,6 +10,7 @@ import Button from "../../components/ui/button/Button.jsx";
 import Title from "../../components/ui/title/Title.jsx";
 import { ButtonBox, InputBox, AuthButton } from "./Register.style.jsx";
 import PasswordChecker from "./PasswordChecker.jsx";
+import { useLocation } from "react-router-dom";
 
 const initRegisterInfo = {
   name: "",
@@ -22,6 +23,7 @@ const initRegisterInfo = {
 function RegisterForm(props) {
   const [auth, setAuth] = useState(false);
   const [regInfo, setRegInfo] = useState(initRegisterInfo);
+  const location = useLocation().pathname;
 
   const authEmail = useSelector((state) => state.register.email);
 
@@ -117,6 +119,7 @@ function RegisterForm(props) {
       <form onSubmit={handleSubmit}>
         <InputBox>
           <Input
+            location={location}
             input={{
               name: "이메일",
               type: "email",
@@ -126,7 +129,7 @@ function RegisterForm(props) {
               readonly: true,
             }}
           />
-          <AuthButton onClick={openAuthModal}>인증</AuthButton>
+          <AuthButton onClick={openAuthModal}>인증하기</AuthButton>
         </InputBox>
         {props.input.map((info) => (
           <InputBox key={info.id}>

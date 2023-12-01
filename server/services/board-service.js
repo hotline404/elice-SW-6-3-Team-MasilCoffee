@@ -14,7 +14,6 @@ class BoardService {
       }
 
       const imagePaths = boardData.image ? boardData.image : [];
-      console.log();
       const newBoard = new Board({
         user: user.id,
         nickname: boardData.nickname,

@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const StyledOrderListMenu = styled.div`
- font-family: 'Noto Sans', sans-serif; // Noto Sans 폰트 적용
+  font-family: "Noto Sans", sans-serif; // Noto Sans 폰트 적용
   > i {
     display: block;
     width: 100%;
-    border: 1px solid #8e0e28;
+    border: 1px solid #472e27;
   }
 `;
 
@@ -50,7 +50,7 @@ export const StyledOrderText = styled.div`
   > span {
     padding-left: 20px;
     font-weight: bold;
-    color: #8e0e28;
+    color: #472e27;
     font-size: 17px;
   }
   > div {
@@ -65,7 +65,7 @@ export const StyledOrderText = styled.div`
       width: 20px;
       height: 20px;
       background-color: white;
-      border: 1px solid #8e0e28;
+      border: 1px solid #472e27;
       display: flex;
       justify-content: center;
       align-items: center;

@@ -1,14 +1,15 @@
-import { apiInstance, apiInstanceForm } from "./interceptor/apiInstance";
+import { apiInstance, apiInstanceForm, apiInstanceNonAuth } from "./interceptor/apiInstance";
 
 //전체 or 카테고리별 게시글 불러오기
-export const getAllBoards = async (category, currentPage, pageSize, search) => {
+export const getAllBoards = async (category, currentPage, pageSize, search, token) => {
   if (!search) search = "";
+  const instance = token ? apiInstance : apiInstanceNonAuth;
   try {
     const res = category
-      ? await apiInstance.get(
+      ? await instance.get(
           `/api/v1/boards/categories/${category}?currentPage=${currentPage}&pageSize=${pageSize}&search=${search}`
         )
-      : await apiInstance.get(
+      : await instance.get(
           `/api/v1/boards/search?currentPage=${currentPage}&pageSize=${pageSize}&search=${search}`
         );
 
@@ -21,9 +22,10 @@ export const getAllBoards = async (category, currentPage, pageSize, search) => {
 };
 
 //해당 게시글 불러오기
-export const getBoard = async (boardId) => {
+export const getBoard = async (boardId, token) => {
+  const instance = token ? apiInstance : apiInstanceNonAuth;
   try {
-    const res = await apiInstance.get(`/api/v1/boards/board/${boardId}`);
+    const res = await instance.get(`/api/v1/boards/board/${boardId}`);
     const board = res.data.data;
 
     return board;

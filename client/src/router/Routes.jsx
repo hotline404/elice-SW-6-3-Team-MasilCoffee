@@ -92,8 +92,8 @@ export const ROUTES = {
   },
 
   MYPAGE: {
-    path: "/mypage",
-    link: "/mypage",
+    path: "/MyPage",
+    link: "/MyPage",
     element: <MyPage />,
   },
   USERINFOCHANGE: {

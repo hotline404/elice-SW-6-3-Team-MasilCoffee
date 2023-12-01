@@ -29,7 +29,7 @@ const Recipe = () => {
   useEffect(() => {
     const fn = async () => {
       try {
-        const board = await getAllBoards(category, currentPage, PAGE_SIZE, inputQuery);
+        const board = await getAllBoards(category, currentPage, PAGE_SIZE, inputQuery, token);
         currentPage === 1
           ? dispatch(actionGetAllBoards(board.data))
           : dispatch(actionGetAllMoreBoards(board.data));

@@ -17,6 +17,24 @@ class JwtMiddleware {
     }
   }
 
+  // 토큰이 없어도 일단 Null 보내기
+  static checkTokenOrNull(req, res, next) {
+    const authorizationHeader = req.header("Authorization");
+
+    try {
+      if (!authorizationHeader) {
+        req.tokenData = null;
+        return next();
+      }
+
+      const token = authorizationHeader.split(" ")[1];
+      req.tokenData = JWT.verifyToken(token);
+      next();
+    } catch (error) {
+      return res.status(401).json({ error: error.message });
+    }
+  }
+
   // 관리자 권환 확인하기
   static checkAdmin(req, res, next) {
     if (req.tokenData.role === "Admin") {

@@ -9,14 +9,17 @@ const JwtMiddleware = require("../middlewares/jwt-handler");
 // 특정 카테고리의 게시글 가져오기 (검색포함)
 BoardRouter.get(
   "/categories/:category",
+  JwtMiddleware.checkTokenOrNull,
   asyncHandler(async (req, res) => {
     const category = req.params.category;
     const { currentPage, pageSize, search } = req.query;
+    const userId = req.tokenData ? req.tokenData._id : null;
     const boards = await BoardService.getBoardsByCategory(
       category,
       currentPage,
       pageSize,
-      search
+      search,
+      userId
     );
     ResponseHandler.respondWithSuccess(res, boards);
   })
@@ -25,24 +28,34 @@ BoardRouter.get(
 // 특정 board ID의 게시글 가져오기
 BoardRouter.get(
   "/board/:boardId",
+  JwtMiddleware.checkTokenOrNull,
   asyncHandler(async (req, res) => {
-    const board = await BoardService.getBoardById(req.params.boardId);
-    if (!board) {
-      return ResponseHandler.respondWithNotfound(res);
+    try {
+      const userId = req.tokenData ? req.tokenData._id : null;
+      const board = await BoardService.getBoardById(req.params.boardId, userId);
+      if (!board) {
+        return ResponseHandler.respondWithNotfound(res);
+      }
+      ResponseHandler.respondWithSuccess(res, board);
+    } catch (error) {
+      console.error(error);
+      ResponseHandler.respondWithError(res);
     }
-    ResponseHandler.respondWithSuccess(res, board);
   })
 );
 
-// 모든 게시글 가져오기 (모든 사용자, 모든 게시물) (검색포함)
+// 모든 게시글 가져오기 (모든 사용자, 모든 게시물) (검색포함) (좋아요여부)
 BoardRouter.get(
   "/search",
+  JwtMiddleware.checkTokenOrNull,
   asyncHandler(async (req, res) => {
+    const userId = req.tokenData ? req.tokenData._id : null;
     const { currentPage, pageSize, search } = req.query;
     const boards = await BoardService.getAllBoards(
       currentPage,
       pageSize,
-      search
+      search,
+      userId
     );
     ResponseHandler.respondWithSuccess(res, boards);
   })

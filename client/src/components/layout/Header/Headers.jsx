@@ -7,6 +7,7 @@ import { ROUTES } from "../../../router/Routes";
 import { useSelector } from "react-redux";
 import { TfiMenu } from "react-icons/tfi";
 import Menu from "./util/Menu";
+import { useNavigate } from "react-router-dom";
 
 const linkDatas = {
   non_user_right: [
@@ -40,6 +41,7 @@ const linkDatas = {
 function Headers(props) {
   const role = useSelector((state) => state.login.role);
   const [visible, setVisible] = useState(false);
+  const nav = useNavigate()
 
   const handleClick = () => {
     setVisible(!visible);
@@ -48,11 +50,15 @@ function Headers(props) {
   const onVisible = () => {
     setVisible(!visible);
   };
+  const handleClickMiniLogo = () => {
+    nav(ROUTES.MAIN.path);
+    (window.location || document.location).reload();
+  }
 
   return (
     <div>
       <Header location={props.location}>
-        <MiniLogo src="\assets\images\Logo.png" />
+        <MiniLogo src="\assets\images\Logo.png" onClick={handleClickMiniLogo}/>
         <LeftSideItem item={linkDatas.left_side} location={props.location} />
         <TransComponent
           userRole={role}

@@ -3,10 +3,15 @@ const apiInstance = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
 });
 
+console.log(
+  "process.env.REACT_APP_SERVER_URL",
+  process.env.REACT_APP_SERVER_URL
+);
+
 apiInstance.interceptors.request.use(
   (config) => {
     config.headers["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
-    console.log(config)
+    console.log(config);
     return config;
   },
   (error) => {

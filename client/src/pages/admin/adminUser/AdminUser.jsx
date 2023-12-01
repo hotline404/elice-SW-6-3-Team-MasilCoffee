@@ -47,8 +47,12 @@ const AdminUser = ({ trData }) => {
     initDataSet: tdData,
   });
 
-  const handleClick = (e) => {
-    setPage(parseInt(e.target.name, 10));
+  const handleClick = (e, arrow) => {
+    if (arrow) {
+      setPage(parseInt(e, 10));
+    } else {
+      setPage(parseInt(e.target.name, 10));
+    }
   };
 
   const handleSubmit = (searchData) => {
@@ -95,17 +99,21 @@ const AdminUser = ({ trData }) => {
             <Table trData={trData} tdData={slicedData} isMenuTable={true} isUserTable={true} onTdClick={handleTdClick} />
           </Users.TableBox>
           <Users.Pagination>
-            <Users.PaginationItem href="#">&laquo;</Users.PaginationItem>
+            <Users.PaginationItem href="#" onClick={() => handleClick(1, "arrow")}>
+              &laquo;
+            </Users.PaginationItem>
             <div>
               {pageArr.map((arr) => {
                 return (
-                  <Users.PaginationItem name={arr} href="#" onClick={handleClick}>
+                  <Users.PaginationItem name={arr} href="#" onClick={handleClick} isActive={page === arr}>
                     {arr}
                   </Users.PaginationItem>
                 );
               })}
             </div>
-            <Users.PaginationItem href="#">&raquo;</Users.PaginationItem>
+            <Users.PaginationItem href="#" onClick={() => handleClick(pageArr[pageArr.length - 1], "arrow")}>
+              &raquo;
+            </Users.PaginationItem>
           </Users.Pagination>
         </Users.Content>
       </Users.Container>

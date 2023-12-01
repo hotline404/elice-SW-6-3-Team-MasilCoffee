@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { media } from "../../../util/mediaQ/media";
+import { back_ground_color } from "../../../type/color_type";
 
 export const UserTitle = styled.h1`
   text-align: center;
@@ -40,7 +41,7 @@ export const UserLinkBox = styled.div`
 
   margin: 13px;
 
-  border: solid 5px #8e0e28;
+  border: solid 5px ${back_ground_color.main_color};
   border-radius: 63px 0px 0px 0px;
 
   transition: all 200ms ease-in-out 0ms;
@@ -74,7 +75,7 @@ export const OrderLinkBox = styled.div`
 
   margin: 13px;
 
-  background: #8e0e28;
+  background: ${back_ground_color.main_color};
 
   color: #f5f5f5;
 
@@ -123,7 +124,7 @@ export const CommentLinkBox = styled.div`
 
   margin: 13px;
 
-  background: #8e0e28;
+  background: ${back_ground_color.main_color};
 
   color: #f5f5f5;
 

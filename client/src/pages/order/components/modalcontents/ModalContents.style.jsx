@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const StyleText = styled.div`
+  font-family: "Noto Sans", sans-serif; // Noto Sans 폰트 적용
   box-sizing: border-box;
   display: flex;
   width: 510px;
@@ -40,13 +41,13 @@ export const StyleDisplay = styled.div`
     justify-content: center;
     align-items: center;
     margin: 0 15px;
-    background-color: #8e0e28;
+    background-color: #472e27;
     border-radius: 100%;
     color: white;
   }
 `;
 export const StylePaddingSpan = styled.div`
-  color: #8e0e28;
+  color: #472e27;
   font-size: 20px;
   font-weight: 600;
 `;
@@ -75,7 +76,8 @@ export const StyleSlideBox = styled.div.withConfig({
 })`
   max-height: ${({ isSlideOpen }) => (isSlideOpen ? "258px" : "0")};
   transition: max-height 0.5s ease-in-out;
-  max-height: ${(props) => (props.isSlideOpen ? "300px" : "0")}; // 예시로 300px 설정
+  max-height: ${(props) =>
+    props.isSlideOpen ? "300px" : "0"}; // 예시로 300px 설정
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -94,7 +96,7 @@ export const StyleSlideBoxText = styled.div`
   i {
     width: 650px;
     height: 1px;
-    border-top: 2px solid #8e0e28;
+    border-top: 2px solid #472e27;
   }
 `;
 

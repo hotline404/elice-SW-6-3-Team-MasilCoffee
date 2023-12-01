@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const StyledPaymentcontainer = styled.div`
+  font-family: "Noto Sans", sans-serif; // Noto Sans 폰트 적용
   box-sizing: border-box;
   margin: 0 auto;
   width: 100vw;
@@ -95,7 +96,7 @@ export const StyledOrderList = styled.div`
     display: block;
     width: 100%;
 
-    border: 2px solid #8e0e28;
+    border: 2px solid #472e27;
   }
 `;
 
@@ -108,14 +109,14 @@ export const StyledAmountPayment = styled.div`
     justify-content: space-between;
     align-items: center;
     > h2:nth-child(2) {
-      color: #8e0e28;
+      color: #472e27;
     }
   }
   > i {
     display: block;
     width: 100%;
 
-    border: 2px solid #8e0e28;
+    border: 2px solid #472e27;
   }
 `;
 export const StyledButton = styled.div`
@@ -129,6 +130,6 @@ export const StyleTotalText = styled.div`
     font-size: 15px;
   }
   > h2:nth-child(2) {
-    color: #8e0e28;
+    color: #472e27;
   }
 `;

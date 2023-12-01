@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const StyledCard = styled.div`
+ font-family: 'Noto Sans', sans-serif; // Noto Sans 폰트 적용
   position: relative;
   overflow: hidden;
   display: flex;

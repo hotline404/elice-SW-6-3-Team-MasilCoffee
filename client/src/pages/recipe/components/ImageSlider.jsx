@@ -13,11 +13,16 @@ const ImageSlider = ({ images }) => {
     slidesToScroll: 1,
   };
 
+  //navigate 막기
+  const stopPropagation = (e) => {
+    e.stopPropagation();
+  };
+
   return (
-    <ImageWrap onClick={(e) => e.preventDefault()}>
+    <ImageWrap onClick={stopPropagation}>
       <StyledSlider {...settings}>
         {images.map((image, index) => (
-          <Image key={index} src={image} alt="" />
+          <Image key={index} src={image} alt="" onClick={stopPropagation} />
         ))}
       </StyledSlider>
     </ImageWrap>
@@ -40,7 +45,7 @@ const StyledSlider = styled(Slider)`
   .slick-next:before {
     font-size: 30px;
     /* opacity: 0.5; */
-    color: white;
+    color: #d9d9d9;
   }
 
   .slick-dots {

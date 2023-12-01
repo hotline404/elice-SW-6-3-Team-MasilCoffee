@@ -21,3 +21,12 @@ export const postUserPhone = (phone) => ({
 export const removeUser = () => ({
   type: "remove.user",
 });
+
+export const postRecipe = (recipe) => ({
+  type: "post.user.recipe",
+  payload: { recipe }
+})
+
+export const bringUser = () => ({
+  type: "bring.user",
+})

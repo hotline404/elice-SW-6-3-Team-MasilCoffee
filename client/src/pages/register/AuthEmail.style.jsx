@@ -9,6 +9,7 @@ export const AuthItems = styled.div`
 
 export const AuthTitle = styled.p`
   font-size: 30px;
+  text-align: center;
 `;
 
 export const AuthInput = styled.input`

@@ -3,3 +3,6 @@ export const getAuthEmail = (email) => ({
   payload: { email },
 });
 
+export const getAuthNum = () => ({
+  type: "get.auth.num"
+})

@@ -16,7 +16,7 @@ import {
 } from "./Cart.style";
 
 import { useDispatch, useSelector } from "react-redux";
-import * as orderOptionAction from "../../redux/action/orderOptionAction";
+// import * as orderOptionAction from "../../redux/action/orderOptionAction";
 import { addOrder, removeOrder } from "../../redux/action/orderAction";
 import { paymentAction } from "../../redux/action/paymentAction";
 
@@ -25,10 +25,12 @@ const Cart = () => {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.order);
   const [orderList, setOrderList] = useState([]);
+
   // 각 주문에 대한 체크 상태를 관리하는 로컬 상태
   const [checkedStates, setCheckedStates] = useState({});
+  
   // 로그인 상태에 따라 주문하기 클릭시 로그인 화면으로 라우트 or 결제 진행
-  const isLogin = useSelector(state => state.login.loginState);
+  const isLogin = useSelector((state) => state.login.loginState);
 
   const handleOnCheck = (e) => {
     if (e.target.checked) {
@@ -127,12 +129,16 @@ const Cart = () => {
 
                     <Button
                       onClick={() => {
-                        // if(isLogin === false) {
-                        //   if(window.confirm("로그인 상태가 아닙니다. 로그인하여 결제를 진행해주세요.")) {
-                        //     navigate("/Login");
-                        //   }
-                        //   return;
-                        // }
+                        if (isLogin === false) {
+                          if (
+                            window.confirm(
+                              "로그인 상태가 아닙니다. 로그인하여 결제를 진행해주세요."
+                            )
+                          ) {
+                            navigate("/Login");
+                          }
+                          return;
+                        }
                         dispatch(paymentAction(orderList));
                         navigate("/Payment");
                       }}

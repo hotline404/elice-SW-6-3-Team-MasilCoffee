@@ -50,12 +50,16 @@ const ModalContents = ({ data }) => {
   };
 
   const handleSetResultOrder = (route, action) => {
-    // if(isLogin === false && route === "/Payment") {
-    //   if(window.confirm("로그인 상태가 아닙니다. 로그인하여 결제를 진행해주세요.")) {
-    //     navigate("/Login");
-    //   }
-    //   return;
-    // }
+    if (isLogin === false && route === "/Payment") {
+      if (
+        window.confirm(
+          "로그인 상태가 아닙니다. 로그인하여 결제를 진행해주세요."
+        )
+      ) {
+        navigate("/Login");
+      }
+      return;
+    }
     dispatch(
       action({
         ...options.selectedOptions,
@@ -63,7 +67,7 @@ const ModalContents = ({ data }) => {
         name: data.name,
         id: data.id,
         totalPrice,
-        quantity
+        quantity,
       })
     );
     navigate(route);
@@ -79,13 +83,17 @@ const ModalContents = ({ data }) => {
   // 임시 totalPrice 계산 함수
   useEffect(() => {
     let resultPrice = 0;
-
     for (const optionName in options.selectedOptions) {
-      for (const detail of options.selectedOptions[optionName]) {
-        const originPrice = options.orderDetail[optionName].find(
-          (item) => item.name === detail.name
-        ).price;
-        resultPrice += originPrice * detail.quantity;
+      //여기 수정하니까 됐음 배열안에 무언가 안됐는데 찾아보자
+      if (Array.isArray(options.orderDetail[optionName])) {
+        for (const detail of options.selectedOptions[optionName]) {
+          const originPrice = options.orderDetail[optionName].find(
+            (item) => item.name === detail.name
+          ).price;
+          resultPrice += originPrice * detail.quantity;
+        }
+      } else {
+        console.error(`에러`);
       }
     }
 
@@ -95,14 +103,14 @@ const ModalContents = ({ data }) => {
   return (
     <>
       <StyleText>
-        <StyleImg></StyleImg>
+        <StyleImg src={data.image_url} alt={data.name}></StyleImg>
         <StyleInfo>
           <span>{data.name}</span>
           <StylePaddingSpan>{quantity * data.price}</StylePaddingSpan>
           <StyleQuantity>
-            <button onClick={handleIncreaseOnClick}>+</button>
-            <span>{quantity}</span>
             <button onClick={handleDecreaseOnClick}>-</button>
+            <span>{quantity}</span>
+            <button onClick={handleIncreaseOnClick}>+</button>
           </StyleQuantity>
           <StyleDisplay>
             <span>{data.temp}</span>
@@ -112,9 +120,14 @@ const ModalContents = ({ data }) => {
       </StyleText>
       {Object.keys(options.selectedOptions).length > 0 &&
         Object.keys(options.selectedOptions).map((optionName) => {
-          if (optionName === "shot" || optionName === "syrups") {
+          if (optionName === "shot" || optionName === "syrup") {
             return <QuantityOption key={optionName} optionName={optionName} />;
-          } else {
+          } else if (
+            optionName === "milk" ||
+            optionName === "iceAmount" ||
+            optionName === "whipping" ||
+            optionName === "drizzle"
+          ) {
             return <SelectOption key={optionName} optionName={optionName} />;
           }
         })}

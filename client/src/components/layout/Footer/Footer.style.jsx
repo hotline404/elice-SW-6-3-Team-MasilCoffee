@@ -1,13 +1,17 @@
 import styled from "styled-components";
 import IncludeRedPage from "../../../util/IncludeRedPage";
+import backgroundColor from "../../../util/BackgoundColor";
+import { back_ground_color, txt_color } from "../../../type/color_type";
 
 export const Footers = styled.footer`
-  background: ${(props) =>
-    IncludeRedPage(props.location) ? "#f5f5f5" : "#8e0e28"};
+  background: ${(props) => backgroundColor(props.location)};
 `;
 
 export const FooterText = styled.p`
-  color: ${(props) => (IncludeRedPage(props.location) ? "#8e0e28" : "#f5f5f5")};
+  color: ${(props) =>
+    IncludeRedPage(props.location)
+      ? txt_color.main_color
+      : txt_color.sub_color};
 
   font-size: 14px;
   font-weight: 400;

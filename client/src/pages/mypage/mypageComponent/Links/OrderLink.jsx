@@ -11,9 +11,9 @@ function OrderLink({ userId }) {
   }
 
   return (
-    <div onClick={handleClick}>
-      <S.OrderLinkBox>주문정보</S.OrderLinkBox>
-    </div>
+    
+      <S.OrderLinkBox onClick={handleClick}>주문정보</S.OrderLinkBox>
+    
   );
 }
 

@@ -12,9 +12,8 @@ function WriteListLink({ userId }) {
   };
 
   return (
-    <div onClick={handleClick}>
-      <S.WriteLinkBox>내가 쓴 글</S.WriteLinkBox>
-    </div>
+      <S.WriteLinkBox onClick={handleClick}>내가 쓴 글</S.WriteLinkBox>
+    
   );
 }
 

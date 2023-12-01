@@ -19,17 +19,12 @@ const AdminUser = ({ trData }) => {
   const [modifyUser, setModifyUser] = useState(undefined);
   const users = useSelector((state) => state.users.users);
   const tdData = useSelector((state) => state.users.tableData);
-  console.log("tdData", tdData);
-  console.log("getUsers", users);
 
   useEffect(() => {
     const fn = async () => {
       try {
         const getUsers = await axiosGetUsers(token);
-        console.log("getUsersAPI", getUsers);
-        const reduxData = dispatch(initUserSearch(getUsers.users));
-        console.log("reduxDataaa", reduxData);
-        console.log("reduxData", reduxData.payload.initData);
+        dispatch(initUserSearch(getUsers.users));
       } catch (err) {
         console.log("err", err);
       }
@@ -57,14 +52,12 @@ const AdminUser = ({ trData }) => {
   };
 
   const handleSubmit = (searchData) => {
-    const filteredData = dispatch(search(searchData));
-    console.log("filteredData", filteredData);
+    dispatch(search(searchData));
   };
 
   const handleTdClick = (data, isEdit) => {
     const selectedUserId = data[0];
-    const selectedUser = users[0].filter((user) => user._id === selectedUserId);
-    console.log("selectedProduct", selectedUser);
+    const selectedUser = users.filter((user) => user._id === selectedUserId);
     if (isEdit === "edit") {
       setShowUserModal(!showUserModal);
       setModifyUser(selectedUser[0]);

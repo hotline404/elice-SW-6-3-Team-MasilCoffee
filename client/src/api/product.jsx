@@ -6,7 +6,6 @@ export const getAllProducts = async () => {
     if (res?.data?.data?.data) {
       return res.data.data.data;
     }
-    console.log("환경변수", `${process.env.REACT_APP_SERVER_URL}`);
   } catch (err) {
     console.log("getAllProduct-err", err);
   }
@@ -15,7 +14,6 @@ export const getAllProducts = async () => {
 export const getAllProductsMain = async () => {
   try {
     const res = await apiInstance.get("/api/v1/products/main");
-    console.log("환경변수", `${process.env.REACT_APP_SERVER_URL}`);
     if (res?.data?.data) {
       return res.data.data;
     }
@@ -26,7 +24,9 @@ export const getAllProductsMain = async () => {
 
 export const getCategoryProducts = async (category) => {
   try {
-    const res = await apiInstance.get(`/api/v1/products/categories/${category}`);
+    const res = await apiInstance.get(
+      `/api/v1/products/categories/${category}`
+    );
     if (res?.data?.data) {
       return res.data.data;
     }

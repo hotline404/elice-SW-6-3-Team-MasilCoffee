@@ -187,13 +187,21 @@ const Cart = () => {
                         const checkValue = values.find(
                           (state) => state === true
                         );
-                        console.log(checkValue, "체크드박스인ㅇ리턴");
+                        // console.log(checkValue, "체크드박스인리턴");
                         if (checkValue === undefined) {
                           setCheckedBox(false);
-                          console.log(checkedBox, "체크드박스인리턴");
+                          // console.log(checkedBox, "체크드박스인리턴");
                         } else {
                           dispatch(paymentAction(orderList));
                           navigate("/Payment");
+
+                          // 주문 완료 후 장바구니 업데이트
+                          orderList.forEach((order) =>
+                            dispatch(removeOrder(order.orderId))
+                          );
+                          setOrderList([]);
+                          setCheckedStates({});
+                          setAllChecked(false);
                         }
                       }}
                       disabled={checkedBox}

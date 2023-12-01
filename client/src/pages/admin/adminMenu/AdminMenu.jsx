@@ -14,7 +14,7 @@ import { getAllProducts, getCategoryProducts, deleteProduct } from "../../../api
 
 const AdminMenu = ({ trData }) => {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.login.token);
+  //const token = useSelector((state) => state.login.token);
   const allProduct = useSelector((state) => state.product.products);
   const tdData = useSelector((state) => state.product.tableData);
   const [showMenuModal, setShowMenuModal] = useState(false);
@@ -95,7 +95,7 @@ const AdminMenu = ({ trData }) => {
       if (isDeleted) {
         const fn = async () => {
           try {
-            await deleteProduct(selectedProductId, token);
+            await deleteProduct(selectedProductId);
             dispatch(actionDeleteProduct(selectedProductId));
           } catch (err) {
             console.log("err", err);

@@ -17,15 +17,28 @@ const Order = () => {
   const user = useSelector((state) => state.user);
   console.log("오더 페이지의 유저", user);
   const orderDetailOptions = useSelector((state) => state.orderDetail);
-  // console.log("오더디테일옵션스", orderDetailOptions.options);
   const productsFromState = useSelector((state) => state.product.products);
+
   const [userCustomRecipe, setUserCustomRecipe] = useState([]);
 
   useEffect(() => {
-    if (user.recipe[0] !== undefined && user.recipe[0] !== null) {
+    const fn = async () => {
+      try {
+        const products = await getAllProductsMain(); //비동기
+        dispatch(actionGetAllProducts(products)); // data뺴니까 됨
+      } catch (err) {
+        console.log("err", err);
+      }
+    };
+    fn();
+  }, []);
+
+  useEffect(() => {
+    if (user.recipe[0] !== undefined && user.recipe[0] !== null && productsFromState.length > 0) {
       console.log("유즈이펙트안에 오더 페이지의 유저", user);
       const getProducts = user.recipe.map((data) => {
         console.log(data, "데이터 유저 레시피의");
+        console.log(productsFromState, "프로덱트프롬스테이트");
         const getProductName = productsFromState.filter((product) => product.name === data.name);
         getProductName[0].recipe = data.options;
         console.log("겟 프로덕트네임", getProductName);
@@ -34,7 +47,7 @@ const Order = () => {
       console.log("유저의 겟프로덕트스", getProducts);
       setUserCustomRecipe(getProducts);
     }
-  }, [dispatch, user]);
+  }, [dispatch, user, productsFromState]);
   console.log("유저커스펌레시피", userCustomRecipe);
   // orderDetail api가 Order 페이지 렌더링 시 한 번만 호출하는 최적화 용도
   // api 나오면 수정 필요
@@ -51,18 +64,6 @@ const Order = () => {
 
   useEffect(() => {
     fetchOrderDetail();
-  }, []);
-
-  useEffect(() => {
-    const fn = async () => {
-      try {
-        const products = await getAllProductsMain(); //비동기
-        dispatch(actionGetAllProducts(products)); // data뺴니까 됨
-      } catch (err) {
-        console.log("err", err);
-      }
-    };
-    fn();
   }, []);
 
   // 카테고리 필터링 하기
@@ -102,6 +103,7 @@ const Order = () => {
         filtered = productsFromState;
     }
     console.log("오더 페이지의 유저레시피", userRecipe);
+    console.log("오더 페이지의 유저커스텀레시피", userCustomRecipe);
 
     // // 카테고리에 메뉴가 없는 경우 처리
     if (filtered.length === 0) {

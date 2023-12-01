@@ -18,7 +18,7 @@ const PostList = ({ post, type }) => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.user_id); //로그인 한 유저 아이디
   const token = useSelector((state) => state.login.token);
-  const [liked, setLiked] = useState(post.likeCount);
+  const [liked, setLiked] = useState(post.isLiked);
   const [likeCount, setLikeCount] = useState(post.likeCount);
   const createDate = DateFormat("dateTime", post.createdAt);
 

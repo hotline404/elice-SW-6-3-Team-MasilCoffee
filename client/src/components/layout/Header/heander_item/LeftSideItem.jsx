@@ -8,7 +8,7 @@ import { txt_color } from "../../../../type/color_type";
 
 function LeftSideItem(props) {
   const nav = useNavigate();
-  const [toggle, setToggle] = useState("")
+  const [toggle, setToggle] = useState("");
 
   const style = {
     textDecoration: "none",
@@ -27,9 +27,13 @@ function LeftSideItem(props) {
     cursor: "pointer",
   };
 
-  const transLogo = IncludeRedPage(props.location)
-    ? "/assets/images/Logo_Red.png"
-    : "/assets/images/Logo_White.png";
+  const transLogo =
+    IncludeRedPage(props.location) ||
+    ROUTES.ADMINMENU.path === props.location ||
+    ROUTES.ADMINMUSER.path === props.location ||
+    ROUTES.ADMINORDER.path === props.location
+      ? "/assets/images/Logo_Red.png"
+      : "/assets/images/Logo_White.png";
 
   const handleClickLogo = () => {
     nav(ROUTES.MAIN.path, { replace: false });
@@ -37,17 +41,20 @@ function LeftSideItem(props) {
   };
 
   const handleToggle = (e) => {
-    
-    setToggle(e.target.value)
-    console.log(e.target.value)
-  }
+    setToggle(e.target.value);
+    console.log(e.target.value);
+  };
 
   return (
     <LeftSide>
       <HeaderImg src={transLogo} onClick={handleClickLogo} />
       {props.item.map((link, idx) => {
         return (
-          <LinkBox value={idx} className={"btn" + (idx === toggle ? "active" : "")} onClick={handleToggle}>
+          <LinkBox
+            value={idx}
+            className={"btn" + (idx === toggle ? "active" : "")}
+            onClick={handleToggle}
+          >
             <LinkTo there={{ to: link.to, name: link.name }} style={style} />
           </LinkBox>
         );

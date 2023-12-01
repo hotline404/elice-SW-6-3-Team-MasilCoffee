@@ -1,6 +1,5 @@
 import React from "react";
 import styled from 'styled-components'
-import { media } from "../../../util/mediaQ/media";
 
 function Container(props) {
   return <SContainer>{props.children}</SContainer>;
@@ -16,10 +15,4 @@ const SContainer = styled.div`
 
   overflow: auto;
   padding-bottom: 30px;
-
-  ${media.medium`
-    display: flex;
-    flex-direction: column;
-  `}
-
 `;

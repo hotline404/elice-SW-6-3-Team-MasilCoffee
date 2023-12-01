@@ -29,7 +29,7 @@ const Label = styled.h3`
 `;
 
 const InputArea = styled.input`
-  width: 703px;
+  width: 500px;
   height: 77px;
   border: none;
   margin-left: 30px;

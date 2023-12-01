@@ -39,11 +39,11 @@ export const BottomBox = styled.div`
   text-overflow: ellipsis;
   padding: 30px;
   border-radius: 20px;
-  margin: 40px 10px;
+  margin: 70px 10px;
 
   background-color: ${(props) => props.$bgColor || "defaultColor"};
   color: ${(props) => (props.$bgColor === "#d9d9d9" ? "black" : "white")};
-  border: ${(props) => (props.isEven ? "1px solid #191414" : "none")};
+  /* border: ${(props) => (props.isEven ? "1px solid #191414" : "none")}; */
 `;
 
 export const SquareButtonBox = styled.div`
@@ -81,4 +81,28 @@ export const TagBox = styled.span`
 export const TagWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
+`;
+
+//댓글, 좋아요 감싸는 div
+export const CommentWrap = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+`;
+
+// 좋아요 div
+export const LikedWrap = styled.div`
+  display: flex;
+`;
+
+//댓글, 좋아요 갯수
+export const CommentNum = styled.span`
+  margin-left: 3px;
+  width: 30px;
+`;
+
+export const Post = styled.p`
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;

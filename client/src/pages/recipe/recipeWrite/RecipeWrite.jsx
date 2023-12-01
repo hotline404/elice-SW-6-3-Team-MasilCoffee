@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Background, ContainerWrap, Container, Title } from "../Recipe.style";
 import * as S from "./RecipeWrite.style";
 import CategoryButton from "../components/CategoryButton";
@@ -16,6 +16,7 @@ const RecipeWrite = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const boardId = location.state && location.state.post;
+  const token = useSelector((state) => state.login.token);
   const [category, setCategory] = useState("");
   const [post, setPost] = useState("");
   const [keywords, setKeywords] = useState([]);
@@ -31,7 +32,7 @@ const RecipeWrite = () => {
     if (boardId) {
       const fn = async () => {
         try {
-          const board = await getBoard(boardId);
+          const board = await getBoard(boardId, token);
           setEditBoard(board);
         } catch (err) {
           console.log("err", err);

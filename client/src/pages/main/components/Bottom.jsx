@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import * as S from "../components/style/Bottom.style";
 import SquareButton from "../../../components/ui/button/SquareButton";
 import { BsChat } from "react-icons/bs";
-
+import { GoHeart, GoHeartFill } from "react-icons/go";
 import { getAllBoards } from "../../../api/board";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetAllBoards } from "../../../redux/action/boardAction";
@@ -15,6 +15,7 @@ const Bottom = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // Redux 스토어에서 게시글 데이터 가져오기
+  const token = useSelector((state) => state.login.token);
   const allBoards = useSelector((state) => state.board);
 
   useEffect(() => {
@@ -22,10 +23,10 @@ const Bottom = () => {
     // console.log("올보더스", allBoards);
     const fn = async () => {
       try {
-        const board = await getAllBoards("", 1, 10);
+        const board = await getAllBoards("", 1, 10, "", token);
 
-        // console.log("보드", board);
-        dispatch(actionGetAllBoards(board));
+        //console.log("보드", board);
+        dispatch(actionGetAllBoards(board.data));
       } catch (err) {
         console.log("err", err);
       }
@@ -153,7 +154,7 @@ const Bottom = () => {
                 <S.BottomBox $bgColor={boxBgColor} isEven={isOdd}>
                   <div>
                     <b>{board.nickname}</b>
-                    <p>{board.post}</p>
+                    <S.Post>{board.post}</S.Post>
                   </div>
                   <S.TagWrap>
                     <S.TagBox>{board.category}</S.TagBox>
@@ -182,10 +183,24 @@ const Bottom = () => {
                       <></> // 태그가 없는 경우 아무것도 표시하지 않음
                     )}
                   </S.TagWrap>
-                  <S.BsChat>
-                    <BsChat />
-                    <span>11</span>
-                  </S.BsChat>
+                  <S.CommentWrap>
+                    <S.LikedWrap>
+                      {board.isLiked ? (
+                        <GoHeartFill style={{ fontSize: "1.4rem" }} />
+                      ) : (
+                        <GoHeart style={{ fontSize: "1.4rem" }} />
+                      )}
+                      <S.CommentNum>{board.likeCount}</S.CommentNum>
+                    </S.LikedWrap>
+                    <BsChat
+                      style={{
+                        fontSize: "1.2rem",
+                        transform: "scaleX(-1)",
+                        marginRight: "1px",
+                      }}
+                    />
+                    <S.CommentNum>{board.commentCount}</S.CommentNum>
+                  </S.CommentWrap>
                 </S.BottomBox>
               </S.Bottom>
             );

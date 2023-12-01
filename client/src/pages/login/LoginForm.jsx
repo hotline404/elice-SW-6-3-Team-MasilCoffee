@@ -54,7 +54,7 @@ function LoginForm() {
   };
 
   return (
-    <Contents>
+    
       <form onSubmit={handleSubmit}>
         {visible ? <LoginMessage>이메일과 비밀번호를 확인 해주세요.</LoginMessage> : <LoginMessage></LoginMessage>}
         <InputBox>
@@ -87,7 +87,6 @@ function LoginForm() {
           <LinkTo there={{ name: "회원가입", to: ROUTES.REGISTER.path, target: true, rel: true }} />
         </ButtonBox>
       </form>
-    </Contents>
   );
 }
 

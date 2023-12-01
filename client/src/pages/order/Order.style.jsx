@@ -4,6 +4,7 @@ export const StyledOrder = styled.div`
   max-width: 1106px;
   width: 100%;
   margin: 100px auto;
+  font-family: "Noto Sans", sans-serif; // Noto Sans 폰트 적용
   /* box-sizing: border-box; */
 
   /* 슬라이더 slick */
@@ -26,9 +27,11 @@ export const StyledOrder = styled.div`
 
       button {
         padding: 20px 30px;
-        border: 1px solid #878585;
+        border: 1px solid #d9d9d9;
+        border-right: none;
         cursor: pointer;
         background-color: white;
+        font-size: 14px;
       }
       // 첫 번째 버튼 스타일
       .first-button {
@@ -40,6 +43,7 @@ export const StyledOrder = styled.div`
       .last-button {
         border-bottom-right-radius: 10px;
         border-top-right-radius: 10px;
+        border-right: 1px solid #d9d9d9;
       }
       .selected-button {
         background-color: #650818;

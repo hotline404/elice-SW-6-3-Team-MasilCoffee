@@ -1,16 +1,12 @@
-import axios from "axios";
+import { apiInstance, apiInstanceNonAuth } from "../interceptor/apiInstance";
+
+const postPaymentUrl = "/api/v1/order";
+const getAllPaymentUrl = "/api/v1/order/admin";
 
 //결제 정보 보내기
-export const postPayment = async (paymentData, token) => {
-  const headers = { headers: { Authorization: `Bearer ${token}` } };
-  console.log(paymentData);
+export const postPayment = async (paymentData) => {
   try {
-    const res = await axios.post(
-      "http://localhost:5000/api/v1/order",
-      paymentData,
-      headers
-    );
-    console.log("페이먼트 api의 레스.데이터.데이터", res.data);
+    const res = await apiInstance.post(postPaymentUrl, paymentData);
     return res.data.data;
   } catch (error) {
     console.error("error(postPayment)", error);
@@ -18,32 +14,22 @@ export const postPayment = async (paymentData, token) => {
 };
 
 // 전체주문 가져오기
-export const getAllPayment = async (token) => {
-  const headers = { headers: { Authorization: `Bearer ${token}` } };
-  const res = await axios.get(
-    "http://localhost:5000/api/v1/order/admin",
-    headers
-  );
+export const getAllPayment = async () => {
+  const res = await apiInstance.get(getAllPaymentUrl);
   const payments = res.data.data;
   return payments;
 };
 
 // 사용자 주문 내역 가져오기
-export const getPayment = async (token) => {
-  const headers = { headers: { Authorization: `Bearer ${token}` } };
-  const res = await axios.get("http://localhost:5000/api/v1/order", headers);
+export const getPayment = async () => {
+  const res = await apiInstance.get(postPaymentUrl);
   const payment = res.data.data;
   return payment;
 };
 
 // 주문정보 수정
-export const updatePayment = async (orderId, orderData, token) => {
-  const headers = { headers: { Authorization: `Bearer ${token}` } };
-  const res = await axios.put(
-    `http://localhost:5000/api/v1/order/${orderId}`,
-    orderData,
-    headers
-  );
+export const updatePayment = async (orderId, orderData) => {
+  const res = await apiInstance.put(`/api/v1/order/${orderId}`, orderData);
   const payment = res.data.data;
   return payment;
 };
@@ -51,9 +37,7 @@ export const updatePayment = async (orderId, orderData, token) => {
 // 주문 삭제
 export const deletePayment = async (orderId) => {
   try {
-    const res = await axios.delete(
-      `http://localhost:5000/api/v1/order/:orderId/${orderId}`
-    );
+    const res = await apiInstanceNonAuth.delete(`/api/v1/order/${orderId}`);
     const payment = res.data.data;
 
     return payment;

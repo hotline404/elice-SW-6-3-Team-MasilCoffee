@@ -1,6 +1,6 @@
 import axios from "axios";
 const apiInstance = axios.create({
-  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+  baseURL: "http://kdt-sw-6-team03.elicecoding.com",
 });
 
 console.log(

@@ -47,10 +47,11 @@ function SelectOption({ optionName }) {
 
   useEffect(() => {
     let rusultPrice = 0;
+    console.log("셀렉티드 오리진", origin);
     details.forEach((detail) => {
       rusultPrice +=
         detail.quantity *
-        origin.find((item) => item.name === detail.name).price;
+        origin.find((item) => item.name === detail.name).price; //오리진으로 가져와진 값에 시간 문자열 이 들어가져있어서 안됐었음....
     });
     setTotalPrice(rusultPrice);
   }, [details]);

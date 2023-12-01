@@ -1,15 +1,17 @@
-import axios from "axios";
-const loginUrl = "http://localhost:5000/api/v1/users/login";
-const logoutUrl = "http://localhost:5000/api/v1/users/logout";
-const checkLogin = "http://localhost:5000/api/v1/users/check-login";
+import { apiInstance, apiInstanceNonAuth } from "../interceptor/apiInstance";
+
+const loginUrl = "/api/v1/users/login";
+const logoutUrl = `/api/v1/users/logout`;
+const checkLogin = `/api/v1/users/check-login`;
 
 export const axiosPostLogin = async (email, password) => {
-  const loginBody = { email: email, password: password };
+  const body = { "email": email, "password": password };
+  console.log("body", body)
 
   try {
-    const res = await axios.post(loginUrl, loginBody);
+    const res = await apiInstanceNonAuth.post(loginUrl, body);
+    console.log("asdfasdfa", res)
     const data = res.data;
-
     return data;
   } catch (error) {
     // 에러가 발생한 경우 에러 메시지를 콘솔에 출력
@@ -17,14 +19,13 @@ export const axiosPostLogin = async (email, password) => {
   }
 };
 
-export const axiosPostLogout = async (token, userEmail) => {
-  const logOutHeader = { headers: { Authorization: `Bearer ${token}` } };
+export const axiosPostLogout = async (userEmail) => {
   const body = {
     email: `${userEmail}`,
   };
 
   try {
-    const res = await axios.post(logoutUrl, body, logOutHeader);
+    const res = await apiInstance.post(logoutUrl, body);
     const data = res.data;
 
     return data;
@@ -34,11 +35,10 @@ export const axiosPostLogout = async (token, userEmail) => {
   }
 };
 
-export const getCheckLogin = async (token) => {
-  const checkerHeaders = { headers: { Authorization: `Bearer ${token}` } };
+export const getCheckLogin = async () => {
 
   try {
-    const res = await axios.get(checkLogin, checkerHeaders);
+    const res = await apiInstance.get(checkLogin);
     const data = res.data;
 
     return data;

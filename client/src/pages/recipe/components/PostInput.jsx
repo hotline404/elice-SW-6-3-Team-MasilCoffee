@@ -1,11 +1,9 @@
-import React, { useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
 import { Wrap, SearchInput } from "../Recipe.style";
 import SquareButton from "../../../components/ui/button/SquareButton";
-import { actionSearchBoards } from "../../../redux/action/boardAction";
+
 
 const PostInput = ( props ) => {
-  const dispatch = useDispatch();
   const [query, setQuery] = useState("");
 
   const handleChange = (e) => {
@@ -14,15 +12,23 @@ const PostInput = ( props ) => {
 
   const handleClick = () => {
     if (props.onInsert) { //Recipe.jsx 검색
-      dispatch(actionSearchBoards(query));
+      if (query.trim() !== "" && query.trim().length < 2) {
+        alert("검색어는 두 글자 이상 적어주세요.");
+        return;
+      }
       props.onInsert(query);
-    } else { //댓글
-      console.log("댓글: ", query);
+    } else { //댓글 작성
+      if (query.trim() === "") {
+        alert("댓글을 작성해주세요.");
+        return;
+      }
+      props.onComment(query, props.post._id, "add");
+      setQuery("");
     }
   }
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
+    if (props.onInsert && e.key === "Enter") {
       handleClick();
     }
   }

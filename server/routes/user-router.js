@@ -170,7 +170,7 @@ UserRouter.delete(
   "/",
   JwtMiddleware.checkToken,
   asyncHandler(async (req, res) => {
-    const user = await userService.deleteUser(req.tokenData._Id);
+    const user = await userService.deleteUser(req.tokenData._id);
     ResponseHandler.respondWithSuccess(res, user);
   })
 );

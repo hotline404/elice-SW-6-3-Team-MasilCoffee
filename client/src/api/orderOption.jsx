@@ -1,34 +1,45 @@
-import axios from "axios";
+import { apiInstance } from "./interceptor/apiInstance";
 
 export const getAllOptions = async () => {
-  // api 경로 생기면 수정하기
-  const res = await axios.get("http://localhost:5000/api/v1/option");
-  const options = res.data.data;
-  return options;
-};
-
-export const getOption = async (id) => {
-  // api 경로 생기면 수정하기
-  const res = await axios.get(`http://localhost:5000/api/v1/option/${id}`);
-  const option = res.data.data;
-  return option;
+  try {
+    const res = await apiInstance.get("/api/v1/orderOption");
+    if (res?.data?.data[0]) {
+      return res.data.data[0];
+    }
+  } catch (err) {
+    console.log("getAllOptions-err", err);
+  }
 };
 
 export const createOption = async (data) => {
-  const res = await axios.post("http://localhost:5000/api/v1/option/", data);
-  const newOption = res.data.data;
-  return newOption;
+  try {
+    const res = await apiInstance.post("/api/v1/orderOption", data);
+    if (res?.data?.data) {
+      return res.data.data;
+    }
+  } catch (err) {
+    console.log("createOption-err", err);
+  }
 };
 
 export const updateOption = async (id, data) => {
-  const res = await axios.put(`http://localhost:5000/api/v1/option/${id}`, data);
-  const option = res.data.data;
-  return option;
+  try {
+    const res = await apiInstance.put(`/api/v1/orderOption/${id}`, data);
+    if (res?.data?.data) {
+      return res.data.data;
+    }
+  } catch (err) {
+    console.log("updateOption-err", err);
+  }
 };
 
 export const deleteOption = async (id) => {
-  const res = await axios.delete(`http://localhost:5000/api/v1/option/${id}`);
-  const options = res.data.data;
-  console.log("deleted", res, options);
-  return options;
+  try {
+    const res = await apiInstance.delete(`/api/v1/orderOption/${id}`);
+    if (res?.data?.data) {
+      return res.data.data;
+    }
+  } catch (err) {
+    console.log("deleteOption-err", err);
+  }
 };

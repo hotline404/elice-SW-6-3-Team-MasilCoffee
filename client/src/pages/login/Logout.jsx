@@ -19,10 +19,11 @@ function Logout() {
   const dispatch = useDispatch();
   const token = useSelector(state => state.login.token)
   const user = useSelector(state => state.user.email)
+  
 
-  const axiosLogout = async (token, userEmail) => {
+  const axiosLogout = async (userEmail) => {
     try {
-    const logout = await axiosPostLogout(token, userEmail);
+    const logout = await axiosPostLogout(userEmail);
     
     return logout
     } catch (err) {
@@ -31,13 +32,17 @@ function Logout() {
   }
 
   const handleLogout = () => {
-    axiosLogout(token, user);
+    axiosLogout(user);
 
     localStorage.removeItem("token");
     dispatch(actionLogout());
     dispatch(removeUser())
 
-    nav(ROUTES.MAIN.path);
+    window.addEventListener('popstate', () => {
+      window.history.pushState(null, null, ROUTES.MAIN.path);
+    });
+  
+    window.location.replace(ROUTES.MAIN.path);
   };
 
   return (

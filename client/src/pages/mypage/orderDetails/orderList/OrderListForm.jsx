@@ -2,6 +2,7 @@ import React from 'react';
 import *as S from "../../style/OrderDetails.style";
 
 function OrderListForm({orders}) {
+ 
   return (
     <div>
       {orders.map((order) => {

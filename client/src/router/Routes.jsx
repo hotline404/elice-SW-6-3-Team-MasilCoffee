@@ -92,13 +92,13 @@ export const ROUTES = {
   },
 
   MYPAGE: {
-    path: "/myPage",
-    link: "/myPage",
+    path: "/mypage",
+    link: "/mypage",
     element: <MyPage />,
   },
   USERINFOCHANGE: {
     path: "/mypage/userInfoChange",
-    link: "/mypage/userInfoChange/:user_id/:email",
+    link: "/mypage/userInfoChange/:email",
     element: <UserInfoChange />,
   },
   CONFIRMPASSWORD: {

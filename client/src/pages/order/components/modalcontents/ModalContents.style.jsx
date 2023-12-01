@@ -75,8 +75,7 @@ export const StyleSlideBox = styled.div.withConfig({
 })`
   max-height: ${({ isSlideOpen }) => (isSlideOpen ? "258px" : "0")};
   transition: max-height 0.5s ease-in-out;
-  max-height: ${(props) =>
-    props.isSlideOpen ? "300px" : "0"}; // 예시로 300px 설정
+  max-height: ${(props) => (props.isSlideOpen ? "300px" : "0")}; // 예시로 300px 설정
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -100,7 +99,7 @@ export const StyleSlideBoxText = styled.div`
 `;
 
 export const StyleButton = styled.div`
-  margin-top: 70px;
+  margin-top: 60px;
 `;
 
 // 디테일 옵션

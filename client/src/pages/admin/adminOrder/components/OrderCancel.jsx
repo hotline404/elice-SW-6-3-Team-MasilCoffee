@@ -19,7 +19,7 @@ const OrderCancel = ({ closeModal, orderId }) => {
     const fn = async () => {
       try {
         const updateStatus = { status: selectedReason };
-        const updatedData = await updatePayment(orderId, updateStatus, token);
+        const updatedData = await updatePayment(orderId, updateStatus);
         dispatch(actionUpdateOrder(updatedData));
       } catch (err) {
         console.log("err", err);

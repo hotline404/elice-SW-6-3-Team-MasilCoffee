@@ -19,7 +19,8 @@ const Admin = () => {
   const [page, setPage] = useState(1);
 
   const pageConst = {
-    totalCount: currTab === "접수 대기" ? receiptedOrder.length : completedOrder.length,
+    totalCount:
+      currTab === "접수 대기" ? receiptedOrder.length : completedOrder.length,
     pageSize: 5,
     siblingCount: 1,
     currentPage: page,
@@ -40,7 +41,7 @@ const Admin = () => {
   useEffect(() => {
     const fn = async () => {
       try {
-        const orders = await getAllPayment(token);
+        const orders = await getAllPayment();
         dispatch(actionGetAllOrders(orders));
       } catch (err) {
         console.log("err", err);
@@ -75,7 +76,11 @@ const Admin = () => {
             <div>
               {pageArr.map((arr) => {
                 return (
-                  <Orders.PaginationItem name={arr} href="#" onClick={handleClick}>
+                  <Orders.PaginationItem
+                    name={arr}
+                    href="#"
+                    onClick={handleClick}
+                  >
                     {arr}
                   </Orders.PaginationItem>
                 );

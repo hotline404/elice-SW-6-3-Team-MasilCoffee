@@ -78,3 +78,12 @@ export const TagBox = styled.span`
   font-size: 0.8rem;
   white-space: nowrap;
 `;
+
+//댓글 수정 input
+export const InputStyled = styled.input`
+  width: 100%;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+`;

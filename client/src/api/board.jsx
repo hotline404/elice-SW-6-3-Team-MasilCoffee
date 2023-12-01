@@ -12,7 +12,7 @@ export const getAllBoards = async (category, currentPage, pageSize, search) => {
           `/api/v1/boards/search?currentPage=${currentPage}&pageSize=${pageSize}&search=${search}`
         );
 
-    const boards = res.data.data.data;
+    const boards = res.data.data;
 
     return boards;
   } catch (error) {

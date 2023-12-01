@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import * as S from "./style/Post.style";
 import { Container } from "../Recipe.style";
@@ -69,20 +69,29 @@ const CommentList = ({ comment, onComment }) => {
               </S.EditDelete>
             </S.EditDeleteWrap>
           )}
+          {isEditing && comment.author._id === userId && (
+            <S.EditDeleteWrap>
+              <S.EditDelete onClick={(e) => handleEdit(e, comment._id)}>
+                수정
+              </S.EditDelete>
+              <span>│</span>
+              <S.EditDelete onClick={(e) => handleCancel(e, comment._id)}>
+                취소
+              </S.EditDelete>
+            </S.EditDeleteWrap>
+          )}
           {isEditing ? (
-            <div>
-              <input
+            <div style={{ margin: "10px 0" }}>
+              <S.InputStyled
                 type="text"
                 defaultValue={comment.comment || ""}
                 onChange={handleChange}
               />
-              <button onClick={(e) => handleEdit(e, comment._id)}>수정</button>
-              <button onClick={(e) => handleCancel(e, comment._id)}>
-                취소
-              </button>
             </div>
           ) : (
-            <div>{comment.comment}</div>
+            <div style={{ margin: "15px 0" }}>
+              {comment.comment}
+            </div>
           )}
         </div>
       </Container>

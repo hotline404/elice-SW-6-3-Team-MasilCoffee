@@ -39,3 +39,11 @@ export const actionRemoveBoard = (boardId) => {
     payload: boardId,
   };
 };
+
+//좋아요
+export const actionUpdateLike = (boardId, type) => {
+  return {
+    type: BOARD_TYPE.UPDATE_LIKE,
+    payload: {boardId, type},
+  };
+}

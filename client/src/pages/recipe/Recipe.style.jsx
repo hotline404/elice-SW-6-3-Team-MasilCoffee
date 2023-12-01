@@ -3,21 +3,28 @@ import { Link } from "react-router-dom";
 
 //배경
 export const Background = styled.div`
-  background: #8e0e28;
+  background: #d9d9d9;
   min-height: 100vh;
+
+  @media all and (min-width: 1023px) {
+    padding: 50px 0;
+  }
 `;
 
 //배경위에 흰색 배경
 export const ContainerWrap = styled.div`
   background: white;
-  width: 70vw;
+  width: 100vw;
   min-height: 100vh;
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 30px 0;
+  padding-top: 30px;
+  border-radius: 0px;
+  overflow: hidden; /* 자식이 부모의 border-radius를 따라가도록 함 */
 
-  @media all and (max-width: 1023px) {
-    width: 100vw;
+  @media all and (min-width: 1023px) {
+    width: 70vw;
+    border-radius: 30px 0px 30px 0px;
   }
 `;
 
@@ -119,4 +126,21 @@ export const PostWrap = styled.div`
 export const StyledLink = styled(Link)`
   color: black;
   text-decoration: none;
+`;
+
+export const ShowMore = styled.button`
+  border: none;
+  width: inherit;
+  height: 50px;
+  text-align: center;
+  background: #878585;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+
+  &:hover {
+    background: #4f4f4f;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
 `;

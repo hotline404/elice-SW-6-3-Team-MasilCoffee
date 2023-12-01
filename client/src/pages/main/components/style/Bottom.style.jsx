@@ -82,3 +82,27 @@ export const TagWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
+
+//댓글, 좋아요 감싸는 div
+export const CommentWrap = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+`;
+
+// 좋아요 div
+export const LikedWrap = styled.div`
+  display: flex;
+  cursor: pointer;
+  color: ${({ liked }) => (liked ? "red" : "black")};
+
+  &:hover {
+    color: red;
+  }
+`;
+
+//댓글, 좋아요 갯수
+export const CommentNum = styled.span`
+  margin-left: 3px;
+  width: 40px;
+`;

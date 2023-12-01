@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export const StyledOrderList = styled.div`
- font-family: 'Noto Sans', sans-serif; // Noto Sans 폰트 적용
+  font-family: "Noto Sans", sans-serif; // Noto Sans 폰트 적용
   > i {
     display: block;
     width: 100%;
 
-    border: 2px solid #8e0e28;
+    border: 2px solid #472e27;
   }
 `;
 
@@ -14,7 +14,7 @@ export const StyledOrderListMenu = styled.div`
   > i {
     display: block;
     width: 100%;
-    border: 1px solid #8e0e28;
+    border: 1px solid #472e27;
   }
 `;
 export const StyledOrderListMenuBox = styled.div`
@@ -57,7 +57,7 @@ export const StyledAmountPayment = styled.div`
     display: block;
     width: 100%;
 
-    border: 2px solid #8e0e28;
+    border: 2px solid #472e27;
   }
 `;
 export const StyledOrderListMenuText = styled.div`

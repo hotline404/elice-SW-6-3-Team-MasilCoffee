@@ -5,13 +5,13 @@ export const StyledPaymentcontainer = styled.div`
   margin: 0 auto;
   width: 100vw;
   height: 100vh;
-  background-color: #8e0e28;
+  background-color: #d9d9d9;
   overflow: auto;
 `;
 
 export const StyledPaymentBox = styled.div`
   margin-top: 100px;
-  margin: 0 auto;
+  margin: 100px auto;
   width: 80%;
   // 뷰포트 너비가 1024px 이하일 때
   @media (max-width: 1024px) {
@@ -72,7 +72,7 @@ export const StyledActionBg = styled.div`
   justify-content: center;
   align-items: center;
   color: white;
-  background-color: #650818;
+  background-color: #472e27;
 `;
 
 export const StyledPayment = styled.div`
@@ -119,14 +119,14 @@ export const StyledOrderList = styled.div`
     display: block;
     width: 100%;
 
-    border: 2px solid #8e0e28;
+    border: 2px solid #472e27;
   }
 `;
 export const StyledOrderListMenu = styled.div`
   > i {
     display: block;
     width: 100%;
-    border: 1px solid #8e0e28;
+    border: 1px solid #472e27;
   }
 `;
 export const StyledOrderListMenuBox = styled.div`
@@ -164,6 +164,6 @@ export const StyledAmountPayment = styled.div`
     display: block;
     width: 100%;
 
-    border: 2px solid #8e0e28;
+    border: 2px solid #472e27;
   }
 `;

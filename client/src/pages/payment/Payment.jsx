@@ -34,7 +34,7 @@ const Payment = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.login.token);
+  // const token = useSelector((state) => state.login.token);
 
   // 수령 방법을 관리하는 상태
   const [delivery, setDelivery] = useState("");

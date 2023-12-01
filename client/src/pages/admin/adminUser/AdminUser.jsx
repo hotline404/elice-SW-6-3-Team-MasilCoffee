@@ -13,7 +13,7 @@ import { axiosDelAdmin } from "../../../api/user/user";
 
 const AdminUser = ({ trData }) => {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.login.token);
+  //const token = useSelector((state) => state.login.token);
   const [page, setPage] = useState(1);
   const [showUserModal, setShowUserModal] = useState(false);
   const [modifyUser, setModifyUser] = useState(undefined);
@@ -23,7 +23,7 @@ const AdminUser = ({ trData }) => {
   useEffect(() => {
     const fn = async () => {
       try {
-        const getUsers = await axiosGetUsers(token);
+        const getUsers = await axiosGetUsers();
         dispatch(initUserSearch(getUsers.users));
       } catch (err) {
         console.log("err", err);
@@ -70,7 +70,7 @@ const AdminUser = ({ trData }) => {
       if (isDeleted) {
         const fn = async () => {
           try {
-            await axiosDelAdmin(token, selectedUserId);
+            await axiosDelAdmin(selectedUserId);
             dispatch(deleteUser(selectedUserId));
           } catch (err) {
             console.log("err", err);

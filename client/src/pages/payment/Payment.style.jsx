@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const StyledPaymentcontainer = styled.div`
+ font-family: 'Noto Sans', sans-serif; // Noto Sans 폰트 적용
   box-sizing: border-box;
   margin: 0 auto;
   width: 100vw;

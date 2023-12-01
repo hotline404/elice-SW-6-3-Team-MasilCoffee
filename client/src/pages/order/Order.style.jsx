@@ -4,6 +4,7 @@ export const StyledOrder = styled.div`
   max-width: 1106px;
   width: 100%;
   margin: 100px auto;
+  font-family: "Noto Sans", sans-serif; // Noto Sans 폰트 적용
   /* box-sizing: border-box; */
 
   /* 슬라이더 slick */

@@ -28,7 +28,7 @@ const OrderReceipt = ({ data }) => {
       const fn = async () => {
         try {
           const updateStatus = { status: "제조완료" };
-          const updatedData = await updatePayment(_id, updateStatus, token);
+          const updatedData = await updatePayment(_id, updateStatus);
           console.log("updatedData", updatedData);
           dispatch(actionUpdateOrder(updatedData));
         } catch (err) {

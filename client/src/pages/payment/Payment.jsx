@@ -154,7 +154,7 @@ const Payment = () => {
     // 사용자가 '확인'을 누른 경우, PaymentDone 페이지로 이동
     if (isConfirmed) {
       try {
-        const newPayment = await postPayment(paymentBody, token);
+        const newPayment = await postPayment(paymentBody);
         dispatch(actionAddPayment(newPayment));
         console.log("뉴페이먼트", newPayment);
         dispatch(

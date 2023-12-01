@@ -31,33 +31,56 @@ const board = (state = initialState, action) => {
       return {
         ...state,
         boards: [...state.boards, action.payload],
+        searchBoards: [...state.boards, action.payload],
       };
 
     //게시글 수정하기
     case BOARD_TYPE.UPDATE_BOARD:
       const updateBoard = action.payload;
-      const updatedBoards = state.boards.map((board) => board._id === updateBoard._id ? updateBoard : board);
+      const updatedBoards = state.boards.map((board) =>
+        board._id === updateBoard._id ? updateBoard : board
+      );
 
       return {
         ...state,
         board: [updateBoard],
         boards: [updatedBoards],
+        searchBoards: [updatedBoards],
       };
 
     //게시글 삭제하기
     case BOARD_TYPE.REMOVE_BOARD:
       const deletedBoardId = action.payload;
-      const filteredBoards = state.boards.filter((board) => board._id !== deletedBoardId);
+      const filteredBoards = state.boards.filter(
+        (board) => board._id !== deletedBoardId
+      );
 
       return {
         ...state,
         boards: [filteredBoards],
+        searchBoards: [filteredBoards],
+      };
+    
+    //좋아요
+    case BOARD_TYPE.UPDATE_LIKE:
+      const { boardId, type } = action.payload;
+      const filteredBoard = state.boards.map((board) => {
+        if (board._id === boardId) {
+          return {
+            ...board,
+            likeCount: type === "create" ? board.likeCount + 1 : board.likeCount - 1,
+            isLiked: type === "create" ? true : false
+          }
+        } return board
+      });
+      
+      return {
+        ...state,
+        boards : filteredBoard,
+        searchBoards : filteredBoard
       };
 
-      case BOARD_TYPE.GET_MY_BOARDS:
-        
-
-    default:
+      default:
       return state;
   }
 };

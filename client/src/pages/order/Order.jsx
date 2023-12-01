@@ -34,6 +34,9 @@ const Order = () => {
   }, []);
 
   useEffect(() => {
+    if (user.name === "") {
+      user.recipe = [];
+    }
     if (user.recipe[0] !== undefined && user.recipe[0] !== null && productsFromState.length > 0) {
       console.log("유즈이펙트안에 오더 페이지의 유저", user);
       const getProducts = user.recipe.map((data) => {

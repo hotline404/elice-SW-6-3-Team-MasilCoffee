@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Background, ContainerWrap, Container, Title } from "../Recipe.style";
 import * as S from "./RecipeWrite.style";
 import CategoryButton from "../components/CategoryButton";
@@ -9,6 +9,7 @@ import SquareButton from "../../../components/ui/button/SquareButton";
 import KeywordInput from "../components/KeywordInput";
 import { addBoard, updateBoard } from "../../../api/board";
 import { actionAddBoard, actionUpdateBoard } from "../../../redux/action/boardAction";
+import { getBoard } from "../../../api/board";
 
 const RecipeWrite = () => {
   const navigate = useNavigate();
@@ -19,18 +20,25 @@ const RecipeWrite = () => {
   const [post, setPost] = useState("");
   const [keywords, setKeywords] = useState([]);
   const [images, setImages] = useState([]);
-  const boardData = useSelector((state) => state.board.board[0]);
-  const initialEditBoard = boardId
-    ? boardData
-    : {
-        category: "",
-        post: "",
-        tags: [],
-        image: "",
-      };
-  const [editBoard, setEditBoard] = useState(initialEditBoard);
+  const [editBoard, setEditBoard] = useState({
+    category: "",
+    post: "",
+    tags: [],
+    image: "",
+  });
 
   useEffect(() => {
+    if (boardId) {
+      const fn = async () => {
+        try {
+          const board = await getBoard(boardId);
+          setEditBoard(board);
+        } catch (err) {
+          console.log("err", err);
+        }
+      };
+      fn(); 
+    }
     window.scrollTo(0, 0);
   }, []);
 
@@ -101,7 +109,7 @@ const RecipeWrite = () => {
           <KeywordInput
             keywords={keywords}
             setKeywords={setKeywords}
-            defaultValue={editBoard.tags || ""}
+            defaultValue={editBoard.tags || []}
           />
           <FileUpload
             images={images}

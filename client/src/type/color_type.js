@@ -5,6 +5,8 @@ export const back_ground_color = {
 }
 
 export const txt_color = {
-  main_color : "#8e0e28",
-  sub_color : "#f5f5f5"
+  main_color : "#f5f5f5",
+  sub_color : "black",
+  admin_color : "#f5f5f5"
+  
 }

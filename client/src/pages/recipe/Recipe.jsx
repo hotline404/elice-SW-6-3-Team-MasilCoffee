@@ -74,7 +74,7 @@ const Recipe = () => {
             PAGE_SIZE={PAGE_SIZE}
             input={{
               type: "text",
-              placeholder: "검색어(닉네임/게시글/키워드)를 두 글자 이상 입력하세요.",
+              placeholder: "검색어(닉네임/게시글/태그)를 두 글자 이상 입력하세요.",
             }}
             button={{
               text: "검색",

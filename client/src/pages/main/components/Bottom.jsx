@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import * as S from "../components/style/Bottom.style";
 import SquareButton from "../../../components/ui/button/SquareButton";
 import { BsChat } from "react-icons/bs";
-
+import { GoHeart, GoHeartFill } from "react-icons/go";
 import { getAllBoards } from "../../../api/board";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetAllBoards } from "../../../redux/action/boardAction";
@@ -182,10 +182,24 @@ const Bottom = () => {
                       <></> // 태그가 없는 경우 아무것도 표시하지 않음
                     )}
                   </S.TagWrap>
-                  <S.BsChat>
-                    <BsChat />
-                    <span>11</span>
-                  </S.BsChat>
+                  <S.CommentWrap>
+                    <S.LikedWrap>
+                      {board.isLiked ? (
+                        <GoHeartFill style={{ fontSize: "1.4rem" }} />
+                      ) : (
+                        <GoHeart style={{ fontSize: "1.4rem" }} />
+                      )}
+                      <S.CommentNum>{board.likeCount}</S.CommentNum>
+                    </S.LikedWrap>
+                    <BsChat
+                      style={{
+                        fontSize: "1.2rem",
+                        transform: "scaleX(-1)",
+                        marginRight: "1px",
+                      }}
+                    />
+                    <S.CommentNum>{board.commentCount}</S.CommentNum>
+                  </S.CommentWrap>
                 </S.BottomBox>
               </S.Bottom>
             );

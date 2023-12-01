@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const StyleText = styled.div`
+  font-family: "Noto Sans", sans-serif; // Noto Sans 폰트 적용
   box-sizing: border-box;
   display: flex;
   width: 510px;

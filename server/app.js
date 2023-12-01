@@ -31,7 +31,7 @@ mongoose
 //router
 app.use("/api/v1", PingRouter);
 app.use("/api/v1/products", ProductRouter);
-app.use("/api/v1/boards", BoardRouter);
+app.use("/api/boards", BoardRouter);
 app.use("/api/v1/users", UserRouter);
 app.use("/api/v1/comment", CommentRouter);
 app.use("/api/v1/like", LikeRouter);

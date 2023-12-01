@@ -23,6 +23,11 @@ const product = (state = initialState, action) => {
         products: action.payload,
         tableData: action.payload.map(formatProductForTable),
       };
+    case PRODUCT_TYPE.GET_CATEGORY_PRODUCTS:
+      return {
+        ...state,
+        tableData: action.payload.map(formatProductForTable),
+      };
     case PRODUCT_TYPE.ADD_PRODUCT:
       const newProduct = [...state.products, action.payload];
       return {
@@ -40,7 +45,7 @@ const product = (state = initialState, action) => {
       };
     case PRODUCT_TYPE.DELETE_PRODUCT:
       const deletedProductId = action.payload;
-      const filteredProducts = state.products.filter((product) => product.id !== deletedProductId);
+      const filteredProducts = state.products.filter((product) => product._id !== deletedProductId);
       return {
         ...state,
         products: filteredProducts,

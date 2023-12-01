@@ -8,6 +8,7 @@ export const StyledOrderList = styled.div`
     border: 2px solid #8e0e28;
   }
 `;
+
 export const StyledOrderListMenu = styled.div`
   > i {
     display: block;

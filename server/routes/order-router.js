@@ -14,7 +14,6 @@ OrderRouter.post(
       const userIdFromToken = req.tokenData._id;
       const ordered = req.body;
       const orderData = { ...ordered, user: userIdFromToken };
-      console.log("orderData", orderData);
       const newOrder = await OrderService.createOrder(orderData);
       ResponseHandler.respondWithSuccess(res, newOrder);
     } catch (error) {
@@ -34,7 +33,11 @@ OrderRouter.get(
       const orders = await OrderService.getAllOrders();
       ResponseHandler.respondWithSuccess(res, orders);
     } catch (err) {
-      ResponseHandler.respondWithError(res, 500, "주문 정보를 가져오는 중 오류가 발생했습니다.");
+      ResponseHandler.respondWithError(
+        res,
+        500,
+        "주문 정보를 가져오는 중 오류가 발생했습니다."
+      );
     }
   })
 );
@@ -49,7 +52,11 @@ OrderRouter.get(
       const order = await OrderService.getOrderById(userIdFromToken);
       ResponseHandler.respondWithSuccess(res, order);
     } catch (err) {
-      ResponseHandler.respondWithError(res, 500, "사용자의 주문 정보를 가져오는 중 오류가 발생했습니다.");
+      ResponseHandler.respondWithError(
+        res,
+        500,
+        "사용자의 주문 정보를 가져오는 중 오류가 발생했습니다."
+      );
     }
   })
 );
@@ -69,7 +76,11 @@ OrderRouter.put(
       }
       ResponseHandler.respondWithSuccess(res, updatedOrder);
     } catch (err) {
-      ResponseHandler.respondWithError(res, 500, "주문 정보를 수정하는 중 오류가 발생했습니다.");
+      ResponseHandler.respondWithError(
+        res,
+        500,
+        "주문 정보를 수정하는 중 오류가 발생했습니다."
+      );
     }
   })
 );
@@ -88,7 +99,11 @@ OrderRouter.delete(
       }
       ResponseHandler.respondWithSuccess(res, deletedOrder);
     } catch (err) {
-      ResponseHandler.respondWithError(res, 500, "주문 정보를 삭제하던 중 오류가 발생했습니다.");
+      ResponseHandler.respondWithError(
+        res,
+        500,
+        "주문 정보를 삭제하던 중 오류가 발생했습니다."
+      );
     }
   })
 );

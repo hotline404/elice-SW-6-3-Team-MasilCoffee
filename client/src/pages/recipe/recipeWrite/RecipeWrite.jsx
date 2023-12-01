@@ -1,52 +1,60 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Background, ContainerWrap, Container, Title } from "../Recipe.style";
 import * as S from "./RecipeWrite.style";
 import CategoryButton from "../components/CategoryButton";
 import FileUpload from "../components/FileUpload";
 import SquareButton from "../../../components/ui/button/SquareButton";
 import KeywordInput from "../components/KeywordInput";
-import { addBoard, updateBoard, getBoard } from "../../../api/board";
+import { addBoard, updateBoard } from "../../../api/board";
 import { actionAddBoard, actionUpdateBoard } from "../../../redux/action/boardAction";
+import { getBoard } from "../../../api/board";
 
 const RecipeWrite = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const boardId = location.state && location.state.post;
-  const token = useSelector((state) => state.login.token);
-  console.log(boardId)
   const [category, setCategory] = useState("");
   const [post, setPost] = useState("");
   const [keywords, setKeywords] = useState([]);
   const [images, setImages] = useState([]);
-  const [editBoard, setEditBoard] = useState("");
+  const [editBoard, setEditBoard] = useState({
+    category: "",
+    post: "",
+    tags: [],
+    image: "",
+  });
 
   useEffect(() => {
-    // if (boardId) {
-    //   const fn = async () => {
-    //     try {
-    //       const board = await getBoard(boardId);
-    //       setEditBoard(board);
-    //       console.log("board", board);
-    //       console.log(editBoard)
-    //     } catch (err) {
-    //       console.log("err", err);
-    //     }
-    //   };
-    //   fn();
-    // }
+    if (boardId) {
+      const fn = async () => {
+        try {
+          const board = await getBoard(boardId);
+          setEditBoard(board);
+        } catch (err) {
+          console.log("err", err);
+        }
+      };
+      fn(); 
+    }
+    window.scrollTo(0, 0);
   }, []);
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!boardId && post.trim() === "") {
+      alert("게시글을 작성해주세요.");
+      return;
+    }
 
     const formData = new FormData();
     const keywordText = keywords.map((keyword) => keyword.text); //keywords에 text만 추출
 
-    formData.append("category", category);
-    formData.append("post", post);
+    if(category) formData.append("category", category);
+    if(post) formData.append("post", post);
     keywordText.forEach((keyword) => {
       formData.append("tags", keyword);
     })
@@ -64,16 +72,15 @@ const RecipeWrite = () => {
           const updatedBoard = await updateBoard(boardId, formData);
           console.log("update", updatedBoard);
           dispatch(actionUpdateBoard(updatedBoard));
+          navigate(`/RecipeView/${boardId}`);
         } catch (error) {
           console.error("RecipeWrite.jsx - update", error);
         }
       } else { //게시글 작성
         try {
-          const newBoard = await addBoard(token, formData);
+          const newBoard = await addBoard(formData);
           console.log("add", newBoard);
           dispatch(actionAddBoard(newBoard));
-
-          alert("게시글이 등록되었습니다.");
           navigate("/Recipe");
         } catch (error) {
           console.error("RecipeWrite.jsx - add", error);
@@ -102,7 +109,7 @@ const RecipeWrite = () => {
           <KeywordInput
             keywords={keywords}
             setKeywords={setKeywords}
-            defaultValue={editBoard.tags || ""}
+            defaultValue={editBoard.tags || []}
           />
           <FileUpload
             images={images}

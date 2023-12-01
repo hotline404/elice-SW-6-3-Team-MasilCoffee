@@ -1,15 +1,28 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import * as S from "../recipeWrite/RecipeWrite.style";
 import SquareButton from "../../../components/ui/button/SquareButton";
 import { AiTwotoneCloseCircle } from "react-icons/ai";
 
 const ALLOW_FILE_EXTENSION = ["image/jpeg", "image/jpg", "image/png", "image/gif"]; //허용 가능한 확장자 목록
-const FILE_SIZE_MAX_LIMIT = 5 * 1024 * 1024; //5MB
+const FILE_SIZE_MAX_LIMIT = 5 * 1024 * 1024; //이미지 별 최대 용량 (5MB)
 
 const PostFile = ({ images, setImages, defaultValue }) => {
   const [fileImages, setFileImages] = useState([]); //업로드 이미지 미리보기
-  const [totalSize, setTotalSize] = useState(0); //총 파일 크기를 관리
   const fileInput = useRef(null); //파일 입력 요소에 대한 ref 생성
+
+  useEffect(() => {
+    if (defaultValue) { //게시글 수정
+      let imageArr = [];
+      defaultValue.forEach((image, index) => {
+        imageArr.push({
+          dataURL: image,
+          fileName: `image${index}`
+        });
+      });
+      setFileImages(imageArr);
+      setImages(defaultValue);
+    }
+  }, []);
 
   //파일 업로드 버튼 클릭 시 파일 입력 요소 클릭 이벤트 발생
   const handleButtonClick = (e) => {
@@ -27,32 +40,23 @@ const PostFile = ({ images, setImages, defaultValue }) => {
         let file = fileArr[i]; //현재 순서의 파일을 file 변수에 할당
         
         if (ALLOW_FILE_EXTENSION.includes(file.type)) {
-          if (totalSize + file.size <= FILE_SIZE_MAX_LIMIT) {
-            let reader = new FileReader();
-
-            
-            reader.onload = () => {
-              newFileImages.push({
-                dataURL: reader.result,
-                fileName: file.name,
-                size: file.size,
-              }); //파일의 데이터 URL을 배열에 추가
-              setTotalSize((prevTotalSize) => prevTotalSize + file.size);
-              setFileImages(newFileImages);
-
-              setImages((prevImages) => [...prevImages, file]);
-            };
-            //현재 순서의 파일을 읽어서 데이터 URL로 변환
-            reader.readAsDataURL(file);
-          } else {
-            alert(
-              "총 파일의 크기가 5MB를 초과합니다.\n파일을 다시 첨부해주세요."
-            );
-            setTotalSize(0);
-            setFileImages([]);
-            setImages([]);
+          if (file.size > FILE_SIZE_MAX_LIMIT) {
+            alert("5MB를 초과하는 이미지는 업로드할 수 없습니다.\n파일을 다시 업로드해주세요.");
             break;
           }
+          let reader = new FileReader();
+
+          reader.onload = () => {
+            newFileImages.push({
+              dataURL: reader.result,
+              fileName: file.name,
+            }); //파일의 데이터 URL을 배열에 추가
+            setFileImages(newFileImages);
+
+            setImages((prevImages) => [...prevImages, file]);
+          };
+          //현재 순서의 파일을 읽어서 데이터 URL로 변환
+          reader.readAsDataURL(file);
         }
       }
     } else {
@@ -65,9 +69,7 @@ const PostFile = ({ images, setImages, defaultValue }) => {
     const deletedFileImage = updatedFileImages.splice(index, 1)[0];
     setFileImages(updatedFileImages);
 
-    setImages((prevImages) => prevImages.filter((image) => image.name !== deletedFileImage.fileName));
-    // 삭제한 이미지의 크기만큼 총 파일 크기에서 감소
-    setTotalSize((prevTotalSize) => prevTotalSize - deletedFileImage.size);
+    setImages((prevImages) => prevImages.filter((image) => image !== deletedFileImage.dataURL));
   };
 
   return (

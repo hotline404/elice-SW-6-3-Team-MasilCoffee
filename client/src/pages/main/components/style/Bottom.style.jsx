@@ -98,10 +98,11 @@ export const LikedWrap = styled.div`
 //댓글, 좋아요 갯수
 export const CommentNum = styled.span`
   margin-left: 3px;
-  width: 40px;
+  width: 30px;
 `;
 
 export const Post = styled.p`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+`;

@@ -12,15 +12,13 @@ import sliceTen from "../../../util/forPagenation/sliceTen";
 
 const Admin = () => {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.login.token);
   const receiptedOrder = useSelector((state) => state.payment.receipted);
   const completedOrder = useSelector((state) => state.payment.completed);
   const [currTab, setCurrTab] = useState("접수 대기");
   const [page, setPage] = useState(1);
 
   const pageConst = {
-    totalCount:
-      currTab === "접수 대기" ? receiptedOrder.length : completedOrder.length,
+    totalCount: currTab === "접수 대기" ? receiptedOrder.length : completedOrder.length,
     pageSize: 5,
     siblingCount: 1,
     currentPage: page,
@@ -76,11 +74,7 @@ const Admin = () => {
             <div>
               {pageArr.map((arr) => {
                 return (
-                  <Orders.PaginationItem
-                    name={arr}
-                    href="#"
-                    onClick={handleClick}
-                  >
+                  <Orders.PaginationItem name={arr} href="#" onClick={handleClick}>
                     {arr}
                   </Orders.PaginationItem>
                 );

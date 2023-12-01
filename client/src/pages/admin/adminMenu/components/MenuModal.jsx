@@ -8,7 +8,6 @@ import { createProduct, updateProduct } from "../../../../api/product";
 
 const MenuModal = ({ title, closeModal, modifyProduct }) => {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.login.token);
 
   const sizeOptions = ["선택없음", "Tall", "Large"];
   const tempOptions = ["선택없음", "Ice", "Hot"];

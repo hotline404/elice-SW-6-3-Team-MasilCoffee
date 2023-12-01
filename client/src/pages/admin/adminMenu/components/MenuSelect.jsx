@@ -7,7 +7,6 @@ const MenuSelect = ({ options, modal = null, onChange = null, defaultOption = nu
   }
 
   const defaultValue = defaultOption !== null ? defaultOption : null;
-  console.log("defaultValue", defaultValue);
 
   const handleSelectChange = (e) => {
     const selected = e;

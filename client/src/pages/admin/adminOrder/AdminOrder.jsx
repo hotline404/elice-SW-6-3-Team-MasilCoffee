@@ -32,8 +32,12 @@ const Admin = () => {
     initDataSet: currTab === "접수 대기" ? receiptedOrder : completedOrder,
   });
 
-  const handleClick = (e) => {
-    setPage(parseInt(e.target.name, 10));
+  const handleClick = (e, arrow) => {
+    if (arrow) {
+      setPage(parseInt(e, 10));
+    } else {
+      setPage(parseInt(e.target.name, 10));
+    }
   };
 
   useEffect(() => {
@@ -70,17 +74,21 @@ const Admin = () => {
             <Orders.NoneTitle>주문 내역이 없습니다.</Orders.NoneTitle>
           )}
           <Orders.Pagination>
-            <Orders.PaginationItem href="#">&laquo;</Orders.PaginationItem>
+            <Orders.PaginationItem href="#" onClick={() => handleClick(1, "arrow")}>
+              &laquo;
+            </Orders.PaginationItem>
             <div>
               {pageArr.map((arr) => {
                 return (
-                  <Orders.PaginationItem name={arr} href="#" onClick={handleClick}>
+                  <Orders.PaginationItem name={arr} href="#" onClick={handleClick} isActive={page === arr}>
                     {arr}
                   </Orders.PaginationItem>
                 );
               })}
             </div>
-            <Orders.PaginationItem href="#">&raquo;</Orders.PaginationItem>
+            <Orders.PaginationItem href="#" onClick={() => handleClick(pageArr[pageArr.length - 1], "arrow")}>
+              &raquo;
+            </Orders.PaginationItem>
           </Orders.Pagination>
         </Orders.Content>
       </Orders.Container>

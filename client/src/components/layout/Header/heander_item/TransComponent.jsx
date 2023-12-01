@@ -9,6 +9,7 @@ const TransComponent = (props) => {
         <AdminRightSideItem
           item={props.linkDatas.right_side}
           location={props.location}
+          onVisible={props.onVisible}
         />
       );
     }
@@ -18,6 +19,7 @@ const TransComponent = (props) => {
         <UserRightSideItem
           item={props.linkDatas.right_side}
           location={props.location}
+          onVisible={props.onVisible}
         />
       );
     }
@@ -27,6 +29,7 @@ const TransComponent = (props) => {
         <NonUserRightSideItem
           item={props.linkDatas.non_user_right}
           location={props.location}
+          onVisible={props.onVisible}
         />
       );
   }

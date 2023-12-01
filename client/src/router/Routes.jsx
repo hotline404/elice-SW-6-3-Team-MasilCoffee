@@ -98,7 +98,7 @@ export const ROUTES = {
   },
   USERINFOCHANGE: {
     path: "/mypage/userInfoChange",
-    link: "/mypage/userInfoChange/:user_id/:email",
+    link: "/mypage/userInfoChange/:email",
     element: <UserInfoChange />,
   },
   CONFIRMPASSWORD: {

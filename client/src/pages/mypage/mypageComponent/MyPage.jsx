@@ -4,9 +4,7 @@ import {  useSelector } from "react-redux";
 import Container from "../../../components/ui/container/Container";
 import Title from "../../../components/ui/title/Title";
 import Card from "../../../components/ui/card/Card";
-import Contents from "../../../components/ui/contents/Contents";
-
-import { ContentsByWrite } from "../style/MyPage.style";
+import { MyPageFirstContents, MyPageMiddleContents, ContentsByWrite } from "../style/MyPage.style";
 
 import User from "./Links/User";
 import OrderLink from "./Links/OrderLink";
@@ -21,14 +19,14 @@ function MyPage() {
     <Fragment>
       <Container>
         <Title>MY PAGE</Title>
-        <Card>
-          <Contents>
+        <Card> 
+          <MyPageFirstContents>
             <User userName={userInfo.nickname} email={userInfo.email}/>
-          </Contents>
-          <Contents>
+          </MyPageFirstContents>
+          <MyPageMiddleContents>
             <OrderLink userId={userInfo.email}/>
             <CommentLink userId={userInfo.email}/>
-          </Contents>
+          </MyPageMiddleContents>
           <ContentsByWrite>
             <WriteListLink userId={userInfo.email}/>
           </ContentsByWrite>

@@ -2,11 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 function Contents(props) {
-  return (
-    <div>
-      <SContents>{props.children}</SContents>
-    </div>
-  );
+  return <SContents>{props.children}</SContents>;
 }
 
 export default Contents;

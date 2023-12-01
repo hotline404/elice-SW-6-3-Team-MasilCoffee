@@ -15,15 +15,15 @@ import { removeUser } from "../../redux/action/user/userAction.jsx";
 import {  useSelector } from "react-redux/es/hooks/useSelector.js";
 
 function Logout() {
-  const nav = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector(state => state.login.token)
   const user = useSelector(state => state.user.email)
   
 
   const axiosLogout = async (userEmail) => {
     try {
     const logout = await axiosPostLogout(userEmail);
+    console.log("logout", logout)
+    console.log("logout user", user)
     
     return logout
     } catch (err) {

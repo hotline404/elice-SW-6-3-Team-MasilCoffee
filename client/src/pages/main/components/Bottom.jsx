@@ -9,6 +9,7 @@ import { getAllBoards } from "../../../api/board";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetAllBoards } from "../../../redux/action/boardAction";
 import RandomColor from "../../../util/RandomColor/RandomColor";
+import { HiHashtag } from "react-icons/hi2";
 
 const Bottom = () => {
   const dispatch = useDispatch();
@@ -59,7 +60,7 @@ const Bottom = () => {
     cssEase: "linear", // 일정한 속도로 움직이도록 설정
   };
 
-  const fixedBackgroundColor = "#472e27 ";
+  const fixedBackgroundColor = "#6d3535 ";
   const [backgroundColor, setBackgroundColor] = useState("");
   useEffect(() => {
     const hue = Math.floor(Math.random() * 360);
@@ -74,13 +75,10 @@ const Bottom = () => {
           allBoards.boards.map((board, index) => {
             // console.log("Board ID:", board._id);
             const isOdd = index % 2 === 0;
-            const boxBgColor = isOdd ? "#d9d9d9" : fixedBackgroundColor; // 홀수이면 그레이, 아니면 기존 색상
+            const boxBgColor = isOdd ? "#9f9f9f" : fixedBackgroundColor; // 홀수이면 그레이, 아니면 기존 색상
 
             return (
-              <S.Bottom
-                key={board._id}
-                onClick={() => handleBoardClick(board._id)}
-              >
+              <S.Bottom key={board._id} onClick={() => handleBoardClick(board._id)}>
                 <S.BottomBox $bgColor={boxBgColor} isEven={isOdd}>
                   <div>
                     <b>{board.nickname}</b>
@@ -102,6 +100,7 @@ const Bottom = () => {
                                 color: "black",
                               }}
                             >
+                              <HiHashtag />
                               {board.tags[i]}
                             </S.TagBox>
                           );
@@ -115,11 +114,7 @@ const Bottom = () => {
                   </S.TagWrap>
                   <S.CommentWrap>
                     <S.LikedWrap>
-                      {board.isLiked ? (
-                        <GoHeartFill style={{ fontSize: "1.4rem" }} />
-                      ) : (
-                        <GoHeart style={{ fontSize: "1.4rem" }} />
-                      )}
+                      {board.isLiked ? <GoHeartFill style={{ fontSize: "1.4rem" }} /> : <GoHeart style={{ fontSize: "1.4rem" }} />}
                       <S.CommentNum>{board.likeCount}</S.CommentNum>
                     </S.LikedWrap>
                     <BsChat

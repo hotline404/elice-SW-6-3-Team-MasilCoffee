@@ -9,39 +9,40 @@ import { axiosTokenConfirm } from "../api/user/user";
 import AlertModal from "../components/ui/alert/AlertModal";
 import { useDispatch } from "react-redux";
 import { actionLogout } from "../redux/action/login/loginAction";
+import { removeUser } from "../redux/action/user/userAction";
 
 const RouterComp = () => {
   const location = useLocation().pathname;
-  const currentToken = localStorage.getItem('token');
+  const currentToken = localStorage.getItem("token");
   const dispatch = useDispatch();
 
   const [token, setToken] = useState(currentToken);
-  const [alert, setAlert] = useState(false)
+  const [alert, setAlert] = useState(false);
 
   useEffect(() => {
     // 토큰이 있고 만료 시간이 정의되어 있다면 확인합니다.
-      if(token) {
-        const res = confirmTokenFn(token);
-        if (res !== true) {
-          localStorage.removeItem("token");
-          dispatch(actionLogout());
-        }
-      } else {
-        setAlert(true);
-        setTimeout(() => {
-          setAlert(false)
-        }, 2000)
+    if (token) {
+      const res = confirmTokenFn(token);
+      if (res !== true) {
+        localStorage.removeItem("token");
+        dispatch(actionLogout());
+        dispatch(removeUser());
       }
-      
-    
+    } else {
+      setAlert(true);
+      localStorage.removeItem("token");
+      dispatch(actionLogout());
+      dispatch(removeUser());
+      setTimeout(() => {
+        setAlert(false);
+      }, 2000);
+    }
   }, [token]);
 
   const confirmTokenFn = async (currentToken) => {
     const isValidToken = await axiosTokenConfirm(currentToken);
-    return isValidToken
+    return isValidToken;
   };
-
-
 
   return (
     <Fragment>
@@ -55,7 +56,7 @@ const RouterComp = () => {
       <Banner location={location} />
       <Footer location={location} />
     </Fragment>
-  );  
+  );
 };
 
 export default RouterComp;

@@ -11,7 +11,7 @@ function CommentListPage() {
   const token = useSelector((state) => state.login.token);
   const [data, setData] = useState({ data: [] });
   const dateType = "dateTime"
-  const trData = ["번호", "제목", "작성날짜"]
+  const trData = ["번호", "댓글", "작성날짜"]
   const tdData = data.data.map((item, index) => {
     const date = DateFormat(dateType, item.createdAt)
     return [...[item.board, index + 1, item.comment, date]]

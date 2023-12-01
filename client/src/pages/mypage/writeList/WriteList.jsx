@@ -12,7 +12,7 @@ function WriteList() {
   const [data, setData] = useState({
     data: [],
     totalpage: 0,
-    trData: ["번호", "제목", "작성날짜"],
+    trData: ["번호", "글 내용", "작성날짜"],
   });
   const [page, setPage] = useState(1);
 

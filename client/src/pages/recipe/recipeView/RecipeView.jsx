@@ -20,7 +20,7 @@ const RecipeView = () => {
   useEffect(() => {
     const fn = async () => {
       try {
-        const board = await getBoard(boardId);
+        const board = await getBoard(boardId, token);
         setBoardData(board);
         const comment = await getComments(boardId);
         setCommentData(comment);

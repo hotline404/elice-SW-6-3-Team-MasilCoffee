@@ -30,6 +30,10 @@ const boardSchema = new Schema(
       type: String,
       required: true,
     },
+    isLiked: {
+      type: Boolean,
+      default: false,
+    },
     image: [
       {
         type: String,

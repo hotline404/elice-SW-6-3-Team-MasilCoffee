@@ -35,7 +35,7 @@ export const InputBox = styled.div`
 
 export const ButtonBox = styled.div`
  display: flex;
- flex-direction: column;
+ flex-direction: row;
 
  justify-content: center;
  align-items: center;

@@ -7,36 +7,50 @@ import Footer from "../components/layout/Footer/Footer";
 import Banner from "../components/layout/banner/Banner";
 import { axiosTokenConfirm } from "../api/user/user";
 import AlertModal from "../components/ui/alert/AlertModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionLogout } from "../redux/action/login/loginAction";
 import { removeUser } from "../redux/action/user/userAction";
 
 const RouterComp = () => {
   const location = useLocation().pathname;
   const currentToken = localStorage.getItem("token");
+  const stateToken = useSelector((state) => state.login);
   const dispatch = useDispatch();
 
   const [token, setToken] = useState(currentToken);
   const [alert, setAlert] = useState(false);
 
- 
-
-
   useEffect(() => {
     const verifyToken = async () => {
       // 토큰이 있고 만료 시간이 정의되어 있다면 확인합니다.
+      const res = await confirmTokenFn(stateToken);
       if (token) {
-        const res = await confirmTokenFn(token);
-  
+        if (res !== true) {
+          setAlert(true);
+          localStorage.removeItem("token");
+          dispatch(actionLogout());
+          dispatch(removeUser());
+          console.log("로컬 있지만 요청은 배드");
+          setTimeout(() => {
+            setAlert(false);
+          }, 2000);
+        } else {
+          console.log("로컬 있지만 요청은 참");
+
+          return;
+        }
+      } else {
         if (res !== true) {
           localStorage.removeItem("token");
           dispatch(actionLogout());
           dispatch(removeUser());
-          console.log("res !===");
+          console.log("로컬 없고 요청은 배드");
         } else {
-          console.log("token");
+          console.log("로컬 없고 요청은 참");
+
+          localStorage.setItem("token", stateToken);
         }
-      } else {
+
         setAlert(true);
         localStorage.removeItem("token");
         dispatch(actionLogout());
@@ -47,17 +61,15 @@ const RouterComp = () => {
         }, 2000);
       }
     };
-  
+
     verifyToken();
-  }, [token, dispatch]);
-  
+  }, [token, dispatch, location]);
 
   const confirmTokenFn = async (currentToken) => {
     const isValidToken = await axiosTokenConfirm(currentToken);
-    console.log("token", isValidToken)
+    console.log("token", isValidToken);
     return isValidToken;
   };
-
 
   return (
     <Fragment>

@@ -81,11 +81,17 @@ export const axiosDelAdmin = async (userId) => {
 
 //토큰 확인
 export const axiosTokenConfirm = async () => {
-  const res = await apiInstance.get(urlToken);
+  try {
+    const res = await apiInstance.get(urlToken);
 
-  const user = res.data.isLoggedIn;
+    const user = res.data.isLoggedIn;
+    console.log("user", user)
+  
+    return user;
 
-  console.log(user)
+  } catch (err) {
+    console.error(err)
+  }
+  
 
-  return user;
 };

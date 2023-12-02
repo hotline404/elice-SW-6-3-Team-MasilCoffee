@@ -19,30 +19,45 @@ const RouterComp = () => {
   const [token, setToken] = useState(currentToken);
   const [alert, setAlert] = useState(false);
 
+ 
+
+
   useEffect(() => {
-    // 토큰이 있고 만료 시간이 정의되어 있다면 확인합니다.
-    if (token) {
-      const res = confirmTokenFn(token);
-      if (res !== true) {
+    const verifyToken = async () => {
+      // 토큰이 있고 만료 시간이 정의되어 있다면 확인합니다.
+      if (token) {
+        const res = await confirmTokenFn(token);
+  
+        if (res !== true) {
+          localStorage.removeItem("token");
+          dispatch(actionLogout());
+          dispatch(removeUser());
+          console.log("res !===");
+        } else {
+          console.log("token");
+        }
+      } else {
+        setAlert(true);
         localStorage.removeItem("token");
         dispatch(actionLogout());
         dispatch(removeUser());
+        console.log("else");
+        setTimeout(() => {
+          setAlert(false);
+        }, 2000);
       }
-    } else {
-      setAlert(true);
-      localStorage.removeItem("token");
-      dispatch(actionLogout());
-      dispatch(removeUser());
-      setTimeout(() => {
-        setAlert(false);
-      }, 2000);
-    }
-  }, [token]);
+    };
+  
+    verifyToken();
+  }, [token, dispatch]);
+  
 
   const confirmTokenFn = async (currentToken) => {
     const isValidToken = await axiosTokenConfirm(currentToken);
+    console.log("token", isValidToken)
     return isValidToken;
   };
+
 
   return (
     <Fragment>

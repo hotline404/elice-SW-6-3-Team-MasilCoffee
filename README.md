@@ -15,3 +15,11 @@
    3. 404페이지
    4. 공통 컴포넌트
    5. 유틸 함수
+   6. api 연결 컴포넌트: login, register, user
+   7. 공통 컴포넌트: layout, 모달, 404페이지, 공통 Input, LinkTo, 알림 컴포넌트, card, container, contents, title
+   8. 커스텀 훅 : usePagination
+   9. color_type 정의
+   10. utill함수: doubleCheck, sliceTen, matchPassword, matchUser, media, BackgoundColor, IncludeRedPage, includeCianPage, menuRole, newWindow
+   11. 라우터 기능: RouterComp, Routes
+   12. redux : reducer의 user, login, register, action의 user, login, register
+   

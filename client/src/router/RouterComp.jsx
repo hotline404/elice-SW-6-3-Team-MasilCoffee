@@ -5,7 +5,7 @@ import { useLocation, useParams } from "react-router-dom";
 import Headers from "../components/layout/Header/Headers";
 import Footer from "../components/layout/Footer/Footer";
 import Banner from "../components/layout/banner/Banner";
-import { axiosTokenConfirm } from "../api/user/user";
+import { getAxiosToken } from "../api/user/user";
 import AlertModal from "../components/ui/alert/AlertModal";
 import { useDispatch, useSelector } from "react-redux";
 import { actionLogout } from "../redux/action/login/loginAction";
@@ -66,7 +66,7 @@ const RouterComp = () => {
   }, [token, dispatch, location]);
 
   const confirmTokenFn = async (currentToken) => {
-    const isValidToken = await axiosTokenConfirm(currentToken);
+    const isValidToken = await getAxiosToken(currentToken);
     console.log("token", isValidToken);
     return isValidToken;
   };

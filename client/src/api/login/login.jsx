@@ -4,7 +4,7 @@ const loginUrl = "/api/v1/users/login";
 const logoutUrl = `/api/v1/users/logout`;
 const checkLogin = `/api/v1/users/check-login`;
 
-export const axiosPostLogin = async (email, password) => {
+export const postAxiosLogin = async (email, password) => {
   const body = { email: email, password: password };
 
   try {
@@ -17,7 +17,7 @@ export const axiosPostLogin = async (email, password) => {
   }
 };
 
-export const axiosPostLogout = async (userEmail) => {
+export const postAxiosLogout = async (userEmail) => {
   const body = {
     email: `${userEmail}`,
   };
@@ -33,7 +33,7 @@ export const axiosPostLogout = async (userEmail) => {
   }
 };
 
-export const getCheckLogin = async () => {
+export const getAxiosCheckLogin = async () => {
   try {
     const res = await apiInstance.get(checkLogin);
     const data = res?.data;

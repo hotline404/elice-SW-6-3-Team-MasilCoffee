@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Modal from "./style/UserModal.style";
 import { TiDelete } from "react-icons/ti";
 import { updateUser } from "../../../../redux/action/user/usersAction";
-import { axiosPatchAdmin } from "../../../../api/user/user";
+import { pathAxiosAdmin } from "../../../../api/user/user";
 
 const UserModal = ({ closeModal, modifyUser }) => {
   const dispatch = useDispatch();
@@ -48,7 +48,12 @@ const UserModal = ({ closeModal, modifyUser }) => {
     const fn = async () => {
       if (modifyUser) {
         try {
-          const updatedUser = await axiosPatchAdmin(updatedData.userId, updatedData.newName, updatedData.newNickname, updatedData.newPhone);
+          const updatedUser = await pathAxiosAdmin(
+            updatedData.userId,
+            updatedData.newName,
+            updatedData.newNickname,
+            updatedData.newPhone
+          );
           dispatch(updateUser(updatedUser));
         } catch (error) {
           console.error("Failed to update product", error);
@@ -70,7 +75,13 @@ const UserModal = ({ closeModal, modifyUser }) => {
         <Modal.Form onSubmit={handleSubmit}>
           <Modal.P>
             <Modal.Label>이름 :</Modal.Label>
-            <Modal.Input type="text" name="name" defaultValue={userInfo.name} onChange={(e) => handleChange("name", e)} required />
+            <Modal.Input
+              type="text"
+              name="name"
+              defaultValue={userInfo.name}
+              onChange={(e) => handleChange("name", e)}
+              required
+            />
           </Modal.P>
           <Modal.P>
             <Modal.Label>전화번호 :</Modal.Label>
@@ -85,15 +96,34 @@ const UserModal = ({ closeModal, modifyUser }) => {
           </Modal.P>
           <Modal.P>
             <Modal.Label>닉네임 :</Modal.Label>
-            <Modal.Input type="text" name="nickname" defaultValue={userInfo.nickname} onChange={(e) => handleChange("nickname", e)} required />
+            <Modal.Input
+              type="text"
+              name="nickname"
+              defaultValue={userInfo.nickname}
+              onChange={(e) => handleChange("nickname", e)}
+              required
+            />
           </Modal.P>
           <Modal.P>
             <Modal.Label>이메일 :</Modal.Label>
-            <Modal.Input type="email" name="email" defaultValue={userInfo.email} onChange={(e) => handleChange("email", e)} disabled required />
+            <Modal.Input
+              type="email"
+              name="email"
+              defaultValue={userInfo.email}
+              onChange={(e) => handleChange("email", e)}
+              disabled
+              required
+            />
           </Modal.P>
           <Modal.P>
             <Modal.Label>가입일 :</Modal.Label>
-            <Modal.Input type="text" name="createdAt" defaultValue={userInfo.createdAt} disabled required />
+            <Modal.Input
+              type="text"
+              name="createdAt"
+              defaultValue={userInfo.createdAt}
+              disabled
+              required
+            />
           </Modal.P>
           <Modal.Submit type="submit" onClick={handleSubmit}>
             제출하기

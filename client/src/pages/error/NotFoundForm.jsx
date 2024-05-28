@@ -8,9 +8,6 @@ function NotFoundForm(props) {
   const desc2 = data.description2;
   const desc3 = data.description3;
 
-  
-
-
   return (
     <div>
       <Contents>

@@ -7,9 +7,13 @@ import Table from "../../../components/ui/table/Table";
 import UserModal from "./components/UserModal";
 import { usePagination } from "../../../hooks/usePagination";
 import sliceTen from "../../../util/forPagenation/sliceTen";
-import { initUserSearch, search, deleteUser } from "../../../redux/action/user/usersAction";
-import { axiosGetUsers } from "../../../api/user/users";
-import { axiosDelAdmin } from "../../../api/user/user";
+import {
+  initUserSearch,
+  search,
+  deleteUser,
+} from "../../../redux/action/user/usersAction";
+import { getAxiosUsers } from "../../../api/user/users";
+import { delAxiosAdmin } from "../../../api/user/user";
 
 const AdminUser = ({ trData }) => {
   const dispatch = useDispatch();
@@ -23,7 +27,7 @@ const AdminUser = ({ trData }) => {
   useEffect(() => {
     const fn = async () => {
       try {
-        const getUsers = await axiosGetUsers();
+        const getUsers = await getAxiosUsers();
         dispatch(initUserSearch(getUsers.users));
       } catch (err) {
         console.log("err", err);
@@ -70,8 +74,8 @@ const AdminUser = ({ trData }) => {
       if (isDeleted) {
         const fn = async () => {
           try {
-            await axiosDelAdmin(selectedUserId);
-            dispatch(deleteUser(selectedUserId));
+            await delAxiosAdmin(selectedUserId);
+            dispatch(delAxiosUser(selectedUserId));
           } catch (err) {
             console.log("err", err);
           }
@@ -96,22 +100,39 @@ const AdminUser = ({ trData }) => {
         <Users.Content>
           <UserSearch handleSubmit={handleSubmit} />
           <Users.TableBox>
-            <Table trData={trData} tdData={slicedData} isMenuTable={true} isUserTable={true} onTdClick={handleTdClick} />
+            <Table
+              trData={trData}
+              tdData={slicedData}
+              isMenuTable={true}
+              isUserTable={true}
+              onTdClick={handleTdClick}
+            />
           </Users.TableBox>
           <Users.Pagination>
-            <Users.PaginationItem href="#" onClick={() => handleClick(1, "arrow")}>
+            <Users.PaginationItem
+              href="#"
+              onClick={() => handleClick(1, "arrow")}
+            >
               &laquo;
             </Users.PaginationItem>
             <div>
               {pageArr.map((arr) => {
                 return (
-                  <Users.PaginationItem name={arr} href="#" onClick={handleClick} isActive={page === arr}>
+                  <Users.PaginationItem
+                    name={arr}
+                    href="#"
+                    onClick={handleClick}
+                    isActive={page === arr}
+                  >
                     {arr}
                   </Users.PaginationItem>
                 );
               })}
             </div>
-            <Users.PaginationItem href="#" onClick={() => handleClick(pageArr[pageArr.length - 1], "arrow")}>
+            <Users.PaginationItem
+              href="#"
+              onClick={() => handleClick(pageArr[pageArr.length - 1], "arrow")}
+            >
               &raquo;
             </Users.PaginationItem>
           </Users.Pagination>

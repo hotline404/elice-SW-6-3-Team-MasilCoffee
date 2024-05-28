@@ -7,29 +7,33 @@ import { RightSide, NavButton, LinkBox } from "../Headers.style";
 import { TfiMenu } from "react-icons/tfi";
 import { txt_color } from "../../../../type/color_type";
 
-function NonUserRightSideItem(props) {
+/* 함수 분리 */
+const getLinkStyle = (location) => ({
+  textDecoration: "none",
+  textAlign: "center",
+  color: `${
+    IncludeRedPage(location) ||
+    location === ROUTES.ADMINMENU.path ||
+    location === ROUTES.ADMINORDER.path ||
+    location === ROUTES.ADMINMUSER.path
+      ? txt_color.main_color
+      : txt_color.sub_color
+  }`,
+  fontSize: "15px",
+  fontWeight: "400",
+  margin: "27px",
+  cursor: "pointer",
+});
+
+function NonUserRightSideItem({ location, item, onVisible }) {
   const isLogin = useSelector((state) => state.login.loginState);
 
   const transLog = !isLogin ? "로그인" : "로그아웃";
   const transPath = !isLogin ? ROUTES.LOGIN.path : ROUTES.LOGOUT.path;
 
-  const style = {
-    textDecoration: "none",
-    textAlign: "center",
-    color: `${
-      IncludeRedPage(props.location) ||
-      props.location === ROUTES.ADMINMENU.path ||
-      props.location === ROUTES.ADMINORDER.path ||
-      props.location === ROUTES.ADMINMUSER.path
-        ? txt_color.main_color
-        : txt_color.sub_color
-    }`,
-    fontSize: "15px",
-    fontWeight: "400",
-    margin: "27px",
-    cursor: "pointer",
-  };
+  const style = getLinkStyle(location);
 
+  /* 리스트 키값 부여 */
   return (
     <RightSide>
       <LinkTo
@@ -37,9 +41,10 @@ function NonUserRightSideItem(props) {
         style={style}
       />
 
-      {props.item.map((link) => {
+      {item.map((link) => {
         return (
           <LinkTo
+            key={link.to}
             there={{
               to: link.to,
               name: link.name,
@@ -48,11 +53,18 @@ function NonUserRightSideItem(props) {
           />
         );
       })}
-      <NavButton location={props.location} onClick={props.onVisible}>
+      <NavButton location={location} onClick={onVisible}>
         <TfiMenu />
       </NavButton>
     </RightSide>
   );
+}
+
+/* 타입 안정화 */
+NonUserRightSideItem.propTypes = {
+  location: PropTypes.string.isRequired,
+  item: PropTypes.array.isRequired,
+  onVisible: PropTypes.func.isRequired
 }
 
 export default NonUserRightSideItem;

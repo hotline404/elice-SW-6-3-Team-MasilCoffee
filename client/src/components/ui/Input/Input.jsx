@@ -1,18 +1,31 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const Input = React.forwardRef((props, ref) => {
+/* 리드온리 직접 전달로 불필요한 조건문 제거 */
+/* 구조 분해 할당으로 props 가독성 향상 */
+const Input = React.forwardRef(({ input, onChange }, ref) => {
   return (
     <TheBox>
-      <Label>{props.input.name}</Label>
-      {props.input.readonly === true ? (
-        <InputArea ref={ref} onChange={props.onChange} {...props.input} readonly="readonly"/>
-      ) : (
-        <InputArea ref={ref} onChange={props.onChange} {...props.input} />
-      )}
+      <Label>{input.name}</Label>
+      <InputArea
+        ref={ref}
+        onChange={onChange}
+        {...input}
+        readOnly={input.readonly}
+      />
     </TheBox>
   );
 });
+
+/* 타입 안정화 */
+Input.propTypes = {
+  input: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    readonly: PropTypes.bool,
+  }).isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default Input;
 

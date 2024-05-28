@@ -6,34 +6,43 @@ import { ROUTES } from "../../../../router/Routes";
 import { useNavigate } from "react-router-dom";
 import { txt_color } from "../../../../type/color_type";
 
-function LeftSideItem(props) {
+/* 함수 분리 */
+
+const getLinkStyle = (location) => ({
+  textDecoration: "none",
+  textAlign: "center",
+  color: `${
+    IncludeRedPage(location) ||
+    location === ROUTES.ADMINMENU.path ||
+    location === ROUTES.ADMINORDER.path ||
+    location === ROUTES.ADMINMUSER.path
+      ? txt_color.main_color
+      : txt_color.sub_color
+  }`,
+  fontSize: "15px",
+  fontWeight: "400",
+  margin: "27px",
+  cursor: "pointer",
+});
+
+const getLogoSrc = (location) => {
+  const logoSrc =
+    IncludeRedPage(location) ||
+    ROUTES.ADMINMENU.path === location ||
+    ROUTES.ADMINMUSER.path === location ||
+    ROUTES.ADMINORDER.path === location
+      ? "/assets/images/Logo_Red.png"
+      : "/assets/images/Logo_White.png";
+
+  return logoSrc;
+};
+
+function LeftSideItem({ location }) {
   const nav = useNavigate();
   const [toggle, setToggle] = useState("");
 
-  const style = {
-    textDecoration: "none",
-    textAlign: "center",
-    color: `${
-      IncludeRedPage(props.location) ||
-      props.location === ROUTES.ADMINMENU.path ||
-      props.location === ROUTES.ADMINORDER.path ||
-      props.location === ROUTES.ADMINMUSER.path
-        ? txt_color.main_color
-        : txt_color.sub_color
-    }`,
-    fontSize: "15px",
-    fontWeight: "400",
-    margin: "27px",
-    cursor: "pointer",
-  };
-
-  const transLogo =
-    IncludeRedPage(props.location) ||
-    ROUTES.ADMINMENU.path === props.location ||
-    ROUTES.ADMINMUSER.path === props.location ||
-    ROUTES.ADMINORDER.path === props.location
-      ? "/assets/images/Logo_Red.png"
-      : "/assets/images/Logo_White.png";
+  const style = getLinkStyle(location);
+  const logoSrc = getLogoSrc(location);
 
   const handleClickLogo = () => {
     nav(ROUTES.MAIN.path, { replace: false });
@@ -41,12 +50,13 @@ function LeftSideItem(props) {
 
   const handleToggle = (e) => {
     setToggle(e.target.value);
-    console.log(e.target.value);
   };
+
+  /* 리스트 키값 부여 */
 
   return (
     <LeftSide>
-      <HeaderImg src={transLogo} onClick={handleClickLogo} />
+      <HeaderImg src={logoSrc} onClick={handleClickLogo} />
       {props.item.map((link, idx) => {
         return (
           <LinkBox
@@ -54,12 +64,22 @@ function LeftSideItem(props) {
             className={"btn" + (idx === toggle ? "active" : "")}
             onClick={handleToggle}
           >
-            <LinkTo there={{ to: link.to, name: link.name }} style={style} />
+            <LinkTo
+              key={link.to}
+              there={{ to: link.to, name: link.name }}
+              style={style}
+            />
           </LinkBox>
         );
       })}
     </LeftSide>
   );
 }
+
+/* 타입 안정성 */
+
+LeftSideItem.propTypes = {
+  location: propTypes.string.isRequired,
+};
 
 export default LeftSideItem;

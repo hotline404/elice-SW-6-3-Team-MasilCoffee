@@ -18,7 +18,13 @@ const BASE_URL = {
 };
 
 //register
-export const axiosRegister = async (name, email, nickname, password, phone) => {
+export const postAxiosRegister = async (
+  name,
+  email,
+  nickname,
+  password,
+  phone
+) => {
   const registerBody = {
     name: name,
     email: email,
@@ -42,7 +48,7 @@ export const axiosRegister = async (name, email, nickname, password, phone) => {
   }
 };
 //send-email
-export const authEmail = async (email) => {
+export const postAuthEmail = async (email) => {
   const authBody = {
     email: email,
   };
@@ -62,7 +68,7 @@ export const authEmail = async (email) => {
 };
 
 //send-code
-export const authComplete = async (email, code) => {
+export const postAuthComplete = async (email, code) => {
   const authBody = {
     email: email,
     code: parseInt(code),
@@ -84,7 +90,7 @@ export const authComplete = async (email, code) => {
 
 //delete user
 
-export const deleteUser = async () => {
+export const delAxiosUser = async () => {
   try {
     const res = await apiInstance.delete(`${BASE_URL.users.url}`);
     const data = res?.data;
@@ -97,7 +103,7 @@ export const deleteUser = async () => {
 
 //delete admin
 
-export const deleteAdmin = async (userId) => {
+export const delAxiosAdmin = async (userId) => {
   try {
     const res = await apiInstance.delete(`${BASE_URL.admin.url}/${userId}`);
     const data = res?.data;

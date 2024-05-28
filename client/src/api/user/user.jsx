@@ -4,7 +4,7 @@ const urluser = "/api/v1/users";
 const urlToken = "/api/v1/users/check-login";
 
 //common user
-export const axiosGetUser = async () => {
+export const getAxiosUser = async () => {
   const res = await apiInstance.get(urluser);
 
   const user = res?.data?.data;
@@ -12,7 +12,7 @@ export const axiosGetUser = async () => {
   return user;
 };
 
-export const axiosPatchUser = async (userInfo) => {
+export const patchAxiosUser = async (userInfo) => {
   const { nickname, phone, checkpassword } = userInfo;
   const body = {
     nickname: nickname,
@@ -27,9 +27,9 @@ export const axiosPatchUser = async (userInfo) => {
   return newUser;
 };
 
-export const axiosPatchUserRecipe = async (recipe) => {
+export const patchAxiosUserRecipe = async (recipe) => {
   const body = {
-    customRecipe: recipe
+    customRecipe: recipe,
   };
 
   const res = await apiInstance.patch(`${urluser}/userRecipe`, body);
@@ -38,7 +38,7 @@ export const axiosPatchUserRecipe = async (recipe) => {
   return newUser;
 };
 
-export const axiosDelUser = async () => {
+export const delAxiosUser = async () => {
   const res = await apiInstance.delete(urluser);
 
   const delUser = res;
@@ -47,7 +47,7 @@ export const axiosDelUser = async () => {
 };
 
 //admin user
-export const axiosGetAdmin = async (userId) => {
+export const getAxiosAdmin = async (userId) => {
   const res = await apiInstance.get(`${urlAdmin}/${userId}`);
 
   const admin = res?.data?.data;
@@ -55,7 +55,7 @@ export const axiosGetAdmin = async (userId) => {
   return admin;
 };
 
-export const axiosPatchAdmin = async (
+export const pathAxiosAdmin = async (
   userId,
   newName,
   newNickname,
@@ -70,7 +70,7 @@ export const axiosPatchAdmin = async (
   return newAdim;
 };
 
-export const axiosDelAdmin = async (userId) => {
+export const delAxiosAdmin = async (userId) => {
   const res = await apiInstance.delete(`${urlAdmin}/${userId}`);
 
   const delAdim = res?.data?.data;
@@ -78,20 +78,16 @@ export const axiosDelAdmin = async (userId) => {
   return delAdim;
 };
 
-
 //토큰 확인
-export const axiosTokenConfirm = async () => {
+export const getAxiosToken = async () => {
   try {
     const res = await apiInstance.get(urlToken);
 
     const user = res.data.isLoggedIn;
-    console.log("user", user)
-  
+    console.log("user", user);
+
     return user;
-
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
-  
-
 };

@@ -2,14 +2,14 @@ import UserRightSideItem from "./UserRightSideItem";
 import AdminRightSideItem from "./AdminRightSideItem";
 import NonUserRightSideItem from "./NonUserRightSideItem";
 
-const TransComponent = (props) => {
-  switch (props.userRole) {
+const TransComponent = ({userRole, linkDatas, location, onVisible}) => {
+  switch (userRole) {
     case "Admin": {
       return (
         <AdminRightSideItem
-          item={props.linkDatas.right_side}
-          location={props.location}
-          onVisible={props.onVisible}
+          item={linkDatas.right_side}
+          location={location}
+          onVisible={onVisible}
         />
       );
     }
@@ -17,9 +17,9 @@ const TransComponent = (props) => {
     case "User": {
       return (
         <UserRightSideItem
-          item={props.linkDatas.right_side}
-          location={props.location}
-          onVisible={props.onVisible}
+          item={linkDatas.right_side}
+          location={location}
+          onVisible={onVisible}
         />
       );
     }
@@ -27,12 +27,19 @@ const TransComponent = (props) => {
     default:
       return (
         <NonUserRightSideItem
-          item={props.linkDatas.non_user_right}
-          location={props.location}
-          onVisible={props.onVisible}
+          item={linkDatas.non_user_right}
+          location={location}
+          onVisible={onVisible}
         />
       );
   }
 };
+/* 타입 안정화 */
+
+TransComponent.propTypes = {
+  location: PropTypes.string.isRequired,
+  onVisible: PropTypes.func.isRequired,
+  linkDatas: PropTypes.array.isRequired
+}
 
 export default TransComponent;

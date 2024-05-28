@@ -3,12 +3,9 @@ import { MdAddShoppingCart } from "react-icons/md";
 import backgroundColor from "../../../util/BackgoundColor";
 import { txt_color } from "../../../type/color_type";
 import IncludeRedPage from "../../../util/IncludeRedPage";
-import includeCianPage from "../../../util/includeCianPage";
-import { LuMoveUp } from "react-icons/lu";
 import { media } from "../../../util/mediaQ/media";
 
 import { HiArrowUp } from "react-icons/hi";
-import { SlBasket } from "react-icons/sl";
 
 export const StyledBanner = styled.div`
   display: flex;

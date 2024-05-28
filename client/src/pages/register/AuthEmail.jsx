@@ -1,5 +1,8 @@
 import React, { Fragment, useState } from "react";
-import { authEmail, authComplete } from "../../api/register/axiosRegister";
+import {
+  postAuthEmail,
+  postAuthComplete,
+} from "../../api/register/postAxiosRegister";
 import { useDispatch } from "react-redux";
 
 import Modal from "../../components/ui/modal/Modal";
@@ -19,7 +22,7 @@ function AuthEmail(props) {
 
   const emailfn = async (email) => {
     try {
-      const res = await authEmail(email);
+      const res = await postAuthEmail(email);
       setTxt("이메일을 확인해주세요.");
       setAlert(true);
 
@@ -34,7 +37,7 @@ function AuthEmail(props) {
 
   const numfn = async (email, code) => {
     try {
-      const res = await authComplete(email, code);
+      const res = await postAuthComplete(email, code);
       setTxt("인증이 완료되었습니다.");
       setAlert(true);
 

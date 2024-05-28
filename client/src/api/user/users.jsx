@@ -1,7 +1,7 @@
 import { apiInstance, apiInstanceNonAuth } from "../interceptor/apiInstance";
 const urladmin = "/api/v1/users/admin";
 
-export const axiosGetUsers = async () => {
+export const getAxiosUsers = async () => {
   const res = await apiInstance.get(urladmin);
 
   const users = res?.data?.data;

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import CartButton from "./cart/CartButton";
-import GoTop from "./gotop/GoTop";
+import ScrollTop from "./gotop/ScrollTop";
 import { StyledBanner, CartCount } from "./Banner.style";
-import { ROUTES } from "../../../router/Routes";
 import includeCianPage from "../../../util/includeCianPage";
 
 function Banner(props) {
@@ -17,7 +16,7 @@ function Banner(props) {
         <></>
       ) : (
         <StyledBanner>
-          <GoTop location={props.location} />
+          <ScrollTop location={props.location} />
           <CartCount>{cartCount}</CartCount>
           <CartButton location={props.location} />
         </StyledBanner>

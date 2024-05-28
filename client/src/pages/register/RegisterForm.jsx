@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { axiosRegister } from "../../api/register/axiosRegister.jsx";
+import { postAxiosRegister } from "../../api/register/postAxiosRegister.jsx";
 import AuthEmail from "./AuthEmail.jsx";
 
 import Contents from "../../components/ui/contents/Contents";
@@ -95,7 +95,7 @@ function RegisterForm(props) {
   const fn = async (regInfo) => {
     try {
       const { name, email, nickname, password, phone } = regInfo;
-      const registerRes = await axiosRegister(
+      const registerRes = await postAxiosRegister(
         name,
         email,
         nickname,

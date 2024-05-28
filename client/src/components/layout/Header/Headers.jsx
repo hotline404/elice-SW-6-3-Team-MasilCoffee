@@ -1,78 +1,69 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { TfiMenu } from "react-icons/tfi";
+
 import LeftSideItem from "./heander_item/LeftSideItem";
 import TransComponent from "./heander_item/TransComponent";
-
+import Menu from "./util/Menu";
 import { Header, MiniLogo, HeaderBtn } from "./Headers.style";
 import { ROUTES } from "../../../router/Routes";
-import { useSelector } from "react-redux";
-import { TfiMenu } from "react-icons/tfi";
-import Menu from "./util/Menu";
-import { useNavigate } from "react-router-dom";
 
 const linkDatas = {
   non_user_right: [
-    {
-      to: ROUTES.REGISTER.path,
-      name: "회원가입",
-    },
+    { to: ROUTES.REGISTER.path, name: "회원가입" },
   ],
   right_side: [
-    {
-      to: ROUTES.REGISTER.path,
-      name: "회원가입",
-    },
-    {
-      to: ROUTES.MYPAGE.path,
-      name: "마이페이지",
-    },
+    { to: ROUTES.REGISTER.path, name: "회원가입" },
+    { to: ROUTES.MYPAGE.path, name: "마이페이지" },
   ],
   left_side: [
-    {
-      to: ROUTES.ORDER.path,
-      name: "MENU",
-    },
-    {
-      to: ROUTES.RECIPE.path,
-      name: "꿀조합",
-    },
+    { to: ROUTES.ORDER.path, name: "MENU" },
+    { to: ROUTES.RECIPE.path, name: "꿀조합" },
   ],
 };
 
-function Headers(props) {
+const Headers = ({ location }) => {
   const role = useSelector((state) => state.login.role);
   const [visible, setVisible] = useState(false);
-  const nav = useNavigate()
+  const navigate = useNavigate();
 
-  const handleClick = () => {
-    setVisible(!visible);
+  /* 동일한 기능 묶어서 toggleVisibility -> 핸들러 함수 최적화 */
+
+  const toggleVisibility = () => {
+    setVisible((prevVisible) => !prevVisible);
   };
 
-  const onVisible = () => {
-    setVisible(!visible);
-  };
   const handleClickMiniLogo = () => {
-    nav(ROUTES.MAIN.path);
+    navigate(ROUTES.MAIN.path);
     (window.location || document.location).reload();
-  }
+  };
 
+  /* 불필요한 조건문 삭제 둘 다 참 값일 때 렌더링 -> visible && ... */
   return (
     <div>
-      <Header location={props.location}>
-        <MiniLogo src="\assets\images\Logo.png" onClick={handleClickMiniLogo}/>
-        <LeftSideItem item={linkDatas.left_side} location={props.location} />
+      <Header location={location}>
+        <MiniLogo src="/assets/images/Logo.png" onClick={handleClickMiniLogo} />
+        <LeftSideItem item={linkDatas.left_side} location={location} />
         <TransComponent
           userRole={role}
           linkDatas={linkDatas}
-          location={props.location}
-          onVisible={onVisible}
+          location={location}
+          onVisible={toggleVisibility}
         />
-        <HeaderBtn location={props.location} onClick={handleClick}>
+        <HeaderBtn location={location} onClick={toggleVisibility}>
           <TfiMenu />
         </HeaderBtn>
       </Header>
-      {!visible ? <></> : <Menu role={role} />}
+      {visible && <Menu role={role} />}
     </div>
   );
-}
+};
+
+/* 타입 안정화 */
+Headers.propTypes = {
+  location: PropTypes.string.isRequired,
+};
 
 export default Headers;

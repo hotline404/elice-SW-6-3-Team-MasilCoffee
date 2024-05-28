@@ -1,7 +1,7 @@
 // import { postRecipe } from "../../../redux/action/user/userAction";
 import SquareButton from "../../../components/ui/button/SquareButton";
 import { useSelector, useDispatch } from "react-redux";
-import { axiosPatchUserRecipe } from "../../../api/user/user";
+import { patchAxiosUserRecipe } from "../../../api/user/user";
 import { postRecipe } from "../../../redux/action/user/userAction";
 
 import {
@@ -37,14 +37,17 @@ function OderList() {
       });
       console.log("엑시오스에 들어갈 유저레시피 정보", postUserRecipeData);
       console.log("유저의 기존 레시피 정보", user.recipe);
-      const joinRecipe = user.recipe[0] !== undefined && user.recipe[0] !== null ? [...user.recipe, ...postUserRecipeData] : postUserRecipeData;
+      const joinRecipe =
+        user.recipe[0] !== undefined && user.recipe[0] !== null
+          ? [...user.recipe, ...postUserRecipeData]
+          : postUserRecipeData;
       console.log("서버에 들어갈 유저레시피 합쳐진 정보", joinRecipe);
       const fn = async () => {
         try {
-          const addUserRecipe = await axiosPatchUserRecipe(joinRecipe);
+          const addUserRecipe = await patchAxiosUserRecipe(joinRecipe);
           dispatch(postRecipe(addUserRecipe.customRecipe));
         } catch (err) {
-          console.log("axiosPatchUser-err", err);
+          console.log("patchAxiosUser-err", err);
         }
       };
       fn();
@@ -77,32 +80,44 @@ function OderList() {
                       {order.shot
                         .filter((item) => item.quantity > 0)
                         .map((item) => (
-                          <span key={item.name}>{`샷 : ${item.name} ${item.quantity}`}</span>
+                          <span
+                            key={item.name}
+                          >{`샷 : ${item.name} ${item.quantity}`}</span>
                         ))}
                       {/* 여기 syrups => syrup 변경 */}
                       {order.syrup
                         .filter((item) => item.quantity > 0)
                         .map((item) => (
-                          <span key={item.name}>{`시럽 : ${item.name} ${item.quantity}`}</span>
+                          <span
+                            key={item.name}
+                          >{`시럽 : ${item.name} ${item.quantity}`}</span>
                         ))}
                       {order.whipping
-                        .filter((item) => item.quantity > 0 && item.name !== "없음")
+                        .filter(
+                          (item) => item.quantity > 0 && item.name !== "없음"
+                        )
                         .map((item) => (
                           <span key={item.name}>{`휘핑 : ${item.name}`}</span>
                         ))}
                       {/* 여기 ice => iceAmount 변경 */}
                       {order.iceAmount
-                        .filter((item) => item.quantity > 0 && item.name !== "없음")
+                        .filter(
+                          (item) => item.quantity > 0 && item.name !== "없음"
+                        )
                         .map((item) => (
                           <span key={item.name}>{`얼음 : ${item.name}`}</span>
                         ))}
                       {order.drizzle
-                        .filter((item) => item.quantity > 0 && item.name !== "없음")
+                        .filter(
+                          (item) => item.quantity > 0 && item.name !== "없음"
+                        )
                         .map((item) => (
                           <span key={item.name}>{`드리즐 : ${item.name}`}</span>
                         ))}
                       {order.milk
-                        .filter((item) => item.quantity > 0 && item.name !== "없음")
+                        .filter(
+                          (item) => item.quantity > 0 && item.name !== "없음"
+                        )
                         .map((item) => (
                           <span key={item.name}>{`우유 : ${item.name}`}</span>
                         ))}
@@ -110,15 +125,23 @@ function OderList() {
                   </div>
                   <div>{order.quantity}개</div>
                   <div>{order.totalPrice}원</div>
-                  <SquareButton onClick={() => handleClick(index)} text={"나만의 꿀조합"} type={"red"} />
+                  <SquareButton
+                    onClick={() => handleClick(index)}
+                    text={"나만의 꿀조합"}
+                    type={"red"}
+                  />
                 </StyledOrderListMenuBox>
 
                 <StyledOrderListMenuBox>
-                  <StyledOrderListMednuRequest>주문 요청사항 : {payment.orderRequest}</StyledOrderListMednuRequest>
+                  <StyledOrderListMednuRequest>
+                    주문 요청사항 : {payment.orderRequest}
+                  </StyledOrderListMednuRequest>
                 </StyledOrderListMenuBox>
 
                 <StyledOrderListMenuBox>
-                  <StyledOrderListMednuRequest>수령방법 : {payment.deliveryMethod}</StyledOrderListMednuRequest>
+                  <StyledOrderListMednuRequest>
+                    수령방법 : {payment.deliveryMethod}
+                  </StyledOrderListMednuRequest>
                 </StyledOrderListMenuBox>
                 <i></i>
               </>
@@ -128,7 +151,14 @@ function OderList() {
       <StyledAmountPayment>
         <div>
           <h2>총 결제 금액</h2>
-          <h2>{payment.orders.length > 0 ? payment.orders.reduce((acc, order) => acc + order.totalPrice, 0).toLocaleString() : 0}원</h2>
+          <h2>
+            {payment.orders.length > 0
+              ? payment.orders
+                  .reduce((acc, order) => acc + order.totalPrice, 0)
+                  .toLocaleString()
+              : 0}
+            원
+          </h2>
         </div>
         <i></i>
       </StyledAmountPayment>
